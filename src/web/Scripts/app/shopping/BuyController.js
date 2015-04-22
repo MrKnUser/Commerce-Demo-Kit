@@ -77,7 +77,7 @@
 		    }
 		};
 
-	    $scope.addToCart = function(product) {
+		$scope.addToCart = function (product) {
 			product.quantity = $scope.sanityCheckQuantity(product.quantity);
 	        if ($scope.showPopupDialog === true) {
 	            commercestarterkit.openProductDialog($scope.product.code);
@@ -97,7 +97,7 @@
 
 		$scope._addToCartAnimateComplete = function(product) {
 		    handleCartService.addToCart($scope.language, product);
-			$scope.addedToCartMessageVisible = true;
+		    $scope.addedToCartMessageVisible = true;
 			commercestarterkit.updateCartCounter(commercestarterkit.getCartCounter() + parseInt(product.quantity));
 		};
 

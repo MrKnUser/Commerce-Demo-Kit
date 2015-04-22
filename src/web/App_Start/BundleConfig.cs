@@ -51,7 +51,8 @@ namespace OxxCommerceStarterKit.Web
 			bundles.Add(new ScriptBundle("~/bundles/general").Include(
 				"~/Scripts/libraries/easyzoom.js",
 				"~/Scripts/libraries/jquery.flexslider-min.js",
-				"~/Scripts/libraries/jquery.touchSwipe.min.js",
+				"~/Scripts/libraries/jquery.equalheights.min.js",
+                "~/Scripts/libraries/jquery.touchSwipe.min.js",
                 "~/Scripts/libraries/accounting.min.js", // http://openexchangerates.github.io/accounting.js
 				"~/Scripts/js/Oxx/ObjectUtils.js",
 				"~/Scripts/js/Oxx/AjaxUtils.js",
@@ -66,9 +67,8 @@ namespace OxxCommerceStarterKit.Web
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
 				"~/Content/css/jqueryui/jquery-ui-1.10.4.custom.min.css",
-				"~/Content/bootstrap.min.css",
+				//"~/Content/bootstrap.min.css",
 				"~/Content/easyzoom.css",
-				"~/Content/css/flexslider/flexslider.css",
                 "~/Content/css/commerce-starter-kit.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular_app").IncludeDirectory(

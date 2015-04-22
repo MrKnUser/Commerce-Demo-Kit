@@ -1,20 +1,54 @@
-﻿<div class="clearfix three" ng-class="{ 'five': nrOfColumns === 5, 'three': nrOfColumns !== 5 }">
-    <div class="product col-xs-6 col-sm-4" ng-repeat="product in products">
-        <div class="image">
+﻿<div class="row three" ng-class="{ 'five': nrOfColumns === 5, 'three': nrOfColumns !== 5 }">
+    <div class="col-lg-4 col-md-6 col-sm-12 product" ng-repeat="product in products">
+        <div class="tile">
+            <div class="badges" ng-show="product.DiscountedPrice">
+                <span class="sale"></span>
+            </div>
+            <div class="price-label">
+                <span ng-show ="product.DiscountedPrice">{{product.DiscountedPrice}}</span>
+                <span ng-hide="product.DiscountedPrice">{{product.DefaultPrice}}</span>
+                @*<span class="member-price" ng-show="product.CustomerClubPrice">@Html.Translate("/common/product/member_price"): {{product.CustomerClubPrice}}</span>
+                    <span class="sale-price" ng-show="product.DiscountedPrice">@Html.Translate("/common/product/sale_price"): {{product.DiscountedPrice}}</span>*@
+            </div>
+            <div class="price-label old-price" ng-show="product.DiscountedPrice">
+                {{product.DefaultPrice}}
+            </div>
+
             <a href="{{ product.ProductUrl }}">
                 <img class="img-responsive" ng-src="{{product.DefaultImageUrl}}?preset=largethumbnail" />
             </a>
-        </div>
-		<div class="newitemtext" ng-show ="product.NewItemText">{{product.NewItemText}}</div>
-        <h2 class="name">{{ product.DisplayName }}</h2>
-        <div class="price">
-            {{ product.DefaultPrice }}
-            <span class="member-price" ng-show="product.CustomerClubPrice">@Html.Translate("/common/product/member_price"): {{product.CustomerClubPrice}}</span>
-            <span class="sale-price" ng-show="product.DiscountedPrice">@Html.Translate("/common/product/sale_price"): {{product.DiscountedPrice}}</span>
-            &nbsp;
-        </div>
-        <div class="add-to-cart-form" ng-controller="BuyController" ng-init="initWithProduct(product)">
-            <input type="button" class="btn btn-success btn-sm" value="@Html.Translate("/common/product/add_to_cart")" ng-click="addToCartDefault()" />
+            <div class="footer">
+                @*<div class="newitemtext" ng-show="product.NewItemText">{{product.NewItemText}}</div>*@
+                <a href="{{ product.ProductUrl }}"><h3 class="name">{{ product.DisplayName }}</h3></a>
+                <div class="tools">
+                    <div class="rate">
+                        <span class="active"></span>
+                        <span class="active"></span>
+                        <span class="active"></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <!--Add To Cart Button-->
+                    <a class="add-cart-btn" ng-controller="BuyController" ng-init="initWithProduct(product)" ng-click="addToCartDefault()" href="#"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                    <!--Share Button-->
+                    <div class="share-btn">
+                        <div class="hover-state">
+                            <a class="fa fa-facebook-square" href="#"></a>
+                            <a class="fa fa-twitter-square" href="#"></a>
+                            <a class="fa fa-google-plus-square" href="#"></a>
+                        </div>
+                        <i class="fa fa-share"></i>
+                    </div>
+                    <!--Add To Wishlist Button-->
+                    <a class="wishlist-btn" href="#">
+                        <div class="hover-state">Wishlist</div>
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                @*<div class="add-to-cart-form" ng-controller="BuyController" ng-init="initWithProduct(product)">
+                        <input type="button" class="btn btn-success btn-sm" value="@Html.Translate("/common/product/add_to_cart")" ng-click="addToCartDefault()" />
+                    </div>*@
+            </div>
         </div>
     </div>
 </div>

@@ -21,8 +21,19 @@
       <script src="@Url.Content("~/Scripts/libraries/respond.min.js")"></script>
     <![endif]-->
     @Styles.Render("~/bundles/css")
+    <!--Master Slider Styles-->
+    <link href="@Url.Content("~/Content/masterslider/style/masterslider.css")" rel="stylesheet" media="screen">
+    <link href="@Url.Content("~/Content/css/Styles.css")" rel="stylesheet" type="text/css" />
+    <!--Modernizr-->
+    <script src="@Url.Content("~/Content/js/libs/modernizr.custom.js")"></script>
+    <!--Adding Media Queries Support for IE8-->
+    <!--[if lt IE 9]>
+      <script src="js/plugins/respond.js"></script>
+    <![endif]-->
+
+
     <link media="print" href="@Url.Content("~/Content/css/print.css")" rel="stylesheet" type="text/css" />
-    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/jquery")*@
     @RenderSection("Head", false)
     @Html.RequiredClientResources(EPiServer.Framework.Web.RenderingTags.Header)
     @{
@@ -44,10 +55,10 @@
         @Html.Partial("SetupWarning")
     }
 
-    <header role="banner" class="header">
+    <header role="banner" data-offset-top="150" data-stuck="250">
         @Html.Partial("_Header", chrome)
     </header>
-    <div class="container drop-shadow">
+    <div class="page-content">
         <section role="main" class="page">
             <div class="container">
                 <div id="productDialog" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -81,9 +92,27 @@
     <footer role="contentinfo" class="footer">
         @Html.Partial("_Footer", chrome)
     </footer>
+    
+    <!--Javascript (jQuery) Libraries and Plugins-->
+    <script src="@Url.Content("~/Content/js/libs/jquery-1.11.1.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/libs/jquery-ui-1.10.4.custom.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/bootstrap.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/smoothscroll.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/icheck.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/jquery.placeholder.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/jquery.stellar.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/jquery.touchSwipe.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/jquery.shuffle.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/lightGallery.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/owl.carousel.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/plugins/masterslider.min.js")"></script>
+    <script src="@Url.Content("~/Content/js/scripts.js")"></script>
+   
+    
 
     <script src="~/Scripts/libraries/jquery-migrate-1.2.1.min.js"></script>
-    @Scripts.Render("~/bundles/bootstrap")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
     @Scripts.Render("~/bundles/jqueryui")
     @*  @Scripts.Render("~/bundles/jqueryval")*@
     <script src="~/Scripts/js/components/login.js"></script>

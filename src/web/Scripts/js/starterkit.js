@@ -24,7 +24,7 @@
 			this._$wishlist = $('.wishlist-counter');
 			this._$wishlistCounter = this._$wishlist.find('.val');
 			this._$cart = $('.cart-counter');
-			this._$cartCounter = this._$cart.find('.val');
+			this._$cartCounter = $('.cart-btn a span');//this._$cart.find('.val');
 			this._$footerHelpButtons = $('.footer .help');
 
 			this.retrieveCartCounters();

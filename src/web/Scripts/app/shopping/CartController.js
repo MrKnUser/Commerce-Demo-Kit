@@ -185,7 +185,6 @@
 			$scope.addedToCartMessageVisible = false;
 			$scope.addedToWishlistMessageVisible = false;
 			$scope.loaderVisible = true;
-
 			product.quantity = $scope.sanityCheckQuantity(product.quantity);
 			var cart = $('.cart-counter').parent();
 			if (cart) {
@@ -420,6 +419,23 @@
 			}
 		};
 
+	    //Add(+/-) Button Number Incrementers
+		$(".incr-btn").on("click", function (e) {
+		    var $button = $(this);
+		    var oldValue = $button.parent().find("input").val();
+		    if ($button.text() == "+") {
+		        $scope.product.quantity++;
+		    } else {
+		        // Don't allow decrementing below 1
+		        if (oldValue > 1) {
+		           
+		            $scope.product.quantity--;
+		        } else {
+		           
+		        }
+		    }		
+		    e.preventDefault();
+		});
 
 		function animateAddToCart(cart, callback) {
 			var imgtodrag = $('#imageslider img').first();

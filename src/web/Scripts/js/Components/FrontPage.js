@@ -36,26 +36,26 @@
 				return;
 			}
 
-			this._initSliders();
+			//this._initSliders();
 		},
 
 //********************************************************************************
 //*PRIVATE OBJECT METHODS ********************************************************
 //********************************************************************************
 
-		_initSliders: function() {
+		//_initSliders: function() {
 
-			var $bigSlider = this._$el.find('.big-slider-inner');
+		//	var $bigSlider = this._$el.find('.big-slider-inner');
 
-			// activate slider if we have more than one element
-			if($bigSlider.find('.slides li').length > 1) {
+		//	// activate slider if we have more than one element
+		//	if($bigSlider.find('.slides li').length > 1) {
 
-				$bigSlider.flexslider({
-					animation: 'slide',
-					controlNav: false
-				});
-			}
-		}
+		//		$bigSlider.flexslider({
+		//			animation: 'slide',
+		//			controlNav: false
+		//		});
+		//	}
+		//}
 
 //********************************************************************************
 //*CALLBACK METHODS **************************************************************

@@ -7,15 +7,15 @@
 
 	productApp.directive('onLastRepeat', function () {
 		return function (scope, element, attrs) {
-			if (scope.$last) {
-				setTimeout(setEqualHeights, 10);
+		    if (scope.$last) {
+				setTimeout(setEqualHeights, 50);
 
 			}
 		};
 
 		function setEqualHeights() {
 			if ($(window).width() > 737) {
-				$('#equalHeights .product').equalHeights();
+				$('#equalHeights .tile').equalHeights();
 			}
 		}
 	});

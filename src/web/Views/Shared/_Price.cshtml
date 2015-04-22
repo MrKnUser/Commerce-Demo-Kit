@@ -16,29 +16,36 @@
         }
         else
         {
-            <text>@Html.Translate("/common/product/price") @Model.Price.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture)</text>
+            var priceCss = "price";
+            if (!string.IsNullOrEmpty(Model.DiscountDisplayPrice))
+            {
+                priceCss = "old-price";
+                
+            }
+            <div class="@priceCss"><text>@Html.Translate("/common/product/price") @Model.Price.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture)</text></div>
+
         }
 
         @if (!string.IsNullOrEmpty(Model.DiscountDisplayPrice))
         {
-            <span class="sale-price">@Html.Translate("/common/product/sale_price"): @Model.DiscountDisplayPrice</span>
+            <div class="price">@Html.Translate("/common/product/sale_price"): @Model.DiscountDisplayPrice</div>
 
         }
         else if (!string.IsNullOrEmpty(Model.CustomerClubDisplayPrice))
         {
-            <span class="member-price">@Html.Translate("/common/product/member_price"): @Model.CustomerClubDisplayPrice</span>
-           
+            <div class="member-price">@Html.Translate("/common/product/member_price"): @Model.CustomerClubDisplayPrice</div>
+
         }
         @*@if (Model.DiscountedPrice != null && Model.DiscountedPrice.CustomerPricing != null &&
-    Model.DiscountedPrice.CustomerPricing.PriceTypeId == Mediachase.Commerce.Pricing.CustomerPricing.PriceType.PriceGroup &&
-    Model.DiscountedPrice.CustomerPricing.PriceCode == Constants.CustomerGroup.CustomerClub)
-        {
-            <span class="member-price">@Html.Translate("/common/product/member_price"): @Model.DiscountedPrice.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
-        }
-        else if (Model.DiscountedPrice != null)
-        {
-            <span class="sale-price">@Html.Translate("/common/product/sale_price"): @Model.DiscountedPrice.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
-        }*@
+            Model.DiscountedPrice.CustomerPricing.PriceTypeId == Mediachase.Commerce.Pricing.CustomerPricing.PriceType.PriceGroup &&
+            Model.DiscountedPrice.CustomerPricing.PriceCode == Constants.CustomerGroup.CustomerClub)
+                {
+                    <span class="member-price">@Html.Translate("/common/product/member_price"): @Model.DiscountedPrice.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
+                }
+                else if (Model.DiscountedPrice != null)
+                {
+                    <span class="sale-price">@Html.Translate("/common/product/sale_price"): @Model.DiscountedPrice.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
+                }*@
     </div>
 }
 else
