@@ -59,7 +59,7 @@ else
 	}
 	else
 	{
-		<img src="@Model.Url" alt="@(string.IsNullOrEmpty(Model.Description) ? Model.Name : Model.Description)" title="@Model.Copyright" class="image-file img-responsive" />
+		<img src="@Model.Url" data-src="@Model.Url" alt="@(string.IsNullOrEmpty(Model.Description) ? Model.Name : Model.Description)" title="@Model.Copyright" class="image-file img-responsive" />
 	}
 
 }
