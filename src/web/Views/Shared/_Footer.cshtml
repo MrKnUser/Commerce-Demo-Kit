@@ -11,7 +11,7 @@
         </div>
     </div>
 </div>
-<div class="footer">
+<div class="">
     <div class="container buttons">
         @Html.PropertyFor(p => p.GlobalFooterContent, new { EditContainerClass = "overflow-hidden", CssClass = "clearfix" })
     </div>
@@ -20,59 +20,25 @@
 
 
 
-            <ul style="display: inline-block">
-            @if (Model.FooterMenu != null)
-            {
-                foreach (var link in Model.FooterMenu.ToList())
+            <div class="copyright row">
+                @if (Model.FooterMenu != null)
                 {
-                    <li>
-                        @Html.ContentLink(link)
-                    </li>
-                }
-            }
-            <li>
-                <span class="title">@Html.Translate("/common/social/follow_title")</span>
-            </li>
-            @*@if (Model.SocialMediaIcons != null)
-                {
-                    foreach (var socialMediaIcon in Model.SocialMediaIcons.FilteredItems)
+                    foreach (var link in Model.FooterMenu.ToList())
                     {
-                        SocialMediaLinkBlock socialMediaContent = socialMediaIcon.GetContent() as SocialMediaLinkBlock;
-                        if (socialMediaContent != null)
-                        {
-                            <li class="social-media">
-                                @Html.Partial("Blocks/SocialMediaLinkBlock", (object)socialMediaContent)
-                            </li>
-                        }
-                    }
-                }*@
-            @*<li> | </li>
-                @Html.PropertyFor(p => p.SocialMediaIcons, new { CustomTag = "li", CssClass = "social-media", EditContainerClass = "social-media" })*@
-            </ul>
-
-            @Html.PropertyFor(p => p.SocialMediaIcons, new { CustomTag = "ul", ChildrenCustomTagName = "li", ChildrenCssClass = "", CssClass = "social-media", EditContainerClass = "social-media" })
-
-            @*@Html.BeginEditSection("ul", p => p.SocialMediaIcons)
-
-            @if (Model.SocialMediaIcons != null)
-            {
-
-                foreach (var socialMediaIcon in Model.SocialMediaIcons.FilteredItems)
-                {
-                    SocialMediaLinkBlock socialMediaContent = socialMediaIcon.GetContent() as SocialMediaLinkBlock;
-                    if (socialMediaContent != null)
-                    {
-                        <li class="social-media">
-                            @Html.Partial("Blocks/SocialMediaLinkBlock", (object)socialMediaContent)
-                        </li>
+                        <div class="col-lg-2">
+                            @Html.ContentLink(link)
+                        </div>
                     }
                 }
 
+                @Html.PropertyFor(p => p.SocialMediaIcons, new { CustomTag = "", ChildrenCustomTagName = "", CssClass = "col-lg-6 social", ChildrenCssClass = "pull-left", EditContainerClass = "social-media" })
 
-            }
-            @Html.EndEditSection("ul")*@
+                </div>
 
-            
+
+
+
+
         </nav>
     </div>
 </div>

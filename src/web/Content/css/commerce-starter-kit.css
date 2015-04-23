@@ -562,6 +562,13 @@ body.lightbox-open,
   padding: 15px;
   margin-bottom: 20px;
 }
+.footer .icon {
+  text-indent: -99999px;
+}
+.footer .copyright {
+  margin-top: 20px;
+  text-align: center;
+}
 /*@import "commerce-starter-kit/_search-autocomplete.less";
 @import "commerce-starter-kit/_myPage.less";*/
 /*.overflow-hidden {

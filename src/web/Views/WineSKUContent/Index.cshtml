@@ -152,67 +152,6 @@
                 </div>
             </div>
 
-            @*<div class="panel">
-                    <div class="panel-heading">
-                        <h4 class="panel-title"><a href="#@(id)-sizes" data-toggle="collapse" data-parent="#@(id) .information">@Html.Translate("/common/product/details")<span class="glyphicon glyphicon-chevron-down pull-right"></span></a></h4>
-                    </div>
-                    <div id="@(id)-sizes" class="panel-collapse @(defaultCollapsedState)">
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table">
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/year")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Vintage)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/country")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Country)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/region")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Region)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/brand")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Facet_Brand)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/grapemix")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.GrapeMix)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/alcohol")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Alcohol)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/closure")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Closure)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/color")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Color)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/maturity")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Maturity)</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/taste")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Taste)</td>
-                                    </tr>
-                                    <tr>
-                                        <td>@Html.Translate("/common/product/wine/size")</td>
-                                        <td>@Html.PropertyFor(p => p.CatalogContent.Size)</td>
-                                    </tr>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
-
-
         </div>
         <div>
             @Html.PropertyFor(p => p.CatalogContent.AdditionalContent, new { EditContainerClass = "overflow-hidden", CssClass = "clearfix" })
@@ -236,9 +175,9 @@
 <section class="tabs-widget">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs">
-        <li class="active"><a href="#specs" data-toggle="tab">@Html.Translate("/common/product/details")</a></li>
-        <li><a href="#descr" data-toggle="tab">Description</a></li>
-        <li><a href="#review" data-toggle="tab">Reviews</a></li>
+        <li class="active"><a data-target="#specs" data-toggle="tab">@Html.Translate("/common/product/details")</a></li>
+        <li><a data-target="#descr" data-toggle="tab">Description</a></li>
+        <li><a data-target="#review" data-toggle="tab">Reviews</a></li>
     </ul>
     <div class="tab-content">
         <!--Tab1 (Tech Specs)-->
@@ -338,6 +277,7 @@
         <div class="tab-pane fade" id="review">
             <div class="container">
                 <div class="row">
+                   
                     <!--Disqus Comments Plugin-->
                     @*<div class="col-lg-10 col-lg-offset-1">
                         <div id="disqus_thread"></div>
