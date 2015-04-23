@@ -537,8 +537,9 @@ $(document).ready(function(e) {
 	/*Accordion Widget
 	*******************************************/
 	$accordionToggle.click(function(){
-		$accordionToggle.parent().removeClass('active');
-		$(this).parent().addClass('active');
+		//$accordionToggle.parent().removeClass('active');
+	    //$(this).parent().addClass('active');
+	    $(this).parent().toggleClass('active');
 	});
 	
 	/*Sticky Buttons

@@ -359,6 +359,7 @@
 
 	};
 
+
     // init commercestarterkit on DOM ready
     console.log("Pre init");
 	$($.proxy(commercestarterkit.init, commercestarterkit));
