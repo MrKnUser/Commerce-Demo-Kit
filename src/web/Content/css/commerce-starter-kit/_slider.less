@@ -47,14 +47,20 @@
         }
     }
 }
-
+.sliderContainer{
+    padding:0 15px 0 15px;
+}
 .slider {
     overflow: visible;
     position: relative;
+    margin-left: -15px;
+    margin-right: -15px;
+    padding-left: 15px;
+    padding-right: 15px;
 
     ul, li {
         margin: 0;
-        padding: 0;
+        padding:0;
         list-style-type: none;
         text-align: center;
 
@@ -68,6 +74,7 @@
         a {
             color: black;
         }
+       
     }
 
     .product {
@@ -101,7 +108,9 @@
         }
     }
 }
-
+.slider .tile{
+    width:95% !important;
+}
 .box .slider {
     margin-left: -@boxPadding;
     margin-right: -@boxPadding;

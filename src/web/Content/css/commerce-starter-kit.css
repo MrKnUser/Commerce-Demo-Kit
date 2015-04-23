@@ -489,9 +489,16 @@ body.lightbox-open,
 .big-slider .image-container .image-centerer {
   display: inline-block;
 }
+.sliderContainer {
+  padding: 0 15px 0 15px;
+}
 .slider {
   overflow: visible;
   position: relative;
+  margin-left: -15px;
+  margin-right: -15px;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 .slider ul,
 .slider li {
@@ -531,6 +538,9 @@ body.lightbox-open,
 .slider .flex-direction-nav .flex-next {
   right: 0;
   padding-right: 4px;
+}
+.slider .tile {
+  width: 95% !important;
 }
 .box .slider {
   margin-left: -15px;

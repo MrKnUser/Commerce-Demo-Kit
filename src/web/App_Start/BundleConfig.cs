@@ -67,6 +67,7 @@ namespace OxxCommerceStarterKit.Web
 
             bundles.Add(new StyleBundle("~/bundles/css").Include(
 				"~/Content/css/jqueryui/jquery-ui-1.10.4.custom.min.css",
+                "~/Content/css/flexslider/flexslider.css",
 				//"~/Content/bootstrap.min.css",
 				"~/Content/easyzoom.css",
                 "~/Content/css/commerce-starter-kit.css"));
