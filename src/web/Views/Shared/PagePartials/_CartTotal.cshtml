@@ -1,59 +1,109 @@
-﻿<div class="sums clearfix">
-	<div class="col-sm-7 col-md-8 clearfix">
-	    <div class="discount-codes clearfix">
-	        @* TODO: Magic ids must be documented *@
-	        <label for="id678126">@Html.Translate("/common/cart/coupon_codes/add_label")</label>
-	        <input id="id678126" type="text" ng-model="discountCode" />
-	        <button class="btn" ng-click="addDiscountCode($event)">@Html.Translate("/common/cart/coupon_codes/add")</button>
-	        <div class="applied-codes" ng-show="discountCodes">
-	            <span>@Html.Translate("/common/cart/coupon_codes/applied_label")</span>
-	            <span ng-repeat="discount in discountCodes">{{ ($first) ? discount.Code : ( ', ' + discount.Code) }}</span>
-	        </div>
-	    </div>
-		<div ng-show="messages" class="alert alert-warning" role="alert" ng-bind-html="renderHtml(messages)"></div>
-	</div>
-	<div class="col-sm-5 col-md-4">
-		<div class="row">
-			<div class="col-xs-6 text">
-				@Html.Translate("/common/cart/products")
-			</div>
-			<div class="col-xs-6 value">
-				{{formatMoney(cartTotalLineItemsAmount)}}
-			</div>
-		</div>
-		<div class="row shipping" ng-show="cartShipping > 0">
-			<div class="col-xs-6 text">
-				@Html.Translate("/common/cart/shipping")
-			</div>
-			<div class="col-xs-6 value">
-				{{formatMoney(cartShipping)}}
-			</div>
-		</div>
-		<div class="row discount" ng-show="cartDiscount > 0">
-			<div class="col-xs-6 text">
-				@Html.Translate("/common/cart/discount")
-			</div>
-			<div class="col-xs-6 value">
-				{{formatMoney(cartDiscount)}}
-			</div>
-		</div>
-		<div class="row taxes">
-			<div class="col-xs-6 text">
-				<div>
-					@Html.Translate("/common/cart/taxes")
-				</div>
-			</div>
-			<div class="col-xs-6 value">
-				<div>{{formatMoney(cartTax)}}</div>
-			</div>
-		</div>
-		<div class="row total">
-			<div class="col-xs-6 text">
-				@Html.Translate("/common/cart/total")
-			</div>
-			<div class="col-xs-6 value">
-				{{formatMoney(cartTotalAmount)}}
-			</div>
-		</div>
-	</div>
+﻿@{
+    ViewBag.Title = Model.CurrentPage.Name;
+    var settings = (Chrome)ViewBag.Chrome;
+}
+<h3>Cart totals</h3>
+<div class="cart-sidebar">
+    <div class="cart-totals">
+        <table>
+            <tr>
+                <td>@Html.Translate("/common/cart/products")</td>
+                <td class="total align-r">{{formatMoney(cartTotalLineItemsAmount)}}</td>
+            </tr>
+            <tr class="devider">
+                <td>@Html.Translate("/common/cart/taxes")</td>
+                <td class="align-r">{{formatMoney(cartTax)}}</td>
+            </tr>
+            <tr>
+                <td>@Html.Translate("/common/cart/total")</td>
+                <td class="total align-r">{{formatMoney(cartTotalAmount)}}</td>
+            </tr>
+        </table>
+        <div ng-show="cartTotal > 0" ng-cloak>
+            @*@Html.ContentLink(@Html.Translate("/common/cart/goto_payment"), Model.CheckoutPage,null, new { @class = "btn btn-primary pull-right", ng_Click="gotoPayment()" })*@
+            <a href="@Url.ContentUrl(settings.CheckoutPage)" ng-click="gotoPayment($event)" class="btn btn-success btn-block">@Html.Translate("/common/cart/goto_payment")</a>
+            @*<button class="btn btn-default pull-right" ng-click="emptyCart('Default')">@Html.Translate("/common/cart/empty_cart")</button>*@
+        </div>
+        @*<input type="submit" class="btn btn-primary btn-sm btn-block" name="update-cart" value="Update shopping cart">
+        <input type="submit" class="btn btn-success btn-block" name="to-checkout" value="Proceed to checkout">*@
+    </div>
+    <h3>@Html.Translate("/common/cart/coupon_codes/add_label")</h3>
+    <div class="coupon">
+        <div class="form-group">
+            <label class="sr-only" for="id678126">@Html.Translate("/common/cart/coupon_codes/add_label")</label>
+            @*<label class="sr-only" for="coupon-code">Enter coupon code</label>*@
+            <input id="id678126" class="form-control" type="text" ng-model="discountCode" />
+            @*<input type="text" class="form-control" id="coupon-code" name="coupon-code" placeholder="Enter coupon code">*@
+        </div>  
+        <input type="submit" class="btn btn-primary btn-sm btn-block" ng-click="addDiscountCode($event)" name="apply-coupon" value="@Html.Translate("/common/cart/coupon_codes/add")">
+        <div class="applied-codes" ng-show="discountCodes">
+            <span>@Html.Translate("/common/cart/coupon_codes/applied_label")</span>
+            <span ng-repeat="discount in discountCodes">{{ ($first) ? discount.Code : ( ', ' + discount.Code) }}</span>
+        </div>
+    </div>
+    <div ng-show="messages" class="alert alert-warning" role="alert" ng-bind-html="renderHtml(messages)"></div>
+
 </div>
+
+
+
+
+@*<div class="sums clearfix">
+    <div class="col-sm-7 col-md-8 clearfix">
+        <div class="discount-codes clearfix">
+            @* TODO: Magic ids must be documented 
+            <label for="id678126">@Html.Translate("/common/cart/coupon_codes/add_label")</label>
+            <input id="id678126" type="text" ng-model="discountCode" />
+            <button class="btn" ng-click="addDiscountCode($event)">@Html.Translate("/common/cart/coupon_codes/add")</button>
+            <div class="applied-codes" ng-show="discountCodes">
+                <span>@Html.Translate("/common/cart/coupon_codes/applied_label")</span>
+                <span ng-repeat="discount in discountCodes">{{ ($first) ? discount.Code : ( ', ' + discount.Code) }}</span>
+            </div>
+        </div>
+        <div ng-show="messages" class="alert alert-warning" role="alert" ng-bind-html="renderHtml(messages)"></div>
+    </div>
+    <div class="col-sm-5 col-md-4">
+        <div class="row">
+            <div class="col-xs-6 text">
+                @Html.Translate("/common/cart/products")
+            </div>
+            <div class="col-xs-6 value">
+                {{formatMoney(cartTotalLineItemsAmount)}}
+            </div>
+        </div>
+        <div class="row shipping" ng-show="cartShipping > 0">
+            <div class="col-xs-6 text">
+                @Html.Translate("/common/cart/shipping")
+            </div>
+            <div class="col-xs-6 value">
+                {{formatMoney(cartShipping)}}
+            </div>
+        </div>
+        <div class="row discount" ng-show="cartDiscount > 0">
+            <div class="col-xs-6 text">
+                @Html.Translate("/common/cart/discount")
+            </div>
+            <div class="col-xs-6 value">
+                {{formatMoney(cartDiscount)}}
+            </div>
+        </div>
+        <div class="row taxes">
+            <div class="col-xs-6 text">
+                <div>
+                    @Html.Translate("/common/cart/taxes")
+                </div>
+            </div>
+            <div class="col-xs-6 value">
+                <div>{{formatMoney(cartTax)}}</div>
+            </div>
+        </div>
+        <div class="row total">
+            <div class="col-xs-6 text">
+                @Html.Translate("/common/cart/total")
+            </div>
+            <div class="col-xs-6 value">
+                {{formatMoney(cartTotalAmount)}}
+            </div>
+        </div>
+    </div>
+</div>*@
