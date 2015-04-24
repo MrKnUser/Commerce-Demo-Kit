@@ -3,6 +3,7 @@
 @using Mediachase.Commerce.Customers
 @using OxxCommerceStarterKit.Web.Helpers
 @using OxxCommerceStarterKit.Web.Models.PageTypes
+@using OxxCommerceStarterKit.Web.Models.PageTypes.System
 @model Chrome
 @{
     bool isInEditMode = Html.IsInEditMode();
@@ -71,7 +72,7 @@
         @Html.Partial("_MainMenu")
     </nav>
     <!--Toolbar-->
-    <div class="toolbar group">
+    <div class="toolbar group" ng-controller="HeaderCartController">
         <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
         <div class="middle-btns">
             @{
@@ -80,12 +81,13 @@
                 var loginPage = contentLoader.Get<LoginPage>(homePage.Settings.LoginPage);
                 var wishlistPage = contentLoader.Get<WishListPage>(homePage.Settings.WishListPage);
                 var cartPage = contentLoader.Get<CartSimpleModulePage>(homePage.Settings.CartPage);
+                var checkOutPage = contentLoader.Get<CheckoutPage>(homePage.Settings.CheckoutPage);
                 <a class="btn-outlined-invert" href="@Url.ContentUrl(wishlistPage.ContentLink)"><i class="icon-heart"></i> <span>@wishlistPage.Name</span></a>
                 <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(loginPage.ContentLink)"><i class="icon-profile"></i> <span>@loginPage.Name</span></a>
             }
         </div>
 
-        <div class="cart-btn">
+        <div class="cart-btn" ng-mouseenter="GetCartItemsToHeader('@Model.Language')">
             <a class="btn btn-outlined-invert" href="@Url.ContentUrl(cartPage.ContentLink)"><i class="icon-shopping-cart-content"></i><span></span></a>
             <!--Cart Dropdown-->
             <div class="cart-dropdown">
@@ -97,29 +99,19 @@
                             <th>Quantity</th>
                             <th>Price</th>
                         </tr>
-                        <tr class="item">
-                            <td><div class="delete"></div><a href="#">Good Joo-Joo Surfb</a></td>
-                            <td><input type="text" value="1"></td>
-                            <td class="price">89 005 $</td>
-                        </tr>
-                        <tr class="item">
-                            <td><div class="delete"></div><a href="#">Good Joo-Joo Item</a></td>
-                            <td><input type="text" value="2"></td>
-                            <td class="price">4 300 $</td>
-                        </tr>
-                        <tr class="item">
-                            <td><div class="delete"></div><a href="#">Good Joo-Joo</a></td>
-                            <td><input type="text" value="5"></td>
-                            <td class="price">84 $</td>
+                        <tr class="item" ng-repeat="p in products">
+                            <td>{{p.Name}}</td>
+                            <td>{{p.Quantity}}</td>
+                            <td class="price">{{p.LineItemTotal}}</td>
                         </tr>
                     </table>
                 </div>
                 <div class="footer group">
                     <div class="buttons">
-                        <a class="btn btn-outlined-invert" href="checkout.html"><i class="icon-download"></i>Checkout</a>
-                        <a class="btn btn-outlined-invert" href="shopping-cart.html"><i class="icon-shopping-cart-content"></i>To cart</a>
+                        <a class="btn btn-outlined-invert" href="@Url.ContentUrl(checkOutPage.ContentLink)"><i class="icon-download"></i>Checkout</a>
+                        <a class="btn btn-outlined-invert" href="@Url.ContentUrl(cartPage.ContentLink)"><i class="icon-shopping-cart-content"></i>To cart</a>
                     </div>
-                    <div class="total">93 389 $</div>
+                    <div class="total">{{cartTotalAmount}}</div>
                 </div>
             </div><!--Cart Dropdown Close-->
         </div>
