@@ -228,10 +228,10 @@ $(document).ready(function(e) {
 	
 	/*Custom Style Checkboxes and Radios
 	*******************************************/
-	$('input').iCheck({
-    checkboxClass: 'icheckbox',
-    radioClass: 'iradio'
-  });
+  //  $('input').iCheck({
+  //  checkboxClass: 'icheckbox',
+  //  radioClass: 'iradio'
+  //});
 	
 	/*Parallax Backgrounds
 	*******************************************/
