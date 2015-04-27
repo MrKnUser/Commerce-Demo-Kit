@@ -101,6 +101,25 @@
 			commercestarterkit.updateCartCounter(commercestarterkit.getCartCounter() + parseInt(product.quantity));
 		};
 
+		$scope.addToWishlist = function (product) {
+		    $scope.loaderVisible = true;
+		    $scope.addedToWishlistMessageVisible = false;
+		    $scope.addedToCartMessageVisible = false;
+
+		    product.quantity = $scope.sanityCheckQuantity(product.quantity);
+		    //var cart = $('.wishlist-counter').parent();
+		    $scope._addToWishListAnimateComplete(product);
+		    //animateAddToCart(cart, $.proxy($scope._addToWishListAnimateComplete, $scope, product));
+		};
+
+		$scope._addToWishListAnimateComplete = function (product) {
+		    handleCartService.addToWishlist($scope.language, product);
+		    $scope.loaderVisible = false;
+		    $scope.addedToWishlistMessageVisible = true;
+
+		    commercestarterkit.updateWishlistCounter(commercestarterkit.getWishlistCounter() + parseInt(product.quantity));
+		};
+
 
 		function animateAddToCart(cart, animationImageId, callback) {
 		    var imgtodrag = $('#' + animationImageId).first();

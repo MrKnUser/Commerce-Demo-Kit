@@ -30,7 +30,7 @@
 		$scope.accounting = window.accounting;
 
 		$scope.initCart = function (name, language) {
-		    console.log("Init cart", language);
+		    console.log("Init cart", language, name);
 		    $scope.initLanguage(language);
 		    $scope.showLoader();
 			handleCartService.getCart(language, name).$promise.then(function (data) {

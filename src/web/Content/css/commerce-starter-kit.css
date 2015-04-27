@@ -764,4 +764,24 @@ h2 {
     padding-right: 0;
   }
 }
+.shopping-cart table td.name,
+.wishlist table td.name {
+  font-size: 1em !important;
+  max-width: 40%;
+}
+.shopping-cart table td.thumb,
+.wishlist table td.thumb {
+  width: 15% !important;
+}
+.wishlist table .price {
+  width: 12% !important;
+}
+.btn-moveToWishlist,
+.btn-moveToCart {
+  padding: 6px 5px !important;
+}
+.btn-moveToWishlist i,
+.btn-moveToCart i {
+  margin-right: 0 !important;
+}
 /*# sourceMappingURL=commerce-starter-kit.css.map */

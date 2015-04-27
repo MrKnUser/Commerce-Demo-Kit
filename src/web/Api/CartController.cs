@@ -89,7 +89,7 @@ namespace OxxCommerceStarterKit.Web.Api
 			var addToCartResult = Cart.Service.AddToWishList(product);
 			if (addToCartResult.Success)
 			{
-				return GetFullCartResult(Mediachase.Commerce.Orders.Cart.DefaultName, addToCartResult.Message);
+                return GetFullCartResult(CartHelper.WishListName, addToCartResult.Message);
 			}
 			else
 			{

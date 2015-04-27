@@ -2,24 +2,23 @@
 @using OxxCommerceStarterKit.Web.Models.ViewModels
 @model OxxCommerceStarterKit.Web.Models.ViewModels.WishListModel
 @{
-	ViewBag.Title = Model.CurrentPage.Name;
-	string wishlistUrl = "";
+    ViewBag.Title = Model.CurrentPage.Name;
+    string wishlistUrl = "";
 }
 
-<div class="cart-page wishlist-page">
-	<div ng-controller="CartController" ng-init="initCart('@(CartHelper.WishListName)')">
+<section class="wishlist" ng-controller="CartController" ng-init="initCart('@(CartHelper.WishListName)','@Model.Language')">
 
-		<h1>@Html.PropertyFor(m=>m.CurrentPage.Name)</h1>
-		<div class="cart">
-			@Html.Partial("PagePartials/_ItemList", new CartItemListViewModel() { CartName = CartHelper.WishListName, HideMoveToWishList = true })
-		</div>
-		<div class="">
-			<div ng-hide="!messages" class="alert alert-warning" role="alert" ng-bind-html="renderHtml(messages)"></div>
-		</div>
-		<div class="cart-commands buttons">
+    <h1>@Html.PropertyFor(m => m.CurrentPage.Name)</h1>
+    <div class="cart">
+        @Html.Partial("PagePartials/_ItemList", new CartItemListViewModel() { CartName = CartHelper.WishListName, HideMoveToWishList = true, HideMoveToCart = false })
+    </div>
+    <div class="">
+        <div ng-hide="!messages" class="alert alert-warning" role="alert" ng-bind-html="renderHtml(messages)"></div>
+    </div>
+    <div class="cart-commands buttons">
 
-			<button class="btn btn-default pull-right" ng-click="moveAllToCart('WishList')">@Html.Translate("/common/cart/move_wishlist_to_cart")</button>
+        <button class="btn btn-default pull-right" ng-click="moveAllToCart('WishList')">@Html.Translate("/common/cart/move_wishlist_to_cart")</button>
 
-		</div>
-	</div>
-</div>
+    </div>
+</section>
+
