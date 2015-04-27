@@ -106,23 +106,10 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
             if (pageData.CatalogNodes != null)
             {
-                
-                foreach (LinkItem catalogNodeLinkItem in pageData.CatalogNodes)
-                {
-                    string linkUrl;
-                    if (!EPiServer.Web.PermanentLinkMapStore.TryToMapped(catalogNodeLinkItem.Href, out linkUrl))
-                        continue;
-
-                    if (string.IsNullOrEmpty(linkUrl))
-                        continue;
-
-                    ContentReference contentReference = PageReference.ParseUrl(linkUrl);
-                    if(ContentReference.IsNullOrEmpty(contentReference) == false)
-                    {
-                        idList.Add(contentReference);
-                    }
-
-                }
+                List<NodeContent> nodeContents = pageData.CatalogNodes.ToContent<NodeContent>().ToList();
+                if (!nodeContents.Any())
+                    return idList;
+                idList = nodeContents.Select(x => x.ContentLink).ToList();
             }
             return idList;
         }
