@@ -605,6 +605,7 @@
     <Content Include="Resources\LanguageFiles\_ReadMe.txt" />
     <Content Include="robots.txt" />
     <Content Include="Scripts\app\Search\AutoCompleteContoller.js" />
+    <Content Include="Scripts\app\shopping\HeaderCartController.js" />
     <Content Include="Scripts\app\shopping\TrackingService.js" />
     <Content Include="Scripts\app\shopping\ArticleService.js" />
     <Content Include="Scripts\app\shopping\BuyController.js" />
