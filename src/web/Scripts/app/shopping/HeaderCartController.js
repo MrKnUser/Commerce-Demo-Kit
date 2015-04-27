@@ -11,7 +11,7 @@
 
         $scope.GetCartItemsToHeader = function(language) {
             console.log(language);
-            handleCartService.getCart(language, 'default').$promise.then(function (data) {
+            handleCartService.getCart(language, 'Default').$promise.then(function (data) {
                     getCartInfoFromResponse(data);
                
             },
@@ -23,7 +23,7 @@
         $scope.removeFromCart = function(product) {
             console.log(product);
             //$scope.trackRemoveFromCart(product);
-            handleCartService.remove($scope.language, product, 'default').$promise.then(function (data) {
+            handleCartService.remove($scope.language, product, 'Default').$promise.then(function (data) {
                 getCartInfoFromResponse(data);
                 commercestarterkit.retrieveCartCounters();
 
