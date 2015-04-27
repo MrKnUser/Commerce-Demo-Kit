@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 using EPiServer.Find;
@@ -78,6 +79,10 @@ namespace OxxCommerceStarterKit.Web.Api
         {
             try
             {
+                //Testing, dynamic facets
+                FacetStringListDefinition region = new FacetStringListDefinition();
+                region.FieldName = "Region";
+
                 string language = Language;
                 //Starting the find query
                 var query = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
@@ -211,7 +216,8 @@ namespace OxxCommerceStarterKit.Web.Api
                 var productColorFacetsResult = facetsResult.TermsFacetFor(x => x.Color).Terms;
                 var productFitFacetsResult = facetsResult.TermsFacetFor(x => x.Fit).Terms;
                 var productsizesResult = facetsResult.TermsFacetFor(x => x.SizesList).Terms;
-                var productRegionResult = facetsResult.TermsFacetFor(x => x.Region).Terms;
+                var productRegionResult = facetsResult.TermsFacetFor(GetTermFacetForResult("Region")).Terms;
+                //var productRegionResult = facetsResult.TermsFacetFor(x => x.Region).Terms;
                 var productGrapeResult = facetsResult.TermsFacetFor(x => x.GrapeMixList).Terms;
                 var productCountryResult = facetsResult.TermsFacetFor(x => x.Country).Terms;
                 var allColorFacets = CreateFacetViewModels(productColorFacetsResult,
@@ -536,6 +542,17 @@ namespace OxxCommerceStarterKit.Web.Api
             OrFilter orFilter = new OrFilter(filters);
             FilterBuilder<FindProduct> filterBuilder = new FilterBuilder<FindProduct>(client, orFilter);
             return filterBuilder;
+        }
+
+        private Expression<Func<FindProduct, object>> GetTermFacetForResult(string fieldName)
+        {
+            string fullFieldName = SearchClient.Instance.GetFullFieldName(fieldName);
+
+            var paramX = Expression.Parameter(typeof(FindProduct), "x");
+            var property = Expression.Property(paramX, fieldName);
+            var expr = Expression.Lambda<Func<FindProduct, object>>(property, paramX);
+
+            return expr;
         }
     }
 
