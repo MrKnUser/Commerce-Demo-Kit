@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+    <language name="English"
+              id="en">
+        <components>
+            <review>
+                <title>
+                    Reviews
+                </title>
+            </review>
+        </components>
+    </language>
+    <language name="Norwegian"
+              id="no">
+        <components>
+            <review>
+                <title>Vurderinger</title>
+            </review>
+        </components>
+    </language>
+</languages>
+
+        
