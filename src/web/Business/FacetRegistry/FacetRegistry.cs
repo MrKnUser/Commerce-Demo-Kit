@@ -9,12 +9,23 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
     public class FacetRegistry : IFacetRegistry
     {
+        static List<FacetDefinition>_facetRegistry = new List<FacetDefinition>();
+
         public FacetRegistry()
         {
-            FacetDefinitions = new List<FacetDefinition>();
+            
         }
 
-        public List<FacetDefinition> FacetDefinitions { get; set; }
+        public List<FacetDefinition> FacetDefinitions {
+            get
+            {
+                return _facetRegistry;
+            }
+            set
+            {
+                _facetRegistry = value;
+            }
+        }
         
     }
 }

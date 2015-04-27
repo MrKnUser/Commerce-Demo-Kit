@@ -24,6 +24,7 @@ using EPiServer.Find.Framework;
 using EPiServer.Find.Framework.Statistics;
 using EPiServer.Find.Helpers;
 using EPiServer.Logging;
+using EPiServer.ServiceLocation;
 using OxxCommerceStarterKit.Web.Business.FacetRegistry;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 
@@ -148,8 +149,6 @@ namespace OxxCommerceStarterKit.Web.Api
                 var searchResult = query.StaticallyCacheFor(TimeSpan.FromMinutes(1)).GetResult();
                 //Done with search query
 
-                #region Facet search
-
                 //Facets for product cagetories, get all, only filtered on search term and main category(menn/dame) if selected
                 var productFacetQuery = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
 
@@ -187,35 +186,37 @@ namespace OxxCommerceStarterKit.Web.Api
                 //Facets - To get all, color, size and fit facets, based on selected product categories
                 var facetsQuery = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
 
-                // search term
+                // search text in common fields
                 facetsQuery = ApplyTermFilter(productSearchData, facetsQuery);
 
-                // common filters
+                // common filters (language, show in list)
                 facetsQuery = ApplyCommonFilters(productSearchData, facetsQuery, language);
 
-                
-
-                // execute search
-                var facetsResult = facetsQuery
+                facetsQuery = facetsQuery
                     .Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories))
                     .Filter(x => GetMainCategoryFilter(productSearchData.ProductData.SelectedMainCategoryFacets))
                     .TermsFacetFor(x => x.Color, r => r.Size = 50)
                     .TermsFacetFor(x => x.Fit, r => r.Size = 50)
                     .TermsFacetFor(x => x.SizesList, r => r.Size = 200)
-                    //.TermsFacetFor(x => x.Region, r => r.Size = 50)
-                    .TermsFacetFor(x => x.GrapeMixList, r => r.Size = 50)
-                    //.TermsFacetFor(x => x.Country, r => r.Size = 50)
+                    .TermsFacetFor(x => x.GrapeMixList, r => r.Size = 50);
+
+                // TODO: Add these from facet registry
+                facetsQuery = facetsQuery
                     .TermsFacetFor("Region", 50)
-                    // .TermsFacetFor("GrapeMixList", 50) - this is a string list
-                    .TermsFacetFor("Country", 50)
-                    .Take(0)
+                    .TermsFacetFor("Country", 50);
+
+                // execute search
+                var facetsResult = facetsQuery.
+                    Take(0)
                     .StaticallyCacheFor(TimeSpan.FromMinutes(1))
                     .GetResult();
 
                 // results
+                // TODO: This list of facets should be replaced by facet registry as below
                 var productColorFacetsResult = facetsResult.TermsFacetFor(x => x.Color).Terms;
                 var productFitFacetsResult = facetsResult.TermsFacetFor(x => x.Fit).Terms;
                 var productsizesResult = facetsResult.TermsFacetFor(x => x.SizesList).Terms;
+                
                 var productRegionResult = facetsResult.TermsFacetFor(GetTermFacetForResult("Region")).Terms;
                 //var productRegionResult = facetsResult.TermsFacetFor(x => x.Region).Terms;
                 var productGrapeResult = facetsResult.TermsFacetFor(x => x.GrapeMixList).Terms;
@@ -234,9 +235,40 @@ namespace OxxCommerceStarterKit.Web.Api
                 var allDifferentSizeFacets = GetAllDifferentSizeFacets(productsizesResult,
                     productSearchData.ProductData.SelectedSizeFacets);
 
-                #endregion
-
                 var totalMatching = searchResult.TotalMatching;
+
+                // Get all facet values based on facet registry
+                var facetRegistry = ServiceLocator.Current.GetInstance<FacetRegistry>();
+                List<FacetValues> facetValues = new List<FacetValues>();
+                foreach (FacetDefinition definition in facetRegistry.FacetDefinitions)
+                {
+                    var facet = facetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
+                    if(facet != null)
+                    {
+                        var valuesForFacet = new FacetValues()
+                        {
+                            Definition = definition
+                        };
+
+                        TermsFacet termsFacet = facet as TermsFacet;
+                        if(termsFacet != null)
+                        {
+                            foreach (TermCount termCount in termsFacet.Terms)
+                            {
+                                valuesForFacet.Values.Add(new FacetValue()
+                                {
+                                    Count = termCount.Count,
+                                    Name = termCount.Term,
+                                    // TODO Determine "Selected" based on input to
+                                    // this method (currently in productSearchData.ProductData)
+                                    Selected = false
+                                });
+                            }
+                        }
+
+                        facetValues.Add(valuesForFacet);
+                    }
+                }
 
                 var result = new
                 {
@@ -249,6 +281,7 @@ namespace OxxCommerceStarterKit.Web.Api
                     productGrapeFacets = allGrapeFacets,
                     productCountryFacets = allcountryFacets,
                     mainCategoryFacets = allMainCategoryFacets,
+                    facets = facetValues,
                     totalResult = totalMatching
                 };
                 return result;
@@ -556,6 +589,22 @@ namespace OxxCommerceStarterKit.Web.Api
         }
     }
 
+    public class FacetValues
+    {
+        public FacetValues()
+        {
+            Values = new List<FacetValue>();
+        }
+        public FacetDefinition Definition { get; set; }
+        public List<FacetValue> Values { get; set; }
+    }
+
+    public class FacetValue
+    {
+        public string Name { get; set; }
+        public int Count { get; set; }
+        public bool Selected { get; set; }
+    }
 
 
     public static class SearchExtensions

@@ -13,16 +13,19 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
             IFacetRegistry registry = ServiceLocator.Current.GetInstance<IFacetRegistry>();
             registry.FacetDefinitions.Add(new FacetStringListDefinition()
             {
+                Name = "CountryFacet",
                 FieldName = "Country"
             });
 
             registry.FacetDefinitions.Add(new FacetStringListDefinition()
             {
+                Name = "RegionFacet",
                 FieldName = "Region"
             });
 
             registry.FacetDefinitions.Add(new FacetRangeDefinition<decimal>()
             {
+                Name = "SalesPriceFilter",
                 FieldName = "Price"
             });
 
