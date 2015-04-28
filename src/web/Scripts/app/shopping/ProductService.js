@@ -8,9 +8,9 @@
 	productApp.factory("productService", ['$http', '$q', function ($http, $q) {
 		return {
 		    get: function (productData, language, pageNumber, pageSize) {
+		        console.log(productData);
 				var deferred = $q.defer();
-
-		        $http.post('/' + language + '/api/Shopping/GetProducts?_=' + new Date().getTime().toString(), {productData: productData, page: pageNumber, pageSize: pageSize }).
+		        $http.post('/' + language + '/api/Shopping/GetProducts?_=' + new Date().getTime().toString(), { productData: productData, page: pageNumber, pageSize: pageSize }).
 					success(function (data, status, headers, config) {
 						deferred.resolve(data);
 					}).

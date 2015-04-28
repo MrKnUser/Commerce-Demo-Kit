@@ -16,6 +16,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.UI.WebControls;
+using EPiServer.Enterprise.Transfer;
 using EPiServer.Find;
 using EPiServer.Find.Api.Facets;
 using EPiServer.Find.Api.Querying;
@@ -71,7 +72,7 @@ namespace OxxCommerceStarterKit.Web.Api
             public List<string> SelectedGrapeFacets { get; set; }
             public List<string> SelectedCountryFacets { get; set; } 
             public string SearchTerm { get; set; }
-            public List<FacetDefinition> Facets { get; set; } 
+            public List<FacetValues> Facets { get; set; } 
 
         }
 
@@ -80,10 +81,7 @@ namespace OxxCommerceStarterKit.Web.Api
         {
             try
             {
-                //Testing, dynamic facets
-                FacetStringListDefinition region = new FacetStringListDefinition();
-                region.FieldName = "Region";
-
+               
                 string language = Language;
                 //Starting the find query
                 var query = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
@@ -95,53 +93,21 @@ namespace OxxCommerceStarterKit.Web.Api
                 query = ApplyCommonFilters(productSearchData, query, language);
 
 
-
                 // selected categories
                 if (productSearchData.ProductData.SelectedProductCategories != null &&
                     productSearchData.ProductData.SelectedProductCategories.Any())
                 {
                     query = query.Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories));
                 }
-
-                // selected colors
-                if (productSearchData.ProductData.SelectedColorFacets != null &&
-                    productSearchData.ProductData.SelectedColorFacets.Any())
+                if (productSearchData.ProductData.Facets != null && productSearchData.ProductData.Facets.Any())
                 {
-                    query = query.Filter(x => GetColorFilter(productSearchData.ProductData.SelectedColorFacets));
+                    foreach (FacetValues fv in productSearchData.ProductData.Facets)
+                    {
+                        var selectedFacets = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
+                        if (selectedFacets.Any())
+                            AddStringListFilter(selectedFacets, ref query, fv.Definition.FieldName);
+                    }
                 }
-
-                // selected sizes
-                if (productSearchData.ProductData.SelectedSizeFacets != null &&
-                    productSearchData.ProductData.SelectedSizeFacets.Any())
-                {
-                    query = query.Filter(x => GetSizeFilter(productSearchData.ProductData.SelectedSizeFacets));
-                }
-
-                // selected fits
-                if (productSearchData.ProductData.SelectedFitsFacets != null &&
-                    productSearchData.ProductData.SelectedFitsFacets.Any())
-                {
-                    query = query.Filter(x => GetFitFilter(productSearchData.ProductData.SelectedFitsFacets));
-                }
-
-                // selected region
-                AddStringListFilter(productSearchData.ProductData.SelectedRegionFacets, ref query, "Region");
-                //if (productSearchData.ProductData.SelectedRegionFacets != null &&
-                //    productSearchData.ProductData.SelectedRegionFacets.Any())
-                //{
-                //    query = query.Filter(x => GetRegionFilter(productSearchData.ProductData.SelectedRegionFacets));
-                //}
-
-                // selected grapes
-                //AddStringListFilter(productSearchData.ProductData.SelectedGrapeFacets, ref query, "GrapeMixList");
-                if (productSearchData.ProductData.SelectedGrapeFacets != null &&
-                    productSearchData.ProductData.SelectedGrapeFacets.Any())
-                {
-                    query = query.Filter(x => GetGrapeFilter(productSearchData.ProductData.SelectedGrapeFacets));
-                }
-
-                //selected countries
-                AddStringListFilter(productSearchData.ProductData.SelectedCountryFacets, ref query, "Country");
 
                 // execute search
                 query = query.Skip((productSearchData.Page - 1)*productSearchData.PageSize)
@@ -194,7 +160,7 @@ namespace OxxCommerceStarterKit.Web.Api
 
                 facetsQuery = facetsQuery
                     .Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories))
-                    .Filter(x => GetMainCategoryFilter(productSearchData.ProductData.SelectedMainCategoryFacets))
+                    //.Filter(x => GetMainCategoryFilter(productSearchData.ProductData.SelectedMainCategoryFacets))
                     .TermsFacetFor(x => x.Color, r => r.Size = 50)
                     .TermsFacetFor(x => x.Fit, r => r.Size = 50)
                     .TermsFacetFor(x => x.SizesList, r => r.Size = 200)
@@ -213,27 +179,27 @@ namespace OxxCommerceStarterKit.Web.Api
 
                 // results
                 // TODO: This list of facets should be replaced by facet registry as below
-                var productColorFacetsResult = facetsResult.TermsFacetFor(x => x.Color).Terms;
-                var productFitFacetsResult = facetsResult.TermsFacetFor(x => x.Fit).Terms;
-                var productsizesResult = facetsResult.TermsFacetFor(x => x.SizesList).Terms;
+                //var productColorFacetsResult = facetsResult.TermsFacetFor(x => x.Color).Terms;
+                //var productFitFacetsResult = facetsResult.TermsFacetFor(x => x.Fit).Terms;
+                //var productsizesResult = facetsResult.TermsFacetFor(x => x.SizesList).Terms;
                 
-                var productRegionResult = facetsResult.TermsFacetFor(GetTermFacetForResult("Region")).Terms;
-                //var productRegionResult = facetsResult.TermsFacetFor(x => x.Region).Terms;
-                var productGrapeResult = facetsResult.TermsFacetFor(x => x.GrapeMixList).Terms;
-                var productCountryResult = facetsResult.TermsFacetFor(x => x.Country).Terms;
-                var allColorFacets = CreateFacetViewModels(productColorFacetsResult,
-                    productSearchData.ProductData.SelectedColorFacets);
-                var allFitFacets = CreateFacetViewModels(productFitFacetsResult,
-                    productSearchData.ProductData.SelectedFitsFacets);
-                var allRegionFacets = CreateFacetViewModels(productRegionResult,
-                    productSearchData.ProductData.SelectedRegionFacets);
-                var allGrapeFacets = CreateFacetViewModels(productGrapeResult,
-                    productSearchData.ProductData.SelectedGrapeFacets);
-                var allcountryFacets = CreateFacetViewModels(productCountryResult,
-                    productSearchData.ProductData.SelectedCountryFacets);
-                //Testing different size type facets
-                var allDifferentSizeFacets = GetAllDifferentSizeFacets(productsizesResult,
-                    productSearchData.ProductData.SelectedSizeFacets);
+                //var productRegionResult = facetsResult.TermsFacetFor(GetTermFacetForResult("Region")).Terms;
+                ////var productRegionResult = facetsResult.TermsFacetFor(x => x.Region).Terms;
+                //var productGrapeResult = facetsResult.TermsFacetFor(x => x.GrapeMixList).Terms;
+                //var productCountryResult = facetsResult.TermsFacetFor(x => x.Country).Terms;
+                //var allColorFacets = CreateFacetViewModels(productColorFacetsResult,
+                //    productSearchData.ProductData.SelectedColorFacets);
+                //var allFitFacets = CreateFacetViewModels(productFitFacetsResult,
+                //    productSearchData.ProductData.SelectedFitsFacets);
+                //var allRegionFacets = CreateFacetViewModels(productRegionResult,
+                //    productSearchData.ProductData.SelectedRegionFacets);
+                //var allGrapeFacets = CreateFacetViewModels(productGrapeResult,
+                //    productSearchData.ProductData.SelectedGrapeFacets);
+                //var allcountryFacets = CreateFacetViewModels(productCountryResult,
+                //    productSearchData.ProductData.SelectedCountryFacets);
+                ////Testing different size type facets
+                //var allDifferentSizeFacets = GetAllDifferentSizeFacets(productsizesResult,
+                //    productSearchData.ProductData.SelectedSizeFacets);
 
                 var totalMatching = searchResult.TotalMatching;
 
@@ -245,14 +211,18 @@ namespace OxxCommerceStarterKit.Web.Api
                     var facet = facetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
                     if(facet != null)
                     {
+                        Test t = new Test();
+                        t.FieldName = definition.FieldName;
+                        t.Name = definition.Name;
                         var valuesForFacet = new FacetValues()
                         {
-                            Definition = definition
+                            Definition = t
                         };
 
                         TermsFacet termsFacet = facet as TermsFacet;
                         if(termsFacet != null)
                         {
+                            valuesForFacet.Values = new List<FacetValue>();
                             foreach (TermCount termCount in termsFacet.Terms)
                             {
                                 valuesForFacet.Values.Add(new FacetValue()
@@ -261,7 +231,7 @@ namespace OxxCommerceStarterKit.Web.Api
                                     Name = termCount.Term,
                                     // TODO Determine "Selected" based on input to
                                     // this method (currently in productSearchData.ProductData)
-                                    Selected = false
+                                    Selected = GetIsSelected(definition.FieldName,termCount.Term,productSearchData.ProductData.Facets)
                                 });
                             }
                         }
@@ -274,12 +244,12 @@ namespace OxxCommerceStarterKit.Web.Api
                 {
                     products = searchResult.ToList(),
                     productCategoryFacets = allProductCategoryFacets,
-                    productColorFacets = allColorFacets,
-                    allSizeFacetLists = allDifferentSizeFacets,
-                    productFitFacets = allFitFacets,
-                    productRegionFacets = allRegionFacets,
-                    productGrapeFacets = allGrapeFacets,
-                    productCountryFacets = allcountryFacets,
+                    //productColorFacets = allColorFacets,
+                    //allSizeFacetLists = allDifferentSizeFacets,
+                    //productFitFacets = allFitFacets,
+                    //productRegionFacets = allRegionFacets,
+                    //productGrapeFacets = allGrapeFacets,
+                    //productCountryFacets = allcountryFacets,
                     mainCategoryFacets = allMainCategoryFacets,
                     facets = facetValues,
                     totalResult = totalMatching
@@ -296,6 +266,24 @@ namespace OxxCommerceStarterKit.Web.Api
                 _log.Error("Failed to perform search", serviceException);
                 return null;
             }
+        }
+
+        private bool GetIsSelected(string fieldName, string facet, List<FacetValues> facets)
+        {
+            if (facets == null)
+                return false;
+            foreach (var facetValue in facets)
+            {
+                if (facetValue.Definition.FieldName.Equals(fieldName))
+                {
+                    foreach (var value in facetValue.Values)
+                    {
+                        if (value.Name.Equals(facet))
+                            return value.Selected;
+                    }
+                }
+            }
+            return false;
         }
 
         protected void AddStringListFilter(List<string> stringFieldValues, ref ITypeSearch<FindProduct> query, string fieldName)
@@ -591,12 +579,19 @@ namespace OxxCommerceStarterKit.Web.Api
 
     public class FacetValues
     {
-        public FacetValues()
-        {
-            Values = new List<FacetValue>();
-        }
-        public FacetDefinition Definition { get; set; }
+        //public FacetValues()
+        //{
+        //    Values = new List<FacetValue>();
+        //}
+        //public FacetDefinition Definition { get; set; }
+        public Test Definition { get; set; }
         public List<FacetValue> Values { get; set; }
+    }
+
+    public class Test
+    {
+        public string FieldName { get; set; }
+        public string Name { get; set; }
     }
 
     public class FacetValue

@@ -105,7 +105,7 @@
         };
 
         $scope.loadProductData = function () {
-			$scope.showLoader();
+            $scope.showLoader();
             productService.get($scope.productData, $scope.language, $scope.page, $scope.productPageSize).then(
 			  function (data) {
 				  $scope.hideLoader();
@@ -126,13 +126,14 @@
 			      $scope.productRegionFacets = data.productRegionFacets;
 			      $scope.productGrapeFacets = data.productGrapeFacets;
 			      $scope.productCountryFacets = data.productCountryFacets;
-
+			      $scope.facets = data.facets;
 			  },
 			  function (statusCode) {
 				  $scope.hideLoader();
 			      $scope.status = statusCode;
 			  }
 		  );
+           
         };
 
 		$scope.showLoader = function() {
@@ -152,22 +153,23 @@
         function setNewProductDataAndUpdate() {
             $scope.page = 1;
             setProductdata();
-            updateUrlWithFacets();
+            //updateUrlWithFacets();
             $scope.loadProductData();
         }
 
-        function setProductdata() {
+        function setProductdata() { 
             $scope.productData = {
                 SearchTerm: $scope.queryTerm,
                 SelectedProductCategories: $scope.selectedProductCategories,
-                SelectedMainCategoryFacets: $scope.selectedMainCategoryFacets,
-                SelectedColorFacets: $scope.selectedColorFacets,
-                SelectedSizeFacets: $scope.selectedSizeFacets,
-                SelectedFitsFacets: $scope.selectedFitFacets,
-                SelectedRegionFacets: $scope.selectedRegionFacets,
-                SelectedGrapeFacets: $scope.selectedGrapeFacets,
-                SelectedCountryFacets: $scope.selectedCountryFacets
-        };
+                Facets: $scope.facets,
+                //SelectedMainCategoryFacets: $scope.selectedMainCategoryFacets,
+                //SelectedColorFacets: $scope.selectedColorFacets,
+                //SelectedSizeFacets: $scope.selectedSizeFacets,
+                //SelectedFitsFacets: $scope.selectedFitFacets,
+                //SelectedRegionFacets: $scope.selectedRegionFacets,
+                //SelectedGrapeFacets: $scope.selectedGrapeFacets,
+                //SelectedCountryFacets: $scope.selectedCountryFacets
+            };
         }
 
         //Update url, adding selected facets for product type, colors, sizes and fits
@@ -275,7 +277,7 @@
                             $scope.search();
                         }
                     } else {
-                        setNewProductDataAndUpdate();
+                       setNewProductDataAndUpdate();
 
                     }
                 }
@@ -302,6 +304,14 @@
                 arrayToUpdate.splice(arrayToUpdate.indexOf(id), 1);
                 setNewProductDataAndUpdate();
             }
+        };
+        $scope.updateFacetsSelections = function ($event, id) {
+            setNewProductDataAndUpdate();
+            
+            //var checkbox = $event.target;
+            //var action = (checkbox.checked ? 'add' : 'remove');
+            //updateSelected(action, id, $scope.selectedProductCategories);
+            // $scope.categoriesSelectedAll = $scope.selectedProductCategories > 0;
         };
 
         $scope.updateProductSelection = function ($event, id) {

@@ -1,7 +1,26 @@
-﻿
-<section class="filter-section" ng-cloak>
-    <h4>@Html.Translate("/common/productlist/filters_title") <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#id8971263"> </a></h4>
+﻿<div class="with-sorting" ng-cloak>
+    @*<h4>@Html.Translate("/common/productlist/filters_title") <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#id8971263"> </a></h4>*@
     <div id="id8971263" class="collapse" ng-class="(windowWidth >= 768) ? 'in' : ''">
+        <section class="filter-section" ng-repeat="facetType in facets">
+            @*<h4>@Html.Translate("/common/productlist/countries_title")</h4>*@
+            <h3>{{facetType.Definition.FieldName}}</h3>
+            <div ng-repeat="facet in facetType.Values">
+                <label class="checkbox" for="{{facet.Name}}">
+                    <input type="checkbox" name="{{facet.Name}}" id="{{facet.Name}}" ng-click="updateFacetsSelections($event, facet.Name)" ng-model="facet.Selected" />
+                    {{facet.Name}} ({{facet.Count}})
+                </label>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+
+@*Code below should be removed when done with dynamic filters.*@ 
+<section class="filter-section" ng-cloak style="display: none;">
+    <h4>@Html.Translate("/common/productlist/filters_title") <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-down"> </a></h4>
+    <div class="collapse" ng-class="(windowWidth >= 768) ? 'in' : ''">
         <div class="checkbox-list category" ng-show="ShowMainCategoryFacets">
             <div ng-repeat="mainCategory in mainCategoryFacets">
                 <label class="checkbox" for="{{mainCategory.Name}}">

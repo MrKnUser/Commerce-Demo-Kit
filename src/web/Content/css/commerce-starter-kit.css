@@ -764,6 +764,7 @@ h2 {
     padding-right: 0;
   }
 }
+/*TODO: This should be moved into separate less files*/
 .shopping-cart table td.name,
 .wishlist table td.name {
   font-size: 1em !important;
@@ -783,5 +784,15 @@ h2 {
 .btn-moveToWishlist i,
 .btn-moveToCart i {
   margin-right: 0 !important;
+}
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  margin-left: 0 !important;
+}
+input[type="radio"],
+input[type="checkbox"] {
+  margin: 4px 5px 0 !important;
 }
 /*# sourceMappingURL=commerce-starter-kit.css.map */
