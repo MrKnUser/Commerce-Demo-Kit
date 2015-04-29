@@ -40,7 +40,7 @@ namespace OxxCommerceStarterKit.Web.Api
             {
                 SetLanguage();
                 string language = Language;
-                var findLanguage = ShoppingController.GetLanguage(language);
+                var findLanguage = ShoppingController.GetFindLanguage(language);
                 IEnumerable<SearchResults<AutoCompleteObject>> results =
                     SearchClient.Instance.MultiSearch<AutoCompleteObject>()
 

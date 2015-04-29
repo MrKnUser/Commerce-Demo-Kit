@@ -66,14 +66,14 @@ namespace OxxCommerceStarterKit.Web.Api
         }
         public class ProductData
         {
+            //public List<string> SelectedMainCategoryFacets { get; set; }
             public List<int> SelectedProductCategories { get; set; }
-            public List<string> SelectedColorFacets { get; set; }
-            public List<string> SelectedSizeFacets { get; set; }
-            public List<string> SelectedFitsFacets { get; set; }
-            public List<string> SelectedMainCategoryFacets { get; set; }
-            public List<string> SelectedRegionFacets { get; set; }
-            public List<string> SelectedGrapeFacets { get; set; }
-            public List<string> SelectedCountryFacets { get; set; }
+            //public List<string> SelectedColorFacets { get; set; }
+            //public List<string> SelectedSizeFacets { get; set; }
+            //public List<string> SelectedFitsFacets { get; set; }
+            //public List<string> SelectedRegionFacets { get; set; }
+            //public List<string> SelectedGrapeFacets { get; set; }
+            //public List<string> SelectedCountryFacets { get; set; }
             public string SearchTerm { get; set; }
             public List<FacetValues> Facets { get; set; }
             public string SelectedFacetName { get; set; }
@@ -86,17 +86,7 @@ namespace OxxCommerceStarterKit.Web.Api
             try
             {
 
-                string language = Language;
-                //Starting the find query
-                var query = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
-
-                // search term
-                query = ApplyTermFilter(query, productSearchData.ProductData.SearchTerm, true);
-
-                // common filters
-                query = ApplyCommonFilters(query, language);
-
-                // Build for later use
+                // If we do not get any facets as part of query, we use the default facets from the registry
                 var facetRegistry = ServiceLocator.Current.GetInstance<FacetRegistry>();
                 if (productSearchData.ProductData.Facets == null || productSearchData.ProductData.Facets.Any() == false)
                 {
@@ -111,59 +101,48 @@ namespace OxxCommerceStarterKit.Web.Api
                     }
                 }
 
-                // selected categories
-                if (productSearchData.ProductData.SelectedProductCategories != null &&
-                    productSearchData.ProductData.SelectedProductCategories.Any())
+                // The language is part of the route
+                string language = Language;
+                
+                // search term, used if part of freetext search
+                var searchTerm = productSearchData.ProductData.SearchTerm;
+                SearchResults<FindProduct> productsSearchResult = GetProductsForSearchAndFilters(productSearchData, searchTerm, language);
+
+                string selectedFacetName = productSearchData.ProductData.SelectedFacetName ?? string.Empty;
+                var productFacetsResult = GetFacetResult(productSearchData, language, productSearchData.ProductData.Facets, searchTerm, selectedFacetName);
+
+                // parse facet results
+                IEnumerable<TermCount> productCategoryFacetsResult = productFacetsResult.TermsFacetFor(x => x.ParentCategoryName).Terms;
+                List<FacetViewModel> allProductCategoryFacets = CreateCategoryFacetViewModels(productCategoryFacetsResult,
+                    productSearchData.ProductData.SelectedProductCategories.Select(x => x.ToString()).ToList());
+
+                // If we're doing a filtering on a specific facet, we handle that one
+                // in a special way, in order to show the count for all terms for the facet
+                SearchResults<FindProduct> productSelectedFacetsResult = null;
+                if(string.IsNullOrEmpty(selectedFacetName) == false)
                 {
-                    query = query.Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories));
-                }
-                if (productSearchData.ProductData.Facets != null && productSearchData.ProductData.Facets.Any())
-                {
-                    foreach (FacetValues fv in productSearchData.ProductData.Facets)
+                    List<FacetValues> selectedFacet = new List<FacetValues>();
+                    if (productSearchData.ProductData.Facets != null)
                     {
-                        var selectedFacets = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
-                        if (selectedFacets.Any())
-                            AddStringListFilter(selectedFacets, ref query, fv.Definition.FieldName);
+                        FacetValues selectedValues = productSearchData.ProductData.Facets.Find(f => f.Definition.Name.Equals(selectedFacetName));
+                        if (selectedValues != null)
+                            selectedFacet.Add(selectedValues);
                     }
-                }
-
-                // execute search
-                query = query.Skip((productSearchData.Page - 1) * productSearchData.PageSize)
-                    .Take(productSearchData.PageSize);
-                var searchResult = query.StaticallyCacheFor(TimeSpan.FromMinutes(1)).GetResult();
-                //Done with search query
-
-                //Facets for product cagetories, get all, only filtered on search term and main category(menn/dame) if selected
-                // productSearchData.ProductData.SelectedFacetName = "CountryFacet";
-
-                string selectedFacetName = productSearchData.ProductData.SelectedFacetName ??  string.Empty;
-                var productFacetsResult = GetFacetResult(productSearchData, language, productSearchData.ProductData.Facets, productSearchData.ProductData.SearchTerm, selectedFacetName);
 
                 
-                List<FacetValues> selectedFacet = new List<FacetValues>();
-                if (productSearchData.ProductData.Facets != null)
-                {
-                    FacetValues selectedValues = productSearchData.ProductData.Facets.Find(f => f.Definition.Name.Equals(selectedFacetName));
-                    if(selectedValues != null)
-                        selectedFacet.Add(selectedValues);
+                    // Get facet values and counts for the selected facet
+                    productSelectedFacetsResult = GetFacetResult(
+                        productSearchData,
+                        language,
+                        selectedFacet,
+                        searchTerm,
+                        selectedFacetName, applyFacetFilters: false);
                 }
 
 
-                var productSelectedFacetsResult = GetFacetResult(
-                    productSearchData, 
-                    language, 
-                    selectedFacet, 
-                    productSearchData.ProductData.SearchTerm, 
-                    selectedFacetName, applyFacetFilters: false);
-
-
-                // results
-                var productCategoryFacetsResult = productFacetsResult.TermsFacetFor(x => x.ParentCategoryName).Terms;
-                var productMainCategoryFacetResult = productFacetsResult.TermsFacetFor(x => x.MainCategoryName).Terms;
-                var allProductCategoryFacets = CreateCategoryFacetViewModels(productCategoryFacetsResult,
-                    productSearchData.ProductData.SelectedProductCategories.Select(x => x.ToString()).ToList());
-                var allMainCategoryFacets = CreateFacetViewModels(productMainCategoryFacetResult,
-                    productSearchData.ProductData.SelectedMainCategoryFacets);
+                // var productMainCategoryFacetResult = productFacetsResult.TermsFacetFor(x => x.MainCategoryName).Terms;
+                //var allMainCategoryFacets = CreateFacetViewModels(productMainCategoryFacetResult,
+                //    productSearchData.ProductData.SelectedMainCategoryFacets);
 
                 //Facets - To get all, color, size and fit facets, based on selected product categories
                 //var facetsQuery = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
@@ -182,7 +161,6 @@ namespace OxxCommerceStarterKit.Web.Api
                 //    .TermsFacetFor(x => x.SizesList, r => r.Size = 200)
                 //    .TermsFacetFor(x => x.GrapeMixList, r => r.Size = 50);
 
-                // TODO: Add these from facet registry
                 //facetsQuery = facetsQuery
                 //    .TermsFacetFor("Region", 50)
                 //    .TermsFacetFor("Country", 50);
@@ -194,7 +172,6 @@ namespace OxxCommerceStarterKit.Web.Api
                 //    .GetResult();
 
                 // results
-                // TODO: This list of facets should be replaced by facet registry as below
                 //var productColorFacetsResult = facetsResult.TermsFacetFor(x => x.Color).Terms;
                 //var productFitFacetsResult = facetsResult.TermsFacetFor(x => x.Fit).Terms;
                 //var productsizesResult = facetsResult.TermsFacetFor(x => x.SizesList).Terms;
@@ -217,25 +194,25 @@ namespace OxxCommerceStarterKit.Web.Api
                 //var allDifferentSizeFacets = GetAllDifferentSizeFacets(productsizesResult,
                 //    productSearchData.ProductData.SelectedSizeFacets);
 
-                var totalMatching = searchResult.TotalMatching;
 
                 // Get all facet values based on facet registry
-                
-                List<FacetValues> facetValues = new List<FacetValues>();
+
+                List<FacetValues> facetsAndValues = new List<FacetValues>();
                 foreach (FacetDefinition definition in facetRegistry.FacetDefinitions)
                 {
                     Facet facet = productFacetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
-                    Facet selectedfacet = productSelectedFacetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
-                    if (selectedfacet != null)
+                    
+                    if(productSelectedFacetsResult != null)
                     {
-                        facet = selectedfacet;
+                        Facet selectedfacet = productSelectedFacetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
+                        if (selectedfacet != null)
+                        {
+                            facet = selectedfacet;
+                        }
                     }
 
                     if (facet != null)
                     {
-                        // Use selected facet if we have one
-                        
-
                         var valuesForFacet = new FacetValues()
                         {
                             Definition = definition
@@ -251,41 +228,28 @@ namespace OxxCommerceStarterKit.Web.Api
                                 {
                                     Count = termCount.Count,
                                     Name = termCount.Term,
-                                    // TODO Determine "Selected" based on input to
-                                    // this method (currently in productSearchData.ProductData)
                                     Selected = GetIsSelected(definition.FieldName, termCount.Term, productSearchData.ProductData.Facets)
                                 });
                             }
                         }
 
-                        facetValues.Add(valuesForFacet);
+                        facetsAndValues.Add(valuesForFacet);
                     }
                 }
 
                 var result = new
                 {
-                    products = searchResult.ToList(),
+                    products = productsSearchResult.ToList(),
                     productCategoryFacets = allProductCategoryFacets,
-                    //productColorFacets = allColorFacets,
-                    //allSizeFacetLists = allDifferentSizeFacets,
-                    //productFitFacets = allFitFacets,
-                    //productRegionFacets = allRegionFacets,
-                    //productGrapeFacets = allGrapeFacets,
-                    //productCountryFacets = allcountryFacets,
-                    mainCategoryFacets = allMainCategoryFacets,
-                    facets = facetValues,
-                    totalResult = totalMatching
+                    facets = facetsAndValues,
+                    totalResult = productsSearchResult.TotalMatching
                 };
 
                 var serializer = new JsonSerializer();
                 serializer.TypeNameHandling = TypeNameHandling.Auto;
-            
+
                 return JObject.FromObject(result, serializer);
 
-                return JsonConvert.SerializeObject(result, new JsonSerializerSettings
-                {
-                    TypeNameHandling = TypeNameHandling.Auto
-                });
             }
             catch (OperationCanceledException operationCanceledException)
             {
@@ -299,9 +263,47 @@ namespace OxxCommerceStarterKit.Web.Api
             }
         }
 
-        private SearchResults<FindProduct> GetFacetResult(ProductSearchData productSearchData, string language, List<FacetValues> facets, string searchTerm, string selectedFacetName, bool applyFacetFilters = true ) 
+        protected SearchResults<FindProduct> GetProductsForSearchAndFilters(ProductSearchData productSearchData, string searchTerm, string language)
         {
-            var productFacetQuery = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
+            var productsQuery = SearchClient.Instance.Search<FindProduct>(GetFindLanguage(language));
+
+            productsQuery = ApplyTermFilter(productsQuery, searchTerm, trackSearchTerm: true);
+
+            // common filters
+            productsQuery = ApplyCommonFilters(productsQuery, language);
+
+            // selected categories
+            if (productSearchData.ProductData.SelectedProductCategories != null &&
+                productSearchData.ProductData.SelectedProductCategories.Any())
+            {
+                productsQuery =
+                    productsQuery.Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories));
+            }
+
+            // Add filters from the passed in fasets
+            foreach (FacetValues fv in productSearchData.ProductData.Facets)
+            {
+                // Get all facet values for a facet definition which has been selected
+                var selectedFacetValues = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
+                if (selectedFacetValues.Any())
+                {
+                    // and then add the values as a filter
+                    productsQuery = productsQuery.AddStringListFilter(selectedFacetValues, fv.Definition.FieldName);
+                }
+            }
+
+            // execute product search
+            productsQuery = productsQuery
+                .Skip((productSearchData.Page - 1)*productSearchData.PageSize)
+                .Take(productSearchData.PageSize)
+                .StaticallyCacheFor(TimeSpan.FromMinutes(1));
+            var productsSearchResult = productsQuery.GetResult();
+            return productsSearchResult;
+        }
+
+        private SearchResults<FindProduct> GetFacetResult(ProductSearchData productSearchData, string language, List<FacetValues> facets, string searchTerm, string selectedFacetName, bool applyFacetFilters = true)
+        {
+            var productFacetQuery = SearchClient.Instance.Search<FindProduct>(GetFindLanguage(language));
 
             // search term
             productFacetQuery = ApplyTermFilter(productFacetQuery, searchTerm);
@@ -311,17 +313,15 @@ namespace OxxCommerceStarterKit.Web.Api
 
 
             // categories
-            if (productSearchData.ProductData.SelectedMainCategoryFacets != null &&
-                productSearchData.ProductData.SelectedMainCategoryFacets.Any())
-            {
-                productFacetQuery =
-                    productFacetQuery.Filter(
-                        x => GetMainCategoryFilter(productSearchData.ProductData.SelectedMainCategoryFacets));
-            }
+            //if (productSearchData.ProductData.SelectedMainCategoryFacets != null &&
+            //    productSearchData.ProductData.SelectedMainCategoryFacets.Any())
+            //{
+            //    productFacetQuery =
+            //        productFacetQuery.Filter(
+            //            x => GetMainCategoryFilter(productSearchData.ProductData.SelectedMainCategoryFacets));
+            //}
 
 
-            //Test Facets **************************************************************
-            // execute 
             productFacetQuery = productFacetQuery
                 .TermsFacetFor(x => x.ParentCategoryName)
                 .TermsFacetFor(x => x.MainCategoryName);
@@ -339,14 +339,14 @@ namespace OxxCommerceStarterKit.Web.Api
                     {
                         var selectedFacets = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
                         if (selectedFacets.Any())
-                            AddStringListFilter(selectedFacets, ref productFacetQuery, fv.Definition.FieldName);
+                        {
+                            productFacetQuery = productFacetQuery.AddStringListFilter(selectedFacets, fv.Definition.FieldName);
+                        }
                     }
-                    
+
                 }
             }
 
-            //     .TermsFacetFor("Region", 50)
-            //   .TermsFacetFor("Country", 50)
             var productFacetsResult = productFacetQuery
                 .Take(0)
                 .GetResult();
@@ -371,29 +371,31 @@ namespace OxxCommerceStarterKit.Web.Api
             return false;
         }
 
-        protected void AddStringListFilter(List<string> stringFieldValues, ref ITypeSearch<FindProduct> query, string fieldName)
-        {
-            if (stringFieldValues != null && stringFieldValues.Any())
-            {
-                // First attempt at moving away from expressions, making this
-                // implementation extensible and pluggable
-                query = query.Filter(GetOrFilterForStringList(stringFieldValues, SearchClient.Instance, fieldName));
-            }
-        }
-
         private static ITypeSearch<FindProduct> ApplyCommonFilters(ITypeSearch<FindProduct> query, string language)
         {
             return query.Filter(x => x.Language.Match(language))
                 .Filter(x => x.ShowInList.Match(true));
         }
 
-        private static ITypeSearch<FindProduct> ApplyTermFilter(ITypeSearch<FindProduct> query, string searchTerm, bool trackSearchTerm = false)
+        /// <summary>
+        /// Adds freetext search filter to known fields
+        /// </summary>
+        /// <param name="query">The query.</param>
+        /// <param name="searchTerm">The search term.</param>
+        /// <param name="trackSearchTerm">if set to <c>true</c> [track search term].</param>
+        /// <returns></returns>
+        private ITypeSearch<FindProduct> ApplyTermFilter(ITypeSearch<FindProduct> query, string searchTerm, bool trackSearchTerm = false)
         {
             if (!string.IsNullOrEmpty(searchTerm))
             {
                 query = query.For(searchTerm)
-                    .InFields(x => x.Name, x => x.MainCategoryName, x => string.Join(",", x.Color),
-                        x => x.DisplayName, x => x.Fit, x => x.Description.ToString(), x => string.Join(",", x.ParentCategoryName))
+                    .InFields(x => x.Name, 
+                        x => x.MainCategoryName, 
+                        x => string.Join(",", x.Color),
+                        x => x.DisplayName,
+                        x => x.Fit, 
+                        x => x.Description.ToString(), 
+                        x => string.Join(",", x.ParentCategoryName))
                         .InAllField();
 
                 if (trackSearchTerm)
@@ -585,18 +587,31 @@ namespace OxxCommerceStarterKit.Web.Api
 
         private List<FacetViewModel> CreateCategoryFacetViewModels(IEnumerable<TermCount> facetResult, List<string> selectedFacets)
         {
-            return facetResult.Select(
-                        term =>
-                        {
-                            string id = term.Term.Contains("|") ? term.Term.Split('|')[0] : term.Term;
-                            return new FacetViewModel
-                                {
-                                    Count = term.Count,
-                                    Name = term.Term.Contains("|") ? term.Term.Split('|')[1] : term.Term,
-                                    Id = id,
-                                    Selected = selectedFacets != null && selectedFacets.Contains(id)
-                                };
-                        }).ToList();
+            List<FacetViewModel> list = new List<FacetViewModel>();
+
+            foreach (var term in facetResult)
+            {
+                var id = term.Term;
+                var name = term.Term; 
+
+                if(term.Term.Contains("|"))
+                {
+                    string[] idAndName = term.Term.Split('|');
+                    id = idAndName[0];
+                    name = idAndName[1];
+                }
+
+                var model = new FacetViewModel
+                {
+                    Count = term.Count,
+                    Id = id,
+                    Name = name,
+                    Selected = selectedFacets != null && selectedFacets.Contains(id)
+                };
+                list.Add(model);
+            }
+
+            return list;
         }
 
 
@@ -605,12 +620,6 @@ namespace OxxCommerceStarterKit.Web.Api
             var filter = SearchClient.Instance.BuildFilter<FindProduct>();
             return categories.Aggregate(filter, (current, category) => current.Or(x => x.ParentCategoryId.Match(category)));
         }
-        private FilterBuilder<FindProduct> GetMainCategoryFilter(List<string> mainCategories)
-        {
-            var filter = SearchClient.Instance.BuildFilter<FindProduct>();
-            return mainCategories.Aggregate(filter, (current, mainCategory) => current.Or(x => x.MainCategoryName.Match(mainCategory)));
-        }
-
         private FilterBuilder<FindProduct> GetColorFilter(List<string> colorsList)
         {
             var filter = SearchClient.Instance.BuildFilter<FindProduct>();
@@ -626,42 +635,12 @@ namespace OxxCommerceStarterKit.Web.Api
             var filter = SearchClient.Instance.BuildFilter<FindProduct>();
             return fitList.Aggregate(filter, (current, fit) => current.Or(x => x.Fit.Match(fit)));
         }
-        //private FilterBuilder<FindProduct> GetRegionFilter(List<string> regionList)
-        //{
-        //    var filter = SearchClient.Instance.BuildFilter<FindProduct>();
-        //    return regionList.Aggregate(filter, (current, region) => current.Or(x => x.Region.Match(region)));
-        //}
         private FilterBuilder<FindProduct> GetGrapeFilter(List<string> grapeList)
         {
             var filter = SearchClient.Instance.BuildFilter<FindProduct>();
             return grapeList.Aggregate(filter, (current, grape) => current.Or(x => x.GrapeMixList.Match(grape)));
         }
-        private FilterBuilder<FindProduct> GetOrFilterForStringList(List<string> fieldValues, IClient client, string fieldName)
-        {
-            // Appends type convention to field name (like "$$string")
-            string fullFieldName = client.GetFullFieldName(fieldName);
 
-            List<Filter> filters = new List<Filter>();
-            foreach (string s in fieldValues)
-            {
-                filters.Add(new TermFilter(fullFieldName, s));
-            }
-
-            OrFilter orFilter = new OrFilter(filters);
-            FilterBuilder<FindProduct> filterBuilder = new FilterBuilder<FindProduct>(client, orFilter);
-            return filterBuilder;
-        }
-
-        private Expression<Func<FindProduct, object>> GetTermFacetForResult(string fieldName)
-        {
-            string fullFieldName = SearchClient.Instance.GetFullFieldName(fieldName);
-
-            var paramX = Expression.Parameter(typeof(FindProduct), "x");
-            var property = Expression.Property(paramX, fieldName);
-            var expr = Expression.Lambda<Func<FindProduct, object>>(property, paramX);
-
-            return expr;
-        }
     }
 
     public class FacetValues
@@ -708,6 +687,33 @@ namespace OxxCommerceStarterKit.Web.Api
         public static string GetFullFieldName(this IClient searchClient, string fieldName)
         {
             return fieldName + searchClient.Conventions.FieldNameConvention.GetFieldName(Expression.Variable(typeof(string), fieldName));
+        }
+
+        public static ITypeSearch<T> AddStringListFilter<T>(this ITypeSearch<T> query, List<string> stringFieldValues, string fieldName)
+        {
+            if (stringFieldValues != null && stringFieldValues.Any())
+            {
+                // First attempt at moving away from expressions, making this
+                // implementation extensible and pluggable
+                return query.Filter(GetOrFilterForStringList<T>(stringFieldValues, SearchClient.Instance, fieldName));
+            }
+            return query;
+        }
+
+        private static FilterBuilder<T> GetOrFilterForStringList<T>(List<string> fieldValues, IClient client, string fieldName)
+        {
+            // Appends type convention to field name (like "$$string")
+            string fullFieldName = client.GetFullFieldName(fieldName);
+
+            List<Filter> filters = new List<Filter>();
+            foreach (string s in fieldValues)
+            {
+                filters.Add(new TermFilter(fullFieldName, s));
+            }
+
+            OrFilter orFilter = new OrFilter(filters);
+            FilterBuilder<T> filterBuilder = new FilterBuilder<T>(client, orFilter);
+            return filterBuilder;
         }
 
     }

@@ -35,7 +35,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels.Simple
 
 		public LandingNodeViewModel(string language)
 		{
-			_query = SearchClient.Instance.Search<FindProduct>(ShoppingController.GetLanguage(language))
+			_query = SearchClient.Instance.Search<FindProduct>(ShoppingController.GetFindLanguage(language))
 				.Filter(x => x.Language.Match(language))
 				.Filter(x => x.ShowInList.Match(true))
 				.OrderByDescending(x => x.SalesCounter);

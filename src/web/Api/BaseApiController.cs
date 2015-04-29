@@ -53,7 +53,7 @@ namespace OxxCommerceStarterKit.Web.Api
             EPiServer.BaseLibrary.Context.Current["EPiServer:ContentLanguage"] = new CultureInfo(Language);
         }
 
-        public static Language GetLanguage(string languageCode)
+        public static Language GetFindLanguage(string languageCode)
         {
             switch (languageCode)
             {
