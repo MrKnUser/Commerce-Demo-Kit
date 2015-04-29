@@ -6,7 +6,7 @@
             <h3>{{facetType.Definition.FieldName}}</h3>
             <div ng-repeat="facet in facetType.Values">
                 <label class="checkbox" for="{{facet.Name}}">
-                    <input type="checkbox" name="{{facet.Name}}" id="{{facet.Name}}" ng-click="updateFacetsSelections($event, facet.Name)" ng-model="facet.Selected" />
+                    <input type="checkbox" name="{{facet.Name}}" id="{{facet.Name}}" ng-click="updateFacetsSelections($event, facet.Name,facetType.Definition.Name)" ng-model="facet.Selected" />
                     {{facet.Name}} ({{facet.Count}})
                 </label>
             </div>

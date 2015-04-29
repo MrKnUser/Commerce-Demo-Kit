@@ -17,6 +17,8 @@
         $scope.selectedGrapeFacets = [];
         $scope.selectedCountryFacets = [];
 
+        $scope.selectedFacets = {};
+
         $scope.page = 1;
         $scope.articlePageNumber = 1;
         $scope.showMore = false;
@@ -127,6 +129,7 @@
 			      $scope.productGrapeFacets = data.productGrapeFacets;
 			      $scope.productCountryFacets = data.productCountryFacets;
 			      $scope.facets = data.facets;
+			      $scope.selectedFacets = angular.copy($scope.facets);
 			  },
 			  function (statusCode) {
 				  $scope.hideLoader();
@@ -157,11 +160,11 @@
             $scope.loadProductData();
         }
 
-        function setProductdata() { 
+        function setProductdata() {
             $scope.productData = {
                 SearchTerm: $scope.queryTerm,
                 SelectedProductCategories: $scope.selectedProductCategories,
-                Facets: $scope.facets,
+                Facets: $scope.selectedFacets,
                 //SelectedMainCategoryFacets: $scope.selectedMainCategoryFacets,
                 //SelectedColorFacets: $scope.selectedColorFacets,
                 //SelectedSizeFacets: $scope.selectedSizeFacets,
@@ -305,13 +308,22 @@
                 setNewProductDataAndUpdate();
             }
         };
-        $scope.updateFacetsSelections = function ($event, id) {
+        $scope.updateFacetsSelections = function ($event, facet,facetType) {
+            var checkbox = $event.target;
+            angular.forEach($scope.selectedFacets, function (facetDef, index) {
+                if (facetDef.Definition.Name === facetType) {
+                    angular.forEach(facetDef.Values, function(value, i) {
+                        console.log(value);
+                        if (value.Name === facet) {
+                            value.Selected = checkbox.checked;
+                        }
+
+                    });
+                }
+            });
             setNewProductDataAndUpdate();
             
-            //var checkbox = $event.target;
-            //var action = (checkbox.checked ? 'add' : 'remove');
-            //updateSelected(action, id, $scope.selectedProductCategories);
-            // $scope.categoriesSelectedAll = $scope.selectedProductCategories > 0;
+           
         };
 
         $scope.updateProductSelection = function ($event, id) {

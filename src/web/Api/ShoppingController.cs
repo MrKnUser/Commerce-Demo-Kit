@@ -222,7 +222,7 @@ namespace OxxCommerceStarterKit.Web.Api
                         TermsFacet termsFacet = facet as TermsFacet;
                         if(termsFacet != null)
                         {
-                            valuesForFacet.Values = new List<FacetValue>();
+                          
                             foreach (TermCount termCount in termsFacet.Terms)
                             {
                                 valuesForFacet.Values.Add(new FacetValue()
@@ -579,10 +579,10 @@ namespace OxxCommerceStarterKit.Web.Api
 
     public class FacetValues
     {
-        //public FacetValues()
-        //{
-        //    Values = new List<FacetValue>();
-        //}
+        public FacetValues()
+        {
+            Values = new List<FacetValue>();
+        }
         //public FacetDefinition Definition { get; set; }
         public Test Definition { get; set; }
         public List<FacetValue> Values { get; set; }
