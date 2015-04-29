@@ -114,6 +114,8 @@ namespace OxxCommerceStarterKit.Web.Api
 
                 // execute search
                 query = query.Skip((productSearchData.Page - 1) * productSearchData.PageSize)
+                    .TermsFacetFor("Region", 50)
+                    .TermsFacetFor("Country", 50)
                     .Take(productSearchData.PageSize);
                 var searchResult = query.StaticallyCacheFor(TimeSpan.FromMinutes(1)).GetResult();
                 //Done with search query
@@ -141,6 +143,8 @@ namespace OxxCommerceStarterKit.Web.Api
                 var productFacetsResult = productFacetQuery
                     .TermsFacetFor(x => x.ParentCategoryName)
                     .TermsFacetFor(x => x.MainCategoryName)
+                    .TermsFacetFor("Region", 50)
+                    .TermsFacetFor("Country", 50)
                     .Take(0)
                     .GetResult();
 
@@ -211,7 +215,7 @@ namespace OxxCommerceStarterKit.Web.Api
                 List<FacetValues> facetValues = new List<FacetValues>();
                 foreach (FacetDefinition definition in facetRegistry.FacetDefinitions)
                 {
-                    var facet = facetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
+                    var facet = searchResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
                     if (facet != null)
                     {
                         var valuesForFacet = new FacetValues()
@@ -625,6 +629,7 @@ namespace OxxCommerceStarterKit.Web.Api
             {
                 x.Field = fullFieldName;
                 x.Size = size;
+                x.AllTerms = true;
             });
         }
 
