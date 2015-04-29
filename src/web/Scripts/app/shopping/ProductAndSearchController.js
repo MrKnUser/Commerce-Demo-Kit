@@ -18,6 +18,7 @@
         $scope.selectedCountryFacets = [];
 
         $scope.selectedFacets = {};
+        $scope.CurrentSelectedFacetType = "";
 
         $scope.page = 1;
         $scope.articlePageNumber = 1;
@@ -166,6 +167,7 @@
                 SearchTerm: $scope.queryTerm,
                 SelectedProductCategories: $scope.selectedProductCategories,
                 Facets: $scope.selectedFacets,
+                SelectedFacetName: $scope.CurrentSelectedFacetType
                 //SelectedMainCategoryFacets: $scope.selectedMainCategoryFacets,
                 //SelectedColorFacets: $scope.selectedColorFacets,
                 //SelectedSizeFacets: $scope.selectedSizeFacets,
@@ -314,10 +316,9 @@
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
                     angular.forEach(facetDef.Values, function(value, i) {
-                      
                         if (value.Name === facet) {
                             value.Selected = checkbox.checked;
-                            
+                            $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
                         }
 
                     });
