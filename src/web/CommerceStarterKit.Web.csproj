@@ -605,6 +605,11 @@
     <Content Include="Resources\LanguageFiles\Review.xml" />
     <Content Include="Resources\LanguageFiles\_ReadMe.txt" />
     <Content Include="robots.txt" />
+    <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-resource.js" />
+    <Content Include="Scripts\angular-resource.min.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\app\Search\AutoCompleteContoller.js" />
     <Content Include="Scripts\app\shopping\HeaderCartController.js" />
     <Content Include="Scripts\app\shopping\TrackingService.js" />
@@ -655,6 +660,8 @@
       <SubType>Designer</SubType>
     </Content>
     <None Include="Properties\PublishProfiles\Temp.pubxml" />
+    <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Scripts\angular-resource.min.js.map" />
     <None Include="Scripts\libraries\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\libraries\angular-mocks.js" />
     <Content Include="Scripts\libraries\bootstrap-lightbox.js" />

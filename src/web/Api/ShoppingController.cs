@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Serialization.Formatters;
 using System.Web.Http;
 using System.Web.UI.WebControls;
 using EPiServer.Enterprise.Transfer;
@@ -26,6 +27,8 @@ using EPiServer.Find.Framework.Statistics;
 using EPiServer.Find.Helpers;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using OxxCommerceStarterKit.Web.Business.FacetRegistry;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 
@@ -40,7 +43,7 @@ namespace OxxCommerceStarterKit.Web.Api
             public int Count { get; set; }
             public bool Selected { get; set; }
             public string Size { get; set; }
-			public string Id { get; set; }
+            public string Id { get; set; }
         }
 
         public class SizeFacetViewModel
@@ -70,9 +73,9 @@ namespace OxxCommerceStarterKit.Web.Api
             public List<string> SelectedMainCategoryFacets { get; set; }
             public List<string> SelectedRegionFacets { get; set; }
             public List<string> SelectedGrapeFacets { get; set; }
-            public List<string> SelectedCountryFacets { get; set; } 
+            public List<string> SelectedCountryFacets { get; set; }
             public string SearchTerm { get; set; }
-            public List<FacetValues> Facets { get; set; } 
+            public List<FacetValues> Facets { get; set; }
 
         }
 
@@ -81,7 +84,7 @@ namespace OxxCommerceStarterKit.Web.Api
         {
             try
             {
-               
+
                 string language = Language;
                 //Starting the find query
                 var query = SearchClient.Instance.Search<FindProduct>(GetLanguage(language));
@@ -110,7 +113,7 @@ namespace OxxCommerceStarterKit.Web.Api
                 }
 
                 // execute search
-                query = query.Skip((productSearchData.Page - 1)*productSearchData.PageSize)
+                query = query.Skip((productSearchData.Page - 1) * productSearchData.PageSize)
                     .Take(productSearchData.PageSize);
                 var searchResult = query.StaticallyCacheFor(TimeSpan.FromMinutes(1)).GetResult();
                 //Done with search query
@@ -182,7 +185,7 @@ namespace OxxCommerceStarterKit.Web.Api
                 //var productColorFacetsResult = facetsResult.TermsFacetFor(x => x.Color).Terms;
                 //var productFitFacetsResult = facetsResult.TermsFacetFor(x => x.Fit).Terms;
                 //var productsizesResult = facetsResult.TermsFacetFor(x => x.SizesList).Terms;
-                
+
                 //var productRegionResult = facetsResult.TermsFacetFor(GetTermFacetForResult("Region")).Terms;
                 ////var productRegionResult = facetsResult.TermsFacetFor(x => x.Region).Terms;
                 //var productGrapeResult = facetsResult.TermsFacetFor(x => x.GrapeMixList).Terms;
@@ -209,20 +212,20 @@ namespace OxxCommerceStarterKit.Web.Api
                 foreach (FacetDefinition definition in facetRegistry.FacetDefinitions)
                 {
                     var facet = facetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
-                    if(facet != null)
+                    if (facet != null)
                     {
                         Test t = new Test();
                         t.FieldName = definition.FieldName;
                         t.Name = definition.Name;
                         var valuesForFacet = new FacetValues()
                         {
-                            Definition = t
+                            Definition = definition
                         };
 
                         TermsFacet termsFacet = facet as TermsFacet;
-                        if(termsFacet != null)
+                        if (termsFacet != null)
                         {
-                          
+
                             foreach (TermCount termCount in termsFacet.Terms)
                             {
                                 valuesForFacet.Values.Add(new FacetValue()
@@ -231,7 +234,7 @@ namespace OxxCommerceStarterKit.Web.Api
                                     Name = termCount.Term,
                                     // TODO Determine "Selected" based on input to
                                     // this method (currently in productSearchData.ProductData)
-                                    Selected = GetIsSelected(definition.FieldName,termCount.Term,productSearchData.ProductData.Facets)
+                                    Selected = GetIsSelected(definition.FieldName, termCount.Term, productSearchData.ProductData.Facets)
                                 });
                             }
                         }
@@ -254,7 +257,16 @@ namespace OxxCommerceStarterKit.Web.Api
                     facets = facetValues,
                     totalResult = totalMatching
                 };
-                return result;
+
+                var serializer = new JsonSerializer();
+                serializer.TypeNameHandling = TypeNameHandling.Auto;
+            
+                return JObject.FromObject(result, serializer);
+
+                return JsonConvert.SerializeObject(result, new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                });
             }
             catch (OperationCanceledException operationCanceledException)
             {
@@ -297,71 +309,71 @@ namespace OxxCommerceStarterKit.Web.Api
         }
 
         private static ITypeSearch<FindProduct> ApplyCommonFilters(ProductSearchData productSearchData, ITypeSearch<FindProduct> query, string language)
-		{
-		    return query.Filter(x => x.Language.Match(language))
-		        .Filter(x => x.ShowInList.Match(true));
-		}
+        {
+            return query.Filter(x => x.Language.Match(language))
+                .Filter(x => x.ShowInList.Match(true));
+        }
 
-		private static ITypeSearch<FindProduct> ApplyTermFilter(ProductSearchData productSearchData, ITypeSearch<FindProduct> query, bool trackSearchTerm = false)
-		{
-			if (!string.IsNullOrEmpty(productSearchData.ProductData.SearchTerm))
-			{
-				query = query.For(productSearchData.ProductData.SearchTerm)
-					.InFields(x => x.Name, x => x.MainCategoryName, x => string.Join(",", x.Color),
-						x => x.DisplayName, x => x.Fit, x => x.Description.ToString(), x => string.Join(",", x.ParentCategoryName))
-						.InAllField();
+        private static ITypeSearch<FindProduct> ApplyTermFilter(ProductSearchData productSearchData, ITypeSearch<FindProduct> query, bool trackSearchTerm = false)
+        {
+            if (!string.IsNullOrEmpty(productSearchData.ProductData.SearchTerm))
+            {
+                query = query.For(productSearchData.ProductData.SearchTerm)
+                    .InFields(x => x.Name, x => x.MainCategoryName, x => string.Join(",", x.Color),
+                        x => x.DisplayName, x => x.Fit, x => x.Description.ToString(), x => string.Join(",", x.ParentCategoryName))
+                        .InAllField();
 
-				if (trackSearchTerm)
-				{
-					query = query.Track();
-				}
-			}
-			return query;
-		}
+                if (trackSearchTerm)
+                {
+                    query = query.Track();
+                }
+            }
+            return query;
+        }
 
         private List<SizeFacetViewModel> GetAllDifferentSizeFacets(IEnumerable<TermCount> facetResult, List<string> selectedSizes)
         {
             List<SizeFacetViewModel> allDifferentSizeFacets = new List<SizeFacetViewModel>();
 
-			foreach (var sizeFacet in facetResult.OrderBy(x => SortSizes(x.Term)))
+            foreach (var sizeFacet in facetResult.OrderBy(x => SortSizes(x.Term)))
             {
-				string term = sizeFacet.Term.ToLower();
-				string[] typeAndSize = term.Split('/');
+                string term = sizeFacet.Term.ToLower();
+                string[] typeAndSize = term.Split('/');
                 string sizeType = typeAndSize[0];
                 string size = typeAndSize[1];
-				if (typeAndSize.Length == 3)
-				{
-					sizeType = typeAndSize[1];
-					size = typeAndSize[2];
-				}
-				
+                if (typeAndSize.Length == 3)
+                {
+                    sizeType = typeAndSize[1];
+                    size = typeAndSize[2];
+                }
+
                 bool newSizeTypeList = true;
-				SizeFacetViewModel sizeList = allDifferentSizeFacets.FirstOrDefault(x => x.SizeUnit == sizeType);
-				if (sizeList == null)
-				{
-					sizeList = new SizeFacetViewModel();
-					sizeList.SizeUnit = sizeType;
-					sizeList.SizeFacets = new List<FacetViewModel>();
-				}
-				else
-				{
-					newSizeTypeList = false;
-				}
-				// check for duplicate entry and join them
-				var facetViewModel = sizeList.SizeFacets.FirstOrDefault(x => x.Name == term);
-				if (facetViewModel == null)
-				{
-					facetViewModel = new FacetViewModel();
-					facetViewModel.Name = term;
-					facetViewModel.Size = size;
-					facetViewModel.Count = sizeFacet.Count;
-					sizeList.SizeFacets.Add(facetViewModel);
-				}
-				else
-				{
-					facetViewModel.Count += sizeFacet.Count;
-				}
-				facetViewModel.Selected = selectedSizes != null && selectedSizes.Contains(term);
+                SizeFacetViewModel sizeList = allDifferentSizeFacets.FirstOrDefault(x => x.SizeUnit == sizeType);
+                if (sizeList == null)
+                {
+                    sizeList = new SizeFacetViewModel();
+                    sizeList.SizeUnit = sizeType;
+                    sizeList.SizeFacets = new List<FacetViewModel>();
+                }
+                else
+                {
+                    newSizeTypeList = false;
+                }
+                // check for duplicate entry and join them
+                var facetViewModel = sizeList.SizeFacets.FirstOrDefault(x => x.Name == term);
+                if (facetViewModel == null)
+                {
+                    facetViewModel = new FacetViewModel();
+                    facetViewModel.Name = term;
+                    facetViewModel.Size = size;
+                    facetViewModel.Count = sizeFacet.Count;
+                    sizeList.SizeFacets.Add(facetViewModel);
+                }
+                else
+                {
+                    facetViewModel.Count += sizeFacet.Count;
+                }
+                facetViewModel.Selected = selectedSizes != null && selectedSizes.Contains(term);
 
                 if (sizeList.SizeFacets.Any(x => x.Selected.Equals(true)))
                 {
@@ -375,115 +387,116 @@ namespace OxxCommerceStarterKit.Web.Api
             return allDifferentSizeFacets;
         }
 
-		/// <summary>
-		/// Add a number in front of letter sizes to specify ordering
-		/// </summary>
-		/// <param name="term">Examples: unisex/xxl , 85-105, 85, inch/82-82, cm ny/20</param>
-		/// <returns></returns>
-		public static int SortSizes(string term) {
-			if (term == null)
-			{
-				return 10000000;
-			}
-			term = term.ToLower();
-			string sizeType = "", sizeUnit = "", size = "";
-			var terms = term.Split('/');
-			if (terms.Length == 2)
-			{
-				sizeUnit = terms[0];
-				size = terms[1];
-			}
-			else if(terms.Length == 3)
-			{
-				sizeType = terms[0];
-				sizeUnit = terms[1];
-				size = terms[2];
-			}
-			else
-			{
-				return 10000000;
-			}
+        /// <summary>
+        /// Add a number in front of letter sizes to specify ordering
+        /// </summary>
+        /// <param name="term">Examples: unisex/xxl , 85-105, 85, inch/82-82, cm ny/20</param>
+        /// <returns></returns>
+        public static int SortSizes(string term)
+        {
+            if (term == null)
+            {
+                return 10000000;
+            }
+            term = term.ToLower();
+            string sizeType = "", sizeUnit = "", size = "";
+            var terms = term.Split('/');
+            if (terms.Length == 2)
+            {
+                sizeUnit = terms[0];
+                size = terms[1];
+            }
+            else if (terms.Length == 3)
+            {
+                sizeType = terms[0];
+                sizeUnit = terms[1];
+                size = terms[2];
+            }
+            else
+            {
+                return 10000000;
+            }
 
-			if (sizeType.StartsWith("m") &&
-				sizeUnit == "standard") // herre jakke
-			{
-				// group sizes by ranges
-				int sizeNumber = ParseInt(size, 1000000);
-				if (sizeNumber == 1000000)
-				{
-					return sizeNumber;
-				}
-				if (sizeNumber >= 46 && sizeNumber <= 64)
-				{
-					return sizeNumber + 1000;
-				}
-				else if (sizeNumber >= 23 && sizeNumber <= 31)
-				{
-					return sizeNumber + 10000;
-				}
-				else if (sizeNumber >= 146 && sizeNumber <= 160)
-				{
-					return sizeNumber + 100000;
-				}
-				return sizeNumber + 1000000;
-			}
+            if (sizeType.StartsWith("m") &&
+                sizeUnit == "standard") // herre jakke
+            {
+                // group sizes by ranges
+                int sizeNumber = ParseInt(size, 1000000);
+                if (sizeNumber == 1000000)
+                {
+                    return sizeNumber;
+                }
+                if (sizeNumber >= 46 && sizeNumber <= 64)
+                {
+                    return sizeNumber + 1000;
+                }
+                else if (sizeNumber >= 23 && sizeNumber <= 31)
+                {
+                    return sizeNumber + 10000;
+                }
+                else if (sizeNumber >= 146 && sizeNumber <= 160)
+                {
+                    return sizeNumber + 100000;
+                }
+                return sizeNumber + 1000000;
+            }
 
-			if (sizeUnit == "unisex")
-			{
-				var sort = LetterSizeSortIndex.blokk;
-				Enum.TryParse<LetterSizeSortIndex>(size, true, out sort);
-				return ((int)sort);
-			}
+            if (sizeUnit == "unisex")
+            {
+                var sort = LetterSizeSortIndex.blokk;
+                Enum.TryParse<LetterSizeSortIndex>(size, true, out sort);
+                return ((int)sort);
+            }
 
 
-			// check for number
-			if (size.Contains("-"))
-			{
-				return GetSortScoreForTwoSizes(size);
-			}
-			else
-			{
-				return ParseInt(size, 100000);
-			}
-		}
-		public static int ParseInt(string input, int defaultValue = 0)
-		{
-			int val = defaultValue;
-			if (Int32.TryParse(input, out val))
-			{
-				return val;
-			}
-			else
-			{
-				return defaultValue;
-			}
-		}
-		private static int GetSortScoreForTwoSizes(string term)
-		{
-			string sizePart = "";
-			int sizeNumber = 0;
-			sizePart = term.Split('-')[0];
-			sizeNumber = ParseInt(sizePart, 100000) * 100;
-			sizePart = term.Split('-')[1];
-			sizeNumber += ParseInt(sizePart);
-			return sizeNumber;
-		}
-		private enum LetterSizeSortIndex
-		{
-			xxxs = 10,
-			xxs = 11,
-			xs = 12,
-			s = 13,
-			m = 14,
-			l = 15,
-			xl = 16,
-			xxl = 17,
-			xxxl = 18,
-			xxxxl = 19,
-			xxxxxl = 20,
-			xxxxxxl = 21,
-			blokk = 50
-		}
+            // check for number
+            if (size.Contains("-"))
+            {
+                return GetSortScoreForTwoSizes(size);
+            }
+            else
+            {
+                return ParseInt(size, 100000);
+            }
+        }
+        public static int ParseInt(string input, int defaultValue = 0)
+        {
+            int val = defaultValue;
+            if (Int32.TryParse(input, out val))
+            {
+                return val;
+            }
+            else
+            {
+                return defaultValue;
+            }
+        }
+        private static int GetSortScoreForTwoSizes(string term)
+        {
+            string sizePart = "";
+            int sizeNumber = 0;
+            sizePart = term.Split('-')[0];
+            sizeNumber = ParseInt(sizePart, 100000) * 100;
+            sizePart = term.Split('-')[1];
+            sizeNumber += ParseInt(sizePart);
+            return sizeNumber;
+        }
+        private enum LetterSizeSortIndex
+        {
+            xxxs = 10,
+            xxs = 11,
+            xs = 12,
+            s = 13,
+            m = 14,
+            l = 15,
+            xl = 16,
+            xxl = 17,
+            xxxl = 18,
+            xxxxl = 19,
+            xxxxxl = 20,
+            xxxxxxl = 21,
+            blokk = 50
+        }
 
         private List<FacetViewModel> CreateFacetViewModels(IEnumerable<TermCount> facetResult, List<string> selectedFacets)
         {
@@ -497,21 +510,22 @@ namespace OxxCommerceStarterKit.Web.Api
                             }).ToList();
         }
 
-		private List<FacetViewModel> CreateCategoryFacetViewModels(IEnumerable<TermCount> facetResult, List<string> selectedFacets)
-		{
-			return facetResult.Select(
-						term =>{
-							string id = term.Term.Contains("|") ? term.Term.Split('|')[0] : term.Term;
-							return new FacetViewModel
-								{
-									Count = term.Count,
-									Name = term.Term.Contains("|") ? term.Term.Split('|')[1] : term.Term,
-									Id = id,
-									Selected = selectedFacets != null && selectedFacets.Contains(id)
-								};
-						}).ToList();
-		}
-		
+        private List<FacetViewModel> CreateCategoryFacetViewModels(IEnumerable<TermCount> facetResult, List<string> selectedFacets)
+        {
+            return facetResult.Select(
+                        term =>
+                        {
+                            string id = term.Term.Contains("|") ? term.Term.Split('|')[0] : term.Term;
+                            return new FacetViewModel
+                                {
+                                    Count = term.Count,
+                                    Name = term.Term.Contains("|") ? term.Term.Split('|')[1] : term.Term,
+                                    Id = id,
+                                    Selected = selectedFacets != null && selectedFacets.Contains(id)
+                                };
+                        }).ToList();
+        }
+
 
         private FilterBuilder<FindProduct> GetCategoryFilter(List<int> categories)
         {
@@ -559,7 +573,7 @@ namespace OxxCommerceStarterKit.Web.Api
             {
                 filters.Add(new TermFilter(fullFieldName, s));
             }
-                
+
             OrFilter orFilter = new OrFilter(filters);
             FilterBuilder<FindProduct> filterBuilder = new FilterBuilder<FindProduct>(client, orFilter);
             return filterBuilder;
@@ -583,16 +597,11 @@ namespace OxxCommerceStarterKit.Web.Api
         {
             Values = new List<FacetValue>();
         }
-        //public FacetDefinition Definition { get; set; }
-        public Test Definition { get; set; }
+
+        public FacetDefinition Definition { get; set; }
         public List<FacetValue> Values { get; set; }
     }
 
-    public class Test
-    {
-        public string FieldName { get; set; }
-        public string Name { get; set; }
-    }
 
     public class FacetValue
     {

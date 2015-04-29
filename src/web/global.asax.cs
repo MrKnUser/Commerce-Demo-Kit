@@ -19,6 +19,7 @@ using System.Web.Routing;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
+using Newtonsoft.Json;
 
 
 namespace OxxCommerceStarterKit.Web
@@ -72,6 +73,9 @@ namespace OxxCommerceStarterKit.Web
 			//FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
 			//RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
+            JsonSerializerSettings serializerSettings = GlobalConfiguration.Configuration
+   .Formatters.JsonFormatter.SerializerSettings;
+            serializerSettings.TypeNameHandling = TypeNameHandling.Auto;
 		}
 
 

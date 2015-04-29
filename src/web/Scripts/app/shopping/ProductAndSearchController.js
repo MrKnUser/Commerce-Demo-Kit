@@ -130,6 +130,7 @@
 			      $scope.productCountryFacets = data.productCountryFacets;
 			      $scope.facets = data.facets;
 			      $scope.selectedFacets = angular.copy($scope.facets);
+			      console.log($scope.selectedFacets);
 			  },
 			  function (statusCode) {
 				  $scope.hideLoader();
@@ -313,9 +314,10 @@
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
                     angular.forEach(facetDef.Values, function(value, i) {
-                        console.log(value);
+                      
                         if (value.Name === facet) {
                             value.Selected = checkbox.checked;
+                            
                         }
 
                     });

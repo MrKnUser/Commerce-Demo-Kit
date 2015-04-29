@@ -76,8 +76,8 @@ namespace OxxCommerceStarterKit.Web
                 "~/Scripts/app/", "*.js",true
                 ));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-               "~/Scripts/libraries/angular.js",
-               "~/Scripts/libraries/angular-resource.js",
+               "~/Scripts/angular.js",
+               "~/Scripts/angular-resource.js",
                "~/Scripts/libraries/ui-bootstrap-tpls-0.10.0.js"
                ));
         }
