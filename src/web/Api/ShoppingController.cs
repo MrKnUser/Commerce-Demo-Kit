@@ -214,9 +214,6 @@ namespace OxxCommerceStarterKit.Web.Api
                     var facet = facetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
                     if (facet != null)
                     {
-                        Test t = new Test();
-                        t.FieldName = definition.FieldName;
-                        t.Name = definition.Name;
                         var valuesForFacet = new FacetValues()
                         {
                             Definition = definition
