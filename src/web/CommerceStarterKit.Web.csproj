@@ -1302,7 +1302,7 @@
     <Compile Include="Api\DeliveryLocationsController.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
     <Compile Include="Business\FacetRegistry\FacetListDefinition.cs" />
-    <Compile Include="Business\FacetRegistry\FacetRangeDefinition.cs" />
+    <Compile Include="Business\FacetRegistry\FacetNumericRangeDefinition.cs" />
     <Compile Include="Api\StreetAddress.cs" />
     <Compile Include="Api\TagController.cs" />
     <Compile Include="Api\CartController.cs" />
