@@ -311,12 +311,10 @@
             var selectedRange = $event.target;
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
-                    console.log("hit");
-                    angular.forEach(facetDef.Range, function (facetRange, i) {
+                    console.log("hit", facetDef);
+                    angular.forEach(facetDef.Definition.Range, function (facetRange, i) {
                         if (facetRange.Id === facetId) {
-                            console.log(facetRange.Id, facetId);
-                            facetRange.selected = facetRange.selected = !facetRange.selected;
-                            console.log("Range selected",facetRange.selected);
+                            facetRange.Selected = facetRange.selected = !facetRange.selected;
                         }
                     });
                 }
