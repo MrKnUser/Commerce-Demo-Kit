@@ -12,10 +12,11 @@
                 </label>
             </div>
             @*Numeric Range facets*@
-            <div ng-switch-when="FacetNumericRangeDefinition" ng-repeat="facet in facetType.Definition.RangeResult track by $index">
+            <div ng-show="facet.Count > 0" ng-switch-when="FacetNumericRangeDefinition" ng-repeat="facet in facetType.Definition.RangeResult track by $index">
                 <div>
                     <div class="price-btns">
-                        <button class="btn btn-success btn-sm" ng-click="updateRangeFacetsSelections($event, facet.Id, facetType.Definition.Name)"><span ng-bind="facet.From" ng-show="facet.From !=null"></span><span>-</span><span ng-bind="facet.To" ng-show="facet.To !=null"></span></button><br />
+                        <button class="btn btn-sm" ng-class="facet.Selected ? 'btn-success' : 'btn-default'" ng-click="updateRangeFacetsSelections($event, facet.Id, facetType.Definition.Name)"><span ng-bind="facet.From" ng-show="facet.From !=null"></span><span>-</span><span ng-bind="facet.To" ng-show="facet.To !=null"></span></button>
+                        ({{facet.Count}})
                     </div>
                 </div>
             </div>
