@@ -11,14 +11,19 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
         public FacetStringListDefinition()
         {
             TermsList = new List<MultiSelectTermCount>();
+            SelectedTerms = new List<string>();
         }
 
         public List<MultiSelectTermCount> TermsList { get; set; }
+        public List<string> SelectedTerms { get; set; }
 
         public override ITypeSearch<T> Filter<T>(ITypeSearch<T> query)
         {
-            var selectedFacetValues = TermsList.Where(x => x.Selected.Equals(true)).Select(x => x.Term).ToList();
-            return query.AddStringListFilter(selectedFacetValues, FieldName);
+            if (SelectedTerms.Any())
+            {
+                return query.AddStringListFilter(SelectedTerms, FieldName);
+            }
+            return query;
         }
 
         public override ITypeSearch<T> Facet<T>(ITypeSearch<T> query)
@@ -28,6 +33,8 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
         public override void PopulateFacet(Facet facet)
         {
+            TermsList.Clear();
+
             TermsFacet termsFacet = facet as TermsFacet;
             if (termsFacet != null)
             {
@@ -37,9 +44,10 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                     {
                         Count = termCount.Count,
                         Term = termCount.Term,
-                        Selected = false
+                        Selected = SelectedTerms.Contains(termCount.Term)
                     });
                 }
+
             }
         }
     }

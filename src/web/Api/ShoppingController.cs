@@ -201,9 +201,11 @@ namespace OxxCommerceStarterKit.Web.Api
         private List<FacetValues> GetFacetsAndValues(ProductSearchData productSearchData, FacetRegistry facetRegistry,
             SearchResults<FindProduct> productFacetsResult, SearchResults<FindProduct> productSelectedFacetsResult)
         {
-            List<FacetValues> facetsAndValues = new List<FacetValues>();
-            foreach (FacetDefinition definition in facetRegistry.FacetDefinitions)
+            // List<FacetValues> facetsAndValues = new List<FacetValues>();
+            foreach (var facetValues in productSearchData.ProductData.Facets)
             {
+                FacetDefinition definition = facetValues.Definition;
+
                 Facet facet = productFacetsResult.Facets.FirstOrDefault(f => f.Name.Equals(definition.FieldName));
 
                 if (productSelectedFacetsResult != null)
@@ -218,48 +220,12 @@ namespace OxxCommerceStarterKit.Web.Api
 
                 if (facet != null)
                 {
-                    var valuesForFacet = new FacetValues()
-                    {
-                        Definition = definition
-                    };
-
                     // The definition must also keep track
                     // of what facets are selected 
-                    valuesForFacet.Definition.PopulateFacet(facet);
-
-                    // TODO: Remove when we have a generic way to track selected facets
-                    TermsFacet termsFacet = facet as TermsFacet;
-                    if (termsFacet != null)
-                    {
-
-                        foreach (TermCount termCount in termsFacet.Terms)
-                        {
-                            valuesForFacet.Values.Add(new FacetValue()
-                            {
-                                Count = termCount.Count,
-                                Name = termCount.Term,
-                                Selected =
-                                    GetIsSelected(definition.FieldName, termCount.Term,
-                                        productSearchData.ProductData.Facets)
-                            });
-                        }
-                    }
-                    else
-                    {
-                        // Use the incoming facet to mark selected values
-                        FacetValues incomingFacet = GetFacetFromList(productSearchData.ProductData.Facets, definition.Name);
-                        // Todo - this won't work, just a workaround as we flush out the design
-                        if (incomingFacet != null)
-                        {
-                            valuesForFacet.Values = incomingFacet.Values;
-                        }
-
-                    }
-
-                    facetsAndValues.Add(valuesForFacet);
+                    definition.PopulateFacet(facet);
                 }
             }
-            return facetsAndValues;
+            return productSearchData.ProductData.Facets;
         }
 
 
@@ -465,14 +431,7 @@ namespace OxxCommerceStarterKit.Web.Api
             // Add filters from the passed in fasets
             foreach (FacetValues fv in productSearchData.ProductData.Facets)
             {
-                // Get all facet values for a facet definition which has been selected
-                var selectedFacetValues = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
-                if (selectedFacetValues.Any())
-                {
-                    // and then add the values as a filter
-                    // productsQuery = fv.Definition.Filter(productsQuery);
-                    productsQuery = productsQuery.AddStringListFilter(selectedFacetValues, fv.Definition.FieldName);
-                }
+                productsQuery = fv.Definition.Filter(productsQuery);
             }
 
             // execute product search
@@ -536,24 +495,6 @@ namespace OxxCommerceStarterKit.Web.Api
                 .Take(0)
                 .GetResult();
             return productFacetsResult;
-        }
-
-        private bool GetIsSelected(string fieldName, string facet, List<FacetValues> facets)
-        {
-            if (facets == null)
-                return false;
-            foreach (var facetValue in facets)
-            {
-                if (facetValue.Definition.FieldName.Equals(fieldName))
-                {
-                    foreach (var value in facetValue.Values)
-                    {
-                        if (value.Name.Equals(facet))
-                            return value.Selected;
-                    }
-                }
-            }
-            return false;
         }
 
         private FacetValues GetFacetFromList(List<FacetValues> facets, string facetName)
@@ -845,13 +786,7 @@ namespace OxxCommerceStarterKit.Web.Api
 
     public class FacetValues
     {
-        public FacetValues()
-        {
-            Values = new List<FacetValue>();
-        }
-
         public FacetDefinition Definition { get; set; }
-        public List<FacetValue> Values { get; set; }
     }
 
 
