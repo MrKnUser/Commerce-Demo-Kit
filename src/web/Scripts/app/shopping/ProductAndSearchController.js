@@ -314,7 +314,7 @@
                     console.log("hit", facetDef);
                     angular.forEach(facetDef.Definition.Range, function (facetRange, i) {
                         if (facetRange.Id === facetId) {
-                            facetRange.Selected = facetRange.selected = !facetRange.selected;
+                            facetRange.Selected = facetRange.Selected = !facetRange.Selected;
                         }
                     });
                 }
