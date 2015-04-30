@@ -211,15 +211,14 @@ namespace OxxCommerceStarterKit.Web.Api
             productFacetQuery = ApplyCommonFilters(productFacetQuery, language);
 
 
-            // categories
-            //if (productSearchData.ProductData.SelectedMainCategoryFacets != null &&
-            //    productSearchData.ProductData.SelectedMainCategoryFacets.Any())
-            //{
-            //    productFacetQuery =
-            //        productFacetQuery.Filter(
-            //            x => GetMainCategoryFilter(productSearchData.ProductData.SelectedMainCategoryFacets));
-            //}
 
+            // selected categories
+            if (productSearchData.ProductData.SelectedProductCategories != null &&
+                productSearchData.ProductData.SelectedProductCategories.Any())
+            {
+                productFacetQuery =
+                    productFacetQuery.Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories));
+            }
 
             productFacetQuery = productFacetQuery
                 .TermsFacetFor(x => x.ParentCategoryName)
