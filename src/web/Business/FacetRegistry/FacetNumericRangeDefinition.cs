@@ -13,6 +13,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
         {
             Range = new List<SelectableNumericRange>();
             RangeResult = new List<NumericRangeResult>();
+            RenderType = this.GetType().Name;
         }
 
         public Type BackingType = typeof(double);
@@ -43,10 +44,5 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                 RangeResult = numericRangeFacet.Ranges.ToList();
             }
         }
-    }
-
-    public class SelectableNumericRange : NumericRange, ISelectable
-    {
-        public bool Selected { get; set; }
     }
 }

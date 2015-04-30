@@ -12,6 +12,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
         {
             TermsList = new List<MultiSelectTermCount>();
             SelectedTerms = new List<string>();
+            RenderType = this.GetType().Name;
         }
 
         public List<MultiSelectTermCount> TermsList { get; set; }
@@ -50,10 +51,5 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
             }
         }
-    }
-
-    public class MultiSelectTermCount : TermCount, ISelectable
-    {
-        public bool Selected { get; set; }
     }
 }
