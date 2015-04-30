@@ -1,9 +1,27 @@
 using EPiServer.Find.Api.Facets;
+using Newtonsoft.Json;
 
 namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 {
-    public class SelectableNumericRange : NumericRange, ISelectable
+    /// <summary>
+    /// A selectable numeric range
+    /// </summary>
+    /// <remarks>
+    /// Note! We cannot inherit from NumericRange due to Json deserializing issues
+    /// </remarks>
+    public class SelectableNumericRange : ISelectable
     {
+        public SelectableNumericRange()
+        {
+            
+        }
+
+        public SelectableNumericRange(NumericRange numericRange)
+        {
+            From = numericRange.From;
+            To = numericRange.To;
+        }
+
         private string _id;
 
         public string Id
@@ -22,5 +40,17 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
         }
 
         public bool Selected { get; set; }
+
+        [JsonProperty("from", NullValueHandling = NullValueHandling.Ignore)]
+        public double? From { get; set; }
+
+        [JsonProperty("to", NullValueHandling = NullValueHandling.Ignore)]
+        public double? To { get; set; }
+
+        public NumericRange ToNumericRange()
+        {
+            return new NumericRange(From, To);
+        }
+
     }
 }

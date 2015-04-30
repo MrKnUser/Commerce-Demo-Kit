@@ -22,6 +22,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
         public override ITypeSearch<T> Filter<T>(ITypeSearch<T> query)
         {
+            
             return query;
         }
 
@@ -31,7 +32,13 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
             var range = Range.Where(x => x != null).ToList();
             if(range.Any())
             {
-                return query.NumericRangeFacetFor(FieldName, range, BackingType);
+                // Convert to a range that Find can understand
+                List<NumericRange> convertedRangeList = new List<NumericRange>();
+                foreach (SelectableNumericRange selectableNumericRange in range)
+                {
+                    convertedRangeList.Add(selectableNumericRange.ToNumericRange());
+                }
+                return query.NumericRangeFacetFor(FieldName, convertedRangeList, BackingType);
             }
             return query;
         }
