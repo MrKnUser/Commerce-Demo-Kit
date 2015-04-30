@@ -7,6 +7,7 @@ using EPiServer.Find.Api.Facets;
 using EPiServer.Find.Api.Querying;
 using EPiServer.Find.Api.Querying.Filters;
 using EPiServer.Find.Framework;
+using OxxCommerceStarterKit.Web.Business.FacetRegistry;
 
 namespace OxxCommerceStarterKit.Web.Api
 {
@@ -94,7 +95,7 @@ namespace OxxCommerceStarterKit.Web.Api
         {
             if (stringFieldValues != null && stringFieldValues.Any())
             {
-                return query.Filter(GetOrFilterForStringList<T>(stringFieldValues, SearchClient.Instance, fieldName));
+                return query.Filter(GetOrFilterForStringList<T>(stringFieldValues, query.Client, fieldName));
             }
             return query;
         }
@@ -109,6 +110,34 @@ namespace OxxCommerceStarterKit.Web.Api
             {
                 filters.Add(new TermFilter(fullFieldName, s));
             }
+
+            OrFilter orFilter = new OrFilter(filters);
+            FilterBuilder<T> filterBuilder = new FilterBuilder<T>(client, orFilter);
+            return filterBuilder;
+        }
+
+        public static ITypeSearch<T> AddFilterForNumericRange<T>(this ITypeSearch<T> query, IEnumerable<SelectableNumericRange> range, string fieldName)
+        {
+            return AddFilterForNumericRange(query, range, fieldName, typeof(double));
+        }
+
+        public static ITypeSearch<T> AddFilterForNumericRange<T>(this ITypeSearch<T> query, IEnumerable<SelectableNumericRange> range, string fieldName, Type type)
+        {
+            return query.Filter(GetOrFilterForNumericRange<T>(query, range, fieldName, type));
+        }
+
+        private static FilterBuilder<T> GetOrFilterForNumericRange<T>(ITypeSearch<T> query, IEnumerable<SelectableNumericRange> range, string fieldName, Type type)
+        {
+            // Appends type convention to field name (like "$$string")
+            IClient client = query.Client;
+            string fullFieldName = client.GetFullFieldName(fieldName, type);
+
+            List<Filter> filters = new List<Filter>();
+            foreach (SelectableNumericRange rangeItem in range)
+            {
+                filters.Add(RangeFilter.Create(fullFieldName, rangeItem.From ?? 0, rangeItem.To ?? double.MaxValue));
+            }
+            
 
             OrFilter orFilter = new OrFilter(filters);
             FilterBuilder<T> filterBuilder = new FilterBuilder<T>(client, orFilter);

@@ -22,6 +22,11 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
         public override ITypeSearch<T> Filter<T>(ITypeSearch<T> query)
         {
+            List<SelectableNumericRange> numericRanges = Range.Where(r => r.Selected == true).ToList();
+            if (numericRanges.Any())
+            {
+                query = query.AddFilterForNumericRange(numericRanges, FieldName, BackingType);
+            }
             
             return query;
         }
