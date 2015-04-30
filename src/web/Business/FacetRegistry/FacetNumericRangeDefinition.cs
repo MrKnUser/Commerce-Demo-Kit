@@ -46,9 +46,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                 // Iterate the defintion, and see if any have been selected
                 foreach (NumericRangeResult result in numericRangeFacet.Ranges)
                 {
-                    SelectableNumericRange selectedRange = Range.FirstOrDefault(r => r.From == result.From && r.To == result.To);
-
-                    RangeResult.Add(new SelectableNumericRangeResult()
+                    SelectableNumericRangeResult rangeResult = new SelectableNumericRangeResult()
                     {
                         Count = result.Count,
                         From = result.From,
@@ -57,9 +55,12 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                         TotalCount = result.TotalCount,
                         Min = result.Min,
                         Max = result.Max,
-                        Mean = result.Mean,
-                        Selected = selectedRange != null
-                    });
+                        Mean = result.Mean
+                    };
+
+                    SelectableNumericRange selectedRange = Range.FirstOrDefault(r => r.Id == rangeResult.Id);
+                    rangeResult.Selected = selectedRange != null;
+                    RangeResult.Add(rangeResult);
                 }
             }
         }
