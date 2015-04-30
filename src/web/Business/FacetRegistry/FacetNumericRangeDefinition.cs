@@ -11,12 +11,12 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
     {
         public FacetNumericRangeDefinition()
         {
-            Range = new List<NumericRange>();
+            Range = new List<SelectableNumericRange>();
             RangeResult = new List<NumericRangeResult>();
         }
 
         public Type BackingType = typeof(double);
-        public List<NumericRange> Range;
+        public List<SelectableNumericRange> Range;
         public List<NumericRangeResult> RangeResult;
 
         public override ITypeSearch<T> Filter<T>(ITypeSearch<T> query)
@@ -43,5 +43,10 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                 RangeResult = numericRangeFacet.Ranges.ToList();
             }
         }
+    }
+
+    public class SelectableNumericRange : NumericRange, ISelectable
+    {
+        public bool Selected { get; set; }
     }
 }

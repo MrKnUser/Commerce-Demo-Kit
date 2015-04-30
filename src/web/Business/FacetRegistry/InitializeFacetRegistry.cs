@@ -31,10 +31,10 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                 BackingType = typeof(int)
 
             };
-            priceRanges.Range.Add(new NumericRange() { To = 100 });
-            priceRanges.Range.Add(new NumericRange() { From = 100, To = 200 });
-            priceRanges.Range.Add(new NumericRange() { From = 200, To = 500 });
-            priceRanges.Range.Add(new NumericRange() { From = 500});
+            priceRanges.Range.Add(new SelectableNumericRange() { To = 100 });
+            priceRanges.Range.Add(new SelectableNumericRange() { From = 100, To = 200 });
+            priceRanges.Range.Add(new SelectableNumericRange() { From = 200, To = 500 });
+            priceRanges.Range.Add(new SelectableNumericRange() { From = 500 });
             registry.FacetDefinitions.Add(priceRanges);
 
             registry.FacetDefinitions.Add(new FacetStringListDefinition()

@@ -256,7 +256,6 @@ namespace OxxCommerceStarterKit.Web.Api
 
                     }
 
-
                     facetsAndValues.Add(valuesForFacet);
                 }
             }
@@ -522,11 +521,12 @@ namespace OxxCommerceStarterKit.Web.Api
                 {
                     foreach (FacetValues fv in facets)
                     {
-                        var selectedFacets = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
-                        if (selectedFacets.Any())
-                        {
-                            productFacetQuery = productFacetQuery.AddStringListFilter(selectedFacets, fv.Definition.FieldName);
-                        }
+                        productFacetQuery = fv.Definition.Filter(productFacetQuery);
+                        //var selectedFacets = fv.Values.Where(x => x.Selected.Equals(true)).Select(x => x.Name).ToList();
+                        //if (selectedFacets.Any())
+                        //{
+                        //    productFacetQuery = productFacetQuery.AddStringListFilter(selectedFacets, fv.Definition.FieldName);
+                        //}
                     }
 
                 }
@@ -875,14 +875,14 @@ namespace OxxCommerceStarterKit.Web.Api
             return expr;
         }
 
-        public static ITypeSearch<TSource> NumericRangeFacetFor<TSource>(this ITypeSearch<TSource> search, string name, List<NumericRange> range, Type backingType)
+        public static ITypeSearch<TSource> NumericRangeFacetFor<TSource>(this ITypeSearch<TSource> search, string name, IEnumerable<NumericRange> range, Type backingType)
         {
             return search.RangeFacetFor(GetTermFacetForResult<TSource>(name),
                 NumericRangfeFacetRequestAction(search.Client, name, range, backingType));
 
         }
 
-        public static ITypeSearch<TSource> NumericRangeFacetFor<TSource>(this ITypeSearch<TSource> search, string name, List<NumericRange> range)
+        public static ITypeSearch<TSource> NumericRangeFacetFor<TSource>(this ITypeSearch<TSource> search, string name, IEnumerable<NumericRange> range)
         {
             return search.RangeFacetFor(GetTermFacetForResult<TSource>(name),
                 NumericRangfeFacetRequestAction(search.Client, name, range, typeof(double)));
@@ -903,7 +903,7 @@ namespace OxxCommerceStarterKit.Web.Api
 
         }
 
-        private static Action<NumericRangeFacetRequest> NumericRangfeFacetRequestAction(IClient searchClient, string fieldName, List<NumericRange> range, Type type)
+        private static Action<NumericRangeFacetRequest> NumericRangfeFacetRequestAction(IClient searchClient, string fieldName, IEnumerable<NumericRange> range, Type type)
         {
             string fullFieldName = GetFullFieldName(searchClient, fieldName, type);
 

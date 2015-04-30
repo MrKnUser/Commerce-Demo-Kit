@@ -1338,6 +1338,7 @@
     <Compile Include="Business\FacetRegistry\FacetRegistry.cs" />
     <Compile Include="Business\FacetRegistry\ConfigureFacetRegistry.cs" />
     <Compile Include="Business\FacetRegistry\InitializeFacetRegistry.cs" />
+    <Compile Include="Business\FacetRegistry\ISelectable.cs" />
     <Compile Include="Business\Initialization\CatalogEventListener.cs" />
     <Compile Include="Business\Initialization\CommerceCachePrimer.cs" />
     <Compile Include="Business\FindCatalogIndexingChangeNotificationProcessor.cs" />
