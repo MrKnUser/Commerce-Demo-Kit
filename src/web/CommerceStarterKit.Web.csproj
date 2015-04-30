@@ -601,6 +601,7 @@
     <Content Include="Resources\LanguageFiles\ContentTypes.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Resources\LanguageFiles\FacetRegsitry.xml" />
     <Content Include="Resources\LanguageFiles\HotSpots.xml" />
     <Content Include="Resources\LanguageFiles\Review.xml" />
     <Content Include="Resources\LanguageFiles\_ReadMe.txt" />

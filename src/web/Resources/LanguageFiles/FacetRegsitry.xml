@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<languages>
+    <language name="English"
+              id="en">
+        <facetregistry>
+            <CountryFacet>Country</CountryFacet>
+            <SalesPriceFilter>Price</SalesPriceFilter>
+            <RegionFacet>Wine Region</RegionFacet>
+            <DescriptiveColorFacet>Named Color</DescriptiveColorFacet>
+            <ColorFacet>Color</ColorFacet>
+            <VintageFacet>Wine Vintage</VintageFacet>
+            <ClosureFacet>Wine Closure</ClosureFacet>
+        </facetregistry>
+    </language>
+    <language name="Norwegian"
+              id="no">
+        <facetregistry>
+            <CountryFacet>Land</CountryFacet>
+            <SalesPriceFilter>Pris</SalesPriceFilter>
+            <RegionFacet>Vinregion</RegionFacet>
+            <DescriptiveColorFacet>Beskrivende farge</DescriptiveColorFacet>
+            <ColorFacet>Farge</ColorFacet>
+            <VintageFacet>Produksjonsår</VintageFacet>
+            <ClosureFacet>Type kork</ClosureFacet>
+        </facetregistry>
+    </language>
+</languages>
+
