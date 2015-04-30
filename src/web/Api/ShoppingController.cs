@@ -98,6 +98,10 @@ namespace OxxCommerceStarterKit.Web.Api
             List<FacetViewModel> allProductCategoryFacets = CreateCategoryFacetViewModels(productCategoryFacetsResult,
                 productSearchData.ProductData.SelectedProductCategories.Select(x => x.ToString()).ToList());
 
+            // Get all facet values based on facet registry
+            var facetsAndValues = GetFacetsAndValues(productFacetsResult, productSearchData.ProductData.Facets);
+      
+
             // If we're doing a filtering on a specific facet, we handle that one
             // in a special way, in order to show the count for all terms for the facet
             SearchResults<FindProduct> productSelectedFacetsResult = null;
@@ -117,12 +121,12 @@ namespace OxxCommerceStarterKit.Web.Api
                     language,
                     selectedFacet,
                     searchTerm, applyFacetFilters: false);
+
+                // Treat the selected faced specially, as it might show more data if it is selected
+                facetsAndValues = GetFacetsAndValues(productSelectedFacetsResult, facetsAndValues);
             }
 
-            // Get all facet values based on facet registry
-            var facetsAndValues = GetFacetsAndValues(productFacetsResult,  productSearchData.ProductData.Facets);
-            // Treat the selected faced specially, as it might show more data if it is selected
-            facetsAndValues = GetFacetsAndValues(productSelectedFacetsResult, facetsAndValues);
+          
 
             var result = new
             {
@@ -144,7 +148,6 @@ namespace OxxCommerceStarterKit.Web.Api
         /// result of the facet search from Find
         /// </summary>
         /// <param name="productFacetsResult">The product facets result.</param>
-        /// <param name="productSelectedFacetsResult">The product selected facets result.</param>
         /// <param name="facetList">The facet list.</param>
         /// <returns></returns>
         private List<FacetValues> GetFacetsAndValues(SearchResults<FindProduct> productFacetsResult, List<FacetValues> facetList)
