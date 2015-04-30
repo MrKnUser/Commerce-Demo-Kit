@@ -58,7 +58,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                         Mean = result.Mean
                     };
 
-                    SelectableNumericRange selectedRange = Range.FirstOrDefault(r => r.Id == rangeResult.Id);
+                    SelectableNumericRange selectedRange = Range.FirstOrDefault(r => r.Id == rangeResult.Id && r.Selected == true);
                     rangeResult.Selected = selectedRange != null;
                     RangeResult.Add(rangeResult);
                 }
