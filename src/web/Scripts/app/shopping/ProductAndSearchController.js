@@ -311,7 +311,8 @@
             var selectedRange = $event.target;
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
-                    console.log("hit", facetDef);
+                    //Set Current selected facet type, like country or region
+                    $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
                     angular.forEach(facetDef.Definition.Range, function (facetRange, i) {
                         if (facetRange.Id === facetId) {
                             facetRange.Selected = facetRange.Selected = !facetRange.Selected;
