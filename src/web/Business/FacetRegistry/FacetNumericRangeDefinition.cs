@@ -12,13 +12,13 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
         public FacetNumericRangeDefinition()
         {
             Range = new List<SelectableNumericRange>();
-            RangeResult = new List<NumericRangeResult>();
+            RangeResult = new List<SelectableNumericRangeResult>();
             RenderType = this.GetType().Name;
         }
 
         public Type BackingType = typeof(double);
         public List<SelectableNumericRange> Range;
-        public List<NumericRangeResult> RangeResult;
+        public List<SelectableNumericRangeResult> RangeResult;
 
         public override ITypeSearch<T> Filter<T>(ITypeSearch<T> query)
         {
@@ -38,10 +38,29 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
         public override void PopulateFacet(Facet facet)
         {
+            RangeResult.Clear();
+
             NumericRangeFacet numericRangeFacet = facet as NumericRangeFacet;
             if(numericRangeFacet != null)
             {
-                RangeResult = numericRangeFacet.Ranges.ToList();
+                // Iterate the defintion, and see if any have been selected
+                foreach (NumericRangeResult result in RangeResult)
+                {
+                    SelectableNumericRange selectedRange = Range.FirstOrDefault(r => r.From == result.From && r.To == result.To);
+
+                    RangeResult.Add(new SelectableNumericRangeResult()
+                    {
+                        Count = result.Count,
+                        From = result.From,
+                        To = result.To,
+                        Total = result.Total,
+                        TotalCount = result.TotalCount,
+                        Min = result.Min,
+                        Max = result.Max,
+                        Mean = result.Mean,
+                        Selected = selectedRange != null
+                    });
+                }
             }
         }
     }

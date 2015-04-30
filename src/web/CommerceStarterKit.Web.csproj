@@ -1343,6 +1343,7 @@
     <Compile Include="Business\FacetRegistry\ISelectable.cs" />
     <Compile Include="Business\FacetRegistry\MultiSelectTermCount.cs" />
     <Compile Include="Business\FacetRegistry\SelectableNumericRange.cs" />
+    <Compile Include="Business\FacetRegistry\SelectableNumericRangeResult.cs" />
     <Compile Include="Business\Initialization\CatalogEventListener.cs" />
     <Compile Include="Business\Initialization\CommerceCachePrimer.cs" />
     <Compile Include="Business\FindCatalogIndexingChangeNotificationProcessor.cs" />
