@@ -19,6 +19,8 @@
 
         $scope.selectedFacets = {};
         $scope.CurrentSelectedFacetType = "";
+        $scope.SelectedTerms = [];
+
 
         $scope.page = 1;
         $scope.articlePageNumber = 1;
@@ -131,7 +133,6 @@
 			      $scope.productCountryFacets = data.productCountryFacets;
 			      $scope.facets = data.facets;
 			      $scope.selectedFacets = angular.copy($scope.facets);
-			      console.log($scope.selectedFacets);
 			  },
 			  function (statusCode) {
 				  $scope.hideLoader();
@@ -315,18 +316,26 @@
             var checkbox = $event.target;
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
-                    angular.forEach(facetDef.Values, function(value, i) {
-                        if (value.Name === facet) {
-                            value.Selected = checkbox.checked;
-                            $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
-                        }
+                    //Set Current selected facet type, like country or region
+                    $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
+                    //Update All selected Facets
+                    if (checkbox.checked) {
+                     
+                        facetDef.Definition.SelectedTerms.push(facet);
+                        console.log("hei", facetDef.Definition.SelectedTerms);
+                    } else {
+                        facetDef.Definition.SelectedTerms(facetDef.Definition.SelectedTerms(facet), 1);
+                    }
+                    //angular.forEach(facetDef.Values, function(value, i) {
+                    //    if (value.Name === facet) {
+                    //        value.Selected = checkbox.checked;
+                    //        $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
+                    //    }
 
-                    });
+                    //});
                 }
             });
             setNewProductDataAndUpdate();
-            
-           
         };
 
         $scope.updateProductSelection = function ($event, id) {

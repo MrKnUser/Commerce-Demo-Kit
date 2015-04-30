@@ -4,15 +4,21 @@
         <section class="filter-section" ng-repeat="facetType in facets track by $index">
             @*<h4>@Html.Translate("/common/productlist/countries_title")</h4>*@
             <h3>{{facetType.Definition.FieldName}}</h3>
-            <div ng-repeat="facet in facetType.Values track by facet.Name">
-                <label class="checkbox" for="{{facet.Name}}">
-                    <input type="checkbox" name="{{facet.Name}}" id="{{facet.Name}}" ng-click="updateFacetsSelections($event, facet.Name,facetType.Definition.Name)" ng-model="facet.Selected" />
-                    {{facet.Name}} ({{facet.Count}})
+            <div ng-repeat="facet in facetType.Definition.TermsList track by $index">
+                <label class="checkbox" for="{{facet.Term}}">
+                    <input type="checkbox" name="{{facet.Term}}" id="{{facet.Term}}" ng-click="updateFacetsSelections($event, facet.Term,facetType.Definition.Name)" ng-model="facet.Selected" />
+                    {{facet.Term}} ({{facet.Count}})
                 </label>
             </div>
         </section>
     </div>
 </div>
+
+
+
+
+
+
 
 
 
