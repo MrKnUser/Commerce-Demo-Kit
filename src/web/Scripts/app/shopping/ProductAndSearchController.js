@@ -8,19 +8,12 @@
     productApp.controller('ProductAndSearchController',['$scope', '$location', '$window', 'productService', 'articleService',
     function ($scope, $location, $window, productService, articleService) {
         $scope.selectedProductCategories = [];
-        $scope.selectedColorFacets = [];
-        $scope.selectedSizeFacets = [];
-        $scope.selectedFitFacets = [];
         $scope.selectedMainCategoryFacets = [];
 
-        $scope.selectedRegionFacets = [];
-        $scope.selectedGrapeFacets = [];
-        $scope.selectedCountryFacets = [];
-
         $scope.selectedFacets = {};
+
         $scope.CurrentSelectedFacetType = "";
         $scope.SelectedTerms = [];
-
 
         $scope.page = 1;
         $scope.articlePageNumber = 1;
@@ -34,13 +27,7 @@
         $scope.SearchPage = false;
 		$scope.windowWidth = $window.innerWidth;
         /*Selected all filters */
-        $scope.categoriesSelectedAll = true;
-        $scope.colorSelectedAll = true;
-        $scope.fitSelectAll = true;
-        $scope.sizeSelectAll = true;
-        $scope.regionsSelectedAll = true;
-        $scope.grapesSelectedAll = true;
-        $scope.countriesSelectedAll = true;
+      
 
         $scope.init = function (preSelectedCategory, mainCategory, language, pageSize) {
             $scope.language = language;
@@ -302,17 +289,8 @@
         };
 
 
-        var updateSelected = function (action, id, arrayToUpdate) {
-            if (action === 'add') {
-                arrayToUpdate.push(id);
-                setNewProductDataAndUpdate();
-            }
-            if (action === 'remove') {
-                arrayToUpdate.splice(arrayToUpdate.indexOf(id), 1);
-                setNewProductDataAndUpdate();
-            }
-        };
-        $scope.updateFacetsSelections = function ($event, facet,facetType) {
+      
+        $scope.updateStringFacetsSelections = function ($event, facet, facetType) {
             var checkbox = $event.target;
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
@@ -320,72 +298,34 @@
                     $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
                     //Update All selected Facets
                     if (checkbox.checked) {
-                     
                         facetDef.Definition.SelectedTerms.push(facet);
-                        console.log("hei", facetDef.Definition.SelectedTerms);
                     } else {
-                        facetDef.Definition.SelectedTerms(facetDef.Definition.SelectedTerms(facet), 1);
+                        facetDef.Definition.SelectedTerms.splice(facetDef.Definition.SelectedTerms.indexOf(facet), 1);
                     }
-                    //angular.forEach(facetDef.Values, function(value, i) {
-                    //    if (value.Name === facet) {
-                    //        value.Selected = checkbox.checked;
-                    //        $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
-                    //    }
-
-                    //});
                 }
             });
             setNewProductDataAndUpdate();
         };
 
-        $scope.updateProductSelection = function ($event, id) {
+        $scope.updateRangeFacetsSelections = function ($event, facet, facetType) {
             var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedProductCategories);
-            $scope.categoriesSelectedAll = $scope.selectedProductCategories > 0;
-        };
-        $scope.updateColorSelection = function ($event, id) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedColorFacets);
-            $scope.colorSelectedAll = $scope.selectedColorFacets > 0;
-        };
-        $scope.updateSizeSelection = function ($event, id, sizeType) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedSizeFacets);
-            $scope.sizeSelectAll = $scope.selectedSizeFacets > 0;
-        };
-        $scope.updateFitSelection = function ($event, id) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedFitFacets);
-            $scope.fitSelectAll = $scope.selectedFitFacets > 0;
-        };
-        $scope.updateMainCategorySelection = function ($event, id) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedMainCategoryFacets);
-        };
-        $scope.updateRegionSelection = function ($event, id) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedRegionFacets);
-            $scope.regionsSelectedAll = $scope.selectedRegionFacets > 0;
-        };
-        $scope.updateGrapeSelection = function ($event, id) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedGrapeFacets);
-            $scope.grapesSelectedAll = $scope.selectedGrapeFacets > 0;
-        };
-        $scope.updateCountrySelection = function ($event, id) {
-            var checkbox = $event.target;
-            var action = (checkbox.checked ? 'add' : 'remove');
-            updateSelected(action, id, $scope.selectedCountryFacets);
-            $scope.countriesSelectedAll = $scope.selectedCountryFacets > 0;
+            angular.forEach($scope.selectedFacets, function (facetDef, index) {
+                if (facetDef.Definition.Name === facetType) {
+                    //Set Current selected facet type, like country or region
+                    $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
+                    //Update All selected Facets
+                    if (checkbox.checked) {
+                        facetDef.Definition.SelectedTerms.push(facet);
+                    } else {
+                        facetDef.Definition.SelectedTerms.splice(facetDef.Definition.SelectedTerms.indexOf(facet), 1);
+                    }
+                }
+            });
+            setNewProductDataAndUpdate();
         };
 
+     
+      
 
         $scope.updateViewNrOfColumns = function ($event) {
             var $selector = $($event.currentTarget),

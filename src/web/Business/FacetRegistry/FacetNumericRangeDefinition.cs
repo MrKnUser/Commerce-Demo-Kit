@@ -44,7 +44,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
             if(numericRangeFacet != null)
             {
                 // Iterate the defintion, and see if any have been selected
-                foreach (NumericRangeResult result in RangeResult)
+                foreach (NumericRangeResult result in numericRangeFacet.Ranges)
                 {
                     SelectableNumericRange selectedRange = Range.FirstOrDefault(r => r.From == result.From && r.To == result.To);
 
