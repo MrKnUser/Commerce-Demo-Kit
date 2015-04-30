@@ -1,14 +1,23 @@
 ﻿<div class="with-sorting" ng-cloak>
     @*<h4>@Html.Translate("/common/productlist/filters_title") <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#id8971263"> </a></h4>*@
     <div id="id8971263" class="collapse" ng-class="(windowWidth >= 768) ? 'in' : ''">
-        <section class="filter-section" ng-repeat="facetType in facets track by $index">
+        <section class="filter-section" ng-repeat="facetType in facets track by $index" ng-switch on="facetType.Definition.RenderType">
             @*<h4>@Html.Translate("/common/productlist/countries_title")</h4>*@
-            <h3>{{facetType.Definition.FieldName}}</h3>
-            <div ng-repeat="facet in facetType.Definition.TermsList track by $index">
+            <h3>{{facetType.Definition.DisplayName}}</h3>
+            @*String list facets*@
+            <div ng-switch-when="FacetStringListDefinition" ng-repeat="facet in facetType.Definition.TermsList track by $index">
                 <label class="checkbox" for="{{facet.Term}}">
-                    <input type="checkbox" name="{{facet.Term}}" id="{{facet.Term}}" ng-click="updateFacetsSelections($event, facet.Term,facetType.Definition.Name)" ng-model="facet.Selected" />
+                    <input type="checkbox" name="{{facet.Term}}" id="{{facet.Term}}" ng-click="updateStringFacetsSelections($event, facet.Term,facetType.Definition.Name)" ng-model="facet.Selected" />
                     {{facet.Term}} ({{facet.Count}})
                 </label>
+            </div>
+            @*Numeric Range facets*@
+            <div ng-switch-when="FacetNumericRangeDefinition" ng-repeat="facet in facetType.Definition.RangeResult track by $index">
+                <div>
+                    <div class="price-btns">
+                        <button class="btn btn-success btn-sm" ng-click="updateRangeFacetsSelections($event, facet.Id, facetType.Definition.Name)"><span ng-bind="facet.From" ng-show="facet.From !=null"></span><span>-</span><span ng-bind="facet.To" ng-show="facet.To !=null"></span></button><br />
+                    </div>
+                </div>
             </div>
         </section>
     </div>
@@ -23,7 +32,7 @@
 
 
 
-@*Code below should be removed when done with dynamic filters.*@ 
+@*Code below should be removed when done with dynamic filters.*@
 <section class="filter-section" ng-cloak style="display: none;">
     <h4>@Html.Translate("/common/productlist/filters_title") <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-down"> </a></h4>
     <div class="collapse" ng-class="(windowWidth >= 768) ? 'in' : ''">

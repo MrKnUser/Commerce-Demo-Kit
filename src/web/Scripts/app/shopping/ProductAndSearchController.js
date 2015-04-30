@@ -307,18 +307,18 @@
             setNewProductDataAndUpdate();
         };
 
-        $scope.updateRangeFacetsSelections = function ($event, facet, facetType) {
-            var checkbox = $event.target;
+        $scope.updateRangeFacetsSelections = function ($event, facetId, facetType) {
+            var selectedRange = $event.target;
             angular.forEach($scope.selectedFacets, function (facetDef, index) {
                 if (facetDef.Definition.Name === facetType) {
-                    //Set Current selected facet type, like country or region
-                    $scope.CurrentSelectedFacetType = facetDef.Definition.Name;
-                    //Update All selected Facets
-                    if (checkbox.checked) {
-                        facetDef.Definition.SelectedTerms.push(facet);
-                    } else {
-                        facetDef.Definition.SelectedTerms.splice(facetDef.Definition.SelectedTerms.indexOf(facet), 1);
-                    }
+                    console.log("hit");
+                    angular.forEach(facetDef.Range, function (facetRange, i) {
+                        if (facetRange.Id === facetId) {
+                            console.log(facetRange.Id, facetId);
+                            facetRange.selected = facetRange.selected = !facetRange.selected;
+                            console.log("Range selected",facetRange.selected);
+                        }
+                    });
                 }
             });
             setNewProductDataAndUpdate();
