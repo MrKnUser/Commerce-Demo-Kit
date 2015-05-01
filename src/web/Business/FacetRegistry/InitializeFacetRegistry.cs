@@ -61,7 +61,14 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                 Name = "ClosureFacet",
                 FieldName = "Closure"
             });
-            
+
+            registry.FacetDefinitions.Add(new FacetStringListDefinition()
+            {
+                Name = "BrandFacet",
+                FieldName = "Brand"
+            });
+
+
 
         }
 

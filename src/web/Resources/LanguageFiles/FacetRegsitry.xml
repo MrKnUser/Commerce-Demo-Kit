@@ -10,6 +10,7 @@
             <ColorFacet>Color</ColorFacet>
             <VintageFacet>Wine Vintage</VintageFacet>
             <ClosureFacet>Wine Closure</ClosureFacet>
+            <BrandFacet>Brand</BrandFacet>
         </facetregistry>
     </language>
     <language name="Norwegian"
@@ -22,6 +23,7 @@
             <ColorFacet>Farge</ColorFacet>
             <VintageFacet>Produksjonsår</VintageFacet>
             <ClosureFacet>Type kork</ClosureFacet>
+            <BrandFacet>Merke</BrandFacet>
         </facetregistry>
     </language>
 </languages>
