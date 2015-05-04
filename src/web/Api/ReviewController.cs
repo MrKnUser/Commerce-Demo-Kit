@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -10,11 +11,13 @@ using EPiServer.Core;
 using EPiServer.DataAccess;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
+using Mediachase.Commerce.Catalog;
+using OxxCommerceStarterKit.Web.Models.Catalog;
 using OxxCommerceStarterKit.Web.Reviews;
 
 namespace OxxCommerceStarterKit.Web.Api
 {
-    public class ReviewController : ApiController
+    public class ReviewController : BaseApiController
     {
         // GET api/<controller>
         public IEnumerable<string> Get()
@@ -31,10 +34,14 @@ namespace OxxCommerceStarterKit.Web.Api
         // POST api/<controller>
         public void Post(int id)
         {
+            string language = Language;
+
+            ReferenceConverter _referenceConverter = ServiceLocator.Current.GetInstance<ReferenceConverter>();
             IContentRepository _contentRepo = ServiceLocator.Current.GetInstance<IContentRepository>();
             ContentAssetHelper _contentAssetHelper = ServiceLocator.Current.GetInstance<ContentAssetHelper>();
 
-            ProductContent product = _contentRepo.Get<ProductContent>(new ContentReference(123));
+            ContentReference contentLink = _referenceConverter.GetContentLink(id, CatalogContentType.CatalogEntry, 0);
+            WineSKUContent product = _contentRepo.Get<WineSKUContent>(contentLink, new CultureInfo(language));
             ContentAssetFolder assetFolder = _contentAssetHelper.GetOrCreateAssetFolder(product.ContentLink);
             Review newReview = _contentRepo.GetDefault<Review>(assetFolder.ContentLink);
             newReview.Rating = 5;

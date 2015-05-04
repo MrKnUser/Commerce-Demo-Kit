@@ -1301,6 +1301,7 @@
     <Compile Include="Api\AutocompleteSearchController.cs" />
     <Compile Include="Api\BaseApiController.cs" />
     <Compile Include="Api\DeliveryLocationsController.cs" />
+    <Compile Include="Api\ReviewController.cs" />
     <Compile Include="Api\SearchExtensions.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
     <Compile Include="Business\FacetRegistry\FacetListDefinition.cs" />

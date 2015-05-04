@@ -39,7 +39,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         Description = "A variation with information about wine.",
         GroupName = "Wine"
         )]
-    public class WineSKUContent : VariationContent, IFacetBrand, IIndexableContent, IProductListViewModelInitializer
+    public class WineSKUContent : VariationContent, IFacetBrand, IIndexableContent, IProductListViewModelInitializer, IResourceable
     {
 
         [Display(Name = "Recommendation Boost",
@@ -222,6 +222,23 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
             productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());
             return productListViewModel;
+        }
+        public virtual string ContentAssetIdInternal { get; set; }
+        public Guid ContentAssetsID
+        {
+            get
+            {
+                Guid assetId;
+                if (Guid.TryParse(ContentAssetIdInternal, out assetId))
+                    return assetId;
+                return Guid.Empty;
+            }
+            set
+            {
+                ContentAssetIdInternal = value.ToString();
+                this.ThrowIfReadOnly();
+                IsModified = true;
+            }
         }
     }
 

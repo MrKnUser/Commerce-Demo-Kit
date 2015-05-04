@@ -7,6 +7,7 @@
                 <title>
                     Reviews
                 </title>
+              <description>Reviews</description>
             </review>
         </components>
     </language>
@@ -15,6 +16,7 @@
         <components>
             <review>
                 <title>Vurderinger</title>
+              <description>Vurderinger</description>
             </review>
         </components>
     </language>
