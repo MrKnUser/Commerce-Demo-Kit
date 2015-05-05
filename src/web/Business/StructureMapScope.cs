@@ -1,29 +1,23 @@
-﻿/*
-Commerce Starter Kit for EPiServer
-
-All rights reserved. See LICENSE.txt in project root.
-
-Copyright (C) 2013-2014 Oxx AS
-Copyright (C) 2013-2014 BV Network AS
-
-*/
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
+using System.Web;
+using System.Web.Http.Dependencies;
 using StructureMap;
-using Web.Configuration;
 
-namespace OxxCommerceStarterKit.Web.Business
+namespace Web.Configuration
 {
-    public class StructureMapDependencyResolver : IDependencyResolver, System.Web.Http.Dependencies.IDependencyResolver
+    public class StructureMapScope : IDependencyScope
     {
-        readonly IContainer _container;
+        private readonly IContainer _container;
 
-        public StructureMapDependencyResolver(IContainer container)
+        public StructureMapScope(IContainer container)
         {
-            _container = container;
+            if (container == null)
+            {
+                throw new ArgumentNullException("container");
+            }
+            this._container = container;
         }
 
         public object GetService(Type serviceType)
@@ -32,13 +26,14 @@ namespace OxxCommerceStarterKit.Web.Business
             {
                 return GetInterfaceService(serviceType);
             }
-            return GetConcreteService(serviceType); 
+            return GetConcreteService(serviceType);
         }
 
         private object GetConcreteService(Type serviceType)
         {
             try
             {
+                // Can't use TryGetInstance here because it won’t create concrete types
                 return _container.GetInstance(serviceType);
             }
             catch (StructureMapException)
@@ -57,15 +52,9 @@ namespace OxxCommerceStarterKit.Web.Business
             return _container.GetAllInstances(serviceType).Cast<object>();
         }
 
-        public System.Web.Http.Dependencies.IDependencyScope BeginScope()
-        {
-            var childContainer = this._container.GetNestedContainer();
-            return new StructureMapScope(childContainer);
-        }
-
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this._container.Dispose();
         }
     }
 }

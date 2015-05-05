@@ -1303,6 +1303,7 @@
     <Compile Include="Api\DeliveryLocationsController.cs" />
     <Compile Include="Api\ReviewController.cs" />
     <Compile Include="Api\SearchExtensions.cs" />
+    <Compile Include="Business\DependencyResolverInitialization.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
     <Compile Include="Business\FacetRegistry\FacetListDefinition.cs" />
     <Compile Include="Business\FacetRegistry\FacetNumericRangeDefinition.cs" />
@@ -1369,6 +1370,7 @@
     <Compile Include="Business\Search\FindProductSearchProvider.cs" />
     <Compile Include="Business\SiteConfiguration.cs" />
     <Compile Include="Business\StructureMapDependencyResolver.cs" />
+    <Compile Include="Business\StructureMapScope.cs" />
     <Compile Include="Business\Tools.cs" />
     <Compile Include="Business\UIDescriptor\CatalogContentUiDescriptor.cs">
       <SubType>Code</SubType>
