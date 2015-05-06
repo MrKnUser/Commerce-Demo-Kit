@@ -10,6 +10,7 @@ Copyright (C) 2013-2014 BV Network AS
 
 using System.Collections.Generic;
 using EPiServer.Commerce.Catalog.ContentTypes;
+using EPiServer.Commerce.UI.Controllers;
 using EPiServer.Core;
 using EPiServer.Find;
 using EPiServer.ServiceLocation;
@@ -38,6 +39,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
             DisplayName = entryContentBase.DisplayName;
             Language = language;
             Description = Description ?? null;
+            Overview = Overview ?? null;
             ParentCategoryId = entryContentBase.GetProductCategoryIds(language);
             ParentCategoryName = entryContentBase.GetParentCategoryNames(language);
             MainCategoryName = entryContentBase.GetMainCategory(language);
@@ -55,6 +57,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string DisplayName { get; set; }
         public string Language { get; set; }
         public XhtmlString Description { get; set; }
+        public XhtmlString Overview { get; set; }
         public List<string> Color { get; set; }
         public string DescriptiveColor { get; set; }
         public List<string> Sizes { get; set; }
@@ -93,6 +96,10 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string Closure { get; set; }
         public List<string> GrapeMixList { get; set; }
         public string Country { get; set; }
+        //Photo facets
+        public decimal Resoulution { get; set; }
+        public string LensMount { get; set; }
+
      
     }
 
@@ -123,6 +130,27 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         }
 
        
+    }
+
+    public class DigitalCameraFindProduct : FindProduct
+    {
+        public DigitalCameraFindProduct()
+        {
+            
+        }
+
+        public DigitalCameraFindProduct(EntryContentBase entryContentBase, string language)
+            : base(entryContentBase, language)
+        {
+            DigitalCameraSkuContent digitalCameraSkuContent = entryContentBase as DigitalCameraSkuContent;
+            if (digitalCameraSkuContent != null)
+            {
+                Brand = digitalCameraSkuContent.Facet_Brand;
+
+            }
+        }
+
+
     }
 
 }

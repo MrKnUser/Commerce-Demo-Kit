@@ -38,7 +38,11 @@
                     $scope.reviewData.Text = $scope.form.text;
                     $scope.reviewData.Rating = $scope.rating;
                     reviewsService.postReview($scope.reviewData).then(function (data) {
-                        $scope.reviewResult.Reviews.splice(0, 0, data);
+                        if ($scope.reviewResult.Reviews.length > 0) {
+                            $scope.reviewResult.Reviews.splice(0, 0, data);
+                        } else {
+                            $scope.reviewResult.Reviews.push(data);
+                        }
                     });
                 };
             },

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Web.Http;
 using EPiServer;
+using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Core;
 using EPiServer.DataAccess;
 using EPiServer.Security;
@@ -92,7 +93,7 @@ namespace OxxCommerceStarterKit.Web.Api
             string language = Language;
 
             ContentReference contentLink = _referenceConverter.GetContentLink(reviewData.ContentId, CatalogContentType.CatalogEntry,0);
-            WineSKUContent product = _contentRepository.Get<WineSKUContent>(contentLink, new CultureInfo(language));
+            EntryContentBase product = _contentRepository.Get<EntryContentBase>(contentLink, new CultureInfo(language));
             ContentAssetFolder assetFolder = _contentAssetHelper.GetOrCreateAssetFolder(product.ContentLink);
             Review newReview = _contentRepository.GetDefault<Review>(assetFolder.ContentLink);
             newReview.Rating = reviewData.Rating;
