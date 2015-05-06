@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using EPiServer;
-using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Core;
 using EPiServer.DataAccess;
 using EPiServer.Security;
-using EPiServer.ServiceLocation;
-using Lucene.Net.Index;
 using Mediachase.Commerce.Catalog;
 using OxxCommerceStarterKit.Web.Models.Catalog;
 using OxxCommerceStarterKit.Web.Reviews;
@@ -26,6 +21,7 @@ namespace OxxCommerceStarterKit.Web.Api
         public string Text { get; set; }
         public string UserName { get; set; }
         public string UserDisplayName { get; set; }
+        public DateTime ReviewDate { get; set; }
     }
 
     public class ReviewResult
@@ -34,8 +30,9 @@ namespace OxxCommerceStarterKit.Web.Api
         public int TotalNumberOfReviews { get; set; }
         public double AverageReview { get; set; }
     }
-        
-    
+
+
+ 
     public class ReviewController : BaseApiController
     {
         private readonly ReferenceConverter _referenceConverter;
@@ -49,14 +46,8 @@ namespace OxxCommerceStarterKit.Web.Api
             _contentAssetHelper = contentAssetHelper;
         }
 
-        // GET api/<controller>
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<controller>/5
         //TODO: This should take in id, and type. Then it can be used on both commerce products and pagedata
+
         public object Get(int id)
         {
 
@@ -84,7 +75,8 @@ namespace OxxCommerceStarterKit.Web.Api
                     Rating = x.Rating,
                     Heading = x.Heading,
                     Text = x.Text,
-                    UserName = x.UserDisplayName
+                    UserName = x.UserDisplayName,
+                    ReviewDate = x.ReviewDate
 
                 }).ToList();
                 reviewResult.TotalNumberOfReviews = reviewResult.Reviews.Count;
@@ -95,7 +87,7 @@ namespace OxxCommerceStarterKit.Web.Api
         }
 
         // POST api/<controller>
-        public void Post(ReviewData reviewData)
+        public ReviewData Post(ReviewData reviewData)
         {
             string language = Language;
 
@@ -109,7 +101,21 @@ namespace OxxCommerceStarterKit.Web.Api
             //TODO: Get currentuser, need to be logedin to post review
             newReview.UserDisplayName = "Sveinung";
             newReview.Name = newReview.UserDisplayName + "(" + DateTime.Now.ToShortDateString() + ")";
-            _contentRepository.Save(newReview, SaveAction.Publish, AccessLevel.NoAccess);
+            newReview.ReviewDate = DateTime.Now;
+            ContentReference cf = _contentRepository.Save(newReview, SaveAction.Publish, AccessLevel.NoAccess);
+            Review postedReview = _contentRepository.Get<Review>(cf, new CultureInfo(language));
+            ReviewData review = new ReviewData
+            {
+                ContentId = postedReview.ContentId,
+                Rating = postedReview.Rating,
+                Heading = postedReview.Heading,
+                Text = postedReview.Text,
+                UserName = postedReview.UserDisplayName,
+                ReviewDate = postedReview.ReviewDate
+
+            };
+            return review;
+
         }
 
         // PUT api/<controller>/5

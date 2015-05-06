@@ -795,17 +795,27 @@ input[type="radio"],
 input[type="checkbox"] {
   margin: 4px 5px 0 !important;
 }
-#review .rate span:before {
+#reviews .rate span:before {
   font-family: "outlined-iconset";
   content: "\e018";
   background: none;
 }
-#review .rate span {
+#reviews .rate span {
   display: inline-block;
   font-size: 1em;
   color: #b2b2b2;
 }
-#review .rate span.active {
+#reviews .rate span.active {
   color: #2ba8db;
+}
+#reviews .rate span.active.half {
+  opacity: 0.5;
+}
+#reviews .review {
+  border-bottom: 1px solid #2ba8db;
+}
+#reviews .review h3 {
+  margin-top: 15px;
+  margin-bottom: 5px;
 }
 /*# sourceMappingURL=commerce-starter-kit.css.map */

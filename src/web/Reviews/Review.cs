@@ -15,6 +15,7 @@ namespace OxxCommerceStarterKit.Web.Reviews
         public virtual string Text { get; set; }
         public virtual string UserDisplayName { get; set; }
         public virtual string UserId { get; set; }
+        public virtual DateTime ReviewDate { get; set; }
 
         //IContent implementation
         public string Name { get; set; }

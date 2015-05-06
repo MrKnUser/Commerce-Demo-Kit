@@ -24,59 +24,59 @@ using Newtonsoft.Json;
 
 namespace OxxCommerceStarterKit.Web
 {
-	public class WebGlobal : EPiServer.Global
-	{
+    public class WebGlobal : EPiServer.Global
+    {
         /// <summary>
         /// IMPORTANT! This needs to be static as that ensures it runs
         /// before the EPiServer.Global class constructor. In that one
         /// the initialization engine kicks in and loads modules that
         /// requires the databases to be available
         /// </summary>
-	    static WebGlobal()
-	    {
+        static WebGlobal()
+        {
             // TODO: Remove this when you are not going to use LocalDb anymore.
-	        ILogger log = LogManager.GetLogger();
-	        DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\..\..\db\");
+            ILogger log = LogManager.GetLogger();
+            DirectoryInfo dir = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + @"\..\..\db\");
             log.Debug("Setting data directory for Local DB to: " + dir.FullName);
             AppDomain.CurrentDomain.SetData("DataDirectory", dir.FullName);
-	    }
-
-		protected override void RegisterRoutes(RouteCollection routes)
-		{
-			base.RegisterRoutes(routes);
-
-
-			//routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
-
-			RouteTable.Routes.MapRoute(null, "Cart/GetDeliveryLocations", new { controller = "Cart", action = "GetDeliveryLocations" });
-			RouteTable.Routes.MapRoute("defaultRoute", "{controller}/{action}");
-			RouteTable.Routes.MapRoute("defaultRouteWithLanguage", "{language}/{controller}/{action}");			
         }
 
-		protected void Application_Start()
-		{
-		    
+        protected override void RegisterRoutes(RouteCollection routes)
+        {
+            base.RegisterRoutes(routes);
 
-			RegisterApis(GlobalConfiguration.Configuration);
 
-			var options = ServiceLocator.Current.GetInstance<DisplayOptions>();
-		    options
-		        .Add("slider", "/displayoptions/slider", ContentAreaTags.Slider, "", "")
-		        .Add("full", "/displayoptions/full", ContentAreaTags.FullWidth, "", "epi-icon__layout--full")
-		        .Add("wide", "/displayoptions/wide", ContentAreaTags.TwoThirdsWidth, "", "epi-icon__layout--two-thirds")
-		        .Add("half", "/displayoptions/half", ContentAreaTags.HalfWidth, "", "epi-icon__layout--half")
-		        .Add("narrow", "/displayoptions/narrow", ContentAreaTags.OneThirdWidth, "", "epi-icon__layout--one-third");
+            //routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
 
-			AreaRegistration.RegisterAllAreas();
+            RouteTable.Routes.MapRoute(null, "Cart/GetDeliveryLocations", new { controller = "Cart", action = "GetDeliveryLocations" });
+            //RouteTable.Routes.MapRoute("defaultRoute", "{controller}/{action}");
+            //RouteTable.Routes.MapRoute("defaultRouteWithLanguage", "{language}/{controller}/{action}");
+        }
 
-			//WebApiConfig.Register(GlobalConfiguration.Configuration);
-			//FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-			//RouteConfig.RegisterRoutes(RouteTable.Routes);
-			BundleConfig.RegisterBundles(BundleTable.Bundles);
+        protected void Application_Start()
+        {
+
+
+            RegisterApis(GlobalConfiguration.Configuration);
+
+            var options = ServiceLocator.Current.GetInstance<DisplayOptions>();
+            options
+                .Add("slider", "/displayoptions/slider", ContentAreaTags.Slider, "", "")
+                .Add("full", "/displayoptions/full", ContentAreaTags.FullWidth, "", "epi-icon__layout--full")
+                .Add("wide", "/displayoptions/wide", ContentAreaTags.TwoThirdsWidth, "", "epi-icon__layout--two-thirds")
+                .Add("half", "/displayoptions/half", ContentAreaTags.HalfWidth, "", "epi-icon__layout--half")
+                .Add("narrow", "/displayoptions/narrow", ContentAreaTags.OneThirdWidth, "", "epi-icon__layout--one-third");
+
+            AreaRegistration.RegisterAllAreas();
+
+            //WebApiConfig.Register(GlobalConfiguration.Configuration);
+            //FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
             JsonSerializerSettings serializerSettings = GlobalConfiguration.Configuration
    .Formatters.JsonFormatter.SerializerSettings;
             serializerSettings.TypeNameHandling = TypeNameHandling.Auto;
-		}
+        }
 
 
         /// <summary>
@@ -84,23 +84,25 @@ namespace OxxCommerceStarterKit.Web
         /// </summary>
         /// <param name="config">The configuration.</param>
         public static void RegisterApis(HttpConfiguration config)
-		{
-			config.Routes.MapHttpRoute(
-			 "Api", // Route name 
-			 "api/{controller}/{action}/{id}", // URL with parameters 
-			 new { id = RouteParameter.Optional } // Parameter defaults 
-			);
+        {
+          
 
-			config.Routes.MapHttpRoute(
-			 "LanguageAwareApi", // Route name 
-			 "{language}/api/{controller}/{action}/{id}", // URL with parameters 
-			 new { id = RouteParameter.Optional} // Parameter defaults
-			);
+            config.Routes.MapHttpRoute(
+             "Api", // Route name 
+             "api/{controller}/{action}/{id}", // URL with parameters 
+             new { id = RouteParameter.Optional } // Parameter defaults 
+            );
+
+            config.Routes.MapHttpRoute(
+             "LanguageAwareApi", // Route name 
+             "{language}/api/{controller}/{action}/{id}", // URL with parameters 
+             new { id = RouteParameter.Optional } // Parameter defaults
+            );
 
             // We only support JSON
-			var appXmlType = GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
-			GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
-		}
+            var appXmlType = GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            GlobalConfiguration.Configuration.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+        }
 
 
 #if !DEBUG
@@ -140,18 +142,18 @@ namespace OxxCommerceStarterKit.Web
 		}
 #endif
 
-		/// <summary>
-		/// Tags to use for the main widths used in the Bootstrap HTML framework
-		/// </summary>
-		public static class ContentAreaTags
-		{
-			public const string Slider = "";
-			public const string FullWidth = "col-sm-12";
-			public const string TwoThirdsWidth = "col-sm-8";
-			public const string HalfWidth = "col-sm-6";
-			public const string OneThirdWidth = "col-sm-4";
-			public const string NoRenderer = "norenderer";
-		}
+        /// <summary>
+        /// Tags to use for the main widths used in the Bootstrap HTML framework
+        /// </summary>
+        public static class ContentAreaTags
+        {
+            public const string Slider = "";
+            public const string FullWidth = "col-sm-12";
+            public const string TwoThirdsWidth = "col-sm-8";
+            public const string HalfWidth = "col-sm-6";
+            public const string OneThirdWidth = "col-sm-4";
+            public const string NoRenderer = "norenderer";
+        }
 
         public static class GroupNames
         {
@@ -165,9 +167,9 @@ namespace OxxCommerceStarterKit.Web
         }
 
 
-		/// <summary>
-		/// Virtual path to folder with static graphics, such as "~/Static/gfx/"
-		/// </summary>
-		public const string StaticGraphicsFolderPath = "~/Content/images/";
-	}
+        /// <summary>
+        /// Virtual path to folder with static graphics, such as "~/Static/gfx/"
+        /// </summary>
+        public const string StaticGraphicsFolderPath = "~/Content/images/";
+    }
 }

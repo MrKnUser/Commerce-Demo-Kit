@@ -1,14 +1,55 @@
-﻿<h2>Reviews (<span ng-bind="reviewData.TotalNumberOfReviews"></span>)</h2>
-
-<div ng-repeat="review in reviewData.Reviews">
-    <h3 ng-bind="review.Heading"></h3>
-    <div class="rate">
-        <span ng-class="{'active' : review.Rating > 0 }"></span>
-        <span ng-class="{'active' : review.Rating > 1 }"></span>
-        <span ng-class="{'active' : review.Rating > 2 }"></span>
-        <span ng-class="{'active' : review.Rating > 3 }"></span>
-        <span ng-class="{'active' : review.Rating > 4 }"></span>
+﻿
+<div class="rate">
+    <span ng-class="{'active' : reviewResult.AverageReview > 0 }"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  > 1 }"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  > 2 }"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  > 3 }"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  > 4, 'half' : reviewResult.AverageReview  <= 4.5 }"></span>
+</div>
+<div>
+    <span ng-bind="reviewResult.AverageReview"></span> average -  <span ng-bind="reviewResult.TotalNumberOfReviews"></span> reviews
+</div>
+<div class="col-md-8">
+    <div class="review" ng-repeat="review in reviewResult.Reviews">
+        <h3 ng-bind="review.Heading"></h3>
+        <div class="rate">
+            <span ng-class="{'active' : review.Rating > 0 }"></span>
+            <span ng-class="{'active' : review.Rating > 1 }"></span>
+            <span ng-class="{'active' : review.Rating > 2 }"></span>
+            <span ng-class="{'active' : review.Rating > 3 }"></span>
+            <span ng-class="{'active' : review.Rating > 4, 'half' : review.Rating <= 4.5 }"></span>
+        </div>
+        <div ng-bind="review.Text"></div>
+        <div ng-bind="review.UserDisplayName"></div>
     </div>
-    <div ng-bind="review.Text"></div>
-    <div ng-bind="review.UserDisplayName"></div>
+</div>
+<div class="col-md-4">
+    <h3>
+        <a id="openWriteReview" ng-model="collapsedWriteReview" ng-click="collapsedWriteReview=!collapsedWriteReview">Write Review</a>
+    </h3>
+    <div ng-show="collapsedWriteReview">
+        <form ng-submit="submitReview()">
+            <div class="form-group">
+                <label class="sr-only" for="review-tittle">Review title</label>
+                <input type="text" class="form-control" ng-model="form.heading" name="title" id="review-heading" placeholder="Review title">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="review-text">Your review</label>
+                <textarea class="form-control" name="message" ng-model="form.text" id="review-text" rows="5" placeholder="Your review"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="rate">
+                    <span ng-class="{'active' : rating > 0 }" ng-click="setRating(1)"></span>
+                    <span ng-class="{'active' : rating > 1 }" ng-click="setRating(2)"></span>
+                    <span ng-class="{'active' : rating > 2 }" ng-click="setRating(3)"></span>
+                    <span ng-class="{'active' : rating > 3 }" ng-click="setRating(4)"></span>
+                    <span ng-class="{'active' : rating > 4 }" ng-click="setRating(5)"></span>
+                </div>
+            </div>
+           
+            <div>
+                <input class="btn btn-primary" type="submit" value="Post review" ng-click="Submit">
+            </div>
+        </form>
+    </div>
 </div>
