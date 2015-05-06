@@ -9,6 +9,8 @@ namespace OxxCommerceStarterKit.Web.Reviews
     {
         public virtual int Rating { get; set; }
         public virtual string ProductNumber { get; set; }
+        public virtual int ContentId { get; set; }
+        public virtual string Heading { get; set; }
         [BackingType(typeof(PropertyLongString))]
         public virtual string Text { get; set; }
         public virtual string UserDisplayName { get; set; }

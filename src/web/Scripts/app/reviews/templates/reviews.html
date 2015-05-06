@@ -1,0 +1,14 @@
+﻿<h2>Reviews (<span ng-bind="reviewData.TotalNumberOfReviews"></span>)</h2>
+
+<div ng-repeat="review in reviewData.Reviews">
+    <h3 ng-bind="review.Heading"></h3>
+    <div class="rate">
+        <span ng-class="{'active' : review.Rating > 0 }"></span>
+        <span ng-class="{'active' : review.Rating > 1 }"></span>
+        <span ng-class="{'active' : review.Rating > 2 }"></span>
+        <span ng-class="{'active' : review.Rating > 3 }"></span>
+        <span ng-class="{'active' : review.Rating > 4 }"></span>
+    </div>
+    <div ng-bind="review.Text"></div>
+    <div ng-bind="review.UserDisplayName"></div>
+</div>

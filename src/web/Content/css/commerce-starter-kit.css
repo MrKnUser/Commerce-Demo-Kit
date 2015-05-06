@@ -795,4 +795,17 @@ input[type="radio"],
 input[type="checkbox"] {
   margin: 4px 5px 0 !important;
 }
+#review .rate span:before {
+  font-family: "outlined-iconset";
+  content: "\e018";
+  background: none;
+}
+#review .rate span {
+  display: inline-block;
+  font-size: 1em;
+  color: #b2b2b2;
+}
+#review .rate span.active {
+  color: #2ba8db;
+}
 /*# sourceMappingURL=commerce-starter-kit.css.map */

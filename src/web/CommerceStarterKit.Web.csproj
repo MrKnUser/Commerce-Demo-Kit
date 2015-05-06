@@ -611,6 +611,9 @@
     <Content Include="Scripts\angular-resource.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\app\reviews\reviewsdirective.js" />
+    <Content Include="Scripts\app\reviews\reviewsservice.js" />
+    <Content Include="Scripts\app\reviews\templates\reviews.html" />
     <Content Include="Scripts\app\Search\AutoCompleteContoller.js" />
     <Content Include="Scripts\app\shopping\HeaderCartController.js" />
     <Content Include="Scripts\app\shopping\TrackingService.js" />

@@ -30,9 +30,10 @@ body {
 /*.overflow-hidden {
     overflow: hidden !important;
 }*/
-a{
-    cursor:pointer;
+a {
+    cursor: pointer;
 }
+
 .nav {
     font-size: 14px;
 }
@@ -254,24 +255,48 @@ h2 {
 }
 /*TODO: This should be moved into separate less files*/
 .shopping-cart table td.name, .wishlist table td.name {
-  font-size: 1em !important;
-  max-width:40%;
+    font-size: 1em !important;
+    max-width: 40%;
 }
+
 .shopping-cart table td.thumb, .wishlist table td.thumb {
-  width: 15% !important;
+    width: 15% !important;
 }
+
 .wishlist table .price {
-  width: 12% !important;
+    width: 12% !important;
 }
-.btn-moveToWishlist, .btn-moveToCart{
+
+.btn-moveToWishlist, .btn-moveToCart {
     padding: 6px 5px !important;
-    i{
-        margin-right:0 !important;
+
+    i {
+        margin-right: 0 !important;
     }
 }
+
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
-  margin-left: 0 !important; 
+    margin-left: 0 !important;
 }
+
 input[type="radio"], input[type="checkbox"] {
-  margin: 4px 5px 0 !important;
+    margin: 4px 5px 0 !important;
+}
+
+#review {
+    .rate span:before {
+        font-family: "outlined-iconset";
+        content: "\e018";
+        background: none;
+    }
+
+    .rate span {
+        display: inline-block;
+        font-size: 1em;
+        color: #b2b2b2;
+    }
+
+    .rate span.active {
+        color: #2ba8db;
+    }
 }

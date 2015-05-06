@@ -5,7 +5,9 @@
 
 	"use strict";
 
-	productApp = angular.module('productApp', ['ngResource', 'ui.bootstrap']);
+	productApp = angular.module('productApp', ['ngResource', 'ui.bootstrap', 'OsDirectives', 'sharedFactories']);
+	angular.module('OsDirectives', []);
+	angular.module('sharedFactories', []);
     productApp.directive('loadDispatcher', function() {
         return {
             link:function(scope, element, attrs) {
