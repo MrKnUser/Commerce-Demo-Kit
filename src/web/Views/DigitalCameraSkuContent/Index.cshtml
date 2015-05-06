@@ -22,15 +22,16 @@
 
 @helper GetImageTag(MediaData media, string size, UrlResolver urlResolver)
 {
-    var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default }) + "?preset=" + size;
-    <img src="~/Content/masterslider/blank.gif" data-src="@url" />
+    var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() {ContextMode = ContextMode.Default});
+    var medium = url+ "?preset=" + size;
+    <img class="zoomImage" src="~/Content/masterslider/blank.gif" data-zoom-image="@url" data-src="@medium" />
 }
 @helper GetThumbImageTag(MediaData media, string size, UrlResolver urlResolver)
 {
     var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default }) + "?preset=" + size;
     <img class="ms-thumb" src="@url" />
 }
-
+<script src="http://www.elevateweb.co.uk/wp-content/themes/radial/jquery.elevatezoom.min.js" type="text/javascript"></script>
 
 <!--Shopping Cart Message-->
 <section class="cart-message">
@@ -118,6 +119,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var p = new commercestarterkit.Product('#@id');
+            $(".zoomImage").elevateZoom({
+                zoomWindowWidth: 500,
+                zoomWindowHeight: 500
+            });
         });
     </script>
 
