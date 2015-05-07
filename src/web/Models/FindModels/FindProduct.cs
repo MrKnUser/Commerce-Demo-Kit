@@ -99,7 +99,12 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         //Photo facets
         public decimal Resoulution { get; set; }
         public string LensMount { get; set; }
-
+        public string CameraFormat { get; set; }
+        public string FileFormat { get; set; }
+        public string Connectivity { get; set; }
+        public string Battery { get; set; }
+        public string MemoryCardType { get; set; }
+        public double Weight { get; set; }
      
     }
 
@@ -146,6 +151,15 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
             if (digitalCameraSkuContent != null)
             {
                 Brand = digitalCameraSkuContent.Facet_Brand;
+                Resoulution = digitalCameraSkuContent.Resolution;
+                LensMount = digitalCameraSkuContent.LensMount;
+                CameraFormat = digitalCameraSkuContent.CameraFormat;
+                FileFormat = digitalCameraSkuContent.FileFormat;
+                Connectivity = digitalCameraSkuContent.Connectivity;
+                Battery = digitalCameraSkuContent.Battery;
+                MemoryCardType = digitalCameraSkuContent.MemoryCardType;
+                Weight = digitalCameraSkuContent.Weight;
+
 
             }
         }

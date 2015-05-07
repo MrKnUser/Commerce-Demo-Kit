@@ -50,6 +50,39 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         public virtual string LensMount { get; set; }
 
 
+        [Display(Name = "Camera Format",
+           Description = "Full-frame, 1.3 crop etc.",
+           Order = 50)]
+        public virtual string CameraFormat { get; set; }
+
+        [Display(Name = "File Format",
+           Description = "Information like image formats, video formats etc.",
+           Order = 60)]
+        public virtual string FileFormat { get; set; }
+
+        [Display(Name = "Connectivity",
+           Description = "Wifi, bluetooth ect.",
+           Order = 70)]
+        public virtual string Connectivity { get; set; }
+
+        [Display(Name = "Memory Card Type",
+           Description = "",
+           Order = 70)]
+        public virtual string MemoryCardType { get; set; }
+
+        [Display(Name = "Battery",
+           Description = "",
+           Order = 80)]
+        public virtual string Battery { get; set; }
+
+        //[Display(Name = "Weight",
+        //  Description = "",
+        //  Order = 90)]
+        //public virtual string Weight { get; set; }
+
+
+
+
 
 
 

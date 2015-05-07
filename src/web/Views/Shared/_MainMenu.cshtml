@@ -22,6 +22,15 @@
             <a href="javascript:;">@firstLevelItem.Page.Name <i class="fa fa-chevron-down"></i></a>
             <ul class="submenu">
                 @Html.MenuList(firstLevelItem.Page.ContentLink, SubLevelItemTemplate)
+                <li class="offer">
+                    <div class="col-1">
+                        @*<p class="p-style2">Lorem ipsum dolor sit</p>*@
+                    </div>
+                    <div class="col-2">
+                        @*<img src="img/offers/menu-drodown-offer.jpg" alt="Special Offer" />*@
+                        @*<a class="btn btn-block" href="#"><span>584$</span>Special offer</a>*@
+                    </div>
+                </li>
             </ul>
         }
         else
@@ -33,10 +42,24 @@
 
 @helper SubLevelItemTemplate(HtmlHelpers.MenuItem subLevelItem)
 {
-    <li class="@(subLevelItem.Selected ? "active" : null)">
-        @Link(subLevelItem.Page)
-    </li>
+    bool hasChildren = subLevelItem.HasChildren.Value;
+    if (hasChildren)
+    {
+        <li class="@(subLevelItem.Selected ? "active" : null) has-submenu">
+            @Link(subLevelItem.Page)
+      
+            <ul class="sub-submenu">
+               @Html.MenuList(subLevelItem.Page.ContentLink, SubLevelItemTemplate)
+            </ul>
+    
+         </li>
+     }
+    else
+    {
+        <li> @Link(subLevelItem.Page)</li>
+    }
 }
+
 
 @helper Link(PageData page)
 {

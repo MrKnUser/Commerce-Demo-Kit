@@ -1,17 +1,18 @@
 ﻿angular.module('OsDirectives').
     directive('osReviews', ['reviewsService', function (reviewsService) {
+  
         return {
             restrict: 'A',
             scope: {
-                contentid: "="
+                contentid: "=",
+                contentlanguage: "@"
             },
             link: function (scope) {
-              
-               
+                scope.reviewUrl = "/scripts/app/reviews/templates/reviews?lang=" + scope.contentlanguage;
             },
             controller: function ($scope) {
+               
                 $scope.rating = 0;
-
                 $scope.reviewData = {
                     Heading: "",
                     Text: "",
@@ -46,7 +47,7 @@
                     });
                 };
             },
-            templateUrl: "/scripts/app/reviews/templates/reviews.html"
+            template: '<div ng-include="reviewUrl"></div>'
         };
     }]);
 

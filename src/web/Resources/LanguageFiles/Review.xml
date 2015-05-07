@@ -3,12 +3,17 @@
     <language name="English"
               id="en">
         <components>
-            <review>
-                <title>
-                    Reviews
-                </title>
-              <description>Reviews</description>
-            </review>
+          <review>
+            <title>
+              Reviews
+            </title>
+            <description>Reviews</description>
+            <average>Average</average>
+            <write>Write review</write>
+            <post>Post review</post>
+            <newreview_heading>Review title</newreview_heading>
+            <newreview_text>Your review</newreview_text>
+        </review>
         </components>
     </language>
     <language name="Norwegian"
@@ -17,6 +22,11 @@
             <review>
                 <title>Vurderinger</title>
               <description>Vurderinger</description>
+              <average>Snitt</average>
+              <write>Skriv vurdering</write>
+              <post>Send inn vurdering</post>
+              <newreview_heading>Overskrift</newreview_heading>
+              <newreview_text>Din vurdering</newreview_text>
             </review>
         </components>
     </language>
