@@ -39,14 +39,20 @@
 
                 <h3>Your order</h3>
                 <table>
-                    <tr><th>Product</th></tr>
+                    <tr><th data-toggle="collapse" data-target="#products">Products</th></tr>
                     <tr>
-                        <td class="name border">Nikon D4X<span>x1</span></td>
-                        <td class="price border">2715,00 $</td>
+                        <td colspan="2">
+                            <table id="products" class="collapse">
+                                <tr ng-repeat="p in products">
+                                    <td class="name border">{{p.Name}}<span>x {{p.Quantity}}</span></td>
+                                    <td class="price border">{{ formatMoney(p.LineItemTotal - p.LineItemDiscount - p.LineItemOrderLevelDiscount) }}</td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
                     <tr>
                         <td class="th">Cart subtotal</td>
-                        <td class="price">2715,00 $</td>
+                        <td class="price">{{formatMoney(cartTotalAmount)}}</td>
                     </tr>
                     <tr>
                         <td class="th border">Shipping</td>
@@ -54,7 +60,7 @@
                     </tr>
                     <tr>
                         <td class="th">Order total</td>
-                        <td class="price">2715,00 $</td>
+                        <td class="price">{{formatMoney(cartTotalAmount)}}</td>
                     </tr>
                 </table>
 
@@ -118,17 +124,17 @@
                         <div class="form-group join-member-club">
                             <span>@Html.Translate("/common/account/memberclub/join_label")</span>
                             <label>
-                                
-                               
+
+
                                 @Html.RadioButtonFor(m => m.MemberClub, true, new { @class = "iradio" })
                                 @Html.Translate("/common/account/memberclub/join_club_option")
-                        
-                      
+
+
                             </label>
                             <label>
                                 @Html.RadioButtonFor(m => m.MemberClub, false)
                                 @Html.Translate("/common/account/memberclub/dont_join_club_option")
-                            
+
                             </label>
                         </div>
 

@@ -432,11 +432,19 @@ $(document).ready(function(e) {
 		$(this).parent().find('.icheckbox').removeClass('checked');
 	});
 	
-	//Categories accordion
-	$subcatToggle.click(function(e){
-		$(this).parent().toggleClass('opened');
-		$(this).parent().find('.subcategory').toggleClass('open');
-		e.preventDefault();
+	////Categories accordion
+	//$subcatToggle.click(function(e){
+	//	$(this).parent().toggleClass('opened');
+	//	$(this).parent().find('.subcategory').toggleClass('open');
+	//	e.preventDefault();
+	//});
+	$subcatToggle.hover(function () {
+	    $(this).parent().toggleClass('opened');
+	    $(this).parent().find('.subcategory').toggleClass('open');
+	   	$(this).parent().find('.subcategory').show();
+	}, function () {
+	    $(this).find('subcategory').hide();
+	    //$(this).parent().toggleClass('opened');
 	});
 	
 	//Filter Toggle / Showing Filters in Modal
