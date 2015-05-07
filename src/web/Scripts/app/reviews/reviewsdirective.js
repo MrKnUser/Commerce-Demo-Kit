@@ -3,15 +3,14 @@
         return {
             restrict: 'A',
             scope: {
-                contentid: "="
+                contentid: "=",
+                contentlanguage: "@"
             },
             link: function (scope) {
-              
-               
+
             },
             controller: function ($scope) {
                 $scope.rating = 0;
-
                 $scope.reviewData = {
                     Heading: "",
                     Text: "",
@@ -46,7 +45,7 @@
                     });
                 };
             },
-            templateUrl: "/scripts/app/reviews/templates/reviews.html"
+            templateUrl: "/scripts/app/reviews/templates/reviews"
         };
     }]);
 
