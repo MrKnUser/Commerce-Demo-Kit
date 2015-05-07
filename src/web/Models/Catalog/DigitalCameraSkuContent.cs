@@ -62,8 +62,25 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         [Display(Name = "Connectivity",
            Description = "Wifi, bluetooth ect.",
-           Order = 60)]
+           Order = 70)]
         public virtual string Connectivity { get; set; }
+
+        [Display(Name = "Memory Card Type",
+           Description = "",
+           Order = 70)]
+        public virtual string MemoryCardType { get; set; }
+
+        [Display(Name = "Battery",
+           Description = "",
+           Order = 80)]
+        public virtual string Battery { get; set; }
+
+        //[Display(Name = "Weight",
+        //  Description = "",
+        //  Order = 90)]
+        //public virtual string Weight { get; set; }
+
+
 
 
 

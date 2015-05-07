@@ -145,7 +145,7 @@
                                             <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Resolution</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
                                                 <p class="p-style2">
-                                                    @Model.CatalogContent.Resolution Megapixels
+                                                    @Html.PropertyFor(p => p.CatalogContent.Resolution) Megapixels
                                                 </p>
                                             </div>
                                         </div>
@@ -155,17 +155,27 @@
                                             <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Camera format</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
                                                 <p class="p-style2">
-                                                    @Model.CatalogContent.CameraFormat
+                                                    @Html.PropertyFor(p => p.CatalogContent.CameraFormat)
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="item">
                                         <div class="row">
-                                            <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Connectivity</span></div>
+                                            <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-share"></i><span>Connectivity</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
                                                 <p class="p-style2">
-                                                    @Model.CatalogContent.Connectivity
+                                                    @Html.PropertyFor(p => p.CatalogContent.Connectivity)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-share"></i><span>Battery</span></div>
+                                            <div class="col-lg-8 col-md-8 col-sm-9">
+                                                <p class="p-style2">
+                                                    @Html.PropertyFor(p => p.CatalogContent.Battery)
                                                 </p>
                                             </div>
                                         </div>
@@ -178,7 +188,7 @@
                                             <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Lens mount</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
                                                 <p class="p-style2">
-                                                    @Model.CatalogContent.LensMount
+                                                    @Html.PropertyFor(p => p.CatalogContent.LensMount)
                                                 </p>
                                             </div>
                                         </div>
@@ -188,7 +198,27 @@
                                             <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>File format</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
                                                 <p class="p-style2">
-                                                    @Model.CatalogContent.FileFormat
+                                                    @Html.PropertyFor(p => p.CatalogContent.FileFormat)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Memory card type</span></div>
+                                            <div class="col-lg-8 col-md-8 col-sm-9">
+                                                <p class="p-style2">
+                                                    @Html.PropertyFor(p => p.CatalogContent.MemoryCardType)
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Weight</span></div>
+                                            <div class="col-lg-8 col-md-8 col-sm-9">
+                                                <p class="p-style2">
+                                                    @Html.PropertyFor(p => p.CatalogContent.Weight)
                                                 </p>
                                             </div>
                                         </div>
