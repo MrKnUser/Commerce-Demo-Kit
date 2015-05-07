@@ -9,7 +9,7 @@
 @{
     var id = Guid.NewGuid();
     var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-    var currentLanguage = Model.CatalogContent.Language.TwoLetterISOLanguageName;
+    var currentLanguage = Model.CatalogContent.Language.IetfLanguageTag;
     var media = Model.Media;
     var defaultCollapsedState = "collapse";
     bool isInEditMode = Html.IsInEditMode();
@@ -22,8 +22,8 @@
 
 @helper GetImageTag(MediaData media, string size, UrlResolver urlResolver)
 {
-    var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() {ContextMode = ContextMode.Default});
-    var medium = url+ "?preset=" + size;
+    var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default });
+    var medium = url + "?preset=" + size;
     <img class="zoomImage" src="~/Content/masterslider/blank.gif" data-zoom-image="@url" data-src="@medium" />
 }
 @helper GetThumbImageTag(MediaData media, string size, UrlResolver urlResolver)
@@ -51,10 +51,10 @@
                         <div class="ms-slide">
                             @GetImageTag(file, "width320", urlResolver)
                             @GetThumbImageTag(file, "sliderimage", urlResolver)
-                           
+
                         </div>
                     }
-                  
+
                 </div>
             }
         </div>
@@ -154,6 +154,8 @@
                                                 </p>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="item">
                                         <div class="row">
                                             <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Camera format</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
@@ -162,6 +164,8 @@
                                                 </p>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="item">
                                         <div class="row">
                                             <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>Connectivity</span></div>
                                             <div class="col-lg-8 col-md-8 col-sm-9">
@@ -172,6 +176,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-lg-6 col-md-6 col-sm-6">
                                     <div class="item">
                                         <div class="row">
@@ -183,12 +188,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>File format</span></div>
-                                        <div class="col-lg-8 col-md-8 col-sm-9">
-                                            <p class="p-style2">
-                                                @Model.CatalogContent.FileFormat
-                                            </p>
+                                    <div class="item">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 col-sm-3"><i class="icon-camera-1"></i><span>File format</span></div>
+                                            <div class="col-lg-8 col-md-8 col-sm-9">
+                                                <p class="p-style2">
+                                                    @Model.CatalogContent.FileFormat
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -198,6 +205,7 @@
                 </div>
             </div>
         </div>
+
 
         <!--Tab2 (Description)-->
         <div class="tab-pane fade" id="descr">
