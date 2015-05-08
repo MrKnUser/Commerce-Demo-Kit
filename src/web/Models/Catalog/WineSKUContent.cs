@@ -63,7 +63,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         [Display(Name = "Color",
             Order = 12)]
-        [Searchable]
+        [CultureSpecific]
         [SelectOne(SelectionFactoryType = typeof(WineColorSelectionFactory))]
         public virtual string Color { get; set; }
 

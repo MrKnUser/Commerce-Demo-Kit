@@ -19,12 +19,9 @@
                     Rating: $scope.rating,
                     ContentId : $scope.contentid
                 };
+                getReviews();
 
-
-                reviewsService.getReviews($scope.contentid).then(function (data) {
-                    $scope.reviewResult = data;
-
-                });
+              
                 $scope.setRating = function (rating) {
                     if ($scope.rating == rating) {
                         $scope.rating = 0;
@@ -33,17 +30,19 @@
                     }
                     
                 };
+               function getReviews(){
+                    reviewsService.getReviews($scope.contentid).then(function (data) {
+                        $scope.reviewResult = data;
 
-                $scope.submitReview = function () {
-                    $scope.reviewData.Heading = $scope.form.heading;
-                    $scope.reviewData.Text = $scope.form.text;
+                    });
+                }
+
+                $scope.submitReview = function (formData) {
+                    $scope.reviewData.Heading = formData.heading;
+                    $scope.reviewData.Text = formData.text;
                     $scope.reviewData.Rating = $scope.rating;
                     reviewsService.postReview($scope.reviewData).then(function (data) {
-                        if ($scope.reviewResult.Reviews.length > 0) {
-                            $scope.reviewResult.Reviews.splice(0, 0, data);
-                        } else {
-                            $scope.reviewResult.Reviews.push(data);
-                        }
+                        getReviews();
                     });
                 };
             },

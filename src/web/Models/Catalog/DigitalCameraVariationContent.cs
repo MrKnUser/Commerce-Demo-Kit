@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using EPiServer.Commerce.Catalog.ContentTypes;
+﻿using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.DataAnnotations;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
-using Mediachase.Commerce;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
+using System;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace OxxCommerceStarterKit.Web.Models.Catalog
 {
@@ -24,9 +20,14 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
        Description = "Digital Camera",
        GroupName = "Camera"
        )]
-    public class DigitalCameraVariationContent : VariationContent, IFacetBrand, IIndexableContent, IProductListViewModelInitializer, IResourceable, IDigitalCameraContent
+    public class DigitalCameraVariationContent : VariationContent, IFacetBrand, IIndexableContent, IProductListViewModelInitializer, IResourceable
     {
 
+        // Multi lang
+        [Display(Name = "Color", Order = 5)]
+        [CultureSpecific]
+        public virtual string Color { get; set; }
+        
         // Multi lang
         [Display(Name = "Description", Order = 10)]
         [CultureSpecific]
@@ -78,7 +79,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             Order = 34,
             Name = "Focus Control")]
         [CultureSpecific(true)]
-        public XhtmlString FocusControl { get; set; }
+        public virtual XhtmlString FocusControl { get; set; }
 
         //[Display(Name = "Weight",
         //  Description = "",

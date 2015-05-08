@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using EPiServer.Commerce.Catalog;
+using EPiServer.Commerce.Catalog.ContentTypes;
+using EPiServer.Commerce.Catalog.Linking;
+using EPiServer.Core;
 using EPiServer.Framework.DataAnnotations;
 using EPiServer.Framework.Localization;
 using EPiServer.Framework.Web.Mvc;
@@ -11,7 +14,9 @@ using EPiServer.ServiceLocation;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Inventory;
 using Mediachase.Commerce.Pricing;
+using OxxCommerceStarterKit.Core;
 using OxxCommerceStarterKit.Core.Extensions;
+using OxxCommerceStarterKit.Web.Business;
 using OxxCommerceStarterKit.Web.Business.Analytics;
 using OxxCommerceStarterKit.Web.Models.Catalog;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
@@ -53,12 +58,37 @@ namespace OxxCommerceStarterKit.Web.Controllers
             if (currentContent == null) throw new ArgumentNullException("currentContent");
 
             DigitalCameraVariationViewModel viewModel = new DigitalCameraVariationViewModel(currentContent);
+           
             viewModel.PriceViewModel = GetPriceModel(currentContent);
-
+            viewModel.AllVariationSameStyle = CreateRelatedVariationViewModelCollection(currentContent, Constants.AssociationTypes.SameStyle);
             TrackAnalytics(viewModel);
 
             viewModel.IsSellable = IsSellable(currentContent);
             return View(viewModel);
+        }
+
+        IEnumerable<IVariationViewModel<VariationContent>> CreateRelatedVariationViewModelCollection(CatalogContentBase catalogContent, string associationType)
+        {
+            IEnumerable<Association> associations = LinksRepository.GetAssociations(catalogContent.ContentLink);
+            IEnumerable<IVariationViewModel<VariationContent>> productViewModels =
+                Enumerable.Where(associations, p => p.Group.Name.Equals(associationType) && IsVariation<VariationContent>(p.Target))
+                    .Select(a => CreateVariationViewModel(ContentLoader.Get<VariationContent>(a.Target)));
+
+            return productViewModels;
+        }
+
+
+        private bool IsVariation<T>(ContentReference target) where T : VariationContent
+        {
+            T content;
+            if (ContentLoader.TryGet<T>(target, out content))
+            {
+                List<T> contents = new List<T>();
+                contents.Add(content);
+                var c = contents.FilterForDisplay<T>().FirstOrDefault();
+                return c != null;
+            }
+            return false;
         }
 
         protected void TrackAnalytics(DigitalCameraVariationViewModel viewModel)

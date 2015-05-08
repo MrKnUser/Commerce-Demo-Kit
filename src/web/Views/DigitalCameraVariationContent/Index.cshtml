@@ -88,6 +88,24 @@
                     </div>
                 }
             </div>
+            <div class="variations clearfix">
+                <div class="colors">
+                    @foreach (var m in Model.AllVariationSameStyle)
+                    {
+                        <a href="@Url.ContentUrl(m.CatalogContent.ContentLink)" title="@(!string.IsNullOrEmpty(m.CatalogContent.DisplayName) ? m.CatalogContent.DisplayName : m.CatalogContent.Name)">
+                            @{ string swatchUrl = Html.AssetSwatch(m.CatalogContent); }
+                            @if (!string.IsNullOrEmpty(swatchUrl))
+                            {
+                                <img src="@swatchUrl" width="32" height="32" class="img-circle @(m.CatalogContent.Code == Model.CatalogContent.Code ? "active" : "")" />
+                            }
+                            else
+                            {
+                                @(((DigitalCameraVariationContent)m.CatalogContent).Color)
+                            }
+                        </a>
+                    }
+                </div>
+            </div>
             <p>
                 @Html.PropertyFor(p => p.CatalogVariationContent.Description)
             </p>

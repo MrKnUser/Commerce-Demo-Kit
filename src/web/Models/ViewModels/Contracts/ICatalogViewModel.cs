@@ -21,6 +21,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         LazyProductViewModelCollection Products { get; set; }
         LazyProductViewModelCollection StyleProducts { get; set; }
         LazyProductViewModelCollection AllProductsSameStyle { get; set; }
+        IEnumerable<IVariationViewModel<VariationContent>> AllVariationSameStyle { get; set; }
         LazyProductViewModelCollection RelatedProducts { get; set; }
         LazyVariationViewModelCollection Variants { get; set; }
         EntryContentBase ContentWithAssets { get; set; }

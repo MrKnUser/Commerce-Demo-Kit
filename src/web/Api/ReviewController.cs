@@ -52,10 +52,14 @@ namespace OxxCommerceStarterKit.Web.Api
         public object Get(int id)
         {
 
+            ReviewResult reviewResult = new ReviewResult();
+            reviewResult.AverageReview = 0;
+            reviewResult.TotalNumberOfReviews = 0;
+            reviewResult.Reviews = new List<ReviewData>();
             ContentReference contentLink = _referenceConverter.GetContentLink(id, CatalogContentType.CatalogEntry, 0);
             var contentAssetFolder = _contentAssetHelper.GetAssetFolder(contentLink);
             if (contentAssetFolder == null)
-                return null;
+                return reviewResult;
             List<Review> reviews = new List<Review>();
             if (Language == null)
             {
@@ -64,10 +68,7 @@ namespace OxxCommerceStarterKit.Web.Api
             else
                 reviews = _contentRepository.GetChildren<Review>(contentAssetFolder.ContentLink, new LanguageSelector(Language)).ToList();
 
-            ReviewResult reviewResult = new ReviewResult();
-            reviewResult.AverageReview = 0;
-            reviewResult.TotalNumberOfReviews = 0;
-            reviewResult.Reviews = new List<ReviewData>();
+         
             if (reviews.Any())
             {
                 reviewResult.Reviews = reviews.Select(x => new ReviewData

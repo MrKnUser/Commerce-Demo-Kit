@@ -1408,7 +1408,6 @@
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\TitleBlock.cs" />
     <Compile Include="Models\Catalog\DigitalCameraVariationContent.cs" />
-    <Compile Include="Models\Catalog\IDigitalCameraContent.cs" />
     <Compile Include="Models\Files\VideoFile.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />

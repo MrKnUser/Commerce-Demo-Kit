@@ -9,13 +9,14 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Catalog.Objects;
+using Microsoft.Ajax.Utilities;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Web.Models.Catalog;
 using Price = EPiServer.Commerce.SpecializedProperties.Price;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
-    public class DigitalCameraVariationViewModel
+    public class DigitalCameraVariationViewModel : CatalogContentViewModel<VariationContent>
     {
         public DigitalCameraVariationContent CatalogVariationContent { get; set; }
         public List<MediaData> Media { get; set; }
@@ -23,6 +24,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public CartItemModel CartItem { get; set; }
 
         public DigitalCameraVariationViewModel(DigitalCameraVariationContent currentContent)
+            : base(currentContent)
         {
             CatalogVariationContent = currentContent;
             Media = GetMedia(currentContent);
