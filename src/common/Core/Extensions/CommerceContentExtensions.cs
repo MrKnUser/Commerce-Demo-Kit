@@ -47,13 +47,17 @@ namespace OxxCommerceStarterKit.Core.Extensions
             {
                 var permanentLinkMapper = ServiceLocator.Current.GetInstance<IPermanentLinkMapper>();
 
-                foreach (var commerceMedia in entry.CommerceMediaCollection)
+                if (entry.CommerceMediaCollection != null)
                 {
-                    if (commerceMedia.GroupName == null || (commerceMedia.GroupName != null && commerceMedia.GroupName.ToLower() != "swatch"))
+                    foreach (var commerceMedia in entry.CommerceMediaCollection)
                     {
-                        var contentLink = commerceMedia.AssetContentLink(permanentLinkMapper);
-                        output.Add(contentLink);
+                        if (commerceMedia.GroupName == null || (commerceMedia.GroupName != null && commerceMedia.GroupName.ToLower() != "swatch"))
+                        {
+                            var contentLink = commerceMedia.AssetContentLink(permanentLinkMapper);
+                            output.Add(contentLink);
+                        }
                     }
+                    
                 }
             }
             return output;

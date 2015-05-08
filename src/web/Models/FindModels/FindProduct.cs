@@ -147,18 +147,18 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public DigitalCameraFindProduct(EntryContentBase entryContentBase, string language)
             : base(entryContentBase, language)
         {
-            DigitalCameraSkuContent digitalCameraSkuContent = entryContentBase as DigitalCameraSkuContent;
-            if (digitalCameraSkuContent != null)
+            DigitalCameraVariationContent digitalCameraVariationContent = entryContentBase as DigitalCameraVariationContent;
+            if (digitalCameraVariationContent != null)
             {
-                Brand = digitalCameraSkuContent.Facet_Brand;
-                Resoulution = digitalCameraSkuContent.Resolution;
-                LensMount = digitalCameraSkuContent.LensMount;
-                CameraFormat = digitalCameraSkuContent.CameraFormat;
-                FileFormat = digitalCameraSkuContent.FileFormat;
-                Connectivity = digitalCameraSkuContent.Connectivity;
-                Battery = digitalCameraSkuContent.Battery;
-                MemoryCardType = digitalCameraSkuContent.MemoryCardType;
-                Weight = digitalCameraSkuContent.Weight;
+                Brand = digitalCameraVariationContent.Facet_Brand;
+                Resoulution = digitalCameraVariationContent.Resolution;
+                LensMount = digitalCameraVariationContent.LensMount;
+                CameraFormat = digitalCameraVariationContent.CameraFormat;
+                FileFormat = digitalCameraVariationContent.FileFormat;
+                Connectivity = digitalCameraVariationContent.Connectivity;
+                Battery = digitalCameraVariationContent.Battery;
+                MemoryCardType = digitalCameraVariationContent.MemoryCardType;
+                Weight = digitalCameraVariationContent.Weight;
 
 
             }

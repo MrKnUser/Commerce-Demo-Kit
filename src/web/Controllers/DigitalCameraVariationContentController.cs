@@ -20,7 +20,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
 {
     [TemplateDescriptor(Inherited = true)]
     [RequireClientResources]
-    public class DigitalCameraSkuContentController : CommerceControllerBase<DigitalCameraSkuContent>
+    public class DigitalCameraVariationContentController : CommerceControllerBase<DigitalCameraVariationContent>
     {
          private readonly ICurrentMarket _currentMarket;
         private IWarehouseInventoryService _warehouseInventoryService;
@@ -28,7 +28,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
         private ReadOnlyPricingLoader _readOnlyPricingLoader;
         private readonly IPriceDetailService _priceDetailService;
 
-        public DigitalCameraSkuContentController()
+        public DigitalCameraVariationContentController()
 			: this(ServiceLocator.Current.GetInstance<IWarehouseInventoryService>(),
 			ServiceLocator.Current.GetInstance<LocalizationService>(),
 			ServiceLocator.Current.GetInstance<ReadOnlyPricingLoader>(),
@@ -37,7 +37,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
 			)
 		{
 		}
-        public DigitalCameraSkuContentController(IWarehouseInventoryService warehouseInventoryService, LocalizationService localizationService, ReadOnlyPricingLoader readOnlyPricingLoader, ICurrentMarket currentMarket, IPriceDetailService priceDetailService)
+        public DigitalCameraVariationContentController(IWarehouseInventoryService warehouseInventoryService, LocalizationService localizationService, ReadOnlyPricingLoader readOnlyPricingLoader, ICurrentMarket currentMarket, IPriceDetailService priceDetailService)
         {
             _warehouseInventoryService = warehouseInventoryService;
             _localizationService = localizationService;
@@ -48,18 +48,20 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
         
         // GET: DigitalCameraSkuContent
-        public ActionResult Index(DigitalCameraSkuContent currentContent)
+        public ActionResult Index(DigitalCameraVariationContent currentContent)
         {
-            DigitalCameraSkuViewModel digitalCameraSkuViewModel = new DigitalCameraSkuViewModel(currentContent);
-            digitalCameraSkuViewModel.PriceViewModel = GetPriceModel(currentContent);
+            if (currentContent == null) throw new ArgumentNullException("currentContent");
 
-            TrackAnalytics(digitalCameraSkuViewModel);
+            DigitalCameraVariationViewModel viewModel = new DigitalCameraVariationViewModel(currentContent);
+            viewModel.PriceViewModel = GetPriceModel(currentContent);
 
-            digitalCameraSkuViewModel.IsSellable = IsSellable(currentContent);
-            return View(digitalCameraSkuViewModel);
+            TrackAnalytics(viewModel);
+
+            viewModel.IsSellable = IsSellable(currentContent);
+            return View(viewModel);
         }
 
-        protected void TrackAnalytics(DigitalCameraSkuViewModel digitalCameraSkuViewModel)
+        protected void TrackAnalytics(DigitalCameraVariationViewModel viewModel)
         {
             // Track
             GoogleAnalyticsTracking tracking = new GoogleAnalyticsTracking(ControllerContext.HttpContext);
@@ -67,12 +69,12 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
             // Track the main product view
             tracking.ProductAdd(
-                digitalCameraSkuViewModel.CatalogContent.Code,
-                digitalCameraSkuViewModel.CatalogContent.DisplayName,
+                viewModel.CatalogVariationContent.Code,
+                viewModel.CatalogVariationContent.DisplayName,
                 null,
-                digitalCameraSkuViewModel.CatalogContent.Facet_Brand,
+                viewModel.CatalogVariationContent.Facet_Brand,
                 null, null, 0,
-                (double)digitalCameraSkuViewModel.CatalogContent.GetDefaultPriceAmount(_currentMarket.GetCurrentMarket()),
+                (double)viewModel.CatalogVariationContent.GetDefaultPriceAmount(_currentMarket.GetCurrentMarket()),
                 0
                 );
 

@@ -14,6 +14,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
     public interface IProductListViewModelInitializer
     {
-        ProductListViewModel Populate(IMarket getCurrentMarket);
+        ProductListViewModel Populate(IMarket currentMarket);
     }
 }

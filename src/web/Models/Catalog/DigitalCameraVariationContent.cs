@@ -24,19 +24,17 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
        Description = "Digital Camera",
        GroupName = "Camera"
        )]
-    public class DigitalCameraSkuContent : VariationContent, IFacetBrand, IIndexableContent, IProductListViewModelInitializer, IResourceable
+    public class DigitalCameraVariationContent : VariationContent, IFacetBrand, IIndexableContent, IProductListViewModelInitializer, IResourceable, IDigitalCameraContent
     {
 
         // Multi lang
         [Display(Name = "Description", Order = 10)]
         [CultureSpecific]
-        [Searchable]
-        public virtual XhtmlString Info_Description { get; set; }
+        public virtual XhtmlString Description { get; set; }
 
         // Multi lang
         [Display(Name = "Overview", Order = 20)]
         [CultureSpecific]
-        [Searchable]
         public virtual XhtmlString Overview { get; set; }
 
         [Display(Name = "Resolution",
@@ -75,6 +73,13 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
            Order = 80)]
         public virtual string Battery { get; set; }
 
+        [Display(
+            GroupName = SystemTabNames.Content,
+            Order = 34,
+            Name = "Focus Control")]
+        [CultureSpecific(true)]
+        public XhtmlString FocusControl { get; set; }
+
         //[Display(Name = "Weight",
         //  Description = "",
         //  Order = 90)]
@@ -103,7 +108,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             var language = (Language == null ? string.Empty : Language.Name);
             var findProduct = new DigitalCameraFindProduct(this, language);
 
-            findProduct.Description = Info_Description;
+            findProduct.Description = Description;
             findProduct.Overview = Overview;
             findProduct.ShowInList = ShowInList;
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = this.GetDefaultPrice();
@@ -120,7 +125,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             return !(StopPublish != null && StopPublish < DateTime.Now);
         }
 
-        public ProductListViewModel Populate(Mediachase.Commerce.IMarket getCurrentMarket)
+        public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)
         {
             UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 
@@ -129,16 +134,16 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                 Code = this.Code,
                 ContentLink = this.ContentLink,
                 DisplayName = this.DisplayName,
-                Description = Info_Description,
+                Description = Description,
                 ProductUrl = urlResolver.GetUrl(ContentLink),
                 ImageUrl = this.GetDefaultImage(),
-                PriceString = this.GetDisplayPrice(getCurrentMarket),
+                PriceString = this.GetDisplayPrice(currentMarket),
                 BrandName = Facet_Brand,
                 //Country = Country,
                 ContentType = this.GetType().Name
             };
-            ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
-            productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());
+            
+            productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket);
             return productListViewModel;
         }
 

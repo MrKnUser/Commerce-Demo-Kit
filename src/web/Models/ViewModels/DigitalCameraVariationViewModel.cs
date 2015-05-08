@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using EPiServer;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.SpecializedProperties;
 using EPiServer.Core;
@@ -14,22 +15,22 @@ using Price = EPiServer.Commerce.SpecializedProperties.Price;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
-    public class DigitalCameraSkuViewModel
+    public class DigitalCameraVariationViewModel
     {
-        public DigitalCameraSkuContent CatalogContent { get; set; }
+        public DigitalCameraVariationContent CatalogVariationContent { get; set; }
         public List<MediaData> Media { get; set; }
         public Price Price { get; set; }
         public CartItemModel CartItem { get; set; }
 
-        public DigitalCameraSkuViewModel(DigitalCameraSkuContent currentContent)
+        public DigitalCameraVariationViewModel(DigitalCameraVariationContent currentContent)
         {
-            CatalogContent = currentContent;
+            CatalogVariationContent = currentContent;
             Media = GetMedia(currentContent);
-            CartItem = new CartItemModel(CatalogContent){CanBuyEntry = true};
+            CartItem = new CartItemModel(CatalogVariationContent){CanBuyEntry = true};
         }
-        private List<MediaData> GetMedia(DigitalCameraSkuContent currentContent)
+        private List<MediaData> GetMedia(DigitalCameraVariationContent currentContent)
         {
-            var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
             var mediaReferences = currentContent.AssetImageUrls();
             List<MediaData> mediaData = new List<MediaData>();
             foreach (ContentReference mediaReference in mediaReferences)
