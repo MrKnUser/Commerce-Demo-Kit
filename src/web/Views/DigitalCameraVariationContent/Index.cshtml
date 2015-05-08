@@ -96,7 +96,7 @@
                             @{ string swatchUrl = Html.AssetSwatch(m.CatalogContent); }
                             @if (!string.IsNullOrEmpty(swatchUrl))
                             {
-                                <img src="@swatchUrl" width="32" height="32" class="img-circle @(m.CatalogContent.Code == Model.CatalogContent.Code ? "active" : "")" />
+                                <img src="@swatchUrl" class="@(m.CatalogContent.Code == Model.CatalogContent.Code ? "active" : "")" />
                             }
                             else
                             {

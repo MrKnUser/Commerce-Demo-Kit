@@ -65,22 +65,29 @@ namespace OxxCommerceStarterKit.Core.Extensions
 
         public static string AssetSwatchUrl(this EntryContentBase entry)
         {
-            var output = new List<string>();
+          
             if (entry != null)
             {
                 var permanentLinkMapper = ServiceLocator.Current.GetInstance<IPermanentLinkMapper>();
                 var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 
-                foreach (var commerceMedia in entry.CommerceMediaCollection)
+                if (entry.CommerceMediaCollection != null)
                 {
-                    if (commerceMedia.GroupName != null && commerceMedia.GroupName.ToLower() == "swatch")
+                    foreach (var commerceMedia in entry.CommerceMediaCollection)
                     {
-                        var contentLink = commerceMedia.AssetContentLink(permanentLinkMapper);
-                        output.Add(urlResolver.GetUrl(contentLink));
+                        if (commerceMedia.GroupName != null && commerceMedia.GroupName.ToLower() == "swatch")
+                        {
+                            var contentLink = commerceMedia.AssetContentLink(permanentLinkMapper);
+                            return urlResolver.GetUrl(contentLink);
+                        }
                     }
+
+                    // Use first
+                    string defaultImage = entry.GetDefaultImage("swatch");
+                    return defaultImage;
                 }
             }
-            return output.FirstOrDefault();
+            return null;
         }
 
         public static CommerceMedia GetCommerceMedia(this EntryContentBase entry)
@@ -352,7 +359,7 @@ namespace OxxCommerceStarterKit.Core.Extensions
         }
 
 
-        public static string GetDefaultImage(this EntryContentBase productContent)
+        public static string GetDefaultImage(this EntryContentBase productContent, string preset = null)
         {
             var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 
@@ -360,10 +367,21 @@ namespace OxxCommerceStarterKit.Core.Extensions
             if (commerceMedia != null)
             {
                 var contentReference = commerceMedia.AssetLink;
-                return urlResolver.GetUrl(contentReference, null, new VirtualPathArguments() { ContextMode = ContextMode.Default });
+                string defaultImage = urlResolver.GetUrl(contentReference, null, new VirtualPathArguments() { ContextMode = ContextMode.Default });
+                if(preset != null)
+                {
+                    defaultImage = defaultImage + "?preset=" + preset;
+                }
+                return defaultImage;
             }
 
-            return "/siteassets/system/no-image.png";
+            string noImage = "/siteassets/system/no-image.png";
+            if (preset != null)
+            {
+                noImage = noImage + "?preset=" + preset;
+            }
+
+            return noImage;
         }
 
 
