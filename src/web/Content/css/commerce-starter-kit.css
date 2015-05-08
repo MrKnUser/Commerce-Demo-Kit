@@ -818,4 +818,10 @@ input[type="checkbox"] {
   margin-top: 15px;
   margin-bottom: 5px;
 }
-/*# sourceMappingURL=commerce-starter-kit.css.map */
+header .logo {
+  max-width: 200px;
+  top: 12px;
+}
+.switchers {
+  left: 240px;
+}
