@@ -7,9 +7,14 @@ using EPiServer;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Core;
 using EPiServer.DataAccess;
+using EPiServer.Find;
+using EPiServer.Find.Framework;
 using EPiServer.Security;
+using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Catalog;
+using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
 using OxxCommerceStarterKit.Web.Models.Catalog;
+using OxxCommerceStarterKit.Web.Models.FindModels;
 using OxxCommerceStarterKit.Web.Reviews;
 
 namespace OxxCommerceStarterKit.Web.Api
@@ -49,9 +54,9 @@ namespace OxxCommerceStarterKit.Web.Api
 
         //TODO: This should take in id, and type. Then it can be used on both commerce products and pagedata
 
-        public object Get(int id)
+        public ReviewResult Get(int id)
         {
-
+            
             ReviewResult reviewResult = new ReviewResult();
             reviewResult.AverageReview = 0;
             reviewResult.TotalNumberOfReviews = 0;
@@ -66,7 +71,7 @@ namespace OxxCommerceStarterKit.Web.Api
                 reviews = _contentRepository.GetChildren<Review>(contentAssetFolder.ContentLink).ToList();
             }
             else
-                reviews = _contentRepository.GetChildren<Review>(contentAssetFolder.ContentLink, new LanguageSelector(Language)).ToList();
+                reviews = _contentRepository.GetChildren<Review>(contentAssetFolder.ContentLink, new CultureInfo(Language)).ToList();
 
          
             if (reviews.Any())
@@ -80,9 +85,13 @@ namespace OxxCommerceStarterKit.Web.Api
                     UserName = x.UserDisplayName,
                     ReviewDate = x.ReviewDate
 
-                }).ToList();
+                }).OrderByDescending(y => y.ReviewDate).ToList();
                 reviewResult.TotalNumberOfReviews = reviewResult.Reviews.Count;
-                reviewResult.AverageReview = reviewResult.Reviews.Average(x => x.Rating);
+                var average = reviewResult.Reviews.Average(x => x.Rating);
+                average = average*2;
+                average = Math.Round(average, MidpointRounding.AwayFromZero);
+                average = average/2;
+                reviewResult.AverageReview = average;
             }
 
             return reviewResult;
@@ -96,7 +105,7 @@ namespace OxxCommerceStarterKit.Web.Api
             ContentReference contentLink = _referenceConverter.GetContentLink(reviewData.ContentId, CatalogContentType.CatalogEntry,0);
             EntryContentBase product = _contentRepository.Get<EntryContentBase>(contentLink, new CultureInfo(language));
             ContentAssetFolder assetFolder = _contentAssetHelper.GetOrCreateAssetFolder(product.ContentLink);
-            Review newReview = _contentRepository.GetDefault<Review>(assetFolder.ContentLink);
+            Review newReview = _contentRepository.GetDefault<Review>(assetFolder.ContentLink, new CultureInfo(language));
             newReview.Rating = reviewData.Rating;
             newReview.Heading = reviewData.Heading;
             newReview.Text = reviewData.Text;
@@ -106,17 +115,40 @@ namespace OxxCommerceStarterKit.Web.Api
             newReview.ReviewDate = DateTime.Now;
             ContentReference cf = _contentRepository.Save(newReview, SaveAction.Publish, AccessLevel.NoAccess);
             Review postedReview = _contentRepository.Get<Review>(cf, new CultureInfo(language));
-            ReviewData review = new ReviewData
+            if (postedReview != null)
             {
-                ContentId = postedReview.ContentId,
-                Rating = postedReview.Rating,
-                Heading = postedReview.Heading,
-                Text = postedReview.Text,
-                UserName = postedReview.UserDisplayName,
-                ReviewDate = postedReview.ReviewDate
+                ReviewData review = new ReviewData
+                {
+                    ContentId = postedReview.ContentId,
+                    Rating = postedReview.Rating,
+                    Heading = postedReview.Heading,
+                    Text = postedReview.Text,
+                    UserName = postedReview.UserDisplayName,
+                    ReviewDate = postedReview.ReviewDate
 
-            };
-            return review;
+                };
+                UpdateProductWithAverageReview(product);
+                return review;
+            }
+
+            return null;
+
+        }
+
+        private void UpdateProductWithAverageReview(EntryContentBase product)
+        {
+            EntryContentBase writableProduct = product.CreateWritableClone() as EntryContentBase;
+            if (writableProduct != null && writableProduct.Property["AverageRating"] != null)
+            {
+                
+                ReviewResult reviewResult = Get(product.ContentLink.ID);
+                if (reviewResult != null)
+                {
+                    writableProduct.Property["AverageRating"].Value = reviewResult.AverageReview;
+                    _contentRepository.Save(writableProduct, SaveAction.ForceCurrentVersion, AccessLevel.NoAccess);
+                }
+               
+            }
 
         }
 

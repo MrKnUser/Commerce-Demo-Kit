@@ -76,10 +76,17 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         [Display(
             GroupName = SystemTabNames.Content,
-            Order = 34,
+            Order = 90,
             Name = "Focus Control")]
         [CultureSpecific(true)]
         public virtual XhtmlString FocusControl { get; set; }
+
+        [Display(
+            GroupName = SystemTabNames.Content,
+            Order = 300,
+            Name = "Average Rating")]
+        [Editable(false)]
+        public virtual double AverageRating { get; set; }
 
         //[Display(Name = "Weight",
         //  Description = "",

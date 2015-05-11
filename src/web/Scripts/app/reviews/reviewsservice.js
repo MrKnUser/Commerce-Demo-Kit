@@ -3,9 +3,9 @@
         '$q', '$http', function($q, $http) {
         var reviewsService = {};
         var basicUrl = "/api/Review/";
-        reviewsService.getReviews = function(contentid) {
+        reviewsService.getReviews = function(contentid, language) {
             var df = $q.defer();
-            var url = basicUrl + "get/?id="+contentid;
+            var url = "/"+language + basicUrl + "get/?id="+contentid;
             $http.get(url).success(function (data, status, headers, config) {
                     df.resolve(data);
                 })
@@ -16,11 +16,11 @@
 
         }
 
-        reviewsService.postReview = function (reviewData) {
+        reviewsService.postReview = function (reviewData, language) {
             var df = $q.defer();
             var req = {
                 method: 'POST',
-                url:  basicUrl + "post",
+                url:  "/"+language + basicUrl + "post",
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
                 },

@@ -10,24 +10,24 @@
 
 }
 <div class="rate">
-    <span ng-class="{'active' : reviewResult.AverageReview > 0 }"></span>
-    <span ng-class="{'active' : reviewResult.AverageReview  > 1 }"></span>
-    <span ng-class="{'active' : reviewResult.AverageReview  > 2 }"></span>
-    <span ng-class="{'active' : reviewResult.AverageReview  > 3 }"></span>
-    <span ng-class="{'active' : reviewResult.AverageReview  > 4, 'half' : reviewResult.AverageReview  <= 4.5 }"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  >= 0.5, 'half' : reviewResult.AverageReview  == 0.5}"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  >= 1.5, 'half' : reviewResult.AverageReview  == 1.5}"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  >= 2.5, 'half' : reviewResult.AverageReview  == 2.5}"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  >= 3.5, 'half' : reviewResult.AverageReview  == 3.5}"></span>
+    <span ng-class="{'active' : reviewResult.AverageReview  >= 4.5, 'half' : reviewResult.AverageReview  == 4.5 }"></span>
 </div>
 <div>
-    <span ng-bind="reviewResult.AverageReview"></span> @LocalizationService.Current.GetStringByCulture("/components/review/average", currentCulture) - <span ng-bind="reviewResult.TotalNumberOfReviews"></span> @LocalizationService.Current.GetStringByCulture("/components/review/title", currentCulture)
+    <span>{{reviewResult.AverageReview | number:1}}</span> @LocalizationService.Current.GetStringByCulture("/components/review/average", currentCulture) - <span ng-bind="reviewResult.TotalNumberOfReviews"></span> @LocalizationService.Current.GetStringByCulture("/components/review/title", currentCulture)
 </div>
 <div class="col-md-8">
     <div class="review" ng-repeat="review in reviewResult.Reviews">
         <h3 ng-bind="review.Heading"></h3>
         <div class="rate">
-            <span ng-class="{'active' : review.Rating > 0 }"></span>
-            <span ng-class="{'active' : review.Rating > 1 }"></span>
-            <span ng-class="{'active' : review.Rating > 2 }"></span>
-            <span ng-class="{'active' : review.Rating > 3 }"></span>
-            <span ng-class="{'active' : review.Rating > 4, 'half' : review.Rating <= 4.5 }"></span>
+            <span ng-class="{'active' : review.Rating > 0"></span>
+            <span ng-class="{'active' : review.Rating > 1"></span>
+            <span ng-class="{'active' : review.Rating > 2"></span>
+            <span ng-class="{'active' : review.Rating > 3"></span>
+            <span ng-class="{'active' : review.Rating > 4"></span>
         </div>
         <div ng-bind="review.Text"></div>
         <div ng-bind="review.UserDisplayName"></div>

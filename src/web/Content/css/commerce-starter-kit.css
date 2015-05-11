@@ -223,6 +223,12 @@
 .catalog-grid .tile .footer h3 {
   color: #2f343b !important;
 }
+.catalog-grid .tile .footer .tools .rate span.active {
+  color: #2ba8db;
+}
+.catalog-grid .tile .footer .tools .rate span.active.half {
+  opacity: 0.5;
+}
 .lightbox-open {
   overflow: hidden;
 }
@@ -447,6 +453,9 @@ body.lightbox-open,
 }*/
 .catalog-single .price {
   font-size: 1.2em !important;
+}
+.catalog-single .rate span.active.half {
+  opacity: 0.5;
 }
 .big-slider-container {
   height: 350px;
@@ -825,3 +834,4 @@ header .logo {
 .switchers {
   left: 240px;
 }
+/*# sourceMappingURL=commerce-starter-kit.css.map */

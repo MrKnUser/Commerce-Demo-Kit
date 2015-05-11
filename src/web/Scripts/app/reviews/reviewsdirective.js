@@ -31,7 +31,7 @@
                     
                 };
                function getReviews(){
-                    reviewsService.getReviews($scope.contentid).then(function (data) {
+                   reviewsService.getReviews($scope.contentid, $scope.contentlanguage).then(function (data) {
                         $scope.reviewResult = data;
 
                     });
@@ -41,7 +41,7 @@
                     $scope.reviewData.Heading = formData.heading;
                     $scope.reviewData.Text = formData.text;
                     $scope.reviewData.Rating = $scope.rating;
-                    reviewsService.postReview($scope.reviewData).then(function (data) {
+                    reviewsService.postReview($scope.reviewData, $scope.contentlanguage).then(function (data) {
                         getReviews();
                     });
                 };

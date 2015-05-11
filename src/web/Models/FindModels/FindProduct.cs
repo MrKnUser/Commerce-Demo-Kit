@@ -46,7 +46,8 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
             CategoryName = entryContentBase.GetCategoryName(language);
             ProductUrl = urlResolverInjected.Service.GetUrl(entryContentBase.ContentLink, language);
             DefaultImageUrl = entryContentBase.GetDefaultImage();
-         
+            AverageRating = (double) (entryContentBase.Property["AverageRating"] != null ? entryContentBase.Property["AverageRating"].Value : 0);
+            
         }
 
         [Id]
@@ -105,7 +106,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string Battery { get; set; }
         public string MemoryCardType { get; set; }
         public double Weight { get; set; }
-     
+        public double AverageRating { get; set; }
     }
 
     public class WineFindProduct : FindProduct
@@ -159,7 +160,6 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
                 Battery = digitalCameraVariationContent.Battery;
                 MemoryCardType = digitalCameraVariationContent.MemoryCardType;
                 Weight = digitalCameraVariationContent.Weight;
-
 
             }
         }
