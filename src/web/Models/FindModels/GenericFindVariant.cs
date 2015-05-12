@@ -7,15 +7,12 @@ using OxxCommerceStarterKit.Core.Models;
 
 namespace OxxCommerceStarterKit.Web.Models.FindModels
 {
-    public class GenericFindVariant
+    public class GenericFindVariant : FindProduct
     {
-        [Id]
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Color { get; set; }
+  
         public string Size { get; set; }
         public List<PriceAndMarket> Prices { get; set; }
-        public string Code { get; set; }
+
         public decimal Stock { get; set; }
     }
 }

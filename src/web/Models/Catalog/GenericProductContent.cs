@@ -36,6 +36,11 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
          [DefaultValue(true)]
          public virtual bool ShowInList { get; set; }
 
+         // Same for all languages
+         [Display(Name = "Facet Brand",
+             Order = 12)]
+         public virtual string Facet_Brand { get; set; }
+
          // Multi lang
          [Display(Name = "Color", Order = 15)]
          [CultureSpecific]
@@ -73,7 +78,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             findProduct.DescriptiveColor = Color;
             findProduct.Sizes =
                 variations.Select(x => x.Size ?? string.Empty).Distinct().ToList();
-
+            findProduct.Brand = this.Facet_Brand;
 
             findProduct.ShowInList = ShowInList && variations.Any(x => x.Stock > 0);
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = productVariants.GetDefaultPrice(market);
@@ -114,7 +119,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                     var genericVariation = new GenericFindVariant()
                     {
                         Id = genericSizeVariationContent.ContentLink.ID,
-                        Color = genericSizeVariationContent.Color,
+                        Color = new List<string>{genericSizeVariationContent.Color},
                         Size = genericSizeVariationContent.Size ?? string.Empty,
                         Prices = genericSizeVariationContent.GetPricesWithMarket(market),
                         Code = genericSizeVariationContent.Code,

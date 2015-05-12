@@ -3,7 +3,8 @@
 @using EPiServer.Web
 @using EPiServer.Web.Routing
 @using OxxCommerceStarterKit.Web.Helpers
-@model OxxCommerceStarterKit.Web.Models.ViewModels.GenericProductViewModel
+@model OxxCommerceStarterKit.Web.Models.ViewModels.IVariationViewModel<OxxCommerceStarterKit.Web.Models.Catalog.GenericSizeVariationContent>
+
 @{
     var id = System.Guid.NewGuid();
     var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
@@ -29,19 +30,11 @@
     <img class="ms-thumb" src="@url" />
 }
 
-@if (Html.IsInEditMode())
-{
-    <div class="row">
-        <div class="col-xs-2">Show In Search Result:</div>
-        <div class="col-xs-2">@Html.PropertyFor(m => m.CatalogContent.ShowInList)</div>
-    </div>
-}
 <!--Shopping Cart Message-->
 <section class="cart-message">
     <i class="fa fa-check-square"></i>
     <p class="p-style3">@Model.CatalogContent.DisplayName was successfully added to your cart.</p>
 </section><!--Shopping Cart Message Close-->
-
 <section class="catalog-single">
     <div ng-controller="CartController" class="row product" id="@id">
         <div class="col-sm-4">
@@ -61,50 +54,41 @@
             }
         </div>
         <div class="col-sm-8 col-md-6 main-product-view" itemscope itemtype="http://schema.org/Product">
+
             <div class="title">
+
                 <h1 itemprop="name">
+
                     @Html.PropertyFor(x => x.CatalogContent.DisplayName)
                 </h1>
 
             </div>
             <div class="price">
-                @if (Model.GenericVariationViewModel != null)
+                @if (Model.CatalogContent != null)
                 {
-                    @Html.Partial("_Price", Model.GenericVariationViewModel.PriceViewModel)
+                    @Html.Partial("_Price", Model.PriceViewModel)
                 }
             </div>
             @{ double rating = Model.CatalogContent.AverageRating; }
 
-                <div class="rate">
-                    <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
-                    <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
-                    <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
-                    <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
-                    <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
-                </div>
+            <div class="rate">
+                <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
+                <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
+                <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
+                <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
+                <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
+            </div>
             <div class="buttons group">
-                @if (Model.GenericVariationViewModel != null)
+                @if (Model.CatalogContent != null)
                 {
                     <div>
-                        @Html.Partial("_BuyItem", new CartItemModel(Model.GenericVariationViewModel.CatalogContent) { CanBuyEntry = Model.IsSellable })
+                        @Html.Partial("_BuyItem", Model.CartItem)
                     </div>
                 }
             </div>
             <div class="variations clearfix">
-                <div class="sizes">
-                    <div>
-                        @using (Html.BeginForm(null,null ))
-                        {
-                            if (Model.Size != null && Model.Size.Any())
-                            {
-                                @*@Html.DropDownListFor(x => x.GenericVariationViewModel.CatalogContent.Size, Model.Size, new { @id = "sizesId", Name = "size", ng_model = "product.size", ng_change = "sizeChanged()" })*@
-                                @Html.DropDownListFor(x => x.GenericVariationViewModel.CatalogContent.Size, Model.Size, new { @id = "sizesId", Name = "size", @onchange = "this.form.submit();" })
-                            }
-                        }
-                    </div>
-                </div>
                 <div class="colors">
-                    @foreach (var m in Model.AllProductsSameStyle.OrderBy(v => ((GenericProductContent)v.CatalogContent).Color))
+                    @foreach (var m in Model.AllVariationSameStyle)
                     {
                         <a href="@Url.ContentUrl(m.CatalogContent.ContentLink)" title="@(!string.IsNullOrEmpty(m.CatalogContent.DisplayName) ? m.CatalogContent.DisplayName : m.CatalogContent.Name)">
                             @{ string swatchUrl = Html.AssetSwatch(m.CatalogContent); }
@@ -114,7 +98,7 @@
                             }
                             else
                             {
-                                @(((GenericProductContent)m.CatalogContent).Color)
+                                @(((GenericSizeVariationContent)m.CatalogContent).Color)
                             }
                         </a>
                     }
@@ -154,6 +138,7 @@
     </script>
 
 </section>
+
 <!--Tabs Widget-->
 <section class="tabs-widget">
     <!-- Nav tabs -->
@@ -167,7 +152,7 @@
         <div class="tab-pane fade in active" id="specs">
             <div class="container">
                 <div class="row">
-                   @Html.PropertyFor(x => x.CatalogContent.Details)
+                    @Model.CatalogContent.Details
                 </div>
             </div>
         </div>
@@ -177,7 +162,7 @@
         <div class="tab-pane fade" id="descr">
             <div class="container">
                 <div class="row">
-                   @Html.PropertyFor(x => x.CatalogContent.Overview)
+                    @Model.CatalogContent.Overview
                 </div>
             </div>
         </div>
@@ -192,21 +177,4 @@
         </div>
     </div>
 </section><!--Tabs Widget Close-->
-
 @Html.Partial("_SimilarProducts", Model.CatalogContent)
-
-
-@section Head {
-    @if (Model != null)
-    {
-        <meta property="og:title" content="@Html.AttributeEncode(Model.CatalogContent.DisplayName)" />
-        <meta property="og:description" content="@Html.AttributeEncode(Model.CatalogContent.Description)" />
-        if (Model.Media != null)
-        {
-            foreach (var file in Model.Media)
-            {
-                <meta property="og:image" content="@(urlResolver.GetUrl(file.ContentLink))?preset=listmedium" />
-            }
-        }
-    }
-}

@@ -830,6 +830,7 @@
     <Content Include="Views\Shared\Blocks\Variation.Slider.cshtml" />
     <Content Include="Views\SliderPreview\Index.cshtml" />
     <Content Include="Views\GenericProductContent\Index.cshtml" />
+    <Content Include="Views\GenericSizeVariationContent\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1391,6 +1392,7 @@
     <Compile Include="Controllers\ArticleWithSidebarPageController.cs" />
     <Compile Include="Controllers\DigitalCameraVariationContentController.cs" />
     <Compile Include="Controllers\GenericProductContentController.cs" />
+    <Compile Include="Controllers\GenericSizeVariationContentController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\GenericPaymentController.cs" />
     <Compile Include="Controllers\FashionProductPartialController.cs" />
