@@ -7,7 +7,7 @@
 @{
     var id = System.Guid.NewGuid();
     var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
+    var currentLanguage = Model.CatalogContent.Language.IetfLanguageTag;
     var media = Model.Media;
     var defaultCollapsedState = "collapse";
     bool isInEditMode = Html.IsInEditMode();
@@ -62,27 +62,27 @@
 
             </div>
             <div class="price">
-               @if (Model.GenericVariationViewModel != null)
-               {
-                @Html.Partial("_Price", Model.GenericVariationViewModel.PriceViewModel)
-               }
+                @if (Model.GenericVariationViewModel != null)
+                {
+                    @Html.Partial("_Price", Model.GenericVariationViewModel.PriceViewModel)
+                }
             </div>
             @*@{ double rating = Model.CatalogContent.AverageRating; }
 
-            <div class="rate">
-                <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
-                <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
-                <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
-                <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
-                <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
-            </div>*@
+                <div class="rate">
+                    <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
+                    <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
+                    <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
+                    <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
+                    <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
+                </div>*@
             <div class="buttons group">
-               @if (Model.GenericVariationViewModel != null)
-               {
-                <div>
-                    @Html.Partial("_BuyItem", new CartItemModel(Model.GenericVariationViewModel.CatalogContent) { CanBuyEntry = Model.IsSellable })
-                </div>
-               }
+                @if (Model.GenericVariationViewModel != null)
+                {
+                    <div>
+                        @Html.Partial("_BuyItem", new CartItemModel(Model.GenericVariationViewModel.CatalogContent) { CanBuyEntry = Model.IsSellable })
+                    </div>
+                }
             </div>
             <div class="variations clearfix">
                 <div class="colors">
@@ -103,9 +103,13 @@
                 </div>
                 <div class="sizes">
                     <div>
-                        @if (Model.Size != null && Model.Size.Any())
+                        @using (Html.BeginForm(null,null ))
                         {
-                            @Html.DropDownListFor(x => x.GenericVariationViewModel.CatalogContent.Size, Model.Size, new { @id = "sizesId", Name = "size", ng_model = "product.size", ng_change = "sizeChanged()" })
+                            if (Model.Size != null && Model.Size.Any())
+                            {
+                                @*@Html.DropDownListFor(x => x.GenericVariationViewModel.CatalogContent.Size, Model.Size, new { @id = "sizesId", Name = "size", ng_model = "product.size", ng_change = "sizeChanged()" })*@
+                                @Html.DropDownListFor(x => x.GenericVariationViewModel.CatalogContent.Size, Model.Size, new { @id = "sizesId", Name = "size", @onchange = "this.form.submit();" })
+                            }
                         }
                     </div>
                 </div>
@@ -144,6 +148,44 @@
     </script>
 
 </section>
+<!--Tabs Widget-->
+<section class="tabs-widget">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-target="#specs" data-toggle="tab">@Html.Translate("/common/product/details")</a></li>
+        <li><a data-target="#descr" data-toggle="tab">Overview</a></li>
+        <li><a data-target="#reviews" data-toggle="tab">Reviews</a></li>
+    </ul>
+    <div class="tab-content">
+        <!--Tab1 (Tech Specs)-->
+        <div class="tab-pane fade in active" id="specs">
+            <div class="container">
+                <div class="row">
+                   @Html.PropertyFor(x => x.CatalogContent.Details)
+                </div>
+            </div>
+        </div>
+
+
+        <!--Tab2 (Description)-->
+        <div class="tab-pane fade" id="descr">
+            <div class="container">
+                <div class="row">
+                   @Html.PropertyFor(x => x.CatalogContent.Overview)
+                </div>
+            </div>
+        </div>
+
+        <!--Tab3 (Reviews)-->
+        <div class="tab-pane fade" id="reviews">
+            <div class="container">
+                <div class="row">
+                    <div os-reviews data-contentid="@Model.CatalogContent.ContentLink.ID" data-contentlanguage="@currentLanguage"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!--Tabs Widget Close-->
 
 @Html.Partial("_SimilarProducts", Model.CatalogContent)
 

@@ -37,6 +37,11 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 		        FashionItemContent fashionItemContent = (FashionItemContent) entry;
 		        Size = fashionItemContent.Facet_Size;
 		    }
+            //TODO: Make this generic, move proerty to base?
+		    else if(entry.Property["Size"] != null)
+		    {
+		        Size = (string)entry.Property["Size"].Value;
+		    }
            
 
 		    if (media != null)

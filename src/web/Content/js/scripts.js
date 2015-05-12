@@ -506,11 +506,11 @@ $(document).ready(function(e) {
 		var $itemQnty = $(this).parent().find('#quantity').val();
 		var $cartTotalItems = parseInt($('.cart-btn a span').text()) +1;
 		$addedToCartMessage.find('p').text('"' + $itemName + '"' + '  ' + 'was successfully added to your cart.');
-		$('.cart-dropdown table').append(
-			'<tr class="item"><td><div class="delete"></div><a href="#">' + $itemName + 
-			'<td><input type="text" value="' + $itemQnty +
-			'"></td><td class="price">' + $itemPrice + '</td>' 
-		);
+		//$('.cart-dropdown table').append(
+		//	'<tr class="item"><td><div class="delete"></div><a href="#">' + $itemName + 
+		//	'<td><input type="text" value="' + $itemQnty +
+		//	'"></td><td class="price">' + $itemPrice + '</td>' 
+		//);
 		//$('.cart-btn a span').text($cartTotalItems);
 		$addedToCartMessage.addClass('visible');
 	});

@@ -78,6 +78,7 @@
 				articleNumber: articleNumber,
 				wineregion: wineregion // TODO: Can we make it generic?
 			};
+            console.log($scope.product);
         };
 
 
@@ -240,8 +241,9 @@
 		};
 
 		$scope.sizeChanged = function () {
-			var code = $('#sizesId').find(':checked').data('code');
-			$scope.product.code = code;
+		    var code = $('#sizesId').find(':checked').data('code');
+		    $scope.product.code = code;
+
 		};
 
 		/**
