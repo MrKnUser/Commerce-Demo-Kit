@@ -156,6 +156,12 @@
 				this._$cart.show();
 			}
 			this._$cartCounter.text(text);
+			
+		},
+
+		animateCartCount: function() {
+		    var lineHeight = this._$cartCounter.css('line-height');
+		    this._$cartCounter.animate({ fontSize: '250%', lineHeight: '0px' }).animate({ fontSize: '100%', lineHeight: lineHeight });
 		},
 
 //********************************************************************************
