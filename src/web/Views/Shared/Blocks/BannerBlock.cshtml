@@ -2,7 +2,7 @@
 @using OxxCommerceStarterKit.Web.Business.ClientTracking
 @model OxxCommerceStarterKit.Web.Models.Blocks.BannerBlock
 @{
-    // HACK
+    // HACK - this should be cleaned up
     IGoogleAnalyticsTracker googleAnalyticsTracker = ServiceLocator.Current.GetInstance<IGoogleAnalyticsTracker>();
     string script = "";
     string scriptId = "";

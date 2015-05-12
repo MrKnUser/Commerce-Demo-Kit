@@ -9,6 +9,7 @@ Copyright (C) 2013-2014 BV Network AS
 */
 
 using EPiServer;
+using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.DataAbstraction;
 using EPiServer.Framework.Web;
 using EPiServer.ServiceLocation;
@@ -58,6 +59,20 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
                 AvailableWithoutTag = false,
                 Default = false
             });
+
+            // All Slider blocks are rendered specially
+            viewTemplateModelRegistrator.Add(typeof(VariationContent), new TemplateModel()
+            {
+                Name = "Product Variation renderer for the Slider block",
+                Inherit = true,
+                Tags = new[] { WebGlobal.ContentAreaTags.Slider },
+                Path = BlockPath("Variation.Slider.cshtml"),
+                TemplateTypeCategory = TemplateTypeCategories.MvcPartialView,
+                AvailableWithoutTag = false,
+                Default = false
+            });
+
+//             viewTemplateModelRegistrator.Add(typeof(DemoBlock), new DataAbstraction.TemplateModel() { Name = "SideBarBlock", Description = "Displays a teaser of a page.", Path = "~/Views/Shared/DemoBlockSidebar.cshtml", Tags = new string[] { TagConstants.Sidebar } });
 
 	
 			//viewTemplateModelRegistrator.Add(typeof(ProductTeaserBlock), new TemplateModel

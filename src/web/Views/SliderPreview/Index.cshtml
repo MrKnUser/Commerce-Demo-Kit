@@ -1,0 +1,32 @@
+﻿@using EPiServer.Core
+@using EPiServer.Find.Cms
+@using EPiServer.Web.Mvc.Html
+@using OxxCommerceStarterKit.Web
+@using OxxCommerceStarterKit.Web.Models.Blocks
+@model OxxCommerceStarterKit.Web.Models.ViewModels.SliderPreviewModel
+@Html.FullRefreshPropertiesMetaData(new[] { "SliderContent" })
+
+<h1>Edit Slider</h1>
+<div class="tags" @Html.EditAttributes(x => x.SliderContent)>
+    <div>Current Content:</div>
+    @foreach (var item in Model.SliderContent.Items)
+    {
+        var itemContent = item.GetContent();
+        <button type="button" class="btn btn-primary"
+                style="margin: 2px;"
+                data-epi-block-id="@item.ContentLink.ToString()">
+            @itemContent.Name (@itemContent.ContentTypeName())
+        </button>
+    }
+</div>
+<h2>Slider Result</h2>
+<div class="row preview clearfix">
+    @Html.DisplayFor(x => x.PreviewContent, new {Tag = WebGlobal.ContentAreaTags.Slider})
+</div>
+
+@section scripts {
+    @Scripts.Render("~/bundles/frontpage")
+    <script type="text/javascript">
+        $(function () { commercestarterkit.FrontPage.init('#preview'); });
+    </script>
+}

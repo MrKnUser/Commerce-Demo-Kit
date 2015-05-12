@@ -22,7 +22,6 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
     /// </summary>
     public class ContentAreaWithDefaultsRenderer : ContentAreaRenderer
     {
-
         protected override string GetContentAreaItemCssClass(HtmlHelper htmlHelper, ContentAreaItem contentAreaItem)
         {
             var childrenCssClass = htmlHelper.ViewData["ChildrenCssClass"];
@@ -43,7 +42,7 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
                     tag = GetDefaultDisplayOption(content);
                     if (tag == null)
                     {
-                        // Default is always the smalles one we've got
+                        // Default is always the smallest one we've got
                         tag = WebGlobal.ContentAreaTags.OneThirdWidth;
                     }
                 }
@@ -110,7 +109,7 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
 				case WebGlobal.ContentAreaTags.OneThirdWidth:
 					return "narrow";
 				case WebGlobal.ContentAreaTags.Slider:
-					return string.Empty;
+					return "slider";
 				default:
                     return "narrow";
             }

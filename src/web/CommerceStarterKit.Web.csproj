@@ -827,6 +827,8 @@
     <Content Include="Views\Shared\Blocks\BannerBlock.cshtml" />
     <Content Include="Views\BannerBlock\_bannerblock.cshtml" />
     <Content Include="Views\DigitalCameraVariationContent\Index.cshtml" />
+    <Content Include="Views\Shared\Blocks\Variation.Slider.cshtml" />
+    <Content Include="Views\SliderPreview\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1394,6 +1396,7 @@
     <Compile Include="Business\Payment\IDibsPaymentProcessor.cs" />
     <Compile Include="Business\ClientTracking\IGoogleAnalyticsTracker.cs" />
     <Compile Include="Controllers\BannerBlockController.cs" />
+    <Compile Include="Controllers\SliderPreviewController.cs" />
     <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
     <Compile Include="Controllers\IReceiptViewModelBuilder.cs" />
@@ -1431,6 +1434,7 @@
     </Compile>
     <Compile Include="Models\ViewModels\ChromeLanguageInfo.cs" />
     <Compile Include="Models\ViewModels\Payment\GenericPaymentViewModel.cs" />
+    <Compile Include="Models\ViewModels\SliderPreviewModel.cs" />
     <Compile Include="Models\ViewModels\ProductListViewModel.cs" />
     <Compile Include="Models\ViewModels\Simple\LandingNodeViewModel.cs" />
     <Compile Include="Models\ViewModels\Simple\Product.cs" />

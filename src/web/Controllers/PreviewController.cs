@@ -30,6 +30,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
         TemplateTypeCategory = TemplateTypeCategories.MvcController, //Required as controllers for blocks are registered as MvcPartialController by default
         Tags = new[] { RenderingTags.Preview, RenderingTags.Edit },
         AvailableWithoutTag = false)]
+    [VisitorGroupImpersonation]
     public class PreviewController : ActionControllerBase, IRenderTemplate<BlockData>
     {
         private readonly IContentLoader _contentLoader;

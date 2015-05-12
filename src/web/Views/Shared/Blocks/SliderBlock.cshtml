@@ -1,47 +1,69 @@
-﻿@using OxxCommerceStarterKit.Web.Extensions
+﻿@using System.Activities.Statements
+@using EPiServer.Core
+@using EPiServer.Web.Mvc
+@using EPiServer.Web.WebControls
+@using OxxCommerceStarterKit.Web
+@using OxxCommerceStarterKit.Web.Extensions
+@using OxxCommerceStarterKit.Web.Helpers
 @using OxxCommerceStarterKit.Web.Models.Files
 @model OxxCommerceStarterKit.Web.Models.Blocks.SliderBlock
 @{
     Layout = null;
+    bool isInEditMode = Html.IsInEditMode();
+    string sliderName = ((IContent) Model).Name;
+    sliderName = sliderName.Replace(" ", "-").ToLowerInvariant();
+    
+    // Simple hack to prevent the content area from adding it's containing div
+    ViewData.Add(RenderSettings.HasContainerElement, false);
 }
-@Html.FullRefreshPropertiesMetaData(new[] { "Images" })
-<div @Html.EditAttributes(x => x.Images)>
-    @if (Model != null && Model.Images != null && Model.Images.Count > 0)
+
+@*
+    This Slider Block uses the Master Slider jQuery editon
+    http://www.masterslider.com/jquery/
+     - it will show the different items based on the type
+       of blocks that are dragged into it
+*@
+<hr>
+    @if (Model != null && Model.SliderContent != null && Model.SliderContent.Count > 0)
     {
         <section class="hero-slider">
             <div class="master-slider" id="hero-slider">
-                @foreach (var image in Model.Images.ToMedia<ImageFile>())
+                
+                @Html.DisplayFor(m => m.SliderContent, new
                 {
-                    <div class="ms-slide" data-delay="7">
-                        <div class="overlay"></div>
-                        @Html.Action("Index", "ImageFile", new { currentContent = image })
-                        @*@<img src="~/Content/masterslider/blank.gif" data-src="~/Content/img/hero/slideshow/slide_1.jpg" alt="Nikon D4S" />*@
-                        <h2 style="width: 456px; left: 110px; top: 110px;" class="light-color ms-layer" data-effect="top(50,true)" data-duration="700" data-delay="250" data-ease="easeOutQuad">Nikon D4S</h2>
-                        <p style="width: 456px; left: 110px; top: 210px;" class="light-color ms-layer" data-effect="back(500)" data-duration="700" data-delay="500" data-ease="easeOutQuad">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.</p>
-                        <div style="left: 110px; top: 300px;" class="ms-layer button" data-effect="bottom(50,true)" data-duration="600" data-delay="950" data-ease="easeOutQuad"><a class="btn btn-primary" href="#"><span>1845$</span>Buy it now</a></div>
-                    </div>
+                    Tag = WebGlobal.ContentAreaTags.Slider,
+                    ChildrenCssClass = "ms-slide",
+                })
 
-                    @*<li>
-                            @if (!string.IsNullOrEmpty(image.VideoUrl))
-                            {
-                                <div class="container">
-                                    <div class="col-xs-12">
-                                        @Html.Action("Index", "ImageFile", new { currentContent = image })
-                                    </div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="image-container">
-                                    <div class="image-centerer">
-                                        @Html.Action("Index", "ImageFile", new { currentContent = image })
-                                    </div>
-                                </div>
-                            }
-                        </li>*@
-                }
+                @*@foreach (var item in Model.SliderContent.Items)
+                    {
+                        IContent itemContent = (IContent) item.GetContent();
+                        string name = itemContent.Name;
+                        if (name.Length > 20)
+                        {
+                            name = name.Substring(0, 20) + "...";
+                        }
+
+                        <div class="ms-slide" data-delay="7">
+                            <div class="overlay"></div>
+                            <img src="/Content/masterslider/blank.gif" data-src="/Content/img/hero/slideshow/slide_1.jpg" alt="Nikon D4S"/>
+                            <h2 style="width: 456px; left: 110px; top: 110px;"
+                                class="light-color ms-layer" data-effect="top(50,true)"
+                                data-duration="700" data-delay="250" data-ease="easeOutQuad">
+                                @name
+                            </h2>
+                            <p style="width: 456px; left: 110px; top: 210px;" class="light-color ms-layer"
+                               data-effect="back(500)" data-duration="700" data-delay="500"
+                               data-ease="easeOutQuad">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
+                            </p>
+                            <div style="left: 110px; top: 300px;" class="ms-layer button"
+                                 data-effect="bottom(50,true)" data-duration="600" data-delay="950"
+                                 data-ease="easeOutQuad"><a class="btn btn-primary" href="#"><span>1845$</span>Buy it now</a>
+                            </div>
+                        </div>
+                    }*@
             </div>
-
         </section>
     }
-</div>

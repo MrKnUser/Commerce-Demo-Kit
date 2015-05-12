@@ -147,7 +147,7 @@ namespace OxxCommerceStarterKit.Web
         /// </summary>
         public static class ContentAreaTags
         {
-            public const string Slider = "";
+            public const string Slider = "slidertag";
             public const string FullWidth = "col-sm-12";
             public const string TwoThirdsWidth = "col-sm-8";
             public const string HalfWidth = "col-sm-6";

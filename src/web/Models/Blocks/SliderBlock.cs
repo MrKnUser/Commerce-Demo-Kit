@@ -9,6 +9,7 @@ Copyright (C) 2013-2014 BV Network AS
 */
 
 using System.ComponentModel.DataAnnotations;
+using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
@@ -18,8 +19,8 @@ using OxxCommerceStarterKit.Web.Business.Rendering;
 namespace OxxCommerceStarterKit.Web.Models.Blocks
 {
 	[ContentType(GUID = "c1a6d014-fa3f-4786-b35d-fa78940a1fdd",
-        DisplayName = "Carousel",
-        Description = "Slides images into view",
+        DisplayName = "Slider",
+        Description = "Show multiple content items in a configurable slider",
         GroupName = "Multimedia"
         )]
     [SiteImageUrl(thumbnail: EditorThumbnail.Multimedia)]
@@ -31,6 +32,15 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
 			Order = 10)]
 		[Searchable(false)]
 		public virtual LinkItemCollection Images { get; set; }
+
+
+	    [Display(
+	        GroupName = SystemTabNames.Content,
+	        Order = 20,
+	        Name = "Slider Content")]
+	    [CultureSpecific(false)]
+	    public virtual ContentArea SliderContent { get; set; }
+
 
 		[ScaffoldColumn(false)]
 	    public string Tag {
