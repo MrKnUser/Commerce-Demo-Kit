@@ -38,21 +38,21 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return GetDefaultPriceAmount(variation, currentMarket.GetCurrentMarket());
         }
 
-        public static int GetDefaultPriceAmount(this VariationContent variation, IMarket market = null)
+        public static int GetDefaultPriceAmount(this VariationContent variation, IMarket market)
         {
-            Price price = variation.GetDefautPriceMoney(market);
+            Price price = variation.GetDefaultPriceMoney(market);
             return price != null ? decimal.ToInt32(price.UnitPrice.Amount) : 0;
         }
 
         public static int GetDefaultPriceAmount(this List<VariationContent> variations, IMarket market = null)
         {
-            Price price = variations.GetDefautPriceMoney(market);
+            Price price = variations.GetDefaultPriceMoney(market);
             return price != null ? decimal.ToInt32(price.UnitPrice.Amount) : 0;
         }
 
         public static Price GetDefaultPrice(this VariationContent variation, IMarket market = null)
         {
-            return variation.GetDefautPriceMoney(market);
+            return variation.GetDefaultPriceMoney(market);
         }
 
         public static Price GetDefaultPrice(this List<VariationContent> variations, IMarket market = null)
@@ -64,10 +64,16 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return null;
         }
 
- 
+
+        /// <summary>
+        /// Gets the display price for the variation and market, including currency symbol.
+        /// </summary>
+        /// <param name="variation">The variation to retrieve price from.</param>
+        /// <param name="market">The market to get price for. If null, the current market is used.</param>
+        /// <returns></returns>
         public static string GetDisplayPrice(this VariationContent variation, IMarket market = null)
         {
-            Price price = variation.GetDefautPriceMoney(market);
+            Price price = variation.GetDefaultPriceMoney(market);
             return price != null ? price.UnitPrice.ToString() : string.Empty;
         }
 
@@ -80,13 +86,15 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return null;
         }
 
-        public static Price GetDefautPriceMoney(this VariationContent variation, IMarket market = null)
+        /// <summary>
+        /// Gets price information for a variation as a Price object. You can get the monetary price from the UnitPrice member.
+        /// </summary>
+        /// <param name="variation">The variation.</param>
+        /// <param name="market">The market.</param>
+        /// <returns></returns>
+        public static Price GetDefaultPriceMoney(this VariationContent variation, IMarket market = null)
         {
-            ReadOnlyPricingLoader pricingLoader = ServiceLocator.Current.GetInstance<ReadOnlyPricingLoader>();
-
-            ItemCollection<Price> prices;
-
-            prices = variation.GetPrices();
+            var prices = variation.GetPrices();
           
             if (prices != null)
             {
@@ -98,12 +106,12 @@ namespace OxxCommerceStarterKit.Core.Extensions
 
         }
 
-        public static Price GetDefautPriceMoney(this List<VariationContent> variations, IMarket market = null)
+        public static Price GetDefaultPriceMoney(this List<VariationContent> variations, IMarket market = null)
         {
 
             if (variations.Any())
             {
-                List<Price> prices = variations.Select(variant => GetDefautPriceMoney(variant, market)).Where(x => x != null).ToList();
+                List<Price> prices = variations.Select(variant => GetDefaultPriceMoney(variant, market)).Where(x => x != null).ToList();
 
                 if (prices.Any())
                 {
@@ -118,7 +126,7 @@ namespace OxxCommerceStarterKit.Core.Extensions
         /// Gets the discount price, if no discount is set, returns string.Empty
         /// </summary>
         /// <param name="variation">The variation.</param>
-        /// <param name="defaultPrice">The price to compare against</param>
+        /// <param name="defaultPrice">The price to return if no discounted price can be found</param>
         /// <param name="market">The market.</param>
         /// <returns></returns>
         public static string GetDiscountDisplayPrice(this VariationContent variation, Price defaultPrice, IMarket market = null)
@@ -129,17 +137,21 @@ namespace OxxCommerceStarterKit.Core.Extensions
                 ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
                 market = currentMarket.GetCurrentMarket();
             }
-            Func<PriceAndMarket, bool> priceFilter = d => d.PriceCode != string.Empty &&
-                    !(d.PriceTypeId == Mediachase.Commerce.Pricing.CustomerPricing.PriceType.PriceGroup.ToString() &&
-                        d.PriceCode == Constants.CustomerGroup.CustomerClub);
+            Func<PriceAndMarket, bool> priceFilter;
+            priceFilter = delegate(PriceAndMarket d)
+            {
+                // Find a non CustomerClub price, but still a price with a price code
+                return d.PriceCode != string.Empty &&
+                       !(d.PriceTypeId == CustomerPricing.PriceType.PriceGroup.ToString() &&
+                         d.PriceCode == Constants.CustomerGroup.CustomerClub);
+            };
 
+            // Find a price with a price code that is not a customer club price
+            var discountedPrice = variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);
 
-            var prices = variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);
-
-
-            if (prices != null) return prices.Price;
+            if (discountedPrice != null) 
+                return discountedPrice.Price;
             return string.Empty;
-
 
             
             //if (defaultPrice == null)
@@ -179,7 +191,6 @@ namespace OxxCommerceStarterKit.Core.Extensions
         }
 
 
-        //// TODO: MOVE TO EXTENSION METHODS FOR RE-USE
         //public static string GetDiscountedPrice(this List<VariationContent> variations, Price defaultPrice, IMarket market = null)
         //{
         //    // TODO: GetDiscountedPrice in find index: improvement point?? this gets the members club price in the search result as "the first variation that has a price with a pricecode"
@@ -211,9 +222,12 @@ namespace OxxCommerceStarterKit.Core.Extensions
                 ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
                 market = currentMarket.GetCurrentMarket();
             }
-            Func<PriceAndMarket, bool> priceFilter = d => d.PriceCode != string.Empty &&
-                    (d.PriceTypeId == CustomerPricing.PriceType.PriceGroup.ToString() &&
+            Func<PriceAndMarket, bool> priceFilter = delegate(PriceAndMarket d)
+            {
+                return d.PriceCode != string.Empty &&
+                       (d.PriceTypeId == CustomerPricing.PriceType.PriceGroup.ToString() &&
                         d.PriceCode == Constants.CustomerGroup.CustomerClub);
+            };
 
            
             var prices = variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);

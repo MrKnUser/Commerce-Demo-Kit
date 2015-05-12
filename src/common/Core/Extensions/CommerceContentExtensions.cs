@@ -315,8 +315,15 @@ namespace OxxCommerceStarterKit.Core.Extensions
             }
             return 0;
         }
-       
 
+
+        /// <summary>
+        /// Gets all prices for the variation for all markets and wraps this information into
+        /// a view model for easier consumption.
+        /// </summary>
+        /// <param name="content">The content.</param>
+        /// <param name="market">The market.</param>
+        /// <returns></returns>
         public static List<PriceAndMarket> GetPricesWithMarket(this VariationContent content, IMarket market)
         {
 

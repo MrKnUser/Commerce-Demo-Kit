@@ -1,6 +1,9 @@
-﻿@using EPiServer.Core
+﻿@using EPiServer.Cms.Shell
+@using EPiServer.Core
+@using EPiServer.Shell
 @using OxxCommerceStarterKit.Core.Extensions
-@model EPiServer.Commerce.Catalog.ContentTypes.VariationContent
+@using OxxCommerceStarterKit.Web.Helpers
+@model EPiServer.Commerce.Catalog.ContentTypes.ProductContent
 
 @{
     string name = Model.DisplayName ?? Model.Name;
@@ -11,27 +14,26 @@
     string imageUrl = Model.GetDefaultImage();
 }
 
-
 <div class="overlay"></div>
-@*@Html.Action("Index", "ImageFile", new { currentContent = image })*@
-@*<img src="/Content/masterslider/blank.gif" data-src="/Content/img/hero/slideshow/slide_1.jpg" alt="Nikon D4S" />*@
 <img src="/Content/masterslider/blank.gif" data-src="@imageUrl" alt="@Model.DisplayName" />
-<h2 style="width: 456px; left: 110px; top: 110px;"
+<h2 style="left: 110px; top: 100%;"
     class="light-color ms-layer" data-effect="top(50,true)"
     data-duration="700" data-delay="250" data-ease="easeOutQuad">
     @name
 </h2>
-<p style="width: 456px; left: 110px; top: 210px;" class="light-color ms-layer"
+<p style="width: 500px; left: 110px; top: 200%;" class="light-color ms-layer"
    data-effect="back(500)" data-duration="700" data-delay="500"
    data-ease="easeOutQuad">
-    @Model["Description"]
-    Tincidunt integer eu augue augue nunc elit dolor, luctus placerat scelerisque euismod, iaculis eu lacus nunc mi elit,
-    vehicula ut laoreet ac, aliquam sit amet justo nunc tempor, metus vel.
+    @if (Model["Description"] != null)
+    {
+        @EPiServer.Core.Html.TextIndexer.StripHtml(Model["Description"].ToString(), 250, 5, "...")
+    }
 
+    
 </p>
 <div style="left: 110px; top: 300px;" class="ms-layer button"
      data-effect="bottom(50,true)" data-duration="600" data-delay="950"
      data-ease="easeOutQuad">
-    <a class="btn btn-primary" href="#"><span>1845$</span>Buy it now</a>
+    <a class="btn btn-primary" href="@Url.ContentUrl(Model.ContentLink)"><span>1845$</span>Buy it now</a>
 </div>
 

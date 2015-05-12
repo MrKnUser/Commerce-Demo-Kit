@@ -102,10 +102,11 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
 
                         SliderItemSettings itemSettings = viewContext.ViewData["sliderSettings"] as SliderItemSettings;
                         MergeSettings(tagBuilder, itemSettings);
-
-                        itemSettings = contentAreaItem.RenderSettings["sliderSettings"] as SliderItemSettings;
-                        MergeSettings(tagBuilder, itemSettings);
-
+                        if (contentAreaItem.RenderSettings.ContainsKey("sliderSettings"))
+                        {
+                            itemSettings = contentAreaItem.RenderSettings["sliderSettings"] as SliderItemSettings;
+                            MergeSettings(tagBuilder, itemSettings);
+                        }
                         // We can override settings per content item
                         tagBuilder.MergeAttributes(contentAreaItem.RenderSettings);
 

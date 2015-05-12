@@ -1,0 +1,41 @@
+﻿@using EPiServer.Core
+@using OxxCommerceStarterKit.Core.Extensions
+
+@model EPiServer.Commerce.Catalog.ContentTypes.VariationContent
+
+@{
+    //ISliderContent sliderContent = Model as ISliderContent;
+    //if(sliderContent == null)
+    //{
+    //    sliderContent = 
+    //}
+    
+    string name = Model.DisplayName ?? Model.Name;
+    if (name.Length > 20)
+    {
+        name = name.Substring(0, 20) + "...";
+    }
+    string imageUrl = Model.GetDefaultImage();
+}
+
+<div class="overlay"></div>
+<img src="/Content/masterslider/blank.gif" data-src="@imageUrl" alt="@Model.DisplayName" />
+<h2 style="left: 110px; top: 100%;"
+    class="light-color ms-layer" data-effect="top(50,true)"
+    data-duration="700" data-delay="250" data-ease="easeOutQuad">
+    @name
+</h2>
+<p style="width: 500px; left: 110px; top: 200%;" class="light-color ms-layer"
+   data-effect="back(500)" data-duration="700" data-delay="500"
+   data-ease="easeOutQuad">
+    @if (Model["Description"] != null)
+    {
+        @EPiServer.Core.Html.TextIndexer.StripHtml(Model["Description"].ToString(), 250, 5, "...")
+    }
+</p>
+<div style="left: 110px; top: 300px;" class="ms-layer button"
+     data-effect="bottom(50,true)" data-duration="600" data-delay="950"
+     data-ease="easeOutQuad">
+    <a class="btn btn-primary" href="@Url.ContentUrl(Model.ContentLink)"><span>@Model.GetDisplayPrice()</span>Buy it now</a>
+</div>
+

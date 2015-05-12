@@ -66,24 +66,21 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
                 Name = "Product Variation renderer for the Slider block",
                 Inherit = true,
                 Tags = new[] { WebGlobal.ContentAreaTags.Slider },
-                Path = BlockPath("Variation.Slider.cshtml"),
+                Path = BlockPath("Slider.Variation.cshtml"),
                 TemplateTypeCategory = TemplateTypeCategories.MvcPartialView,
                 AvailableWithoutTag = false,
                 Default = false
             });
-
-//             viewTemplateModelRegistrator.Add(typeof(DemoBlock), new DataAbstraction.TemplateModel() { Name = "SideBarBlock", Description = "Displays a teaser of a page.", Path = "~/Views/Shared/DemoBlockSidebar.cshtml", Tags = new string[] { TagConstants.Sidebar } });
-
-	
-			//viewTemplateModelRegistrator.Add(typeof(ProductTeaserBlock), new TemplateModel
-			//{
-			//	Name = "ProductTeaserEditBlock",
-			//	Inherited = true,
-			//	Tags = new [] { RenderingTags.Edit, RenderingTags.Preview },
-			//	Path = BlockPath("ProductTeaserEditBlock.cshtml"),
-			//	TemplateTypeCategory = TemplateTypeCategories.MvcPartial
-			//});
-
+            viewTemplateModelRegistrator.Add(typeof(ProductContent), new TemplateModel()
+            {
+                Name = "Product Variation renderer for the Slider block",
+                Inherit = true,
+                Tags = new[] { WebGlobal.ContentAreaTags.Slider },
+                Path = BlockPath("Slider.Product.cshtml"),
+                TemplateTypeCategory = TemplateTypeCategories.MvcPartialView,
+                AvailableWithoutTag = false,
+                Default = false
+            });
         }
 
         public static string BlockPath(string fileName)

@@ -827,11 +827,12 @@
     <Content Include="Views\Shared\Blocks\BannerBlock.cshtml" />
     <Content Include="Views\BannerBlock\_bannerblock.cshtml" />
     <Content Include="Views\DigitalCameraVariationContent\Index.cshtml" />
-    <Content Include="Views\Shared\Blocks\Variation.Slider.cshtml" />
+    <Content Include="Views\Shared\Blocks\Slider.Variation.cshtml" />
     <Content Include="Views\SliderPreview\Index.cshtml" />
     <Content Include="Views\GenericProductContent\Index.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SliderContentArea.cshtml" />
     <Content Include="Views\GenericSizeVariationContent\Index.cshtml" />
+    <Content Include="Views\Shared\Blocks\Slider.Product.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
