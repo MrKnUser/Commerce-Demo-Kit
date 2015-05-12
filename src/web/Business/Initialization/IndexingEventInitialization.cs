@@ -55,7 +55,8 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
             ContentIndexer.Instance.Conventions.ForInstancesOf<FashionProductContent>().ShouldIndex(x => false);
             ContentIndexer.Instance.Conventions.ForInstancesOf<WineSKUContent>().ShouldIndex(x => false);
             ContentIndexer.Instance.Conventions.ForInstancesOf<DigitalCameraVariationContent>().ShouldIndex(x => false);
-
+            ContentIndexer.Instance.Conventions.ForInstancesOf<GenericProductContent>().ShouldIndex(x => false);
+            ContentIndexer.Instance.Conventions.ForInstancesOf<GenericSizeVariationContent>().ShouldIndex(x => false);
 
 			// other page types we do not want in the index
 			ContentIndexer.Instance.Conventions.ForInstancesOf<ReceiptPage>().ShouldIndex(x => false);

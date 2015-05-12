@@ -9,8 +9,10 @@ Copyright (C) 2013-2014 BV Network AS
 */
 
 using System;
+using System.Collections.Generic;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.SpecializedProperties;
+using EPiServer.Core;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
@@ -29,5 +31,9 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public EntryContentBase ParentEntry { get; set; }
         public EntryContentBase ContentWithAssets { get; set; }
         public PriceModel PriceViewModel { get; set; }
+        public IEnumerable<IVariationViewModel<VariationContent>> AllVariationSameStyle { get; set; }
+        public bool IsSellable { get; set; }
+        public List<MediaData> Media { get; set; }
+        public CartItemModel CartItem { get; set; }
     }
 }

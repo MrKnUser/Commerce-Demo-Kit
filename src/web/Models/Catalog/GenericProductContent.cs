@@ -10,6 +10,7 @@ using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.DataAnnotations;
 using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
@@ -27,13 +28,18 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
        Description = "Accessories",
        GroupName = "Accessories"
        )]
-    public class GenericProductContent : ProductBase, IIndexableContent, IProductListViewModelInitializer
+    public class GenericProductContent : ProductBase, IIndexableContent, IProductListViewModelInitializer, IResourceable
     {
 
          [Display(Name = "Show in product list",
            Order = 10)]
          [DefaultValue(true)]
          public virtual bool ShowInList { get; set; }
+
+         // Same for all languages
+         [Display(Name = "Facet Brand",
+             Order = 12)]
+         public virtual string Facet_Brand { get; set; }
 
          // Multi lang
          [Display(Name = "Color", Order = 15)]
@@ -50,6 +56,13 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         [CultureSpecific]
         public virtual XhtmlString Details { get; set; }
 
+        [Display(
+         GroupName = SystemTabNames.Content,
+         Order = 300,
+         Name = "Average Rating")]
+        [Editable(false)]
+        public virtual double AverageRating { get; set; }
+
 
         public FindProduct GetFindProduct(IMarket market)
         {
@@ -65,7 +78,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             findProduct.DescriptiveColor = Color;
             findProduct.Sizes =
                 variations.Select(x => x.Size ?? string.Empty).Distinct().ToList();
-
+            findProduct.Brand = this.Facet_Brand;
 
             findProduct.ShowInList = ShowInList && variations.Any(x => x.Stock > 0);
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = productVariants.GetDefaultPrice(market);
@@ -106,7 +119,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                     var genericVariation = new GenericFindVariant()
                     {
                         Id = genericSizeVariationContent.ContentLink.ID,
-                        Color = genericSizeVariationContent.Color,
+                        Color = new List<string>{genericSizeVariationContent.Color},
                         Size = genericSizeVariationContent.Size ?? string.Empty,
                         Prices = genericSizeVariationContent.GetPricesWithMarket(market),
                         Code = genericSizeVariationContent.Code,
@@ -144,6 +157,24 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
              productListViewModel.PriceAmount = variation.GetDefaultPriceAmount(market);
              return productListViewModel;
+         }
+
+         public virtual string ContentAssetIdInternal { get; set; }
+         public Guid ContentAssetsID
+         {
+             get
+             {
+                 Guid assetId;
+                 if (Guid.TryParse(ContentAssetIdInternal, out assetId))
+                     return assetId;
+                 return Guid.Empty;
+             }
+             set
+             {
+                 ContentAssetIdInternal = value.ToString();
+                 this.ThrowIfReadOnly();
+                 IsModified = true;
+             }
          }
     }
 }
