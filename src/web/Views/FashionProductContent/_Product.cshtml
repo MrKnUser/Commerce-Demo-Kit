@@ -139,7 +139,7 @@
 		</div>
 		<div class="variations clearfix">
 			<div class="colors">
-				@foreach (var m in Model.AllProductsSameStyle.Value.OrderBy(v => ((FashionProductContent)v.CatalogContent).FacetColor))
+				@foreach (var m in Model.AllProductsSameStyle.OrderBy(v => ((FashionProductContent)v.CatalogContent).FacetColor))
 				{
 					<a href="@Url.ContentUrl(m.CatalogContent.ContentLink)" title="@(!string.IsNullOrEmpty(m.CatalogContent.DisplayName) ? m.CatalogContent.DisplayName : m.CatalogContent.Name)">
 						@{ string swatchUrl = Html.AssetSwatch(m.CatalogContent); }

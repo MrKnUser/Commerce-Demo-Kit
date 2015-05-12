@@ -163,28 +163,25 @@ namespace OxxCommerceStarterKit.Web.Controllers
         {
             model.ChildCategories = model.ChildCategories ?? GetCatalogChildNodes(model.CatalogContent.ContentLink);
             //EntryContentBase parent = GetParent(model.CatalogContent);
-            model.AllProductsSameStyle = CreateLazyRelatedProductContentViewModels(model.CatalogContent, Constants.AssociationTypes.SameStyle);
+            model.AllProductsSameStyle = CreateRelatedProductContentViewModels(model.CatalogContent, Constants.AssociationTypes.SameStyle);
             //model.Products = model.Products ?? CreateLazyProductContentViewModels(model.CatalogContent, model.CurrentPage);
             model.Variants = model.Variants ?? CreateLazyVariantContentViewModels(model.CatalogContent);
 
             if (model.RelatedProducts == null)
             {
-                model.RelatedProducts = CreateLazyRelatedProductContentViewModels(model.CatalogContent, Constants.AssociationTypes.Default);
+                model.RelatedProducts = CreateRelatedProductContentViewModels(model.CatalogContent, Constants.AssociationTypes.Default);
             }
 
         }
 
-        private LazyProductViewModelCollection CreateLazyRelatedProductContentViewModels(CatalogContentBase catalogContent, string associationType)
+        private IEnumerable<IProductViewModel<ProductContent>> CreateRelatedProductContentViewModels(CatalogContentBase catalogContent, string associationType)
         {
-            return new LazyProductViewModelCollection(() =>
-            {
-                IEnumerable<Association> associations = LinksRepository.GetAssociations(catalogContent.ContentLink);
-                IEnumerable<IProductViewModel<ProductContent>> productViewModels =
-                    Enumerable.Where(associations, p => p.Group.Name.Equals(associationType) && IsProduct<ProductContent>(p.Target))
+            IEnumerable<Association> associations = LinksRepository.GetAssociations(catalogContent.ContentLink);
+            IEnumerable<IProductViewModel<ProductContent>> productViewModels =
+                Enumerable.Where(associations, p => p.Group.Name.Equals(associationType) && IsProduct<ProductContent>(p.Target))
                     .Select(a => CreateProductViewModel(ContentLoader.Get<ProductContent>(a.Target)));
 
-                return productViewModels;
-            });
+            return productViewModels;
         }
 
 

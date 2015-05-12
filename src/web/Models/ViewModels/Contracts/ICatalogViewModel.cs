@@ -20,9 +20,9 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         Lazy<IEnumerable<NodeContent>> ChildCategories { get; set; }
         LazyProductViewModelCollection Products { get; set; }
         LazyProductViewModelCollection StyleProducts { get; set; }
-        LazyProductViewModelCollection AllProductsSameStyle { get; set; }
+        IEnumerable<IProductViewModel<ProductContent>> AllProductsSameStyle { get; set; }
         IEnumerable<IVariationViewModel<VariationContent>> AllVariationSameStyle { get; set; }
-        LazyProductViewModelCollection RelatedProducts { get; set; }
+        IEnumerable<IProductViewModel<ProductContent>> RelatedProducts { get; set; }
         LazyVariationViewModelCollection Variants { get; set; }
         EntryContentBase ContentWithAssets { get; set; }
     }

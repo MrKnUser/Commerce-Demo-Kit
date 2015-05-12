@@ -829,6 +829,7 @@
     <Content Include="Views\DigitalCameraVariationContent\Index.cshtml" />
     <Content Include="Views\Shared\Blocks\Variation.Slider.cshtml" />
     <Content Include="Views\SliderPreview\Index.cshtml" />
+    <Content Include="Views\GenericProductContent\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -837,7 +838,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug Jeeves|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;DEBUG_JEEVES</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
@@ -1389,6 +1390,7 @@
     <Compile Include="Business\Payment\DibsPaymentProcessor.cs" />
     <Compile Include="Controllers\ArticleWithSidebarPageController.cs" />
     <Compile Include="Controllers\DigitalCameraVariationContentController.cs" />
+    <Compile Include="Controllers\GenericProductContentController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\GenericPaymentController.cs" />
     <Compile Include="Controllers\FashionProductPartialController.cs" />
@@ -1411,12 +1413,16 @@
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\TitleBlock.cs" />
     <Compile Include="Models\Catalog\DigitalCameraVariationContent.cs" />
+    <Compile Include="Models\Catalog\GenericProductContent.cs" />
+    <Compile Include="Models\Catalog\GenericSizeVariationContent.cs" />
     <Compile Include="Models\Files\VideoFile.cs" />
+    <Compile Include="Models\FindModels\GenericFindVariant.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />
     <Compile Include="Models\PageTypes\Payment\GenericPaymentPage.cs" />
     <Compile Include="Models\ViewModels\DigitalCameraVariationViewModel.cs" />
     <Compile Include="Models\ViewModels\Email\NotificationSettings.cs" />
+    <Compile Include="Models\ViewModels\GenericProductViewModel.cs" />
     <Compile Include="Models\ViewModels\Payment\CancelPaymentViewModel.cs" />
     <Compile Include="Controllers\WineProductSearchBlockController.cs" />
     <Compile Include="EditorDescriptors\Attributes\TagSelectorApiAttribute.cs" />

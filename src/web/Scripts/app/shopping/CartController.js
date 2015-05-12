@@ -239,7 +239,7 @@
 			});
 		};
 
-		$scope.sizeChanged = function() {
+		$scope.sizeChanged = function () {
 			var code = $('#sizesId').find(':checked').data('code');
 			$scope.product.code = code;
 		};

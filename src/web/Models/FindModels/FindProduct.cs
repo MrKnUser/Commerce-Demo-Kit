@@ -82,6 +82,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string DiscountedPrice { get; set; }
         public decimal DiscountedPriceAmount { get; set; }
         public List<FashionVariant> Variants { get; set; }
+        public List<GenericFindVariant> GenericVariants { get; set; }
 		public string NewItemText { get; set; }
 		public int SalesCounter { get; set; }
 		public string CustomerClubPrice { get; set; }
@@ -107,6 +108,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string MemoryCardType { get; set; }
         public double Weight { get; set; }
         public double AverageRating { get; set; }
+       
     }
 
     public class WineFindProduct : FindProduct
