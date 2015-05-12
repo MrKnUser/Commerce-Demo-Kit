@@ -103,8 +103,9 @@ namespace OxxCommerceStarterKit.Web.Api
             string language = Language;
 
             ContentReference contentLink = _referenceConverter.GetContentLink(reviewData.ContentId, CatalogContentType.CatalogEntry,0);
+            ContentAssetFolder assetFolder = _contentAssetHelper.GetOrCreateAssetFolder(contentLink);
             EntryContentBase product = _contentRepository.Get<EntryContentBase>(contentLink, new CultureInfo(language));
-            ContentAssetFolder assetFolder = _contentAssetHelper.GetOrCreateAssetFolder(product.ContentLink);
+           
             Review newReview = _contentRepository.GetDefault<Review>(assetFolder.ContentLink, new CultureInfo(language));
             newReview.Rating = reviewData.Rating;
             newReview.Heading = reviewData.Heading;

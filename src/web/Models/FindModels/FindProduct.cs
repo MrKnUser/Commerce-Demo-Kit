@@ -46,8 +46,17 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
             CategoryName = entryContentBase.GetCategoryName(language);
             ProductUrl = urlResolverInjected.Service.GetUrl(entryContentBase.ContentLink, language);
             DefaultImageUrl = entryContentBase.GetDefaultImage();
-            AverageRating = (double) (entryContentBase.Property["AverageRating"] != null ? entryContentBase.Property["AverageRating"].Value : 0);
+            AverageRating = GetAverageRating(entryContentBase);
             
+        }
+
+        private double GetAverageRating(EntryContentBase entryContentBase)
+        {
+            if(entryContentBase.Property["AverageRating"] != null && entryContentBase.Property["AverageRating"].Value != null)
+            {
+                return (double) entryContentBase.Property["AverageRating"].Value;
+            }
+            return 0.0;
         }
 
         [Id]

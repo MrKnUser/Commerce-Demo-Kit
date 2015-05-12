@@ -10,6 +10,7 @@ using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.DataAnnotations;
 using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
@@ -27,7 +28,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
        Description = "Accessories",
        GroupName = "Accessories"
        )]
-    public class GenericProductContent : ProductBase, IIndexableContent, IProductListViewModelInitializer
+    public class GenericProductContent : ProductBase, IIndexableContent, IProductListViewModelInitializer, IResourceable
     {
 
          [Display(Name = "Show in product list",
@@ -49,6 +50,13 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         [Display(Name = "Details", Order = 30)]
         [CultureSpecific]
         public virtual XhtmlString Details { get; set; }
+
+        [Display(
+         GroupName = SystemTabNames.Content,
+         Order = 300,
+         Name = "Average Rating")]
+        [Editable(false)]
+        public virtual double AverageRating { get; set; }
 
 
         public FindProduct GetFindProduct(IMarket market)
@@ -144,6 +152,24 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
              productListViewModel.PriceAmount = variation.GetDefaultPriceAmount(market);
              return productListViewModel;
+         }
+
+         public virtual string ContentAssetIdInternal { get; set; }
+         public Guid ContentAssetsID
+         {
+             get
+             {
+                 Guid assetId;
+                 if (Guid.TryParse(ContentAssetIdInternal, out assetId))
+                     return assetId;
+                 return Guid.Empty;
+             }
+             set
+             {
+                 ContentAssetIdInternal = value.ToString();
+                 this.ThrowIfReadOnly();
+                 IsModified = true;
+             }
          }
     }
 }
