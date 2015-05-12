@@ -187,40 +187,31 @@
 			$scope.addedToWishlistMessageVisible = false;
 			$scope.loaderVisible = true;
 			product.quantity = $scope.sanityCheckQuantity(product.quantity);
-			var cart = $('.cart-counter').parent();
-			if (cart) {
-				animateAddToCart(cart, $.proxy($scope._addToCartAnimateComplete, $scope, product));
-			}else {
-				$scope._addToCartAnimateComplete(product);
-			}
+			handleCartService.addToCart($scope.language, product);
+			$scope.loaderVisible = false;
+			$scope.addedToCartMessageVisible = true;
+			commercestarterkit.updateCartCounter(commercestarterkit.getCartCounter() + parseInt(product.quantity));
+			commercestarterkit.animateCartCount();
 			// Track in Analytics
 			$scope.trackAddToCart(product);
 		};
 
-		$scope._addToCartAnimateComplete = function(product) {
-		    handleCartService.addToCart($scope.language, product);
-			$scope.loaderVisible = false;
-			$scope.addedToCartMessageVisible = true;
-			commercestarterkit.updateCartCounter(commercestarterkit.getCartCounter() + parseInt(product.quantity));
-		};
-
+		
 		$scope.addToWishlist = function (product) {
 			$scope.loaderVisible = true;
 			$scope.addedToWishlistMessageVisible = false;
 			$scope.addedToCartMessageVisible = false;
 
 			product.quantity = $scope.sanityCheckQuantity(product.quantity);
-			var cart = $('.wishlist-counter').parent();
-			animateAddToCart(cart, $.proxy($scope._addToWishListAnimateComplete, $scope, product));
-		};
-
-		$scope._addToWishListAnimateComplete = function(product) {
-		    handleCartService.addToWishlist($scope.language, product);
+		
+			handleCartService.addToWishlist($scope.language, product);
 			$scope.loaderVisible = false;
 			$scope.addedToWishlistMessageVisible = true;
 
 			commercestarterkit.updateWishlistCounter(commercestarterkit.getWishlistCounter() + parseInt(product.quantity));
 		};
+
+		
 
 		/**
 		 * Update a product in the cart

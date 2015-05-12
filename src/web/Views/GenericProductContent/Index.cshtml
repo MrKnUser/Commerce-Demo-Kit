@@ -158,31 +158,27 @@
 <section class="tabs-widget">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs">
-        <li class="active"><a data-target="#specs" data-toggle="tab">@Html.Translate("/common/product/details")</a></li>
-        <li><a data-target="#descr" data-toggle="tab">Overview</a></li>
+        <li class="active"><a data-target="#descr" data-toggle="tab">Overview</a></li>
+        <li><a data-target="#specs" data-toggle="tab">@Html.Translate("/common/product/details")</a></li>
         <li><a data-target="#reviews" data-toggle="tab">Reviews</a></li>
     </ul>
     <div class="tab-content">
-        <!--Tab1 (Tech Specs)-->
-        <div class="tab-pane fade in active" id="specs">
+        <div class="tab-pane fade in active" id="descr">
             <div class="container">
                 <div class="row">
-                   @Html.PropertyFor(x => x.CatalogContent.Details)
+                    @Html.PropertyFor(x => x.CatalogContent.Overview)
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-pane fade" id="specs">
+            <div class="container">
+                <div class="row">
+                    @Html.PropertyFor(x => x.CatalogContent.Details)
                 </div>
             </div>
         </div>
 
-
-        <!--Tab2 (Description)-->
-        <div class="tab-pane fade" id="descr">
-            <div class="container">
-                <div class="row">
-                   @Html.PropertyFor(x => x.CatalogContent.Overview)
-                </div>
-            </div>
-        </div>
-
-        <!--Tab3 (Reviews)-->
         <div class="tab-pane fade" id="reviews">
             <div class="container">
                 <div class="row">
