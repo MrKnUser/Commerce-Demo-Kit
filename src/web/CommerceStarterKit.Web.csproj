@@ -830,6 +830,7 @@
     <Content Include="Views\Shared\Blocks\Variation.Slider.cshtml" />
     <Content Include="Views\SliderPreview\Index.cshtml" />
     <Content Include="Views\GenericProductContent\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\SliderContentArea.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1369,6 +1370,7 @@
     <Compile Include="Business\PageContextActionFilter.cs" />
     <Compile Include="Business\Payment\IStockUpdater.cs" />
     <Compile Include="Business\Payment\StockUpdater.cs" />
+    <Compile Include="Business\Rendering\ContentAreaSliderRenderer.cs" />
     <Compile Include="Business\Rendering\ICustomCssInContentArea.cs" />
     <Compile Include="Business\Rendering\IDefaultDisplayOption.cs" />
     <Compile Include="Business\Rendering\ContentAreaWithDefaultsRenderer.cs" />
@@ -1399,6 +1401,7 @@
     <Compile Include="Business\ClientTracking\IGoogleAnalyticsTracker.cs" />
     <Compile Include="Controllers\BannerBlockController.cs" />
     <Compile Include="Controllers\SliderPreviewController.cs" />
+    <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
     <Compile Include="Controllers\IReceiptViewModelBuilder.cs" />

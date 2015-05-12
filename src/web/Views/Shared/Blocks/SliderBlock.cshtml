@@ -1,11 +1,7 @@
-﻿@using System.Activities.Statements
-@using EPiServer.Core
-@using EPiServer.Web.Mvc
-@using EPiServer.Web.WebControls
+﻿@using EPiServer.Core
 @using OxxCommerceStarterKit.Web
-@using OxxCommerceStarterKit.Web.Extensions
+@using OxxCommerceStarterKit.Web.Business.Rendering
 @using OxxCommerceStarterKit.Web.Helpers
-@using OxxCommerceStarterKit.Web.Models.Files
 @model OxxCommerceStarterKit.Web.Models.Blocks.SliderBlock
 @{
     Layout = null;
@@ -13,8 +9,13 @@
     string sliderName = ((IContent) Model).Name;
     sliderName = sliderName.Replace(" ", "-").ToLowerInvariant();
     
-    // Simple hack to prevent the content area from adding it's containing div
-    ViewData.Add(RenderSettings.HasContainerElement, false);
+    //foreach (ContentAreaItem item in Model.SliderContent.Items)
+    //{
+    //    item.RenderSettings.Clear();
+    //    item.RenderSettings["data-delay"] = 5;
+    //    item.RenderSettings["class"] = "ms-slide";
+    //}
+    
 }
 
 @*
@@ -23,47 +24,21 @@
      - it will show the different items based on the type
        of blocks that are dragged into it
 *@
-<hr>
     @if (Model != null && Model.SliderContent != null && Model.SliderContent.Count > 0)
     {
         <section class="hero-slider">
             <div class="master-slider" id="hero-slider">
-                
-                @Html.DisplayFor(m => m.SliderContent, new
-                {
-                    Tag = WebGlobal.ContentAreaTags.Slider,
-                    ChildrenCssClass = "ms-slide",
-                })
-
-                @*@foreach (var item in Model.SliderContent.Items)
+                @*
+                    We use a custom content area renderer for rendering our
+                    slider panels, as we cannot allow it to add it's containing
+                    divs. We need to control that ourselves.
+                *@
+                @Html.DisplayFor(m => m.SliderContent, "SliderContentArea",
+                    new
                     {
-                        IContent itemContent = (IContent) item.GetContent();
-                        string name = itemContent.Name;
-                        if (name.Length > 20)
-                        {
-                            name = name.Substring(0, 20) + "...";
-                        }
-
-                        <div class="ms-slide" data-delay="7">
-                            <div class="overlay"></div>
-                            <img src="/Content/masterslider/blank.gif" data-src="/Content/img/hero/slideshow/slide_1.jpg" alt="Nikon D4S"/>
-                            <h2 style="width: 456px; left: 110px; top: 110px;"
-                                class="light-color ms-layer" data-effect="top(50,true)"
-                                data-duration="700" data-delay="250" data-ease="easeOutQuad">
-                                @name
-                            </h2>
-                            <p style="width: 456px; left: 110px; top: 210px;" class="light-color ms-layer"
-                               data-effect="back(500)" data-duration="700" data-delay="500"
-                               data-ease="easeOutQuad">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea.
-                            </p>
-                            <div style="left: 110px; top: 300px;" class="ms-layer button"
-                                 data-effect="bottom(50,true)" data-duration="600" data-delay="950"
-                                 data-ease="easeOutQuad"><a class="btn btn-primary" href="#"><span>1845$</span>Buy it now</a>
-                            </div>
-                        </div>
-                    }*@
+                        Tag = WebGlobal.ContentAreaTags.Slider,
+                        sliderSettings = new SliderItemSettings(7, "ms-slide")
+                    })
             </div>
         </section>
     }
