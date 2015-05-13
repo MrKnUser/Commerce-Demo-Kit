@@ -193,14 +193,6 @@ h2 {
     padding: 0 0 0 10px;
 }*/
 
-.my-page .form-group .zipcode, .cart .addresses .form-group .zipcode {
-    max-width: 50px;
-    margin-right: 6px;
-}
-
-.my-page .form-group .city, .cart .addresses .form-group .city {
-    max-width: 130px;
-}
 
 .modal-content a.close, .lightbox-dialog a.close {
     position: absolute;
@@ -268,12 +260,14 @@ h2 {
     width: 12% !important;
 }
 
-.btn-moveToWishlist, .btn-moveToCart {
-    padding: 6px 5px !important;
-
-    i {
-        margin-right: 0 !important;
-    }
+.shopping-cart table td.wishlist i, .wishlist table td.wishlist i {
+  display: inline-block;
+  font-size: 1.5em;
+  color: #2ba8db;
+  cursor: pointer;
+  -webkit-transition: color .3s ease;
+  -moz-transition: color .3s ease;
+  transition: color .3s ease;
 }
 
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {

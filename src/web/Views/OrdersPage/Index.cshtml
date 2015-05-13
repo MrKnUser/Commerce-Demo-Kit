@@ -1,58 +1,83 @@
-﻿@model OxxCommerceStarterKit.Web.Models.ViewModels.OrdersPageViewModel
+﻿@using System.Runtime.InteropServices
+@model OxxCommerceStarterKit.Web.Models.ViewModels.OrdersPageViewModel
 @{
-	Layout = "~/Views/Shared/_MyPageLayout.cshtml";
-	ViewBag.Title = Model.CurrentPage.Name;
+    Layout = "~/Views/Shared/_MyPageLayout.cshtml";
+    ViewBag.Title = Model.CurrentPage.Name;
 }
 @if (Model != null)
 {
-	<div class="orders-page">
-		<h1>@string.Format(Html.Translate("/common/accountpages/title"), Model.CustomerName)</h1>
+    <div class="orders-page">
+        <h1>@string.Format(Html.Translate("/common/accountpages/title"), Model.CustomerName)</h1>
 
-		<h2>@Html.Translate("/common/accountpages/orders_title")</h2>
+        <h2>@Html.Translate("/common/accountpages/orders_title")</h2>
 
-		<div class="orders header">
-			<div class="row">
-				<div class="col-xs-4 col-sm-4">
-					@Html.Translate("/common/accountpages/order_table_headers/number")
-				</div>
-				<div class="col-xs-4 col-sm-6">
-					@Html.Translate("/common/accountpages/order_table_headers/date")
-				</div>
-				<div class="col-xs-4 col-sm-2 status">
-					@Html.Translate("/common/accountpages/order_table_headers/status")
-				</div>
-			</div>
-		</div>
-		<div class="orders">
-			@if (Model.Orders != null)
-			{
-				foreach (var order in Model.Orders)
-				{
-					<div class="order" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
-						<div class="row">
-							<div class="col-xs-4 col-sm-4">
-								@order.OrderNumber @(!string.IsNullOrEmpty(order.ErpOrderNumber) ? " / " + order.ErpOrderNumber : "")
-							</div>
-							<div class="col-xs-4 col-sm-6">
-								@order.OrderDate.ToString("dd.MM.yyyy")
-							</div>
-							<div class="col-xs-4 col-sm-2 status">
-								@order.Status
-							</div>
-						</div>
-					</div>
-					<div class="clearfix order-details collapse" id="ordernumber-@order.OrderNumber">
-						<div class="receipt-page">
-							<div class="cart">
-								@Html.Partial("_ReceiptOrder", order)
-								<a class="chevron pull-right" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
-									<span class="glyphicon glyphicon-chevron-up"></span>
-								</a>
-							</div>
-						</div>
-					</div>
-				}
-			}
-		</div>
-	</div>
+
+        <!--Orders History-->
+        <section class="order-history extra-space-bottom">
+   
+                <h2 class="text-center-mobile">My orders history</h2>
+                <div class="inner">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th scope="col">@Html.Translate("/common/accountpages/order_table_headers/number")@*<span class="toggles"><i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i></span>*@</th>
+                                <th scope="col">@Html.Translate("/common/accountpages/order_table_headers/date")@*<span class="toggles"><i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i></span>*@</th>
+                                <th scope="col">@Html.Translate("/common/accountpages/order_table_headers/status")@*<span class="toggles"><i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i></span>*@</th>
+                                @*<th scope="col">Date <span class="toggles"><i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i></span></th>
+                                    <th scope="col">Payment method <span class="toggles"><i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i></span></th>
+                                    <th scope="col">Order status <span class="toggles"><i class="fa fa-caret-up"></i><i class="fa fa-caret-down"></i></span></th>*@
+                            </tr>
+                            @foreach (var order in Model.Orders)
+                            {
+                                var statusCss = "primary";
+                                if (order.Status == "InProgress")
+                                {
+                                    statusCss = "warning";
+                                }
+                                <tr class="order" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
+
+                                    <td>
+                                        @order.OrderNumber @(!string.IsNullOrEmpty(order.ErpOrderNumber) ? " / " + order.ErpOrderNumber : "")
+                                    </td>
+                                    <td>
+                                        @order.OrderDate.ToString("dd.MM.yyyy")
+                                    </td>
+                                    <td class="status @statusCss">
+                                        <span>@order.Status</span>
+                                    </td>
+
+                                </tr>
+                                <tr class="order-details collapse" id="ordernumber-@order.OrderNumber">
+                                    <td colspan="3">
+                                        <div class="col-lg-12">
+                                            <div class="row" style="width: 100%">
+                                                @Html.Partial("_ReceiptOrder", order)
+                                            </div>
+                                        </div>
+                                    </td>
+                                    @*@Html.Partial("_ReceiptOrder", order)*@
+                                    @*<a class="chevron pull-right" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
+                                        <span class="glyphicon glyphicon-chevron-up"></span>
+                                    </a>*@
+                                </tr>
+                                @*<div class="clearfix order-details collapse" id="ordernumber-@order.OrderNumber">
+                                        <div class="receipt-page">
+                                            <div class="cart">
+                                                @Html.Partial("_ReceiptOrder", order)
+                                                <a class="chevron pull-right" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
+                                                    <span class="glyphicon glyphicon-chevron-up"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+        </section><!--Orders History Close-->
+
+
+
+    </div>
 }
