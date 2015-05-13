@@ -48,6 +48,16 @@
 .wineskucontent .five .product .name {
   font-size: 16px;
 }
+.product-list .five .rate,
+.fashionproductcontent .five .rate,
+.wineskucontent .five .rate {
+  visibility: hidden;
+}
+.product-list .five .wishlist-btn,
+.fashionproductcontent .five .wishlist-btn,
+.wineskucontent .five .wishlist-btn {
+  visibility: hidden;
+}
 .product-list .product,
 .fashionproductcontent .product,
 .wineskucontent .product {
@@ -228,6 +238,9 @@
 }
 .catalog-grid .tile .footer .tools .rate span.active.half {
   opacity: 0.5;
+}
+.shop-filters .filter-section:last-child {
+  border-bottom: 2px solid #a3c756;
 }
 .lightbox-open {
   overflow: hidden;
@@ -577,6 +590,64 @@ body.lightbox-open,
   margin-top: 20px;
   text-align: center;
 }
+.search {
+  position: relative;
+  padding: 0;
+}
+.search input[type=text] {
+  margin-right: 15px;
+  margin-top: 10px;
+}
+.search input[type=submit] {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  z-index: 10;
+  padding: 0 4px 0 4px;
+  height: 25px;
+  border: none;
+  cursor: pointer;
+}
+.search-page .search-form {
+  margin-bottom: 12px;
+}
+.search-page .search-form input[type=text] {
+  height: 34px;
+  line-height: 34px;
+  width: 300px;
+}
+.search-page .name a {
+  color: #3e3f3a;
+}
+.search-page .article-list .article {
+  margin-bottom: 20px;
+}
+.search-page .article-list .article .name {
+  font-size: 18px;
+  font-family: "Georgia", "Serif";
+  margin: 0 0 5px;
+  text-align: left;
+}
+.search-page .article-list .article .name a {
+  color: #000;
+}
+.search-page .article-list .article .text {
+  line-height: 20px;
+  font-size: 12px;
+}
+@media only screen and (max-width: 600px) {
+  .search-page h1 {
+    font-size: 20px;
+  }
+  .search-page .search-form {
+    margin-bottom: 12px;
+  }
+  .search-page .search-form input[type=text] {
+    height: 34px;
+    line-height: 34px;
+    width: 100% !important;
+  }
+}
 /*@import "commerce-starter-kit/_search-autocomplete.less";
 @import "commerce-starter-kit/_myPage.less";*/
 /*.overflow-hidden {
@@ -837,5 +908,8 @@ header .logo {
 /*Bushido styles is messing with episerver navigation, set margin to 0 fix it*/
 #epi-quickNavigator > li {
   margin-bottom: 0;
+}
+.filter-toggle {
+  top: 240px;
 }
 /*# sourceMappingURL=commerce-starter-kit.css.map */

@@ -4,6 +4,19 @@
 @{
 	ViewBag.Title = Model.CurrentPage.Name;
 }
+<!--Filters Modal-->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></button></div>
+            <div class="modal-body">
+                <!--Here goes filters dynamically pasted by jQuery-->
+            </div>
+        </div>
+    </div>
+</div>
+<!--Filters Toggle-->
+<div class="filter-toggle" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter"></i></div>
 <div class="catalog-grid">
 
     <div id="equalHeights" class="row" ng-controller="ProductAndSearchController" ng-init="init('@Model.CommerceCategoryIds','@Model.CommerceRootCategoryName', '@Model.Language', @Model.NumberOfProductsToShow)">
