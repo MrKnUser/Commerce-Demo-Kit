@@ -834,4 +834,8 @@ header .logo {
 .switchers {
   left: 240px;
 }
+/*Bushido styles is messing with episerver navigation, set margin to 0 fix it*/
+#epi-quickNavigator > li {
+  margin-bottom: 0;
+}
 /*# sourceMappingURL=commerce-starter-kit.css.map */

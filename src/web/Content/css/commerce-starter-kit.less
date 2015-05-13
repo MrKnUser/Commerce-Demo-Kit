@@ -299,14 +299,17 @@ input[type="radio"], input[type="checkbox"] {
     .rate span.active {
         color: #2ba8db;
     }
-     .rate span.active.half {
-        opacity:0.5;
+
+    .rate span.active.half {
+        opacity: 0.5;
     }
-    .review{
-        border-bottom:1px solid #2ba8db;
-        h3{
-            margin-top:15px;
-            margin-bottom:5px;
+
+    .review {
+        border-bottom: 1px solid #2ba8db;
+
+        h3 {
+            margin-top: 15px;
+            margin-bottom: 5px;
         }
     }
 }
@@ -318,4 +321,9 @@ header .logo {
 
 .switchers {
     left: 240px;
+}
+
+/*Bushido styles is messing with episerver navigation, set margin to 0 fix it*/
+#epi-quickNavigator > li {
+    margin-bottom: 0;
 }
