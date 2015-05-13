@@ -947,4 +947,7 @@ header .logo {
 .filter-toggle {
   top: 240px;
 }
+tr.collapse.in {
+  display: table-row;
+}
 /*# sourceMappingURL=commerce-starter-kit.css.map */
