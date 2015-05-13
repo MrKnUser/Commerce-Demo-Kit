@@ -21,8 +21,7 @@
         <div class="form-group" ng-controller="AutoCompleteController">
             <label class="sr-only" for="SearchText">@Html.Translate("/common/layout/search_label")</label>
             <span data-valmsg-replace="true" data-valmsg-for="SearchText" class="field-validation-valid"></span>
-            @*Todo: Fix language*@
-            <input id="SearchText" type="text" class="form-control" placeholder="@Html.Translate("/common/layout/search_placeholder")" name="q" data-val-required="@string.Format(Html.Translate("/common/validation/required"), Html.Translate("/common/layout/search_label"))" required="required" data-val="true" ng-init="init('no')" auto-complete />
+            <input id="SearchText" type="text" class="form-control" placeholder="@Html.Translate("/common/layout/search_placeholder")" name="q" data-val-required="@string.Format(Html.Translate("/common/validation/required"), Html.Translate("/common/layout/search_label"))" required="required" data-val="true" ng-init="init('@Model.Language')" auto-complete />
             <button type="submit"><i class="icon-magnifier"></i></button>
         </div>
     </div>

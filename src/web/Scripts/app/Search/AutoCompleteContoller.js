@@ -17,7 +17,7 @@
             var currentCategory = "";
 			var a = element.autocomplete({
                 minLength: 2,
-				position: { my: 'right top', at: 'right bottom', collision: 'none'},
+				position: { my: 'left top', at: 'left bottom', collision: 'none'},
                 source: function (request, response) {
                     $.getJSON('/' + scope.language + '/api/AutocompleteSearch/Search', { term: request.term }).success(function (data) {
                         currentCategory = "";
