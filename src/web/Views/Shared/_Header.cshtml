@@ -79,10 +79,19 @@
                 var homePage = contentLoader.Get<HomePage>(new EPiServer.Core.ContentReference(EPiServer.Core.ContentReference.StartPage.ID));
                 var loginPage = contentLoader.Get<LoginPage>(homePage.Settings.LoginPage);
                 var wishlistPage = contentLoader.Get<WishListPage>(homePage.Settings.WishListPage);
+                var accountPage = contentLoader.Get<ArticlePage>(Model.AccountPage);
                 var cartPage = contentLoader.Get<CartSimpleModulePage>(homePage.Settings.CartPage);
                 var checkOutPage = contentLoader.Get<CheckoutPage>(homePage.Settings.CheckoutPage);
                 <a class="btn-outlined-invert" href="@Url.ContentUrl(wishlistPage.ContentLink)"><i class="icon-heart"></i> <span>@wishlistPage.Name</span></a>
-                <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(loginPage.ContentLink)"><i class="icon-profile"></i> <span>@loginPage.Name</span></a>
+                if (User.Identity.IsAuthenticated)
+                {
+                    <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(Model.AccountPage)"><i class="icon-profile"></i> <span>@accountPage.Name</span></a>
+                }
+                else
+                {
+                    <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(loginPage.ContentLink)"><i class="icon-profile"></i> <span>@loginPage.Name</span></a>
+                }
+
             }
         </div>
 
