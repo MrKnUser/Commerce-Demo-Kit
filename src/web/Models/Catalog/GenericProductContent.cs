@@ -32,7 +32,8 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
     {
 
          [Display(Name = "Show in product list",
-           Order = 10)]
+           Order = 10,
+           GroupName = SystemTabNames.PageHeader)]
          [DefaultValue(true)]
          public virtual bool ShowInList { get; set; }
 

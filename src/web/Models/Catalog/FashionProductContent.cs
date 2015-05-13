@@ -19,6 +19,7 @@ using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.DataAnnotations;
 using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell.ObjectEditing;
@@ -70,7 +71,8 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         public virtual string Fit { get; set; }
 
         [Display(Name = "Show in product list",
-            Order = 50)]
+            Order = 50,
+            GroupName = SystemTabNames.PageHeader)]
         [DefaultValue(true)]
         public virtual bool ShowInList { get; set; }
 

@@ -107,7 +107,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         public virtual bool ShowInList { get; set; }
 
         // Same for all languages
-        [Display(Name = "Facet Brand",
+        [Display(Name = "Brand",
             Order = 18)]
         public virtual string Facet_Brand { get; set; }
 

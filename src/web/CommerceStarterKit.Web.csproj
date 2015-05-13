@@ -1426,6 +1426,7 @@
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />
     <Compile Include="Models\PageTypes\Payment\GenericPaymentPage.cs" />
+    <Compile Include="Models\ViewModels\Contracts\ISliderContent.cs" />
     <Compile Include="Models\ViewModels\DigitalCameraVariationViewModel.cs" />
     <Compile Include="Models\ViewModels\Email\NotificationSettings.cs" />
     <Compile Include="Models\ViewModels\GenericProductViewModel.cs" />
