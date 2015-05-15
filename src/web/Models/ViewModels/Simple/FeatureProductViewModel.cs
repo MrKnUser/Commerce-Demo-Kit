@@ -26,11 +26,14 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels.Simple
             _featureProductBlock = featureProductBlock;
             var _contentRepository = ServiceLocator.Current.GetInstance<IContentRepository>();
             UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-            EntryContentBase product = _contentRepository.Get<EntryContentBase>(_featureProductBlock.MenuFeatureLink);
+            if (_featureProductBlock.MenuFeatureLink != null)
+            {
+                EntryContentBase product = _contentRepository.Get<EntryContentBase>(_featureProductBlock.MenuFeatureLink);
 
-            ImageUrl = GetImageUrl(product, urlResolver);
-            FeatureText = _featureProductBlock.MenuFeatureText;
-            ProductUrl = urlResolver.GetUrl(product.ContentLink);
+                ImageUrl = GetImageUrl(product, urlResolver);
+                FeatureText = _featureProductBlock.MenuFeatureText;
+                ProductUrl = urlResolver.GetUrl(product.ContentLink);
+            }
         }
 
         private string GetImageUrl(EntryContentBase product, UrlResolver urlResolver)
