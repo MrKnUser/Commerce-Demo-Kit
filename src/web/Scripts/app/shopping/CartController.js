@@ -363,9 +363,8 @@
 
 
 		$scope.copyBillingFieldsToShippingFields = function() {
-			var $shippingAddress = $('.checkout-page .shipping-address'),
-				$billingAddress = $('.checkout-page .billing-address');
-		    console.log("Hei");
+		    var $shippingAddress = $('#checkoutpage .shipping-address'),
+				$billingAddress = $('#checkoutpage .billing-address');
 			if($scope.copyBillingFields) {
 			    console.log($shippingAddress.find('.firstname').val());
 			    console.log($billingAddress.find('.firstname').val());

@@ -111,25 +111,6 @@
                 </div>
 
 
-
-
-                <div class="row">
-                    <div class="col-xs-12 terms">
-                        @{
-                    string terms = Html.Translate("/common/checkout/terms_label");
-                    if (Model.TermsArticle != null)
-                    {
-                        terms = Regex.Replace(terms, @"^([^{]*)[{]([^}]+)[}](.*)$", "$1 <a href=\"javascript:;\" data-reference=\"" + Model.TermsArticle.ID + "\">$2</a> $3");
-                    }
-                    terms = terms.Replace("{", "").Replace("}", "");
-                        }
-                        <label>@Html.CheckBoxFor(m => m.AcceptedTerms) @Html.Raw(terms)</label>
-                        <div class="terms-error" style="display: none;">
-                            @Html.Translate("/common/checkout/terms_error")
-                        </div>
-                    </div>
-                </div>
-
                 @* General errors*@
 
                 @if (ViewData.ModelState.ContainsKey(string.Empty) && 0 < ViewData.ModelState[string.Empty].Errors.Count)
@@ -184,6 +165,25 @@
                     @Html.ValidationMessageFor(m => m.PaymentInfo.SelectedPayment)
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-xs-12 terms">
+                    @{
+                string terms = Html.Translate("/common/checkout/terms_label");
+                if (Model.TermsArticle != null)
+                {
+                    terms = Regex.Replace(terms, @"^([^{]*)[{]([^}]+)[}](.*)$", "$1 <a href=\"javascript:;\" data-reference=\"" + Model.TermsArticle.ID + "\">$2</a> $3");
+                }
+                terms = terms.Replace("{", "").Replace("}", "");
+                    }
+                    <label>@Html.CheckBoxFor(m => m.AcceptedTerms) @Html.Raw(terms)</label>
+                    <div class="terms-error" style="display: none;">
+                        @Html.Translate("/common/checkout/terms_error")
+                    </div>
+                </div>
+            </div>
+
+
 
             <div class="row buttons">
                 <div class="col-xs-12">
