@@ -181,21 +181,21 @@
         };
 
 
-        //$scope.deleteUnusedFields = function () {
-        //    console.log("Deleting Unused Fields");
-        //    $scope.metaFieldsLoading = true;
-        //    $http.delete("/api/MetaField/DeleteUnusedFields").success(function (data) {
-        //        console.log("Deleted Unused Fields", data);
-        //        $scope.metaFields = [];
-        //        $scope.metaFieldsLoaded = false;
-        //        $scope.metaFieldsLoading = false;
-        //    })
-        //    .error(function (data) {
-        //        console.log(data);
-        //        $scope.metaFieldsLoading = false;
-        //        alert("Could not delete fields");
-        //    });
-        //};
+        $scope.deleteUnusedFields = function () {
+            console.log("Deleting Unused Fields");
+            $scope.metaFieldsLoading = true;
+            $http.delete("/api/MetaField/DeleteUnusedFields").success(function (data) {
+                console.log("Deleted Unused Fields", data);
+                $scope.metaFields = [];
+                $scope.metaFieldsLoaded = false;
+                $scope.metaFieldsLoading = false;
+            })
+            .error(function (data) {
+                console.log(data);
+                $scope.metaFieldsLoading = false;
+                alert("Could not delete fields");
+            });
+        };
     }
 
 </script>
