@@ -1,9 +1,15 @@
-﻿@using EPiServer.Core
+﻿@using EPiServer.Commerce.Catalog.ContentTypes
+@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web.Routing
+@using OxxCommerceStarterKit.Core.Extensions
 @using OxxCommerceStarterKit.Web.Helpers
+@using OxxCommerceStarterKit.Web.Models.PageTypes
 
 @{
     Layout = null;
     int max = ViewData["Max"] != null ? (int)ViewData["Max"] : 0;
+
 }
 
 @if (Model != null)
@@ -22,15 +28,7 @@
             <a href="javascript:;">@firstLevelItem.Page.Name <i class="fa fa-chevron-down"></i></a>
             <ul class="submenu">
                 @Html.MenuList(firstLevelItem.Page.ContentLink, SubLevelItemTemplate)
-                <li class="offer">
-                    <div class="col-1">
-                        @*<p class="p-style2">Lorem ipsum dolor sit</p>*@
-                    </div>
-                    <div class="col-2">
-                        @*<img src="img/offers/menu-drodown-offer.jpg" alt="Special Offer" />*@
-                        @*<a class="btn btn-block" href="#"><span>584$</span>Special offer</a>*@
-                    </div>
-                </li>
+                @MenuFeatureProduct(firstLevelItem.Page)
             </ul>
         }
         else
@@ -47,13 +45,13 @@
     {
         <li class="@(subLevelItem.Selected ? "active" : null) has-submenu">
             @Link(subLevelItem.Page)
-      
+
             <ul class="sub-submenu">
-               @Html.MenuList(subLevelItem.Page.ContentLink, SubLevelItemTemplate)
+                @Html.MenuList(subLevelItem.Page.ContentLink, SubLevelItemTemplate)
             </ul>
-    
-         </li>
-     }
+
+        </li>
+    }
     else
     {
         <li> @Link(subLevelItem.Page)</li>
@@ -65,3 +63,52 @@
 {
     @Html.PageLink(page)
 }
+
+@helper MenuFeatureProduct(PageData page)
+{
+    if (page is ShoppingCategoryPage && (((page as ShoppingCategoryPage).FeatureProduct != null) && (page as ShoppingCategoryPage).FeatureProduct.MenuFeatureLink != null))
+    {
+        var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+        UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+        ShoppingCategoryPage shoppingCategoryPage = page as ShoppingCategoryPage;
+        EntryContentBase product = contentLoader.Get<EntryContentBase>(shoppingCategoryPage.FeatureProduct.MenuFeatureLink);
+        <li class="offer">
+            <div class="col-1">
+                <p class="p-style2">@shoppingCategoryPage.FeatureProduct.MenuFeatureText</p>
+            </div>
+            <div class="col-2">
+                @SetImageTag(product, urlResolver)
+                <a class="btn btn-block" href="#"><span>584$</span>Special offer</a>
+            </div>
+        </li>
+    }
+    else
+    {
+        <li class="offer">
+            <div class="col-1">
+            </div>
+            <div class="col-2">
+            </div>
+        </li>
+    }
+
+}
+@helper SetImageTag(EntryContentBase product, UrlResolver urlResolver)
+{
+
+    var mediaReferences = product.AssetImageUrls();
+
+    if (mediaReferences != null && mediaReferences.Any())
+    {
+        var media = mediaReferences.FirstOrDefault();
+        var mediaUrl = urlResolver.GetUrl(media);
+        <img src="@mediaUrl?preset=swatch" alt="Special Offer" />
+
+    }
+    else
+    {
+        <div>@product.DisplayName</div>
+    }
+
+}
+

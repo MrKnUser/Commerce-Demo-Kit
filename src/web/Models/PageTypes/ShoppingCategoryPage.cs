@@ -15,6 +15,7 @@ using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.SpecializedProperties;
 using OxxCommerceStarterKit.Core.Attributes;
+using OxxCommerceStarterKit.Web.Models.Blocks;
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
 {
@@ -44,5 +45,8 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 		 [Display(Name = "BottomContentArea", Description = "", GroupName = SystemTabNames.Content, Order = 30)]
 		 [CultureSpecific]
 		 public virtual ContentArea BottomContentArea { get; set; }
+
+         [Display(Name = "Menu feature product", Description = "", GroupName = SystemTabNames.Content, Order = 40)]
+         public virtual FeatureProductBlock FeatureProduct { get; set; }
 	}
 }

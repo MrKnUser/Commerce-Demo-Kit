@@ -21,6 +21,7 @@ using EPiServer.Web.Mvc;
 using OxxCommerceStarterKit.Web.Extensions;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
+using OxxCommerceStarterKit.Web.Models.ViewModels.Simple;
 
 namespace OxxCommerceStarterKit.Web.Controllers
 {
@@ -70,6 +71,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
 					model.CommerceRootCategoryName = GetCommerceNodeNames(topNode);
 				}
 			}
+		    model.MenuFeatureProduct = new FeatureProductViewModel(currentPage.FeatureProduct);
 
 			return View(model);
 		}

@@ -10,6 +10,7 @@ Copyright (C) 2013-2014 BV Network AS
 
 using System.Collections.Generic;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
+using OxxCommerceStarterKit.Web.Models.ViewModels.Simple;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
@@ -28,5 +29,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 
 
         public IEnumerable<ShoppingCategoryPage> CategoryPages { get; set; }
+        public FeatureProductViewModel MenuFeatureProduct { get; set; }
     }
 }
