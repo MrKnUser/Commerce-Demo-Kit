@@ -223,6 +223,8 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());
             return productListViewModel;
         }
+
+        [ScaffoldColumn(false)]
         public virtual string ContentAssetIdInternal { get; set; }
         public Guid ContentAssetsID
         {

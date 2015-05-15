@@ -32,8 +32,14 @@ namespace OxxCommerceStarterKit.Web.Controllers.Admin
 
         public ActionResult MetaClass()
         {
-            return View("MetaClass/Index");
+            return View("MetaClass");
         }
+
+        public ActionResult MetaFields()
+        {
+            return View("MetaFields");
+        }
+
 
         [System.Web.Mvc.HttpPost]
         public ActionResult DeleteBlobById()

@@ -108,7 +108,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             return productListViewModel;
         }
 
-
+        [ScaffoldColumn(false)]
         public virtual string ContentAssetIdInternal { get; set; }
         public Guid ContentAssetsID
         {

@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "MetaFields";
+    Layout = "_layout.cshtml";
+}
+
+<div class="container" ng-app="" ng-controller="toolsController">
+    <div class="row">
+        <h1>EPiServer Commerce Developer Tools</h1>
+        <strong><a href="#" ng-click="getMetaFields()">Meta Fields</a></strong>
+        <span ng-show="metaFieldsLoaded">
+            (<a href="" ng-click="filters = {}">All</a> |
+            <a href="" ng-click="filters.IsSystem = false">Custom</a> |
+            <a href="" ng-click="filters.IsSystem = true">System</a>
+            )
+        </span>
+        |
+        <strong><a href="#" ng-click="getUnusedFields()">Unused Meta Fields</a></strong>
+        <span ng-show="metaFieldsLoading">
+            Loading...
+        </span>
+        <span ng-show="metaFields.length">
+            <a href="" ng-click="deleteUnusedFields()">Delete All Unused Fields</a>
+        </span>
+    </div>
+    <div class="row">
+        <label>Search: <input ng-model="searchText"></label>
+    </div>
+    <div class="row" ng-show="metaFieldsLoaded">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Data Type</th>
+                    <th>Meta Classes</th>
+                    <th>System</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tr ng-repeat="metaField in metaFields | filter:filters | orderBy:'FriendlyName'" data-toggle="collapse" data-target="#field{{metaField.Id}}">
+                <td>{{metaField.Id}}</td>
+                <td>{{metaField.FriendlyName}} ({{metaField.Name}})</td>
+                <td>{{metaField.Description}}</td>
+                <td>{{metaField.DataTypeName}}</td>
+                <td>{{metaField.IsSystem}}</td>
+                <td>
+                    <span ng-repeat-start="ownerClass in metaField.ownerMetaClassList | orderBy:'Name'">
+                        {{ownerClass.Name}}&nbsp;<a title="Careful: removes the field from this class" ng-click="removeFieldFromClass($event, ownerClass, metaField)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                    </span>
+                    {{$last ? '' : ', '}}
+                    <span ng-repeat-end=""></span>
+                </td>
+                <td><a ng-click="deleteMetaField(metaField)">Delete</a> </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+<script type="text/javascript">
+    function toolsController($scope, $http) {
+
+        // Meta Fields
+        $scope.filters = {};
+        $scope.metaFields = [];
+        $scope.metaClasses = [];
+        $scope.metaFieldsLoading = false;
+        $scope.metaFieldsLoaded = false;
+
+        angular.element(document).ready(function () {
+            console.log('Loading Meta Fields');
+            $scope.getMetaFields();
+
+        });
+
+        $scope.findMetaClassById = function (id) {
+            for (var i = 0; i < $scope.metaClasses.length; i++) {
+                if ($scope.metaClasses[i].Id === id) {
+                    return $scope.metaClasses[i];
+                }
+            }
+            return {
+                Id: id,
+                Name: "Not Found",
+                FriendlyName: "Not Found"
+            };
+        };
+
+        $scope.joinMetaModels = function () {
+            console.log("Joining classes");
+            for (var i = 0; i < $scope.metaFields.length; i++) {
+                var field = $scope.metaFields[i];
+                $scope.metaFields[i].ownerMetaClassList = [];
+                for (var j = 0; j < $scope.metaFields[i].OwnerMetaClassIdList.length; j++) {
+                    $scope.metaFields[i].ownerMetaClassList.push($scope.findMetaClassById(field.OwnerMetaClassIdList[j]));
+                }
+            }
+        };
+
+        $scope.getMetaFields = function () {
+            /*
+                "AllowNulls": true,
+                "DataType": 33,
+                "DataTypeName": "LongHtmlString",
+                "MultiLanguageValue": true,
+                "Length": 16,
+                "SafeAllowSearch": false,
+                "OwnerMetaClassIdList": [
+                    215,
+                    217,
+                    218
+                ],
+                "Id": 533,
+                "Name": "Overview",
+                "IsSystem": false,
+                "FriendlyName": "Overview",
+                "IsUser": true,
+                "Namespace": "Mediachase.Commerce.Catalog"
+            */
+            $http.get("/api/MetaField/get").success(function (data) {
+                $scope.metaFields = data;
+
+                // We need these to show what a field belongs to
+                console.log('Loading Meta Classes');
+                $scope.getMetaClasses();
+
+                $scope.metaFieldsLoaded = true;
+            });
+        };
+
+        $scope.getMetaClasses = function () {
+            // "Id": 1, "Name": "CatalogNode", "IsSystem": true, "Description": "Contains basic information about catalog nodes", "FriendlyName": "Catalog Node",
+            // "IsAbstract": false, "IsUser": false, "MetaClassType": 0, "MetaClassTypeName": "System",
+            // "Namespace": "Mediachase.Commerce.Catalog.System", "TableName": "CatalogNode", "Tag": null }
+            $http.get("/api/MetaClass/get").success(function (data) {
+                $scope.metaClasses = data;
+                $scope.joinMetaModels();
+            });
+        };
+
+        $scope.removeFieldFromClass = function ($event, metaClass, metaField) {
+            console.log("Removing " + metaField.Name + " from " + metaClass.Name);
+            var element = angular.element($event.currentTarget).parent();
+            $http.get("/api/MetaClass/RemoveField?metaClassId=" + metaClass.Id + "&fieldId=" + metaField.Id)
+                .success(function (data) {
+                element.remove();
+            });
+        };
+
+        $scope.getUnusedFields = function () {
+            /*
+                "AllowNulls": true,
+                "DataType": 32,
+                "DataTypeName": "LongString",
+                "MultiLanguageValue": false,
+                "Length": 16,
+                "SafeAllowSearch": false,
+                "OwnerMetaClassIdList": [],
+                "Id": 521,
+                "Name": "Facet_MediaType",
+                "IsSystem": false,
+                "Description": null,
+                "FriendlyName": "Media Type",
+                "IsUser": true,
+                "Namespace": "Mediachase.Commerce.Catalog",
+                "TableName": null,
+                "Tag": null
+            */
+            $scope.metaFieldsLoading = true;
+            // Hide classes
+            $scope.metaClassesLoaded = false;
+            $http.get("/api/MetaField/GetUnusedFields").success(function (data) {
+                $scope.metaFields = data;
+                $scope.metaFieldsLoaded = true;
+                $scope.metaFieldsLoading = false;
+            })
+            .error(function (data) {
+                $scope.metaFieldsLoading = false;
+            });
+        };
+
+
+        //$scope.deleteUnusedFields = function () {
+        //    console.log("Deleting Unused Fields");
+        //    $scope.metaFieldsLoading = true;
+        //    $http.delete("/api/MetaField/DeleteUnusedFields").success(function (data) {
+        //        console.log("Deleted Unused Fields", data);
+        //        $scope.metaFields = [];
+        //        $scope.metaFieldsLoaded = false;
+        //        $scope.metaFieldsLoading = false;
+        //    })
+        //    .error(function (data) {
+        //        console.log(data);
+        //        $scope.metaFieldsLoading = false;
+        //        alert("Could not delete fields");
+        //    });
+        //};
+    }
+
+</script>
+
+

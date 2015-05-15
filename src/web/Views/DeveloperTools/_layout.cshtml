@@ -4,8 +4,10 @@
 <html>
 <head>
     <title>Commerce Developer Tools: @ViewBag.Title</title>
-    @* This must come before ShellCore, or Chrome hangs *@ 
+    @* This must come before ShellCore, or Chrome hangs *@
     <script type="text/javascript" src="~/Scripts/libraries/angular.js"></script>
+    <script type="text/javascript" src="~/Scripts/libraries/jquery-2.1.0.js"></script>
+    <script type="text/javascript" src="~/Scripts/libraries/bootstrap.js"></script>
 
     @*@Scripts.Render("~/static/common/js/jquery")*@
     @Html.Raw(ClientResources.RenderResources("ShellCore"))

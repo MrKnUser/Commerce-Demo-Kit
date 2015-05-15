@@ -808,7 +808,7 @@
     <Content Include="Views\CommerceReports\MappedAssets.cshtml" />
     <Content Include="Views\CommerceReports\LatestOrders.cshtml" />
     <Content Include="Views\WineSKUContent\Index.cshtml" />
-    <Content Include="Views\DeveloperTools\MetaClass\Index.cshtml" />
+    <Content Include="Views\DeveloperTools\MetaClass.cshtml" />
     <Content Include="Views\DeveloperTools\Index.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_ProductListView.cshtml" />
     <Content Include="Views\WineProductSearchBlock\Index.cshtml" />
@@ -833,6 +833,7 @@
     <Content Include="Views\GenericSizeVariationContent\Index.cshtml" />
     <Content Include="Views\Shared\Blocks\Slider.Product.cshtml" />
     <Content Include="Views\DeveloperTools\_layout.cshtml" />
+    <Content Include="Views\DeveloperTools\MetaFields.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

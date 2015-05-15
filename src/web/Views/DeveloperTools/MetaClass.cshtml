@@ -1,7 +1,5 @@
-﻿@model dynamic
-
-@{
-    Layout = "../_layout.cshtml";
+﻿@{
+    Layout = "_layout.cshtml";
 }
 
 
@@ -35,7 +33,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tr ng-repeat="metaClass in metaClasses | filter:filters">
+            <tr ng-repeat="metaClass in metaClasses | filter:filters | orderBy:'FriendlyName'">
                 <td>{{metaClass.Id}}</td>
                 <td>{{metaClass.FriendlyName}} ({{metaClass.Name}})</td>
                 <td>{{metaClass.Description}}</td>

@@ -108,7 +108,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public List<string> GrapeMixList { get; set; }
         public string Country { get; set; }
         //Photo facets
-        public decimal Resoulution { get; set; }
+        public decimal Resolution { get; set; }
         public string LensMount { get; set; }
         public string CameraFormat { get; set; }
         public string FileFormat { get; set; }
@@ -163,7 +163,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
             if (digitalCameraVariationContent != null)
             {
                 Brand = digitalCameraVariationContent.Facet_Brand;
-                Resoulution = digitalCameraVariationContent.Resolution;
+                Resolution = digitalCameraVariationContent.Resolution;
                 LensMount = digitalCameraVariationContent.LensMount;
                 CameraFormat = digitalCameraVariationContent.CameraFormat;
                 FileFormat = digitalCameraVariationContent.FileFormat;
