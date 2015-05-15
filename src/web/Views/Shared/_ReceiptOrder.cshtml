@@ -1,9 +1,7 @@
 ﻿@model OxxCommerceStarterKit.Core.Objects.SharedViewModels.OrderViewModel
 <div class="clearfix header hidden-xs">
-	<div class="col-sm-2">@Html.Translate("/common/cart/product_table_headers/product")</div>
-	<div class="col-sm-2">@Html.Translate("/common/cart/product_table_headers/article_number")</div>
-	<div class="col-sm-2">@Html.Translate("/common/cart/product_table_headers/color")</div>
-	<div class="col-sm-2">@Html.Translate("/common/cart/product_table_headers/size")</div>
+	<div class="col-sm-4">@Html.Translate("/common/cart/product_table_headers/product")</div>
+	<div class="col-sm-4">@Html.Translate("/common/cart/product_table_headers/article_number")</div>
 	<div class="col-sm-2">@Html.Translate("/common/cart/product_table_headers/quantity")</div>
 	<div class="col-sm-2 price">@Html.Translate("/common/cart/product_table_headers/price")</div>
 </div>
@@ -14,13 +12,10 @@
 		foreach (var p in Model.OrderLines)
 		{
 			<div class="clearfix order-line">
-				<div class="col-xs-6 col-sm-2">@p.Name</div>
-				<div class="col-xs-6 col-sm-2">
+				<div class="col-xs-6 col-sm-4">@p.Name</div>
+				<div class="col-xs-6 col-sm-4">
 					<span class="visible-xs">@Html.Translate("/common/cart/article_number")</span> @p.ArticleNumber
 				</div>
-				<div class="col-xs-6 col-sm-2">@p.Color</div>
-				<div class="col-xs-6 col-sm-2">
-					<span class="visible-xs">@Html.Translate("/common/receipt/size_prefix")</span> @p.Size</div>
 				<div class="col-xs-6 col-sm-2">@(p.Quantity)
 					<span class="visible-xs">@(p.Quantity == 1 ? Html.Translate("/common/cart/quantity_one") : Html.Translate("/common/cart/quantity_many"))</span>
 				</div>

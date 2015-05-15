@@ -691,6 +691,157 @@ body.lightbox-open,
   min-height: 0;
   font-weight: normal;
 }
+.receipt-page {
+  padding: 10px;
+}
+.order-history,
+.receipt-page {
+  margin: 30px 0 50px;
+}
+.order-history h1,
+.receipt-page h1 {
+  margin-bottom: 15px;
+}
+.order-history .btn,
+.receipt-page .btn {
+  margin-left: 10px;
+  margin-right: 0;
+  padding: 2px 2%;
+}
+.order-history table td,
+.receipt-page table td {
+  cursor: pointer;
+}
+.order-details,
+.receipt-page {
+  background-color: #f8f8f8;
+  border: 1px solid #dedede;
+  margin-bottom: 15px;
+}
+.order-details > div:first-child,
+.receipt-page > div:first-child {
+  border-top: none;
+}
+.order-details .address-field .form-group.col-lg-6,
+.receipt-page .address-field .form-group.col-lg-6 {
+  width: 100%;
+  padding-left: 0;
+}
+.order-details .total,
+.receipt-page .total {
+  border-top: 1px solid #dedede;
+}
+.order-details .header,
+.receipt-page .header {
+  font-size: 13px;
+  text-transform: uppercase;
+  line-height: 28px;
+}
+.order-details > div:nth-child(2n),
+.receipt-page > div:nth-child(2n) {
+  background-color: white;
+}
+.order-details > div,
+.receipt-page > div {
+  border-top: 1px solid #dedede;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.order-details .product,
+.receipt-page .product {
+  padding: 10px 15px;
+  position: relative;
+}
+.order-details .product .image,
+.receipt-page .product .image {
+  text-align: center;
+}
+.order-details .product .image img,
+.receipt-page .product .image img {
+  max-width: 100%;
+}
+.order-details .product .price,
+.receipt-page .product .price {
+  text-align: right;
+  padding-right: 25px;
+  font-size: 16px;
+}
+.order-details .product .description,
+.receipt-page .product .description {
+  border-top: 1px solid #dedede;
+  margin: 10px 0 0 -10px;
+  padding-top: 12px;
+  font-size: 12px;
+}
+.order-details .product .description .col-sm-7,
+.receipt-page .product .description .col-sm-7 {
+  padding: 0;
+}
+.order-details .product .description .sku,
+.receipt-page .product .description .sku {
+  margin: 10px 0;
+}
+.order-details .product .buttons,
+.receipt-page .product .buttons {
+  position: absolute;
+  bottom: 10px;
+}
+.order-details .name,
+.receipt-page .name {
+  font-size: 18px;
+  word-wrap: break-word;
+  padding-left: 5px;
+  padding-right: 0;
+}
+.order-details .name a,
+.receipt-page .name a {
+  color: #3e3f3a;
+  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.order-details .quantity,
+.receipt-page .quantity {
+  text-transform: lowercase;
+}
+.order-details .quantity input,
+.receipt-page .quantity input {
+  width: 32px;
+  background-color: white;
+}
+.order-details .sums,
+.receipt-page .sums {
+  font-size: 14px;
+  padding: 20px 15px;
+}
+.order-details .sums .text,
+.receipt-page .sums .text {
+  text-transform: uppercase;
+}
+.order-details .sums .value,
+.receipt-page .sums .value {
+  text-align: right;
+  font-size: 16px;
+}
+.order-details .sums label,
+.receipt-page .sums label {
+  font-weight: normal;
+}
+.order-details .addresses h2,
+.receipt-page .addresses h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+.order-details .addresses h3,
+.receipt-page .addresses h3 {
+  font-size: 16px;
+}
+.order-details .addresses label,
+.receipt-page .addresses label {
+  font-weight: normal;
+}
+.my-page h3 {
+  font-size: 12px;
+  margin-bottom: 5px;
+}
 /*@import "commerce-starter-kit/_myPage.less";*/
 /*.overflow-hidden {
     overflow: hidden !important;

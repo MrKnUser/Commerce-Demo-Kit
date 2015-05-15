@@ -365,9 +365,10 @@
 		$scope.copyBillingFieldsToShippingFields = function() {
 			var $shippingAddress = $('.checkout-page .shipping-address'),
 				$billingAddress = $('.checkout-page .billing-address');
-
+		    console.log("Hei");
 			if($scope.copyBillingFields) {
-
+			    console.log($shippingAddress.find('.firstname').val());
+			    console.log($billingAddress.find('.firstname').val());
 				$shippingAddress.find('.firstname').val($billingAddress.find('.firstname').val());
 				$shippingAddress.find('.lastname').val($billingAddress.find('.lastname').val());
 
@@ -375,7 +376,7 @@
 				$scope.shippingAddressPostalCode = $billingAddress.find('.zipcode').val();
 				$scope.shippingAddressCity = $billingAddress.find('.city').val();
 
-				$scope.refreshDeliveryLocations();
+				//$scope.refreshDeliveryLocations();
 
 				$shippingAddress.find('input[type=text]').prop('readonly', true);
 			} else {

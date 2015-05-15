@@ -8,10 +8,11 @@
 {
     <section ng-controller="CartController" ng-init="initCart('Default', '@Model.Language')" class="cart-page checkout" id="checkoutpage">
         <h1>@Model.CurrentPage.Name</h1>
-        <div class="row">
-            <div class="col-lg-8 col-md-8 col-sm-8">
-                <h3>@Html.Translate("/common/accountpages/billing_address_title")</h3>
-                @Html.EditorFor(m => m.BillingAddress)
+
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <h3>@Html.Translate("/common/accountpages/billing_address_title")</h3>
+            <div class="billing-address">
+            @Html.EditorFor(m => m.BillingAddress)
                 <div class="row">
                     <div class="form-group col-lg-6 col-md-6 col-sm-6">
                         @Html.LabelFor(m => m.Email, Html.Translate("/common/accountpages/email_label"))
@@ -24,100 +25,17 @@
                         @Html.ValidationMessageFor(m => m.Phone)
                     </div>
                 </div>
-                <div class="form-group copy-fields">
-                    <label>
-                        <input type="checkbox" ng-model="copyBillingFields" ng-change="copyBillingFieldsToShippingFields()" />
-                        @Html.Translate("/common/checkout/copy_address_fields")
-                    </label>
-                </div>
-                <h3>@Html.Translate("/common/accountpages/shipping_address_title")</h3>
+            </div>
+            <div class="form-group copy-fields">
+                <label>
+                    <input type="checkbox" ng-model="copyBillingFields" ng-change="copyBillingFieldsToShippingFields()" />
+                    @Html.Translate("/common/checkout/copy_address_fields")
+                </label>
+            </div>
+            <h3>@Html.Translate("/common/accountpages/shipping_address_title")</h3>
+            <div class="shipping-address">
                 @Html.EditorFor(m => m.ShippingAddress, "AddressWithDeliveryServicePoint")
-
             </div>
-            <!--Right Column-->
-            <div class="col-lg-3 col-lg-offset-1 col-md-4 col-sm-4">
-
-                <h3>Your order</h3>
-                <table>
-                    <tr><th data-toggle="collapse" data-target="#products">Products</th></tr>
-                    <tr>
-                        <td colspan="2">
-                            <table id="products" class="collapse">
-                                <tr ng-repeat="p in products">
-                                    <td class="name border">{{p.Name}}<span>x {{p.Quantity}}</span></td>
-                                    <td class="price border">{{ formatMoney(p.LineItemTotal - p.LineItemDiscount - p.LineItemOrderLevelDiscount) }}</td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="th">Cart subtotal</td>
-                        <td class="price">{{formatMoney(cartTotalAmount)}}</td>
-                    </tr>
-                    <tr>
-                        <td class="th border">Shipping</td>
-                        <td class="align-r border">Free shipping</td>
-                    </tr>
-                    <tr>
-                        <td class="th">Order total</td>
-                        <td class="price">{{formatMoney(cartTotalAmount)}}</td>
-                    </tr>
-                </table>
-
-                @Html.Partial("PagePartials/_PaymentMethods", Model.PaymentInfo)
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        @Html.ValidationMessageFor(m => m.PaymentInfo.SelectedPayment)
-                    </div>
-                </div>
-
-                <div class="row buttons">
-                    <div class="col-xs-12">
-                        <input type="submit" value="@Html.Translate("/common/checkout/place_order")" class="btn btn-success" />
-                    </div>
-                </div>
-
-            </div>
-            @*@Html.Partial("PagePartials/_ItemList", new CartItemListViewModel() { HideMoveToWishList = true, HideMoveToCart = true })
-                @Html.Partial("PagePartials/_CartTotal")*@
-
-            <div class="clearfix addresses">
-                @*<div class="row">
-                        <div class="col-xs-12">
-                            <h2>@Html.Translate("/common/cart/personal_info")</h2>
-                        </div>
-                    </div>*@
-                <div class="row">
-                    @*<div class="col-sm-4 address-field billing-address">
-                            <h3>@Html.Translate("/common/accountpages/billing_address_title")</h3>
-                            @Html.EditorFor(m => m.BillingAddress)
-                            <div class="form-group copy-fields">
-                                <label>
-                                    <input type="checkbox" ng-model="copyBillingFields" ng-change="copyBillingFieldsToShippingFields()" />
-                                    @Html.Translate("/common/checkout/copy_address_fields")
-                                </label>
-                            </div>
-                        </div>*@
-                    @*<div class="col-sm-4 address-field shipping-address">
-                            <h3>@Html.Translate("/common/accountpages/shipping_address_title")</h3>
-                            @Html.EditorFor(m => m.ShippingAddress, "AddressWithDeliveryServicePoint")
-                        </div>*@
-                    @*<div class="col-sm-4 address-field">
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Email, Html.Translate("/common/accountpages/email_label"))
-                                @Html.EditorFor(m => m.Email, new { @class = "form-control email" })
-                                @Html.ValidationMessageFor(m => m.Email)
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Phone, Html.Translate("/common/accountpages/phone_label"))
-                                @Html.EditorFor(m => m.Phone, new { @class = "form-control phone" })
-                                @Html.ValidationMessageFor(m => m.Phone)
-                            </div>
-                        </div>*@
-                </div>
-
-
                 <div id="registration" class="row">
                     <div class="col-xs-12">
 
@@ -152,79 +70,131 @@
                             }
                         </div>
                     </div>
-                </div>
 
-                @* if Klarna is present *@
-                @if (Model.PaymentInfo.PaymentMethods.Any(x => x.PaymentMethodId == new Guid("8dca4a96-a5bb-4e85-82a4-2754f04c2117") ||
+
+                    @* if Klarna is present *@
+                    @if (Model.PaymentInfo.PaymentMethods.Any(x => x.PaymentMethodId == new Guid("8dca4a96-a5bb-4e85-82a4-2754f04c2117") ||
                                                                x.PaymentMethodId == new Guid("c2ea88f8-c702-4331-819e-0e77e7ac5450")))
-                {
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div class="ssn">
-                                <h3>@Html.LabelFor(m => m.SocialSecurityNumber, Html.Translate("/common/checkout/ssn_label"))</h3>
-                                @Html.EditorFor(m => m.SocialSecurityNumber)
-                                @Html.ValidationMessageFor(m => m.SocialSecurityNumber)
-                                <div class="ssn-text">
-                                    @Html.Translate("/common/checkout/ssn_text")
+                    {
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ssn">
+                                    <h3>@Html.LabelFor(m => m.SocialSecurityNumber, Html.Translate("/common/checkout/ssn_label"))</h3>
+                                    @Html.EditorFor(m => m.SocialSecurityNumber)
+                                    @Html.ValidationMessageFor(m => m.SocialSecurityNumber)
+                                    <div class="ssn-text">
+                                        @Html.Translate("/common/checkout/ssn_text")
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
-                @if (!User.Identity.IsAuthenticated)
-                {
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <h3>@Html.LabelFor(m => m.Password, Html.Translate("/common/checkout/create_password"))</h3>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.Password)
-                                @Html.EditorFor(m => m.Password, new { @class = "form-control new-password" })
-                                @Html.ValidationMessageFor(m => m.Password)
-                            </div>
-                            <div class="form-group">
-                                @Html.LabelFor(m => m.ConfirmPassword)
-                                @Html.EditorFor(m => m.ConfirmPassword, new { @class = "form-control repeat-password" })
-                                @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <h3>@Html.LabelFor(m => m.Password, Html.Translate("/common/checkout/create_password"))</h3>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Password)
+                                    @Html.EditorFor(m => m.Password, new { @class = "form-control new-password" })
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ConfirmPassword)
+                                    @Html.EditorFor(m => m.ConfirmPassword, new { @class = "form-control repeat-password" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword)
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
 
-            </div>
-        </div>
-
-
-
-        <div class="row">
-            <div class="col-xs-12 terms">
-                @{
-                string terms = Html.Translate("/common/checkout/terms_label");
-                if (Model.TermsArticle != null)
-                {
-                    terms = Regex.Replace(terms, @"^([^{]*)[{]([^}]+)[}](.*)$", "$1 <a href=\"javascript:;\" data-reference=\"" + Model.TermsArticle.ID + "\">$2</a> $3");
-                }
-                terms = terms.Replace("{", "").Replace("}", "");
-                }
-                <label>@Html.CheckBoxFor(m => m.AcceptedTerms) @Html.Raw(terms)</label>
-                <div class="terms-error" style="display: none;">
-                    @Html.Translate("/common/checkout/terms_error")
                 </div>
-            </div>
-        </div>
 
-        @* General errors*@
 
-        @if (ViewData.ModelState.ContainsKey(string.Empty) && 0 < ViewData.ModelState[string.Empty].Errors.Count)
-        {
-            foreach (var e in ViewData.ModelState[string.Empty].Errors)
-            {
+
+
                 <div class="row">
-                    <div class="col-xs-12">
-                        <span class="field-validation-error">@e.ErrorMessage</span>
+                    <div class="col-xs-12 terms">
+                        @{
+                    string terms = Html.Translate("/common/checkout/terms_label");
+                    if (Model.TermsArticle != null)
+                    {
+                        terms = Regex.Replace(terms, @"^([^{]*)[{]([^}]+)[}](.*)$", "$1 <a href=\"javascript:;\" data-reference=\"" + Model.TermsArticle.ID + "\">$2</a> $3");
+                    }
+                    terms = terms.Replace("{", "").Replace("}", "");
+                        }
+                        <label>@Html.CheckBoxFor(m => m.AcceptedTerms) @Html.Raw(terms)</label>
+                        <div class="terms-error" style="display: none;">
+                            @Html.Translate("/common/checkout/terms_error")
+                        </div>
                     </div>
                 </div>
-            }
-        }
+
+                @* General errors*@
+
+                @if (ViewData.ModelState.ContainsKey(string.Empty) && 0 < ViewData.ModelState[string.Empty].Errors.Count)
+                {
+                    foreach (var e in ViewData.ModelState[string.Empty].Errors)
+                    {
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <span class="field-validation-error">@e.ErrorMessage</span>
+                            </div>
+                        </div>
+                    }
+                }
+
+
+            </div>
+
+        <!--Right Column-->
+        <div class="col-lg-3 col-lg-offset-1 col-md-4 col-sm-4">
+
+            <h3>Your order</h3>
+            <table>
+                <tr><th data-toggle="collapse" data-target="#products">Products</th></tr>
+                <tr>
+                    <td colspan="2">
+                        <table id="products" class="collapse">
+                            <tr ng-repeat="p in products">
+                                <td class="name border">{{p.Name}}<span>x {{p.Quantity}}</span></td>
+                                <td class="price border">{{ formatMoney(p.LineItemTotal - p.LineItemDiscount - p.LineItemOrderLevelDiscount) }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th">Cart subtotal</td>
+                    <td class="price">{{formatMoney(cartTotalAmount)}}</td>
+                </tr>
+                <tr>
+                    <td class="th border">Shipping</td>
+                    <td class="align-r border">Free shipping</td>
+                </tr>
+                <tr>
+                    <td class="th">Order total</td>
+                    <td class="price">{{formatMoney(cartTotalAmount)}}</td>
+                </tr>
+            </table>
+
+            @Html.Partial("PagePartials/_PaymentMethods", Model.PaymentInfo)
+
+            <div class="row">
+                <div class="col-xs-12">
+                    @Html.ValidationMessageFor(m => m.PaymentInfo.SelectedPayment)
+                </div>
+            </div>
+
+            <div class="row buttons">
+                <div class="col-xs-12">
+                    <input type="submit" value="@Html.Translate("/common/checkout/place_order")" class="btn btn-success" />
+                </div>
+            </div>
+
+        </div>
+        @*@Html.Partial("PagePartials/_ItemList", new CartItemListViewModel() { HideMoveToWishList = true, HideMoveToCart = true })
+            @Html.Partial("PagePartials/_CartTotal")*@
+
 
 
     </section>

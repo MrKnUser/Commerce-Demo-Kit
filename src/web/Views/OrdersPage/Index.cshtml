@@ -10,12 +10,8 @@
         <h1>@string.Format(Html.Translate("/common/accountpages/title"), Model.CustomerName)</h1>
 
         <h2>@Html.Translate("/common/accountpages/orders_title")</h2>
-
-
         <!--Orders History-->
         <section class="order-history extra-space-bottom">
-   
-                <h2 class="text-center-mobile">My orders history</h2>
                 <div class="inner">
                     <table>
                         <tbody>
@@ -34,6 +30,10 @@
                                 {
                                     statusCss = "warning";
                                 }
+                                else if (order.Status == "Cancelled")
+                                {
+                                    statusCss = "danger";
+                                }
                                 <tr class="order" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
 
                                     <td>
@@ -48,12 +48,9 @@
 
                                 </tr>
                                 <tr class="order-details collapse" id="ordernumber-@order.OrderNumber">
-                                    <td colspan="3">
-                                        <div class="col-lg-12">
-                                            <div class="row" style="width: 100%">
-                                                @Html.Partial("_ReceiptOrder", order)
-                                            </div>
-                                        </div>
+                                    <td colspan="3" class="order-details">
+                                        @Html.Partial("_ReceiptOrder", order)
+
                                     </td>
                                     @*@Html.Partial("_ReceiptOrder", order)*@
                                     @*<a class="chevron pull-right" data-toggle="collapse" data-target="#ordernumber-@order.OrderNumber">
