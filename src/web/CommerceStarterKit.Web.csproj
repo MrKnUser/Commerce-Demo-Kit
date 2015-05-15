@@ -47,7 +47,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Views\BasePartialContent\" />
     <Folder Include="Views\ImportEPiServerData\" />
     <Folder Include="Views\NodeContentPartial\" />
     <Folder Include="Views\PaymentBase\" />
@@ -833,6 +832,7 @@
     <Content Include="Views\Shared\DisplayTemplates\SliderContentArea.cshtml" />
     <Content Include="Views\GenericSizeVariationContent\Index.cshtml" />
     <Content Include="Views\Shared\Blocks\Slider.Product.cshtml" />
+    <Content Include="Views\DeveloperTools\_layout.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,11 +2,12 @@
 @using EPiServer.Find.Cms
 @using EPiServer.Web.Mvc.Html
 @using OxxCommerceStarterKit.Web
-@using OxxCommerceStarterKit.Web.Models.Blocks
 @model OxxCommerceStarterKit.Web.Models.ViewModels.SliderPreviewModel
+
+@*We need this, as the preview must load every time we add content to the slider*@
 @Html.FullRefreshPropertiesMetaData(new[] { "SliderContent" })
 
-<h1>Edit Slider</h1>
+<h1>Edit Slider Content</h1>
 <div class="tags" @Html.EditAttributes(x => x.SliderContent)>
     <div>Current Content:</div>
     @foreach (var item in Model.SliderContent.Items)
@@ -19,7 +20,7 @@
         </button>
     }
 </div>
-<h2>Slider Result</h2>
+<h2>Slider Preview</h2>
 <div class="row preview clearfix">
     @Html.DisplayFor(x => x.PreviewContent, new {Tag = WebGlobal.ContentAreaTags.Slider})
 </div>

@@ -49,8 +49,8 @@ namespace OxxCommerceStarterKit.Web
             //routes.IgnoreRoute("{*browserlink}", new { browserlink = @".*/arterySignalR/ping" });
 
             RouteTable.Routes.MapRoute(null, "Cart/GetDeliveryLocations", new { controller = "Cart", action = "GetDeliveryLocations" });
-            //RouteTable.Routes.MapRoute("defaultRoute", "{controller}/{action}");
-            //RouteTable.Routes.MapRoute("defaultRouteWithLanguage", "{language}/{controller}/{action}");
+            RouteTable.Routes.MapRoute("defaultRoute", "{controller}/{action}");
+            RouteTable.Routes.MapRoute("defaultRouteWithLanguage", "{language}/{controller}/{action}");
         }
 
         protected void Application_Start()

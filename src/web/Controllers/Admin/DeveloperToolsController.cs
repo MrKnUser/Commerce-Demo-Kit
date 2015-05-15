@@ -11,10 +11,7 @@ Copyright (C) 2013-2014 BV Network AS
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using EPiServer;
 using EPiServer.Core;
