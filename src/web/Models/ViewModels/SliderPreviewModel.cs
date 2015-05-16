@@ -11,6 +11,7 @@ Copyright (C) 2013-2014 BV Network AS
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using EPiServer.Core;
+using OxxCommerceStarterKit.Web.Models.Blocks;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
@@ -21,10 +22,18 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
             : base(currentPage)
         {
             PreviewContent = previewContent;
+            var typedContent = ((SliderBlock)previewContent);
+            if (typedContent != null)
+            {
+                Height = typedContent.Height;
+                Layout = typedContent.Layout;
+            }
         }
 
         public IContent PreviewContent { get; set; }
         public ContentArea SliderContent { get; set; }
+        public int Height { get; set; }
+        public string Layout { get; set; }
 
     }
 }

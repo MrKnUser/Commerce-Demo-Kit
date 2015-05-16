@@ -17,6 +17,16 @@ namespace OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories
     {
         public abstract IEnumerable<ISelectItem> GetSelections(ExtendedMetadata metadata);
 
+        protected ISelectItem[] GetSelectionFromDictionary(Dictionary<string, string> items)
+        {
+            List<ISelectItem> selectItems = new List<ISelectItem>();
+            foreach (KeyValuePair<string, string> item in items)
+            {
+                selectItems.Add(new SelectItem() { Text = item.Key, Value = item.Value });
+            }
+            return selectItems.ToArray();
+        }
+
         protected ISelectItem[] GetSelectionFromArray(params string[] items)
         {
             List<ISelectItem> selectItems = new List<ISelectItem>();

@@ -25,16 +25,24 @@ namespace OxxCommerceStarterKit.Web
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
 						"~/Scripts/libraries/jquery.validate.min.js",
-						"~/Scripts/libraries/jquery.validate.unobtrusive.min.js",
-                        "~/Scripts/libraries/jquery.unobtrusive-ajax.min.js"
+						"~/Scripts/libraries/jquery.validate.unobtrusive.min.js"
+                        //, "~/Scripts/libraries/jquery.unobtrusive-ajax.min.js"
 						));
+            bundles.Add(new ScriptBundle("~/bundles/jqueryaddons").Include(
+                "~/Scripts/libraries/jquery.flexslider-min.js",
+                "~/Scripts/libraries/jquery.equalheights.min.js",
+                "~/Scripts/libraries/jquery.touchSwipe.min.js",
+                "~/Content/js/plugins/jquery.placeholder.js",
+                "~/Content/js/plugins/jquery.stellar.min.js",
+                "~/Content/js/plugins/jquery.shuffle.min.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
 			//bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
 			//			"~/Scripts/modernizr-*"));
 
-			bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
+			// Note! Bootstrap needs to run after jQuery, or we'll get trouble
+            bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
 				"~/Scripts/libraries/bootstrap.min.js",
 				"~/Scripts/libraries/bootstrap-lightbox.js"));
 
@@ -48,16 +56,22 @@ namespace OxxCommerceStarterKit.Web
 			bundles.Add(new ScriptBundle("~/bundles/registration").Include(
 				"~/Scripts/js/components/Registration.js"));
 
+            // Note! Some of the included scripts comes from the Bushido template
+            // and we want to be able to update them without merging changes, so
+            // we keep them separate.
 			bundles.Add(new ScriptBundle("~/bundles/general").Include(
-				"~/Scripts/libraries/easyzoom.js",
-				"~/Scripts/libraries/jquery.flexslider-min.js",
-				"~/Scripts/libraries/jquery.equalheights.min.js",
-                "~/Scripts/libraries/jquery.touchSwipe.min.js",
+                "~/Content/js/plugins/smoothscroll.js",
+                "~/Content/js/plugins/icheck.min.js",
+                "~/Content/js/plugins/lightGallery.min.js",
+                "~/Content/js/plugins/owl.carousel.min.js",
+                "~/Content/js/plugins/masterslider.min.js",
+                "~/Scripts/libraries/easyzoom.js",
                 "~/Scripts/libraries/accounting.min.js", // http://openexchangerates.github.io/accounting.js
 				"~/Scripts/js/Oxx/ObjectUtils.js",
 				"~/Scripts/js/Oxx/AjaxUtils.js",
 				"~/Scripts/js/components.js",
                 "~/Scripts/js/starterkit.js",
+                "~/Scripts/js/components/login.js",
 				"~/Scripts/js/components/Product.js",
 				"~/Scripts/js/components/WebComponent/HotSpotImage.js",
 				"~/Scripts/js/components/WebComponent/HotSpot.js",
@@ -65,12 +79,14 @@ namespace OxxCommerceStarterKit.Web
 				"~/Scripts/js/components/SizeGuideDialog.js",
 				"~/Scripts/js/components/HelpDialog.js"));
 
+            // Note - //"~/Content/bootstrap.min.css", // Part of the template
             bundles.Add(new StyleBundle("~/bundles/css").Include(
 				"~/Content/css/jqueryui/jquery-ui-1.10.4.custom.min.css",
-                "~/Content/css/flexslider/flexslider.css",
-				//"~/Content/bootstrap.min.css",
-				"~/Content/easyzoom.css",
-                "~/Content/css/commerce-starter-kit.css"));
+                "~/Content/masterslider/style/masterslider.css",
+                "~/Content/easyzoom.css",
+                "~/Content/css/flexslider/flexslider.css")
+                .Include("~/Content/less/styles.css", new CssRewriteUrlTransform()) // Fix font-references
+                .Include("~/Content/css/commerce-starter-kit.css")); // Bushido template 
 
             bundles.Add(new ScriptBundle("~/bundles/angular_app").IncludeDirectory(
                 "~/Scripts/app/", "*.js",true

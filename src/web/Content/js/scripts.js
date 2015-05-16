@@ -299,23 +299,23 @@ $(document).ready(function(e) {
 	
 	/*Hero Slider
 	*******************************************/
-	if($('#hero-slider').length > 0) {
-		var heroSlider = new MasterSlider();
-		heroSlider.control('arrows');
-		heroSlider.control('bullets');
-		heroSlider.setup('hero-slider' , {
-				width:1140,
-				height:455,
-				space:0,
-				speed: 18,
-				autoplay: true,
-				loop: true,
-				layout: 'fullwidth',
-				preload:'all',
-				view:'basic',
-				instantStartLayers: true
-		});
-	}
+	//if($('#hero-slider').length > 0) {
+	//	var heroSlider = new MasterSlider();
+	//	heroSlider.control('arrows');
+	//	heroSlider.control('bullets');
+	//	heroSlider.setup('hero-slider' , {
+	//			width:1140,
+	//			height:455,
+	//			space:0,
+	//			speed: 18,
+	//			autoplay: true,
+	//			loop: true,
+	//			layout: 'fullwidth',
+	//			preload:'all',
+	//			view:'basic',
+	//			instantStartLayers: true
+	//	});
+	//}
 	
 	/*Hero Fullscreen Slider
 	*******************************************/
@@ -518,10 +518,10 @@ $(document).ready(function(e) {
 	/*Promo Labels Popovers
 	*******************************************/
 	$promoLabels.popover({
-		placement: 'top',
-		trigger: 'hover'
+	    placement: 'top',
+	    trigger: 'hover'
 	});
-	
+
 	/*Special Offer Autoheight
 	*******************************************/
 	$(window).load(function(){

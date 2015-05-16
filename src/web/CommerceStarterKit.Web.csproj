@@ -263,12 +263,24 @@
     <Content Include="Content\less\navi.less" />
     <Content Include="Content\less\nouislider\nouislider.less" />
     <Content Include="Content\less\nouislider\_notes\dwsync.xml" />
+    <Content Include="Content\less\outlined-iconset\outlined-iconset.css">
+      <DependentUpon>outlined-iconset.less</DependentUpon>
+    </Content>
     <Content Include="Content\less\outlined-iconset\outlined-iconset.less" />
+    <Content Include="Content\less\outlined-iconset\outlined-iconset.min.css">
+      <DependentUpon>outlined-iconset.css</DependentUpon>
+    </Content>
     <Content Include="Content\less\outlined-iconset\_notes\dwsync.xml" />
     <Content Include="Content\less\pages.less" />
     <Content Include="Content\less\scaffolding.less" />
     <Content Include="Content\less\shop.less" />
+    <Content Include="Content\less\styles.css">
+      <DependentUpon>styles.less</DependentUpon>
+    </Content>
     <Content Include="Content\less\styles.less" />
+    <Content Include="Content\less\styles.min.css">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <Content Include="Content\less\type.less" />
     <Content Include="Content\less\variables.less" />
     <Content Include="Content\less\widgets.less" />
@@ -1405,6 +1417,7 @@
     <Compile Include="Business\ClientTracking\IGoogleAnalyticsTracker.cs" />
     <Compile Include="Controllers\BannerBlockController.cs" />
     <Compile Include="Controllers\SliderPreviewController.cs" />
+    <Compile Include="EditorDescriptors\SelectionFactories\SliderLayoutSelectionFactory.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
     <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />

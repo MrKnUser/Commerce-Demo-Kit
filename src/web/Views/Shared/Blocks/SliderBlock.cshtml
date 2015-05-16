@@ -8,6 +8,19 @@
     bool isInEditMode = Html.IsInEditMode();
     string sliderName = ((IContent) Model).Name;
     sliderName = sliderName.Replace(" ", "-").ToLowerInvariant();
+    sliderName = sliderName + "-slider";
+    
+    var height = Model.Height;
+    if (height == 0)
+    {
+        height = 500;
+    }
+        
+    var sliderLayout = Model.Layout;
+    if (string.IsNullOrEmpty(sliderLayout))
+    {
+        sliderLayout = "fullwidth";
+    }
     
     //foreach (ContentAreaItem item in Model.SliderContent.Items)
     //{
@@ -26,12 +39,12 @@
 *@
     @if (Model != null && Model.SliderContent != null && Model.SliderContent.Count > 0)
     {
-        <section class="hero-slider">
-            <div class="master-slider" id="hero-slider">
+        <section class="@sliderName">
+            <div class="master-slider" id="@sliderName">
                 @*
-                    We use a custom content area renderer for rendering our
-                    slider panels, as we cannot allow it to add it's containing
-                    divs. We need to control that ourselves.
+            We use a custom content area renderer for rendering our
+            slider panels, as we cannot allow it to add it's containing
+            divs. We need to control that ourselves.
                 *@
                 @Html.DisplayFor(m => m.SliderContent, "SliderContentArea",
                     new
@@ -42,3 +55,31 @@
             </div>
         </section>
     }
+
+
+@* 
+    Ideally, we should move this script to the bottom, but a partial view
+    does not have access to it's parent's sections. However, we make sure
+    the id is pretty unique.
+*@
+<script type="text/javascript">
+    $(document).ready(function() {
+        if ($('#@sliderName').length > 0) {
+            var slider = new MasterSlider();
+            slider.control('arrows');
+            slider.control('bullets');
+            slider.setup('@sliderName', {
+                width: 1140, // sliders that are not full width will give us head-aches
+                height: @height,
+                space: 0,
+                speed: 18,
+                autoplay: true,
+                loop: true,
+                layout: '@sliderLayout',
+                preload: 'all',
+                view: 'basic',
+            instantStartLayers: true
+        });
+    }
+    });
+</script>

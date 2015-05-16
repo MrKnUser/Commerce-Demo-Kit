@@ -5,24 +5,35 @@
 @model OxxCommerceStarterKit.Web.Models.ViewModels.SliderPreviewModel
 
 @*We need this, as the preview must load every time we add content to the slider*@
-@Html.FullRefreshPropertiesMetaData(new[] { "SliderContent" })
+@Html.FullRefreshPropertiesMetaData(new[] { "SliderContent", "Layout", "Height" })
 
 <h1>Edit Slider Content</h1>
-<div class="tags" @Html.EditAttributes(x => x.SliderContent)>
-    <div>Current Content:</div>
-    @foreach (var item in Model.SliderContent.Items)
-    {
-        var itemContent = item.GetContent();
-        <button type="button" class="btn btn-primary"
-                style="margin: 2px;"
-                data-epi-block-id="@item.ContentLink.ToString()">
-            @itemContent.Name (@itemContent.ContentTypeName())
-        </button>
-    }
+<div class="row" style="padding-bottom: 1em;">
+    <div class="col-md-6">
+        <strong>Layout:</strong> @Html.PropertyFor(x => x.Layout)
+    </div>
+    <div class="col-md-6">
+        <strong>Height:</strong> @Html.PropertyFor(x => x.Height)
+    </div>
 </div>
+<div class="row">
+    <strong>Content:</strong>
+    <div class="tags" @Html.EditAttributes(x => x.SliderContent)>
+        @foreach (var item in Model.SliderContent.Items)
+        {
+            var itemContent = item.GetContent();
+            <button type="button" class="btn btn-primary"
+                    style="margin: 2px;"
+                    data-epi-block-id="@item.ContentLink.ToString()">
+                @itemContent.Name (@itemContent.ContentTypeName())
+            </button>
+        }
+    </div>
+</div>
+
 <h2>Slider Preview</h2>
 <div class="row preview clearfix">
-    @Html.DisplayFor(x => x.PreviewContent, new {Tag = WebGlobal.ContentAreaTags.Slider})
+    @Html.DisplayFor(x => x.PreviewContent, new { Tag = WebGlobal.ContentAreaTags.Slider })
 </div>
 
 @section scripts {

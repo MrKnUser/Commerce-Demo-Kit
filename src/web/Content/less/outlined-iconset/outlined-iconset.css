@@ -1,18 +1,11 @@
-/* Outlined Icons Set */
-@fontPath: '/content/fonts';
-
+﻿/* Outlined Icons Set */
 @font-face {
   font-family: "outlined-iconset";
-  src:url("@{fontPath}/outlined-iconset.eot");
-  src:url("@{fontPath}/outlined-iconset.eot?#iefix") format("embedded-opentype"),
-    url("@{fontPath}/outlined-iconset.woff") format("woff"),
-    url("@{fontPath}/outlined-iconset.ttf") format("truetype"),
-    url("@{fontPath}/outlined-iconset.svg#outlined-iconset") format("svg");
+  src: url("/content/fonts/outlined-iconset.eot");
+  src: url("/content/fonts/outlined-iconset.eot?#iefix") format("embedded-opentype"), url("/content/fonts/outlined-iconset.woff") format("woff"), url("/content/fonts/outlined-iconset.ttf") format("truetype"), url("/content/fonts/outlined-iconset.svg#outlined-iconset") format("svg");
   font-weight: normal;
   font-style: normal;
-
 }
-
 [data-icon]:before {
   font-family: "outlined-iconset" !important;
   content: attr(data-icon);
@@ -25,7 +18,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
   font-family: "outlined-iconset" !important;
@@ -38,7 +30,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 .icon-boat:before {
   content: "\e000";
 }
@@ -489,4 +480,3 @@
 .icon-blackboard-graph:before {
   content: "\e095";
 }
-
