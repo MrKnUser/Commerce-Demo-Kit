@@ -4,7 +4,9 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.Find;
+using EPiServer.Find.Api.Querying.Filters;
 using EPiServer.Shell.ObjectEditing;
+using Lucene.Net.Search;
 using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories;
 using OxxCommerceStarterKit.Web.Extensions;
@@ -57,17 +59,25 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks.ProductFilters
         {
             if(string.IsNullOrEmpty(FieldName) == false)
             {
+                string fullFieldName = query.Client.GetFullFieldName(FieldName, typeof(double));
                 switch (FieldOperator)
                 {
                     case NumericOperatorSelectionFactory.OperatorNames.GreaterThan:
-                        query = query.Filter(x => x.DiscountedPriceAmount.GreaterThan(FieldValue));
+                        RangeFilter<double> greaterThanFilter = RangeFilter.Create(fullFieldName, FieldValue, double.MaxValue);
+                        greaterThanFilter.IncludeLower = false;
+                        greaterThanFilter.IncludeUpper = true;
+                        query = query.Filter(greaterThanFilter);
                         break;
                     case NumericOperatorSelectionFactory.OperatorNames.LessThan:
-                        query = query.Filter(x => x.DiscountedPriceAmount.LessThan(FieldValue));
+                        RangeFilter<double> lessThanFilter = RangeFilter.Create(fullFieldName, double.MinValue, FieldValue);
+                        lessThanFilter.IncludeLower = false;
+                        lessThanFilter.IncludeUpper = true;
+                        query = query.Filter(lessThanFilter);
                         break;
                     default:
                     case NumericOperatorSelectionFactory.OperatorNames.Equal:
-                        query = query.Filter(x => x.DiscountedPriceAmount.Match(FieldValue));
+                        var termFilter = new TermFilter(fullFieldName, FieldValue);
+                        query = query.Filter(termFilter);
                         break;
                         
                 }
