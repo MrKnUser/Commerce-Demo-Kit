@@ -223,21 +223,38 @@
   height: 5px;
   margin-bottom: 1px;
 }
-.catalog-grid .tile {
+.catalog-grid .tile,
+.productRow .tile {
   padding-bottom: 10px;
 }
-.catalog-grid .tile .footer {
+.catalog-grid .tile .footer,
+.productRow .tile .footer {
   /*position:absolute;
     bottom:5px;*/
 }
-.catalog-grid .tile .footer h3 {
+.catalog-grid .tile .footer h3,
+.productRow .tile .footer h3 {
   color: #2f343b !important;
 }
-.catalog-grid .tile .footer .tools .rate span.active {
+.catalog-grid .tile .footer .tools .rate span.active,
+.productRow .tile .footer .tools .rate span.active {
   color: #2ba8db;
 }
-.catalog-grid .tile .footer .tools .rate span.active.half {
+.catalog-grid .tile .footer .tools .rate span.active.half,
+.productRow .tile .footer .tools .rate span.active.half {
   opacity: 0.5;
+}
+.catalog-grid .tile .footer p,
+.productRow .tile .footer p {
+  color: #3e3f3a;
+  line-height: 1.7;
+}
+.productRow {
+  padding: 0;
+}
+.productRow .tile {
+  max-width: none;
+  margin-top: 0;
 }
 .shop-filters .filter-section:last-child {
   border-bottom: 2px solid #a3c756;
@@ -1101,3 +1118,4 @@ header .logo {
 tr.collapse.in {
   display: table-row;
 }
+/*# sourceMappingURL=commerce-starter-kit.css.map */

@@ -2,38 +2,29 @@
 @{
     Layout = null;
     var chrome = (Chrome)ViewBag.Chrome;
-    var extraCssClass = ViewData["extraCssClass"] as string;
     var displayName = @Model.DisplayName ?? "";
     displayName = displayName.Replace("'", "");
 }    
 
-<div class="product @extraCssClass">
-    <div class="image">
-        <a href="@Url.ContentUrl(Model.ContentLink)">
-            @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
-            {
-                <img class="img-responsive" id="anim-img-@Model.ContentLink" src="@(@Model.ImageUrl)?preset=listmedium"/>
-            }
-            else
-            {
-                <img class="img-responsive no-image" src="/siteassets/system/no-image.png?preset=listmedium">
-            }
+<div class="productRow col-sm-12">
+    <div class="tile">
+        <div class="price-label">
+            <span>@Model.PriceString</span>
+
+        </div>
+
+        <a href="@Model.ProductUrl">
+            <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
         </a>
-    </div>
-    @if (string.IsNullOrEmpty(Model.NewItemText) == false) {
-        <div class="newitemtext">@Model.NewItemText</div>
-    }
-    <h3><a href="@Url.ContentUrl(Model.ContentLink)">@Model.DisplayName</a></h3>
-    @if (string.IsNullOrEmpty(Model.PriceString) == false)
-    {
-        <div class="price">@Model.PriceString</div>
-    }
-    else
-    {
-        <div class="price">Not For Sale</div>
-    }
-    
-    <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@displayName',1 ,'','', 'anim-img-@Model.ContentLink', '@Model.ContentType')">
-        <input type="button" class="btn btn-success btn-sm" value="@Html.Translate("/common/product/add_to_cart")" ng-click="addToCart(product)" />
+
+        <div class="footer">
+            <a href="@Model.ProductUrl"><h3 class="name">@Model.DisplayName</h3></a>
+            <p>@Model.Description</p>
+            <div class="tools">
+                <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@Model.DisplayName.Replace("'", "")',1 ,'','', 'anim-img-@Model.ContentLink')">
+                    <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
