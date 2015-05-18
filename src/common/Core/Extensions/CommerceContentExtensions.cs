@@ -298,33 +298,5 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return string.Empty;
 
         }
-
-
-        public static string GetDefaultImage(this EntryContentBase productContent, string preset = null)
-        {
-            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
-            var commerceMedia = productContent.CommerceMediaCollection.OrderBy(m => m.SortOrder).FirstOrDefault(z => z.GroupName != null && z.GroupName.ToLower() != "swatch");
-            if (commerceMedia != null)
-            {
-                var contentReference = commerceMedia.AssetLink;
-                string defaultImage = urlResolver.GetUrl(contentReference, null, new VirtualPathArguments() { ContextMode = ContextMode.Default });
-                if(preset != null)
-                {
-                    defaultImage = defaultImage + "?preset=" + preset;
-                }
-                return defaultImage;
-            }
-
-            string noImage = "/siteassets/system/no-image.png";
-            if (preset != null)
-            {
-                noImage = noImage + "?preset=" + preset;
-            }
-
-            return noImage;
-        }
-
-
     }
 }

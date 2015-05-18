@@ -4,15 +4,17 @@
 @{
     Layout = null;
 }
-<div class="product-list">
 
-    
+
+<div class="row">
     <h2>@Html.PropertyFor(p => p.Heading)</h2>
-
+</div>
+<div class="row">
     @foreach (var product in Model.Products)
     {
-        <div class="col-sm-4">
+        <div class="col-md-4">
             @Html.Partial("ProductPartials/_ProductListView", product)
         </div>
     }
+
 </div>

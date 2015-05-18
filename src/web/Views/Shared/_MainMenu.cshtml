@@ -96,14 +96,16 @@
 @helper SetImageTag(EntryContentBase product, UrlResolver urlResolver)
 {
 
-    var mediaReferences = product.AssetImageUrls();
-
-    if (mediaReferences != null && mediaReferences.Any())
+    var mediaUrl = product.GetImage(preset: null, groupName: "menufeature");
+    if (string.IsNullOrEmpty(mediaUrl))
     {
-        var media = mediaReferences.FirstOrDefault();
-        var mediaUrl = urlResolver.GetUrl(media);
-        <img src="@mediaUrl?preset=swatch" alt="Special Offer" />
-
+        // Fall back to default image, force size and aspect ratio
+        mediaUrl = product.GetImage(preset: "menufeature");
+    }
+    
+    if (string.IsNullOrEmpty(mediaUrl) == false)
+    {
+        <img src="@mediaUrl" alt="Special Offer" />
     }
     else
     {

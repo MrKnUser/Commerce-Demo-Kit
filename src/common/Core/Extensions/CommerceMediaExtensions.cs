@@ -99,5 +99,52 @@ namespace OxxCommerceStarterKit.Core.Extensions
             }
             return null;
         }
+
+        public static string GetDefaultImage(this EntryContentBase productContent, string preset = null, string groupName = null)
+        {
+            string defaultImage = GetImage(productContent, preset, groupName);
+            if (defaultImage != null)
+                return defaultImage;
+
+            string noImage = "/siteassets/system/no-image.png";
+            if (preset != null)
+            {
+                noImage = noImage + "?preset=" + preset;
+            }
+
+            return noImage;
+        }
+
+        public static string GetImage(this EntryContentBase productContent, string preset = null, string groupName = null)
+        {
+            var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+
+            CommerceMedia commerceMedia;
+            if (groupName == null)
+            {
+                commerceMedia =
+                    productContent.CommerceMediaCollection.OrderBy(m => m.SortOrder)
+                        .FirstOrDefault(z => z.GroupName == null || z.GroupName.ToLower() == "default");
+            }
+            else
+            {
+                commerceMedia =
+                    productContent.CommerceMediaCollection.OrderBy(m => m.SortOrder)
+                        .FirstOrDefault(z => z.GroupName.ToLower() == groupName);
+            }
+
+            if (commerceMedia != null)
+            {
+                var contentReference = commerceMedia.AssetLink;
+                string defaultImage = urlResolver.GetUrl(contentReference, null,
+                    new VirtualPathArguments() {ContextMode = ContextMode.Default});
+                if (preset != null)
+                {
+                    defaultImage = defaultImage + "?preset=" + preset;
+                }
+                return defaultImage; 
+            }
+            return null;
+        }
     }
 }
