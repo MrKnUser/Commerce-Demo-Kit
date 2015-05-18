@@ -6,10 +6,9 @@ using EPiServer.Find;
 using EPiServer.Find.Api.Facets;
 using EPiServer.Find.Api.Querying;
 using EPiServer.Find.Api.Querying.Filters;
-using EPiServer.Find.Framework;
 using OxxCommerceStarterKit.Web.Business.FacetRegistry;
 
-namespace OxxCommerceStarterKit.Web.Api
+namespace OxxCommerceStarterKit.Web.Extensions
 {
     public static class SearchExtensions
     {
@@ -48,7 +47,11 @@ namespace OxxCommerceStarterKit.Web.Api
         public static ITypeSearch<TSource> TermsFacetFor<TSource>(this ITypeSearch<TSource> search, string name, int size)
         {
             return search.TermsFacetFor(name, FacetRequestAction(search.Client, name, size));
+        }
 
+        public static ITypeSearch<TSource> TermsFacetForArray<TSource>(this ITypeSearch<TSource> search, string name, int size)
+        {
+            return search.TermsFacetFor(name, FacetRequestActionForField(name, size));
         }
 
         private static Action<NumericRangeFacetRequest> NumericRangfeFacetRequestAction(IClient searchClient, string fieldName, IEnumerable<NumericRange> range, Type type)
@@ -71,12 +74,16 @@ namespace OxxCommerceStarterKit.Web.Api
 
         private static Action<TermsFacetRequest> FacetRequestAction(IClient searchClient, string fieldName, int size)
         {
-
             string fullFieldName = GetFullFieldName(searchClient, fieldName);
 
+            return FacetRequestActionForField(fullFieldName, size);
+        }
+
+        private static Action<TermsFacetRequest> FacetRequestActionForField(string fieldName, int size)
+        {
             return (x =>
             {
-                x.Field = fullFieldName;
+                x.Field = fieldName;
                 x.Size = size;
             });
         }
@@ -88,7 +95,22 @@ namespace OxxCommerceStarterKit.Web.Api
 
         public static string GetFullFieldName(this IClient searchClient, string fieldName, Type type)
         {
-            return fieldName + searchClient.Conventions.FieldNameConvention.GetFieldName(Expression.Variable(type, fieldName));
+            if(type != null)
+                return fieldName + searchClient.Conventions.FieldNameConvention.GetFieldName(Expression.Variable(type, fieldName));
+
+            return fieldName;
+        }
+
+        public static ITypeSearch<T> AddStringFilter<T>(this ITypeSearch<T> query, List<string> stringFieldValues, string fieldName)
+        {
+            // Appends type convention to field name (like "$$string")
+            string fullFieldName = query.Client.GetFullFieldName(fieldName);
+
+            if (stringFieldValues != null && stringFieldValues.Any())
+            {
+                return query.Filter(GetOrFilterForStringList<T>(stringFieldValues, query.Client, fullFieldName));
+            }
+            return query;
         }
 
         public static ITypeSearch<T> AddStringListFilter<T>(this ITypeSearch<T> query, List<string> stringFieldValues, string fieldName)
@@ -102,13 +124,10 @@ namespace OxxCommerceStarterKit.Web.Api
 
         private static FilterBuilder<T> GetOrFilterForStringList<T>(List<string> fieldValues, IClient client, string fieldName)
         {
-            // Appends type convention to field name (like "$$string")
-            string fullFieldName = client.GetFullFieldName(fieldName);
-
             List<Filter> filters = new List<Filter>();
             foreach (string s in fieldValues)
             {
-                filters.Add(new TermFilter(fullFieldName, s));
+                filters.Add(new TermFilter(fieldName, s));
             }
 
             OrFilter orFilter = new OrFilter(filters);
@@ -135,14 +154,50 @@ namespace OxxCommerceStarterKit.Web.Api
             List<Filter> filters = new List<Filter>();
             foreach (SelectableNumericRange rangeItem in range)
             {
-                filters.Add(RangeFilter.Create(fullFieldName, rangeItem.From ?? 0, rangeItem.To ?? double.MaxValue));
+                var rangeFilter = RangeFilter.Create(fullFieldName, rangeItem.From ?? 0, rangeItem.To ?? double.MaxValue);
+                rangeFilter.IncludeUpper = false;
+                filters.Add(rangeFilter);
             }
-            
+
 
             OrFilter orFilter = new OrFilter(filters);
             FilterBuilder<T> filterBuilder = new FilterBuilder<T>(client, orFilter);
             return filterBuilder;
         }
+
+        public static ITypeSearch<T> AddFilterForIntList<T>(this ITypeSearch<T> query, IEnumerable<int> categories, string fieldName)
+        {
+            return query.Filter(GetOrFilterForIntList<T>(query, categories, fieldName, type: null)); // Filter array of int is without type specifier in Find
+        }
+
+        public static FilterBuilder<T> GetOrFilterForIntList<T>(this ITypeSearch<T> query, IEnumerable<int> values, string fieldName, Type type)
+        {
+            // Appends type convention to field name (like "$$string")
+            IClient client = query.Client;
+            string fullFieldName = client.GetFullFieldName(fieldName, type);
+            
+            List<Filter> filters = new List<Filter>();
+            foreach (int value in values)
+            {
+                filters.Add(new TermFilter(fullFieldName, value));
+            }
+
+            FilterBuilder<T> filterBuilder;
+            if(filters.Count > 1)
+            {
+                OrFilter orFilter = new OrFilter(filters);
+                filterBuilder = new FilterBuilder<T>(client, orFilter);
+            }
+            else
+            {
+                // If we only have one filer, don't wrap it in an Or filter
+                filterBuilder = new FilterBuilder<T>(client, filters[0]);
+            }
+            return filterBuilder;                
+
+        }
+
+        
 
     }
 }

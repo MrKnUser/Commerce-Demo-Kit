@@ -18,76 +18,89 @@
 /*@fontSerif: "Georgia", "Serif";*/
 .product-list,
 .fashionproductcontent,
-.wineskucontent {
+.wineskucontent,
+.productRow {
   margin-bottom: 30px;
 }
 .product-list h2,
 .fashionproductcontent h2,
-.wineskucontent h2 {
+.wineskucontent h2,
+.productRow h2 {
   /*margin-bottom: 1em;*/
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
 }
 .product-list .three .product:nth-child(3n+1),
 .fashionproductcontent .three .product:nth-child(3n+1),
-.wineskucontent .three .product:nth-child(3n+1) {
+.wineskucontent .three .product:nth-child(3n+1),
+.productRow .three .product:nth-child(3n+1) {
   clear: left;
 }
 .product-list .five .product:nth-child(5n+1),
 .fashionproductcontent .five .product:nth-child(5n+1),
-.wineskucontent .five .product:nth-child(5n+1) {
+.wineskucontent .five .product:nth-child(5n+1),
+.productRow .five .product:nth-child(5n+1) {
   clear: left;
 }
 .product-list .five .product,
 .fashionproductcontent .five .product,
-.wineskucontent .five .product {
+.wineskucontent .five .product,
+.productRow .five .product {
   width: 20%;
 }
 .product-list .five .product .name,
 .fashionproductcontent .five .product .name,
-.wineskucontent .five .product .name {
+.wineskucontent .five .product .name,
+.productRow .five .product .name {
   font-size: 16px;
 }
 .product-list .five .rate,
 .fashionproductcontent .five .rate,
-.wineskucontent .five .rate {
+.wineskucontent .five .rate,
+.productRow .five .rate {
   visibility: hidden;
 }
 .product-list .five .wishlist-btn,
 .fashionproductcontent .five .wishlist-btn,
-.wineskucontent .five .wishlist-btn {
+.wineskucontent .five .wishlist-btn,
+.productRow .five .wishlist-btn {
   visibility: hidden;
 }
-.product-list .product,
-.fashionproductcontent .product,
-.wineskucontent .product {
+.product-list .tile,
+.fashionproductcontent .tile,
+.wineskucontent .tile,
+.productRow .tile {
   margin-bottom: 20px;
   position: relative;
 }
-.product-list .product h3,
-.fashionproductcontent .product h3,
-.wineskucontent .product h3 {
+.product-list .tile h3,
+.fashionproductcontent .tile h3,
+.wineskucontent .tile h3,
+.productRow .tile h3 {
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
   font-size: 20px;
   margin-bottom: 0;
   margin-top: 0;
 }
-.product-list .product h3 a,
-.fashionproductcontent .product h3 a,
-.wineskucontent .product h3 a {
+.product-list .tile h3 a,
+.fashionproductcontent .tile h3 a,
+.wineskucontent .tile h3 a,
+.productRow .tile h3 a {
   text-decoration: none;
   color: black;
 }
-.product-list .product .image,
-.fashionproductcontent .product .image,
-.wineskucontent .product .image {
+.product-list .tile .image,
+.fashionproductcontent .tile .image,
+.wineskucontent .tile .image,
+.productRow .tile .image {
   text-align: center;
   margin-bottom: 1em;
 }
-.product-list .product img,
-.fashionproductcontent .product img,
-.wineskucontent .product img {
+.product-list .tile img,
+.fashionproductcontent .tile img,
+.wineskucontent .tile img,
+.productRow .tile img {
   margin: 0 auto;
   max-height: 252px;
   width: auto;
@@ -95,9 +108,10 @@
     left:0;
     top:0;*/
 }
-.product-list .product .newitemtext,
-.fashionproductcontent .product .newitemtext,
-.wineskucontent .product .newitemtext {
+.product-list .tile .newitemtext,
+.fashionproductcontent .tile .newitemtext,
+.wineskucontent .tile .newitemtext,
+.productRow .tile .newitemtext {
   /*text-align: center;*/
   color: #999;
   background-color: #f0f0f0;
@@ -109,16 +123,18 @@
   left: 10px;
   top: 200px;
 }
-.product-list .product .price,
-.fashionproductcontent .product .price,
-.wineskucontent .product .price {
+.product-list .tile .price,
+.fashionproductcontent .tile .price,
+.wineskucontent .tile .price,
+.productRow .tile .price {
   font-size: 16px;
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
 }
-.product-list .product .add-to-cart-form,
-.fashionproductcontent .product .add-to-cart-form,
-.wineskucontent .product .add-to-cart-form {
+.product-list .tile .add-to-cart-form,
+.fashionproductcontent .tile .add-to-cart-form,
+.wineskucontent .tile .add-to-cart-form,
+.productRow .tile .add-to-cart-form {
   text-align: center;
 }
 .wineskucontent.half .product .price {
@@ -1118,4 +1134,3 @@ header .logo {
 tr.collapse.in {
   display: table-row;
 }
-/*# sourceMappingURL=commerce-starter-kit.css.map */

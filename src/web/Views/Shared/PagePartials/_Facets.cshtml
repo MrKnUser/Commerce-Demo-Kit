@@ -2,17 +2,6 @@
     @*<h4>@Html.Translate("/common/productlist/filters_title") <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-down" data-toggle="collapse" data-target="#id8971263"> </a></h4>*@
 
     <span ng-repeat="facetType in facets track by $index" ng-switch on="facetType.Definition.RenderType">
-        <section class="filter-section" ng-show="facetType.Definition.TermsList.length > 0" ng-switch-when="FacetStringListDefinition">
-            @*String list facets*@
-            <h3>{{facetType.Definition.DisplayName}}</h3>
-            <div ng-repeat="facet in facetType.Definition.TermsList track by $index">
-                <label class="checkbox" for="{{facet.Term}}">
-                    <input type="checkbox" name="{{facet.Term}}" id="{{facet.Term}}" ng-click="updateStringFacetsSelections($event, facet.Term,facetType.Definition.Name)" ng-model="facet.Selected" />
-                    {{facet.Term}} ({{facet.Count}})
-                </label>
-            </div>
-        </section>
-
         @*Numeric Range facets*@
         <section class="filter-section" ng-show="facetType.Definition.RangeResult.length > 0" ng-switch-when="FacetNumericRangeDefinition">
             <h3>{{facetType.Definition.DisplayName}}</h3>
@@ -23,6 +12,17 @@
                         ({{facet.Count}})
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section class="filter-section" ng-show="facetType.Definition.TermsList.length > 0" ng-switch-default>
+            @*String list facets*@
+            <h3>{{facetType.Definition.DisplayName}}</h3>
+            <div ng-repeat="facet in facetType.Definition.TermsList track by $index">
+                <label class="checkbox" for="{{facet.Term}}">
+                    <input type="checkbox" name="{{facet.Term}}" id="{{facet.Term}}" ng-click="updateStringFacetsSelections($event, facet.Term,facetType.Definition.Name)" ng-model="facet.Selected" />
+                    {{facet.Term}} ({{facet.Count}})
+                </label>
             </div>
         </section>
 

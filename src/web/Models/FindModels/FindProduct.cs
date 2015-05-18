@@ -69,7 +69,6 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public XhtmlString Description { get; set; }
         public XhtmlString Overview { get; set; }
         public List<string> Color { get; set; }
-        public string DescriptiveColor { get; set; }
         public List<string> Sizes { get; set; }
         public string SizeUnit { get; set; }
 		public string SizeType { get; set; }

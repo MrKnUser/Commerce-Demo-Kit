@@ -11,6 +11,7 @@
             <VintageFacet>Wine Vintage</VintageFacet>
             <ClosureFacet>Wine Closure</ClosureFacet>
             <BrandFacet>Brand</BrandFacet>
+            <SizesFacet>Sizes</SizesFacet>
         </facetregistry>
     </language>
     <language name="Norwegian"
@@ -24,6 +25,7 @@
             <VintageFacet>Produksjonsår</VintageFacet>
             <ClosureFacet>Type kork</ClosureFacet>
             <BrandFacet>Merke</BrandFacet>
+            <SizesFacet>Størrelser</SizesFacet>
         </facetregistry>
     </language>
 </languages>

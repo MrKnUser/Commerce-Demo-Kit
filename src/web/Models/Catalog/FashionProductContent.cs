@@ -46,12 +46,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
     public class FashionProductContent : ProductBase, IIndexableContent, IProductListViewModelInitializer
     {
         [CultureSpecific]
-        [Display(Name = "Descriptive Color",
-            Order = 5)]
-        [Editable(true)]
-        public virtual string DescriptiveColor { get; set; }
-
-        [CultureSpecific]
         [Display(Name = "Facet Color",
             Order = 10)]
         [Editable(true)]
@@ -111,7 +105,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             findProduct.Description = Description;
             findProduct.Color = FacetColor == null ? new List<string>() : FacetColor.Split(',').ToList();
-            findProduct.DescriptiveColor = DescriptiveColor;
             findProduct.Sizes =
                 variations.Select(x => x.Size == null ? string.Empty : x.Size.TrimEnd('-')).Distinct().ToList();
             findProduct.SizeType = sizeType;
@@ -205,7 +198,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                 Code = this.Code,
                 NewItemText = NewItemText,
                 ContentLink = this.ContentLink,
-                DisplayName = this.DisplayName,
+                DisplayName = DisplayName ?? Name,
                 Description = Description,
                 ProductUrl = urlResolver.GetUrl(ContentLink),
                 ImageUrl = this.GetDefaultImage(),

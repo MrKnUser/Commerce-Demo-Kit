@@ -70,7 +70,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         {
             var language = (Language == null ? string.Empty : Language.Name);
             var findProduct = new FindProduct(this,language);
-
+            findProduct.Color = Color != null ? new List<string>() { Color } : new List<string>();
             findProduct.Description = Description;
             findProduct.Overview = Overview;
             findProduct.ShowInList = ShowInList;

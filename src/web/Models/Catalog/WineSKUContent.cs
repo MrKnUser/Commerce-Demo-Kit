@@ -210,7 +210,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             {
                 Code = this.Code,
                 ContentLink = this.ContentLink,
-                DisplayName = this.DisplayName,
+                DisplayName = DisplayName ?? Name,
                 Description = Info_Description,
                 ProductUrl = urlResolver.GetUrl(ContentLink),
                 ImageUrl = this.GetDefaultImage(),

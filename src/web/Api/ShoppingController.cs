@@ -22,6 +22,7 @@ using EPiServer.ServiceLocation;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using OxxCommerceStarterKit.Web.Business.FacetRegistry;
+using OxxCommerceStarterKit.Web.Extensions;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 
 namespace OxxCommerceStarterKit.Web.Api
@@ -101,7 +102,6 @@ namespace OxxCommerceStarterKit.Web.Api
             // Get all facet values based on facet registry
             var facetsAndValues = GetFacetsAndValues(productFacetsResult, productSearchData.ProductData.Facets);
       
-
             // If we're doing a filtering on a specific facet, we handle that one
             // in a special way, in order to show the count for all terms for the facet
             SearchResults<FindProduct> productSelectedFacetsResult = null;
@@ -125,8 +125,6 @@ namespace OxxCommerceStarterKit.Web.Api
                 // Treat the selected faced specially, as it might show more data if it is selected
                 facetsAndValues = GetFacetsAndValues(productSelectedFacetsResult, facetsAndValues);
             }
-
-          
 
             var result = new
             {
@@ -181,8 +179,7 @@ namespace OxxCommerceStarterKit.Web.Api
             if (productSearchData.ProductData.SelectedProductCategories != null &&
                 productSearchData.ProductData.SelectedProductCategories.Any())
             {
-                productsQuery =
-                    productsQuery.Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories));
+                productsQuery = productsQuery.AddFilterForIntList(productSearchData.ProductData.SelectedProductCategories, "ParentCategoryId"); 
             }
 
             // Add filters from the passed in fasets
@@ -216,8 +213,7 @@ namespace OxxCommerceStarterKit.Web.Api
             if (productSearchData.ProductData.SelectedProductCategories != null &&
                 productSearchData.ProductData.SelectedProductCategories.Any())
             {
-                productFacetQuery =
-                    productFacetQuery.Filter(x => GetCategoryFilter(productSearchData.ProductData.SelectedProductCategories));
+                productFacetQuery = productFacetQuery.AddFilterForIntList(productSearchData.ProductData.SelectedProductCategories, "ParentCategoryId"); 
             }
 
             productFacetQuery = productFacetQuery
@@ -515,7 +511,12 @@ namespace OxxCommerceStarterKit.Web.Api
         private FilterBuilder<FindProduct> GetCategoryFilter(List<int> categories)
         {
             var filter = SearchClient.Instance.BuildFilter<FindProduct>();
+            // GetOrFilterForIntList
             return categories.Aggregate(filter, (current, category) => current.Or(x => x.ParentCategoryId.Match(category)));
+        }
+        private ITypeSearch<FindProduct> ApplyCategoryFilter(ITypeSearch<FindProduct> query, List<int> categories)
+        {
+            return query.Filter(query.GetOrFilterForIntList(categories, "ParentCategoryId", type: null)); // Filter array of int is without type specifier in Find
         }
         private FilterBuilder<FindProduct> GetColorFilter(List<string> colorsList)
         {

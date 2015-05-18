@@ -298,5 +298,18 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return string.Empty;
 
         }
+
+        public static List<ContentReference> GetNodeIdList(this IEnumerable<NodeContent> nodes)
+        {
+            List<ContentReference> idList = new List<ContentReference>();
+
+            if (nodes == null || nodes.Any() == false)
+                return idList;
+
+            idList = nodes.Select(x => x.ContentLink).ToList();
+
+            return idList;
+        }
+
     }
 }

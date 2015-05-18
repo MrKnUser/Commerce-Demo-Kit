@@ -12,13 +12,13 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
         public void Initialize(InitializationEngine context)
         {
             IFacetRegistry registry = ServiceLocator.Current.GetInstance<IFacetRegistry>();
-            registry.FacetDefinitions.Add(new FacetStringListDefinition()
+            registry.FacetDefinitions.Add(new FacetStringDefinition()
             {
                 Name = "CountryFacet",
                 FieldName = "Country"
             });
 
-            registry.FacetDefinitions.Add(new FacetStringListDefinition()
+            registry.FacetDefinitions.Add(new FacetStringDefinition()
             {
                 Name = "RegionFacet",
                 FieldName = "Region"
@@ -39,30 +39,30 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
             registry.FacetDefinitions.Add(new FacetStringListDefinition()
             {
-                Name = "DescriptiveColorFacet",
-                FieldName = "DescriptiveColor"
-            });
-
-            registry.FacetDefinitions.Add(new FacetStringListDefinition()
-            {
                 Name = "ColorFacet",
                 FieldName = "Color"
             });
 
             registry.FacetDefinitions.Add(new FacetStringListDefinition()
             {
+                Name = "SizesFacet",
+                FieldName = "Sizes"
+            });
+
+            registry.FacetDefinitions.Add(new FacetStringDefinition()
+            {
                 Name = "VintageFacet",
                 FieldName = "Vintage"
             });
 
             
-            registry.FacetDefinitions.Add(new FacetStringListDefinition()
+            registry.FacetDefinitions.Add(new FacetStringDefinition()
             {
                 Name = "ClosureFacet",
                 FieldName = "Closure"
             });
 
-            registry.FacetDefinitions.Add(new FacetStringListDefinition()
+            registry.FacetDefinitions.Add(new FacetStringDefinition()
             {
                 Name = "BrandFacet",
                 FieldName = "Brand"

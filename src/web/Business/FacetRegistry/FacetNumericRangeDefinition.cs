@@ -4,6 +4,7 @@ using System.Linq;
 using EPiServer.Find;
 using EPiServer.Find.Api.Facets;
 using OxxCommerceStarterKit.Web.Api;
+using OxxCommerceStarterKit.Web.Extensions;
 
 namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 {

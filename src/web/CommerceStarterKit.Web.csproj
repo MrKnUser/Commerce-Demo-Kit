@@ -846,6 +846,9 @@
     <Content Include="Views\Shared\Blocks\Slider.Product.cshtml" />
     <Content Include="Views\DeveloperTools\_layout.cshtml" />
     <Content Include="Views\DeveloperTools\MetaFields.cshtml" />
+    <Content Include="Views\ProductSearchBlock\Index.cshtml" />
+    <Content Include="Views\ProductSearchBlock\FindError.cshtml" />
+    <Content Include="Views\ProductSearchBlock\EmptyResult.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1326,10 +1329,12 @@
     <Compile Include="Api\BaseApiController.cs" />
     <Compile Include="Api\DeliveryLocationsController.cs" />
     <Compile Include="Api\ReviewController.cs" />
-    <Compile Include="Api\SearchExtensions.cs" />
+    <Compile Include="Business\FacetRegistry\FacetStringListDefinition.cs" />
+    <Compile Include="Controllers\ProductSearchBlockController.cs" />
+    <Compile Include="Extensions\SearchExtensions.cs" />
     <Compile Include="Business\DependencyResolverInitialization.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
-    <Compile Include="Business\FacetRegistry\FacetListDefinition.cs" />
+    <Compile Include="Business\FacetRegistry\FacetStringDefinition.cs" />
     <Compile Include="Business\FacetRegistry\FacetNumericRangeDefinition.cs" />
     <Compile Include="Api\StreetAddress.cs" />
     <Compile Include="Api\TagController.cs" />
@@ -1392,6 +1397,7 @@
     <Compile Include="Business\Rendering\SiteViewEngine.cs" />
     <Compile Include="Business\Rendering\TemplateCoordinator.cs" />
     <Compile Include="Business\RequireSSLAttribute.cs" />
+    <Compile Include="Business\Search\FilterUtil.cs" />
     <Compile Include="Business\Search\FindProductSearchProvider.cs" />
     <Compile Include="Business\SiteConfiguration.cs" />
     <Compile Include="Business\StructureMapDependencyResolver.cs" />
@@ -1433,6 +1439,7 @@
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\FeatureProductBlock.cs" />
     <Compile Include="Models\Blocks\TitleBlock.cs" />
+    <Compile Include="Models\Blocks\ProductSearchBlock.cs" />
     <Compile Include="Models\Catalog\DigitalCameraVariationContent.cs" />
     <Compile Include="Models\Catalog\GenericProductContent.cs" />
     <Compile Include="Models\Catalog\GenericSizeVariationContent.cs" />

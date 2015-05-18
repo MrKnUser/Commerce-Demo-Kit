@@ -3,6 +3,7 @@ using System.Linq;
 using EPiServer.Find;
 using EPiServer.Find.Api.Facets;
 using OxxCommerceStarterKit.Web.Api;
+using OxxCommerceStarterKit.Web.Extensions;
 
 namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 {
@@ -29,7 +30,7 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
 
         public override ITypeSearch<T> Facet<T>(ITypeSearch<T> query)
         {
-            return query.TermsFacetFor(FieldName, 50);
+            return query.TermsFacetForArray(FieldName, 50);
         }
 
         public override void PopulateFacet(Facet facet)

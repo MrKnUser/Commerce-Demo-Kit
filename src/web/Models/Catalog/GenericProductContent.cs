@@ -24,9 +24,9 @@ using OxxCommerceStarterKit.Web.Models.ViewModels;
 namespace OxxCommerceStarterKit.Web.Models.Catalog
 {
      [CatalogContentType(GUID = "1F13773D-14B0-4F32-9E04-20BA9B2B29F1", MetaClassName = "GenericProductContent",
-       DisplayName = "Accessories",
-       Description = "Accessories",
-       GroupName = "Accessories"
+       DisplayName = "Generic Product",
+       Description = "A generic product with generic fields",
+       GroupName = WebGlobal.GroupNames.Commerce
        )]
     public class GenericProductContent : ProductBase, IIndexableContent, IProductListViewModelInitializer, IResourceable
     {
@@ -76,7 +76,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             findProduct.Description = Description;
             findProduct.Color = Color != null ? new List<string>() {Color} : new List<string>();
-            findProduct.DescriptiveColor = Color;
             findProduct.Sizes =
                 variations.Select(x => x.Size ?? string.Empty).Distinct().ToList();
             findProduct.Brand = this.Facet_Brand;
