@@ -173,6 +173,29 @@ namespace OxxCommerceStarterKit.Core.Extensions
             //return price.Money.Amount.ToString();
         }
 
+        public static PriceAndMarket GetDiscountPrice(this VariationContent variation, IMarket market = null)
+        {
+
+            if (market == null)
+            {
+                ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
+                market = currentMarket.GetCurrentMarket();
+            }
+            Func<PriceAndMarket, bool> priceFilter;
+            priceFilter = delegate(PriceAndMarket d)
+            {
+                // Find a non CustomerClub price, but still a price with a price code
+                return d.PriceCode != string.Empty &&
+                       !(d.PriceTypeId == CustomerPricing.PriceType.PriceGroup.ToString() &&
+                         d.PriceCode == Constants.CustomerGroup.CustomerClub);
+            };
+
+            // Find a price with a price code that is not a customer club price
+            var discountedPrice = variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);
+
+            return discountedPrice;
+        }
+
         /// <summary>
         /// Gets the discount price, if no discount is set, returns string.Empty
         /// </summary>
@@ -230,21 +253,51 @@ namespace OxxCommerceStarterKit.Core.Extensions
             };
 
            
-            var prices = variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);
+            var foundPrice = variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);
 
 
-            if (prices != null) return prices.Price;
+            if (foundPrice != null) return foundPrice.Price;
             return string.Empty;
+        }
+
+        public static PriceAndMarket GetCustomerClubPrice(this VariationContent variation, IMarket market = null)
+        {
+            if (market == null)
+            {
+                ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
+                market = currentMarket.GetCurrentMarket();
+            }
+            Func<PriceAndMarket, bool> priceFilter = delegate(PriceAndMarket d)
+            {
+                return d.PriceCode != string.Empty &&
+                       (d.PriceTypeId == CustomerPricing.PriceType.PriceGroup.ToString() &&
+                        d.PriceCode == Constants.CustomerGroup.CustomerClub);
+            };
+           
+            return variation.GetPricesWithMarket(market).FirstOrDefault(priceFilter);
         }
 
         public static string GetCustomerClubDisplayPrice(this List<VariationContent> variations, IMarket market = null)
         {
+            var priceAndMarket = GetCustomerClubPrice(variations, market);
+            if (priceAndMarket != null)
+                return priceAndMarket.Price;
+            return string.Empty;
+        }
+
+        public static PriceAndMarket GetCustomerClubPrice(this List<VariationContent> variations, IMarket market = null)
+        {
             if (variations.Any())
             {
-                VariationContent variationContent = variations.FirstOrDefault(x => x.GetPricesWithMarket(market) != null);
-                return variationContent.GetCustomerClubDisplayPrice(market);
+                // Find first price for customer club
+                foreach (VariationContent variation in variations)
+                {
+                    var priceAndMarket = variation.GetCustomerClubPrice(market);
+                    if (priceAndMarket != null)
+                        return priceAndMarket;
+                }
             }
-            return string.Empty;
+            return null;
         }
     }
 

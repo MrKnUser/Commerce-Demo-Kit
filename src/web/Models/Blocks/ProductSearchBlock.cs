@@ -23,6 +23,7 @@ using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Web.Extensions;
 using OxxCommerceStarterKit.Web.Models.Blocks.Base;
+using OxxCommerceStarterKit.Web.Models.Blocks.ProductFilters;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 
 namespace OxxCommerceStarterKit.Web.Models.Blocks
@@ -45,7 +46,7 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
         [Display(Name = "Filters",
                 Description = "Filters to apply to the search result",
                 Order = 10)]
-        // [AllowedTypes(typeof(EntryContentBase))]
+        [AllowedTypes(typeof(FilterBaseBlock))]
         public virtual ContentArea Filters { get; set; }
 
         [Display(Name = "Priority Products",
@@ -61,13 +62,24 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
         /// <returns></returns>
         protected override ITypeSearch<FindProduct> ApplyFilters(ITypeSearch<FindProduct> query)
         {
-            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-
             // Only get products from the selected nodes
             if(Nodes != null)
             {
                 IEnumerable<int> nodeIds = Nodes.FilteredItems.Select(x => x.ContentLink.ID);
                 query = query.AddFilterForIntList(nodeIds, "ParentCategoryId");
+            }
+
+            // Allow all filters to add their Find filters to the query
+            if (Filters != null)
+            {
+                foreach (var item in Filters.FilteredItems)
+                {
+                    FilterBaseBlock filter = item.GetContent() as FilterBaseBlock;
+                    if (filter != null)
+                    {
+                        query = filter.ApplyFilter(query);
+                    }
+                }
             }
             
             return query;

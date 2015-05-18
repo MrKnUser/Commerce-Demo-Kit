@@ -88,12 +88,13 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         /// </summary>
         public int DefaultPriceAmount { get; set; }
         public string DiscountedPrice { get; set; }
-        public decimal DiscountedPriceAmount { get; set; }
+        public double DiscountedPriceAmount { get; set; }
         public List<FashionVariant> Variants { get; set; }
         public List<GenericFindVariant> GenericVariants { get; set; }
 		public string NewItemText { get; set; }
 		public int SalesCounter { get; set; }
 		public string CustomerClubPrice { get; set; }
+        public double CustomerClubPriceAmount { get; set; }
         public string Brand { get; set; }
         //Wine facets
         public string Varieties { get; set; }

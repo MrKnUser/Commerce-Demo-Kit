@@ -281,6 +281,7 @@ namespace OxxCommerceStarterKit.Core.Extensions
                         PriceTypeId = price.CustomerPricing.PriceTypeId.ToString(),
                         PriceCode = price.CustomerPricing.PriceCode,
                         Price = GetPriceString(price),
+                        UnitPrice = price.UnitPrice,
                         CurrencyCode = price.UnitPrice.Currency.CurrencyCode,
                         CurrencySymbol = price.UnitPrice.Currency.Format.CurrencySymbol//Pricecode??
                     });

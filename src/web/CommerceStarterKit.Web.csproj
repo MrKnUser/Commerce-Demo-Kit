@@ -1330,7 +1330,9 @@
     <Compile Include="Api\DeliveryLocationsController.cs" />
     <Compile Include="Api\ReviewController.cs" />
     <Compile Include="Business\FacetRegistry\FacetStringListDefinition.cs" />
+    <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
+    <Compile Include="EditorDescriptors\SelectionFactories\NumericOperatorSelectionFactory.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
     <Compile Include="Business\DependencyResolverInitialization.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
@@ -1438,6 +1440,10 @@
     <Compile Include="IIdentityProvider.cs" />
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\FeatureProductBlock.cs" />
+    <Compile Include="Models\Blocks\ProductFilters\FilterBaseBlock.cs" />
+    <Compile Include="Models\Blocks\ProductFilters\NumericFilterBlock.cs" />
+    <Compile Include="Models\Blocks\ProductFilters\ExistsFilterBlock.cs" />
+    <Compile Include="Models\Blocks\ProductFilters\StringFilterBlock.cs" />
     <Compile Include="Models\Blocks\TitleBlock.cs" />
     <Compile Include="Models\Blocks\ProductSearchBlock.cs" />
     <Compile Include="Models\Catalog\DigitalCameraVariationContent.cs" />

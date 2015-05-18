@@ -12,6 +12,7 @@ using OxxCommerceStarterKit.Web.Models.ViewModels;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using OxxCommerceStarterKit.Core.Models;
 
 namespace OxxCommerceStarterKit.Web.Models.Catalog
 {
@@ -94,11 +95,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         //public virtual string Weight { get; set; }
 
 
-
-
-
-
-
         [Display(Name = "Show in lists",
          Description = "Default is true, set to false to hide product from lists. The product can still be linked to and found through search.",
          Order = 100,
@@ -122,10 +118,28 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = this.GetDefaultPrice();
             findProduct.DefaultPrice = this.GetDisplayPrice(market);
             findProduct.DefaultPriceAmount = this.GetDefaultPriceAmount(market);
-            findProduct.DiscountedPrice = this.GetDiscountDisplayPrice(defaultPrice, market);
-            findProduct.CustomerClubPrice = this.GetCustomerClubDisplayPrice(market);
+
+            PriceAndMarket discountPrice = this.GetDiscountPrice(market);
+            findProduct.DiscountedPriceAmount = GetPriceWithCheck(discountPrice);
+            findProduct.DiscountedPrice = GetDisplayPriceWithCheck(discountPrice);
+            
+
+            PriceAndMarket customerClubPrice = this.GetCustomerClubPrice(market);
+            findProduct.CustomerClubPriceAmount = GetPriceWithCheck(customerClubPrice);
+            findProduct.CustomerClubPrice = GetDisplayPriceWithCheck(customerClubPrice);
+
 
             return findProduct;
+        }
+
+        private double GetPriceWithCheck(PriceAndMarket discountPrice)
+        {
+            return discountPrice != null ? (double)discountPrice.UnitPrice.Amount : 0;
+        }
+
+        private string GetDisplayPriceWithCheck(PriceAndMarket discountPrice)
+        {
+            return discountPrice != null ? discountPrice.Price : string.Empty;
         }
 
         public bool ShouldIndex()

@@ -16,6 +16,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
 using OxxCommerceStarterKit.Core.Extensions;
+using OxxCommerceStarterKit.Core.Models;
 using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
 using OxxCommerceStarterKit.Web.Models.Catalog.Base;
 using OxxCommerceStarterKit.Web.Models.FindModels;
@@ -89,8 +90,10 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             // TODO: Set if not the same as default price
             findProduct.DiscountedPriceAmount = 0;
-
-            findProduct.CustomerClubPrice = productVariants.GetCustomerClubDisplayPrice(market);
+            PriceAndMarket customerClubPrice = productVariants.GetCustomerClubPrice(market);
+            findProduct.CustomerClubPriceAmount = customerClubPrice != null ? (double)customerClubPrice.UnitPrice.Amount : 0;
+            findProduct.CustomerClubPrice = customerClubPrice != null ? customerClubPrice.Price : string.Empty;
+            
             findProduct.GenericVariants = variations;
 
             return findProduct;

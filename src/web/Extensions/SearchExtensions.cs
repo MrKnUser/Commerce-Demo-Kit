@@ -101,6 +101,18 @@ namespace OxxCommerceStarterKit.Web.Extensions
             return fieldName;
         }
 
+        public static ITypeSearch<T> AddStringFilter<T>(this ITypeSearch<T> query, string stringFieldValue, string fieldName)
+        {
+            if (stringFieldValue == null) throw new ArgumentNullException("stringFieldValue");
+
+            // Appends type convention to field name (like "$$string")
+            string fullFieldName = query.Client.GetFullFieldName(fieldName);
+
+            return query.Filter(GetOrFilterForStringList<T>(new List<string>() { stringFieldValue }, 
+                                query.Client, 
+                                fullFieldName));
+        }
+
         public static ITypeSearch<T> AddStringFilter<T>(this ITypeSearch<T> query, List<string> stringFieldValues, string fieldName)
         {
             // Appends type convention to field name (like "$$string")
@@ -130,9 +142,16 @@ namespace OxxCommerceStarterKit.Web.Extensions
                 filters.Add(new TermFilter(fieldName, s));
             }
 
-            OrFilter orFilter = new OrFilter(filters);
-            FilterBuilder<T> filterBuilder = new FilterBuilder<T>(client, orFilter);
-            return filterBuilder;
+            if(filters.Count == 1)
+            {
+                return new FilterBuilder<T>(client, filters[0]);
+            }
+            else
+            {
+                OrFilter orFilter = new OrFilter(filters);
+                FilterBuilder<T> filterBuilder = new FilterBuilder<T>(client, orFilter);
+                return filterBuilder;
+            }
         }
 
         public static ITypeSearch<T> AddFilterForNumericRange<T>(this ITypeSearch<T> query, IEnumerable<SelectableNumericRange> range, string fieldName)
