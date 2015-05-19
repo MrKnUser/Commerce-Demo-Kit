@@ -32,5 +32,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public string ProductUrl { get; set; }
         public string ImageUrl { get; set; }
         public string ContentType { get; set; }
+        public double AverageRating { get; set; }
     }
 }

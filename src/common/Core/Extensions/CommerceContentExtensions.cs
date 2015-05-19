@@ -312,5 +312,14 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return idList;
         }
 
+        public static double GetAverageRating(this EntryContentBase entryContentBase)
+        {
+            if (entryContentBase.Property["AverageRating"] != null && entryContentBase.Property["AverageRating"].Value != null)
+            {
+                return (double)entryContentBase.Property["AverageRating"].Value;
+            }
+            return 0.0;
+        }
+
     }
 }

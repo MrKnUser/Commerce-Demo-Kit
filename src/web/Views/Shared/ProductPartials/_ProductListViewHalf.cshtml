@@ -18,9 +18,23 @@
             <a href="@Model.ProductUrl"><h3 class="name">@Model.DisplayName</h3></a>
             <p>@Model.Description</p>
             <div class="tools">
+                @{ double rating = Model.AverageRating; }
+
+                <div class="rate">
+                    <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
+                    <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
+                    <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
+                    <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
+                    <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
+                </div>
                 <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@Model.DisplayName.Replace("'", "")',1 ,'','', 'anim-img-@Model.ContentLink')">
                     <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                    <a class="wishlist-btn" ng-click="addToWishlist(product)">
+                        <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
+                        <i class="fa fa-plus"></i>
+                    </a>
                 </div>
+
             </div>
         </div>
     </div>
