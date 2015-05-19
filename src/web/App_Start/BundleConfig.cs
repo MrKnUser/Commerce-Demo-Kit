@@ -29,8 +29,6 @@ namespace OxxCommerceStarterKit.Web
                         //, "~/Scripts/libraries/jquery.unobtrusive-ajax.min.js"
 						));
             bundles.Add(new ScriptBundle("~/bundles/jqueryaddons").Include(
-                "~/Scripts/libraries/jquery.flexslider-min.js",
-                "~/Scripts/libraries/jquery.equalheights.min.js",
                 "~/Scripts/libraries/jquery.touchSwipe.min.js",
                 "~/Content/js/plugins/jquery.placeholder.js",
                 "~/Content/js/plugins/jquery.stellar.min.js",
@@ -63,6 +61,7 @@ namespace OxxCommerceStarterKit.Web
                 "~/Content/js/plugins/smoothscroll.js",
                 "~/Content/js/plugins/icheck.min.js",
                 "~/Content/js/plugins/lightGallery.min.js",
+                "~/Content/js/plugins/lightslider.js",
                 "~/Content/js/plugins/owl.carousel.min.js",
                 "~/Content/js/plugins/masterslider.min.js",
                 "~/Scripts/libraries/easyzoom.js",
@@ -83,8 +82,8 @@ namespace OxxCommerceStarterKit.Web
             bundles.Add(new StyleBundle("~/bundles/css").Include(
 				"~/Content/css/jqueryui/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/masterslider/style/masterslider.css",
-                "~/Content/easyzoom.css",
-                "~/Content/css/flexslider/flexslider.css")
+                "~/Content/css/flexslider/flexslider.css",
+                "~/Content/css/lightslider.css")
                 .Include("~/Content/less/styles.css", new CssRewriteUrlTransform()) // Fix font-references
                 .Include("~/Content/css/commerce-starter-kit.css")); // Bushido template 
 

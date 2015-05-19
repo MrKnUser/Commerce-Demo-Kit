@@ -21,12 +21,14 @@
 {
     var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default });
     var medium = url + "?preset=" + size;
-    <img src="~/Content/masterslider/blank.gif" data-src="@medium" />
+
+    <img class="gallery-item" src="~/Content/masterslider/blank.gif" data-src="@medium" />
+
 }
 @helper GetThumbImageTag(MediaData media, string size, UrlResolver urlResolver)
 {
     var url = urlResolver.GetUrl(media.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default }) + "?preset=" + size;
-    <img class="ms-thumb" src="@url" />
+    <img src="@url" />
 }
 
 @if (Html.IsInEditMode())
@@ -44,20 +46,18 @@
 
 <section class="catalog-single">
     <div ng-controller="CartController" class="row product" id="@id">
-        <div class="col-sm-4">
+        <div class="col-sm-4 ">
             @if (media != null && media.Count > 0)
             {
-                <div class="prod-gal master-slider" id="prod-gal">
+                <ul id="imageGallery">
                     @foreach (var file in media)
                     {
-                        <div class="ms-slide">
-                            @GetImageTag(file, "width320", urlResolver)
-                            @GetThumbImageTag(file, "sliderimage", urlResolver)
-
-                        </div>
+                        <li data-thumb="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })?preset=sliderimage"
+                            data-src="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })">
+                            @GetThumbImageTag(file, "width320", urlResolver)
+                        </li>
                     }
-
-                </div>
+                </ul>
             }
         </div>
         <div class="col-sm-8 col-md-6 main-product-view" itemscope itemtype="http://schema.org/Product">
@@ -75,13 +75,13 @@
             </div>
             @{ double rating = Model.CatalogContent.AverageRating; }
 
-                <div class="rate">
-                    <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
-                    <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
-                    <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
-                    <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
-                    <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
-                </div>
+            <div class="rate">
+                <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>
+                <span class="@(rating >= 1.5 ? "active" : "")@(rating == 1.5 ? " half" : "")"></span>
+                <span class="@(rating >= 2.5 ? "active" : "")@(rating == 2.5 ? " half" : "")"></span>
+                <span class="@(rating >= 3.5 ? "active" : "")@(rating == 3.5 ? " half" : "") "></span>
+                <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
+            </div>
             <div class="buttons group">
                 @if (Model.GenericVariationViewModel != null)
                 {
@@ -93,7 +93,7 @@
             <div class="variations clearfix">
                 <div class="sizes">
                     <div>
-                        @using (Html.BeginForm(null,null ))
+                        @using (Html.BeginForm(null, null))
                         {
                             if (Model.Size != null && Model.Size.Any())
                             {
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="tab-pane fade" id="specs">
             <div class="container">
                 <div class="row">
@@ -188,7 +188,6 @@
         </div>
     </div>
 </section><!--Tabs Widget Close-->
-
 @Html.Partial("_SimilarProducts", Model.CatalogContent)
 
 

@@ -43,17 +43,15 @@
         <div class="col-sm-4">
             @if (media != null && media.Count > 0)
             {
-                <div class="prod-gal master-slider" id="prod-gal">
+                <ul id="imageGallery">
                     @foreach (var file in media)
                     {
-                        <div class="ms-slide">
-                            @GetImageTag(file, "width320", urlResolver)
-                            @GetThumbImageTag(file, "sliderimage", urlResolver)
-
-                        </div>
+                        <li data-thumb="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })?preset=sliderimage"
+                            data-src="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })">
+                            @GetThumbImageTag(file, "width320", urlResolver)
+                        </li>
                     }
-
-                </div>
+                </ul>
             }
         </div>
         <div class="col-sm-8 col-md-6 main-product-view" itemscope itemtype="http://schema.org/Product">

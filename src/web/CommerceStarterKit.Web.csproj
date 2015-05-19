@@ -80,6 +80,7 @@
     </Content>
     <Content Include="Content\css\hotspotseditor\hotspotseditor.css" />
     <Content Include="Content\css\hotspotseditor\hotspotseditor.min.css" />
+    <Content Include="Content\css\lightslider.css" />
     <Content Include="Content\css\print.css" />
     <Content Include="Content\css\print.min.css" />
     <Content Include="Content\css\styles.css" />
@@ -120,6 +121,7 @@
     <Content Include="Content\img\categories\slides\slide_4.png" />
     <Content Include="Content\img\categories\slides\slide_5.png" />
     <Content Include="Content\img\categories\thumbs\th_1.png" />
+    <Content Include="Content\img\controls.png" />
     <Content Include="Content\img\cs-page\image.jpg" />
     <Content Include="Content\img\features\lens.jpg" />
     <Content Include="Content\img\forms\checkbox-light.png" />
@@ -188,6 +190,7 @@
     <Content Include="Content\js\plugins\jquery.touchSwipe.min.js" />
     <Content Include="Content\js\plugins\jquery.validate.min.js" />
     <Content Include="Content\js\plugins\lightGallery.min.js" />
+    <Content Include="Content\js\plugins\lightslider.js" />
     <Content Include="Content\js\plugins\masterslider.js" />
     <Content Include="Content\js\plugins\masterslider.min.js" />
     <Content Include="Content\js\plugins\owl.carousel.min.js" />
@@ -460,6 +463,9 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
+    <Content Include="Content\less\styles.css.map">
+      <DependentUpon>styles.css</DependentUpon>
+    </Content>
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -542,9 +548,6 @@
     <None Include="Content\css\commerce-starter-kit\_productList.less" />
     <None Include="Content\css\commerce-starter-kit\_search.less" />
     <None Include="Content\css\commerce-starter-kit\_slider.less" />
-    <Content Include="Content\css\flexslider\flexslider.css" />
-    <Content Include="Content\css\flexslider\fonts\flexslider-icon.svg" />
-    <Content Include="Content\css\flexslider\images\bg_play_pause.png" />
     <Content Include="Content\css\jquery.multiselect.css" />
     <Content Include="Content\css\jqueryui\images\animated-overlay.gif" />
     <Content Include="Content\css\jqueryui\images\ui-anim_basic_16x16.gif" />
@@ -659,9 +662,6 @@
     <Content Include="Scripts\libraries\angular.js" />
     <Content Include="Scripts\libraries\angular.min.js" />
     <Content Include="Scripts\libraries\angular.min.js.map" />
-    <Content Include="Content\css\flexslider\fonts\flexslider-icon.eot" />
-    <Content Include="Content\css\flexslider\fonts\flexslider-icon.ttf" />
-    <Content Include="Content\css\flexslider\fonts\flexslider-icon.woff" />
     <None Include="Content\css\commerce-starter-kit.less" />
     <Content Include="Content\css\commerce-starter-kit.css.map">
       <DependentUpon>commerce-starter-kit.css</DependentUpon>
@@ -698,7 +698,6 @@
     <Content Include="Scripts\libraries\jquery-plugins.js" />
     <Content Include="Scripts\libraries\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\libraries\jquery.equalheights.min.js" />
-    <Content Include="Scripts\libraries\jquery.flexslider-min.js" />
     <Content Include="Scripts\libraries\jquery.multiselect.min.js" />
     <Content Include="Scripts\libraries\jquery.touchSwipe.min.js" />
     <Content Include="Scripts\libraries\jquery.unobtrusive-ajax.min.js" />

@@ -44,64 +44,15 @@
         <div class="col-sm-4">
             @if (media != null && media.Count > 0)
             {
-                <div class="prod-gal master-slider" id="prod-gal">
+                <ul id="imageGallery">
                     @foreach (var file in media)
                     {
-                        <div class="ms-slide">
-                            @GetImageTag(file, "width320", urlResolver)
-                            @GetThumbImageTag(file, "sliderimage", urlResolver)
-                            @*<img src="~/Content/masterslider/blank.gif" data-src="img/catalog/product-gallery/1.jpg" alt="Lorem ipsum" />
-                                <img class="ms-thumb" src="img/catalog/product-gallery/th_1.jpg" alt="thumb" />*@
-                        </div>
+                        <li data-thumb="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })?preset=sliderimage"
+                            data-src="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })">
+                            @GetThumbImageTag(file, "width320", urlResolver)
+                        </li>
                     }
-                    @*<div class="slider" id="main-product-slider">
-                            <ul class="slides" id="imageslider" ng-model="imageUrl">
-                                @foreach (var file in media)
-                                {
-                                    <li>
-                                        @if (file is ImageFile && !string.IsNullOrEmpty(((ImageFile)file).VideoUrl))
-                                        {
-                                            @Html.Action("Image", "ImageFile", new { currentContent = file, extraImageUrlParameters = "?preset=listmedium" })
-                                        }
-                                        else
-                                        {
-                                            <div class="easyzoom easyzoom--overlay" title="@Html.Translate("/common/product/click_to_zoom")">
-                                                <a href="@(urlResolver.GetUrl(file.ContentLink))">
-                                                    @GetImageTag(file, "width320", urlResolver)
-                                                </a>
-                                            </div>
-                                            <a class="full-screen" href="javascript:;">@Html.Translate("/common/product/show_fullscreen")</a>
-                                        }
-                                    </li>
-                                }
-                            </ul>
-                        </div>*@
-                </div>
-                @*<div class="box product-image-slider">
-                        <div class="slider">
-                            <ul class="slides">
-                                @foreach (var file in media)
-                                {
-                                    <li>
-                                        <a href="javascript:;">
-                                            @if (file is ImageFile && !string.IsNullOrEmpty(((ImageFile)file).VideoUrl))
-                                            {
-                                                <div class="video-container">
-                                                    <span class="starter disabled"></span>
-                                                    @GetImageTag(file, "sliderimage", urlResolver)
-                                                </div>
-
-                                            }
-                                            else
-                                            {
-                                                @GetImageTag(file, "sliderimage", urlResolver)
-                                            }
-                                        </a>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>*@
+                </ul>
             }
         </div>
         <div class="col-sm-8 col-md-6 main-product-view" itemscope itemtype="http://schema.org/Product">

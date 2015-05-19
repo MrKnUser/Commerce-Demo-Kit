@@ -11,7 +11,7 @@
             var findIndexId = id + '_' + language;
             $.getJSON('/' + $scope.language + '/api/SimilarProducts/GetSimilarProducts', { indexId: findIndexId, _: new Date().getTime().toString() }).success(function (data) {
                 $scope.similarProducts = data;
-				$scope.visible = typeof($scope.similarProducts) !== 'undefined' && $scope.similarProducts.length > 0;
+                $scope.visible = typeof ($scope.similarProducts) !== 'undefined' && ($scope.similarProducts !== null && $scope.similarProducts.length > 0);
 
                 $scope.$apply();
             });
@@ -27,14 +27,15 @@
 })(jQuery, window.productApp);
 
 function initSimilarProducts() {
-    $('#similar-products .slider').flexslider({
-        animation: 'slide',
-        controlNav: false,
-        slideshow: false,
-        prevText: '',
-        nextText: '',
-        itemWidth: 120,
-        maxItems: 6,
-        animationLoop: false
-    });
+    $('#similarProducts').lightSlider({
+        item: 4,
+        loop: true,
+        enableDrag: true,
+        currentPagerPosition: 'left',
+        autoWidth: false,
+        pager: false,
+        adaptiveHeight:true
+
+});
+    
 };
