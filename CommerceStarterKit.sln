@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceStarterKit.Web", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceStarterKit.Web.UnitTests", "src\CommerceStarterKit.Web.UnitTests\CommerceStarterKit.Web.UnitTests.csproj", "{102BB184-DC1A-43D3-9462-2A32BE581878}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceStarterKit.CatalogImporter", "src\CommerceStarterKit.CatalogImporter\CommerceStarterKit.CatalogImporter.csproj", "{B10CCE50-1168-40F1-83C1-FFC343883C65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,16 @@ Global
 		{102BB184-DC1A-43D3-9462-2A32BE581878}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{102BB184-DC1A-43D3-9462-2A32BE581878}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{102BB184-DC1A-43D3-9462-2A32BE581878}.Release|x86.ActiveCfg = Release|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
