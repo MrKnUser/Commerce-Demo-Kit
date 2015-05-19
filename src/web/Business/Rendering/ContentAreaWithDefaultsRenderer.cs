@@ -40,11 +40,11 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
                     // Let block decide what to use as default if not
                     // specified on the content area itself
                     tag = GetDefaultDisplayOption(content);
-                    if (tag == null)
-                    {
-                        // Default is always the smallest one we've got
-                        tag = WebGlobal.ContentAreaTags.OneThirdWidth;
-                    }
+                    //if (tag == null)
+                    //{
+                    //    // Default is always the smallest one we've got
+                    //    tag = WebGlobal.ContentAreaTags.OneThirdWidth;
+                    //}
                 }
 				htmlHelper.ViewContext.ViewData["Tag"] = tag;
                 return string.Format("block {0} {1} {2}",
