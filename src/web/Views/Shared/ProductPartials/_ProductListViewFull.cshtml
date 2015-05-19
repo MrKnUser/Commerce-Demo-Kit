@@ -37,7 +37,7 @@
 
 
             <div class="footer">
-                @if (Model.Overview.IsEmpty)
+                @if (Model.Overview != null && Model.Overview.IsEmpty)
                 {
                     <p>@Model.Description</p>
                 }
