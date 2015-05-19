@@ -4,7 +4,7 @@
     var chrome = (Chrome)ViewBag.Chrome;
     var displayName = @Model.DisplayName ?? "";
     displayName = displayName.Replace("'", "");
-}    
+}
 
 <div class="productRow col-sm-12">
     <div class="tile">
@@ -22,6 +22,10 @@
             <div class="tools">
                 <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@Model.DisplayName.Replace("'", "")',1 ,'','', 'anim-img-@Model.ContentLink')">
                     <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                    <a class="wishlist-btn" ng-click="addToWishlist(product)">
+                        <div class="hover-state">Wishlist</div>
+                        <i class="fa fa-plus"></i>
+                    </a>
                 </div>
             </div>
         </div>

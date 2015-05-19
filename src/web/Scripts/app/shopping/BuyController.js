@@ -98,6 +98,11 @@
 		    $scope.addedToCartMessageVisible = false;
 
 		    product.quantity = $scope.sanityCheckQuantity(product.quantity);
+		    handleCartService.addToWishlist($scope.language, product);
+		    $scope.loaderVisible = false;
+		    $scope.addedToWishlistMessageVisible = true;
+
+		    commercestarterkit.updateWishlistCounter(commercestarterkit.getWishlistCounter() + parseInt(product.quantity));
 		  
 		};
 

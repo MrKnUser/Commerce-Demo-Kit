@@ -48,16 +48,15 @@
         <td class="wishlist">
             @if (!Model.HideMoveToCart)
             {
-                <a class="btn-moveToCart btn btn-primary btn-sm" ng-click="moveToCart(p)">
-                    <i class="icon-shopping-cart" title="@Html.Translate("/common/cart/move_to_wishlist")">
-                    </i>
-                </a>
+                <i class="icon-shopping-cart" title="@Html.Translate("/common/cart/move_to_wishlist")" ng-click="moveToCart(p)">
+                </i>
+
             }
             @if (!Model.HideMoveToWishList)
             {
-                    <i class="icon-heart" title="@Html.Translate("/common/cart/move_to_wishlist")" ng-click="moveToWishlist(p)">
-                    </i>
-         
+                <i class="icon-heart" title="@Html.Translate("/common/cart/move_to_wishlist")" ng-click="moveToWishlist(p)">
+                </i>
+
 
             }
         </td>
