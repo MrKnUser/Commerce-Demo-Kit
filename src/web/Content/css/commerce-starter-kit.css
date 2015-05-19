@@ -30,6 +30,13 @@
   font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
 }
+.product-list .productFullWidthHeader,
+.fashionproductcontent .productFullWidthHeader,
+.wineskucontent .productFullWidthHeader,
+.productRow .productFullWidthHeader {
+  font-size: 1.5em;
+  margin-top: 1.5em !important;
+}
 .product-list .three .product:nth-child(3n+1),
 .fashionproductcontent .three .product:nth-child(3n+1),
 .wineskucontent .three .product:nth-child(3n+1),

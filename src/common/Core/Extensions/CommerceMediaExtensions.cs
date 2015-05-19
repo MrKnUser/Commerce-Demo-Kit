@@ -50,6 +50,30 @@ namespace OxxCommerceStarterKit.Core.Extensions
             }
         }
 
+        public static List<string> AssetUrls(this EntryContentBase entry)
+        {
+            var imageUrls = new List<string>();
+            if (entry != null)
+            {
+                var permanentLinkMapper = ServiceLocator.Current.GetInstance<IPermanentLinkMapper>();
+                var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+                if (entry.CommerceMediaCollection != null)
+                {
+                    foreach (var commerceMedia in entry.CommerceMediaCollection)
+                    {
+                        if (commerceMedia.GroupName != null && commerceMedia.GroupName.ToLower() == "default")
+                        {
+                            var contentLink = commerceMedia.AssetContentLink(permanentLinkMapper);
+                            var imageurl = urlResolver.GetUrl(contentLink);
+                            imageUrls.Add(imageurl);
+                        }
+                    }
+
+                }
+            }
+            return imageUrls;
+        }
+
         public static List<ContentReference> AssetImageUrls(this EntryContentBase entry)
         {
             var output = new List<ContentReference>();

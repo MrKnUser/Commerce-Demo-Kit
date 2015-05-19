@@ -152,8 +152,10 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                  ContentLink = this.ContentLink,
                  DisplayName = this.DisplayName,
                  Description = Description,
+                 Overview = Overview,
                  ProductUrl = urlResolver.GetUrl(ContentLink),
                  ImageUrl = this.GetDefaultImage(),
+                 AllImageUrls = this.AssetUrls(),
                  PriceString = variation.GetDisplayPrice(market),
                  ContentType = this.GetType().Name,
                  AverageRating = this.GetAverageRating()

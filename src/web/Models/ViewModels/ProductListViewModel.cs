@@ -33,5 +33,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public string ImageUrl { get; set; }
         public string ContentType { get; set; }
         public double AverageRating { get; set; }
+        public List<string> AllImageUrls { get; set; }
+        public XhtmlString Overview { get; set; }
     }
 }
