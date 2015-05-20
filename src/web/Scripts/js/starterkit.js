@@ -364,7 +364,7 @@
 
 		},
         initImageGallery:function() {
-            $('#imageGallery').lightSlider({
+            $('.imageGallery').lightSlider({
                 gallery: true,
                 item: 1,
                 loop: true,
@@ -374,7 +374,7 @@
                 currentPagerPosition: 'left',
                 onSliderLoad: function (el) {
                     el.lightGallery({
-                        selector: '#imageGallery .lslide'
+                        selector: '.imageGallery .lslide'
                     });
                 }
             });

@@ -49,12 +49,12 @@
         <div class="col-sm-4 ">
             @if (media != null && media.Count > 0)
             {
-                <ul id="imageGallery">
+                <ul class="imageGallery">
                     @foreach (var file in media)
                     {
                         <li data-thumb="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })?preset=sliderimage"
                             data-src="@urlResolver.GetUrl(file.ContentLink, null, new VirtualPathArguments() { ContextMode = ContextMode.Default })">
-                            @GetThumbImageTag(file, "width320", urlResolver)
+                            @GetThumbImageTag(file, "listmedium", urlResolver)
                         </li>
                     }
                 </ul>
