@@ -280,6 +280,9 @@
   max-width: none;
   margin-top: 0;
 }
+.productRow .lSSlideOuter img {
+  max-height: none;
+}
 .shop-filters .filter-section:last-child {
   border-bottom: 2px solid #a3c756;
 }

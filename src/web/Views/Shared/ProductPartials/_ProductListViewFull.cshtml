@@ -1,23 +1,22 @@
-﻿@model ProductListViewModel
+﻿@using EPiServer.Web
+@using EPiServer.Web.Routing
+@model ProductListViewModel
 @{
     var chrome = (Chrome)ViewBag.Chrome;
     Layout = null;
 }
 <div class="productRow col-sm-12">
     <div class="tile clearfix">
-        <div class="col-md-6 gallery-widget">
-            <div class="gallery-grid">
+        <div class="col-md-6">
+
                 @if (@Model.AllImageUrls != null)
                 {
-                    foreach (var imageUrl in @Model.AllImageUrls)
-                    {
-                        <div class="gallery-item" data-src="@imageUrl">
-                            <a href="@imageUrl">
-                                <div class="overlay"><span><i class="icon-expand"></i></span></div>
-                                <img class="img-responsive" src="@imageUrl?preset=listmedium" alt="1" />
-                            </a>
-                        </div>
-                    }
+                        @foreach (var url in Model.AllImageUrls)
+                        {
+                                data-src="@url">
+                            </li>
+                        }
+                    </ul>
                 }
                
             </div>
@@ -25,7 +24,7 @@
             @*<a href="@Model.ProductUrl">
                     <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
                 </a>*@
-        </div>
+     
 
         <div class="col-md-6">
 
