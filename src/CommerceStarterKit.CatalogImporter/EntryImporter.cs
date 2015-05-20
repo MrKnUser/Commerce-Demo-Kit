@@ -120,6 +120,9 @@ namespace CommerceStarterKit.CatalogImporter
                 content.DisplayName = displayName;
             }
 
+            SetProperties(content, entry.properties);
+
+
             // Configure Variation
             ConfigureVariationDefaults(content as VariationContent);
 
@@ -141,7 +144,25 @@ namespace CommerceStarterKit.CatalogImporter
             return contentReference;
         }
 
-        private void ConfigureVariationDefaults(VariationContent variationContent)
+        protected void SetProperties(EntryContentBase content, List<Property> properties)
+        {
+            if (properties == null)
+                return;
+
+            // Only look at properties for the current language
+            foreach (Property importProperty in properties.Where(p => (string.IsNullOrEmpty(p.language) || p.language == content.Language.IetfLanguageTag)))
+            {
+                PropertyData propertyData = content.Property[importProperty.name];
+                if(propertyData != null && 
+                    (propertyData.Type == PropertyDataType.String || propertyData.Type == PropertyDataType.LongString))
+                {
+                    _log.Debug("Setting value for {0} ({1})", importProperty.name, importProperty.language ?? "null");
+                    propertyData.Value = importProperty.value;
+                }
+            }
+        }
+
+        protected void ConfigureVariationDefaults(VariationContent variationContent)
         {
             if (variationContent == null)
                 return;
@@ -168,7 +189,7 @@ namespace CommerceStarterKit.CatalogImporter
             {
                 for (int i = 0; i < entry.images.Count; i++)
                 {
-                    var imageLink = entry.images[0];
+                    var imageLink = entry.images[i];
                     var path = imageLink.path;
                     var groupName = string.IsNullOrEmpty(imageLink.groupName) ? "default" : imageLink.groupName;
 

@@ -11,9 +11,9 @@
     //}
     
     string name = Model.DisplayName ?? Model.Name;
-    if (name.Length > 20)
+    if (name.Length > 30)
     {
-        name = name.Substring(0, 20) + "...";
+        name = name.Substring(0, 30) + "...";
     }
     string imageUrl = Model.GetDefaultImage();
     

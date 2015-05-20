@@ -119,6 +119,10 @@
 {
 
     string displayPrice = string.Empty;
+    if(string.IsNullOrEmpty(menuFeatureActionText))
+    {
+        menuFeatureActionText = "Read More";
+    }
     VariationContent variation = null;
     if (entry is VariationContent)
     {

@@ -121,6 +121,7 @@
     <Content Include="Content\img\categories\slides\slide_4.png" />
     <Content Include="Content\img\categories\slides\slide_5.png" />
     <Content Include="Content\img\categories\thumbs\th_1.png" />
+    <Content Include="Content\img\controls-white.png" />
     <Content Include="Content\img\controls.png" />
     <Content Include="Content\img\cs-page\image.jpg" />
     <Content Include="Content\img\features\lens.jpg" />

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.DataAnnotations;
+using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
@@ -78,7 +79,23 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public bool ShouldIndex()
         {
+            // Is this part of a product, or stand alone?
+            var products = GetProductByVariant(this.ContentLink);
+            if(products != null && products.Any())
+            {
+                return false;
+            }
+
             return !(StopPublish != null && StopPublish < DateTime.Now);
+        }
+
+        public IEnumerable<ProductVariation> GetProductByVariant(ContentReference variation)
+        {
+            var linksRepository = ServiceLocator.Current.GetInstance<ILinksRepository>();
+            var allRelations = linksRepository.GetRelationsByTarget(variation);
+
+            // Relations to Product is ProductVariation
+            return allRelations.OfType<ProductVariation>().ToList();
         }
 
         public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)

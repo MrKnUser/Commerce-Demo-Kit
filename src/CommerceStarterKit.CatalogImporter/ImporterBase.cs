@@ -59,7 +59,7 @@ namespace CommerceStarterKit.CatalogImporter
             return GetContent<EntryContentBase>(code, CatalogContentType.CatalogEntry);
         }
 
-        protected T GetContent<T>(string code, CatalogContentType contentType) where T: IContentData
+        protected T GetContent<T>(string code, CatalogContentType contentType) where T : IContentData
         {
             var contentLink = _referenceConverter.GetContentLink(code, contentType);
             if (ContentReference.IsNullOrEmpty(contentLink) == false)
@@ -72,17 +72,30 @@ namespace CommerceStarterKit.CatalogImporter
 
         protected string GetPropertyValue(List<Property> properties, string language, string propertyName)
         {
-            if (properties != null)
+            if (properties == null)
+                return null;
+
+            if (propertyName == null) throw new ArgumentNullException("propertyName");
+
+            Property property;
+            if (string.IsNullOrEmpty(language) == false)
             {
-                var property = properties.FirstOrDefault(
+                property = properties.FirstOrDefault(
                     n =>
-                        n.language.Equals(language, StringComparison.InvariantCultureIgnoreCase) &&
+                        (n.language == null || n.language.Equals(language, StringComparison.InvariantCultureIgnoreCase))
+                        &&
                         n.name.Equals(propertyName, StringComparison.InvariantCultureIgnoreCase));
-                if (property != null && string.IsNullOrEmpty(property.value) == false)
-                {
-                    return property.value;
-                }
             }
+            else
+            {
+                property = properties.FirstOrDefault(n => n.name.Equals(propertyName, StringComparison.InvariantCultureIgnoreCase));
+            }
+
+            if (property != null && string.IsNullOrEmpty(property.value) == false)
+            {
+                return property.value;
+            }
+
 
             return null;
         }
