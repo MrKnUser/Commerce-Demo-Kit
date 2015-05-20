@@ -4,19 +4,12 @@
 @model EPiServer.Commerce.Catalog.ContentTypes.VariationContent
 
 @{
-    //ISliderContent sliderContent = Model as ISliderContent;
-    //if(sliderContent == null)
-    //{
-    //    sliderContent = 
-    //}
-    
     string name = Model.DisplayName ?? Model.Name;
     if (name.Length > 30)
     {
         name = name.Substring(0, 30) + "...";
     }
     string imageUrl = Model.GetDefaultImage();
-    
 }
 
 <div class="overlay"></div>

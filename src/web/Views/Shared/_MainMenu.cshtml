@@ -68,19 +68,20 @@
 
 @helper MenuFeatureProduct(PageData page)
 {
-    if (page is ShoppingCategoryPage && (((page as ShoppingCategoryPage).FeatureProduct != null) && (page as ShoppingCategoryPage).FeatureProduct.MenuFeatureLink != null))
+    var featurePage = page as IHasFeatureProduct;
+
+    if (featurePage != null && featurePage.FeatureProduct != null && featurePage.FeatureProduct.MenuFeatureLink != null)
     {
         var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
         UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-        ShoppingCategoryPage shoppingCategoryPage = page as ShoppingCategoryPage;
-        EntryContentBase product = contentLoader.Get<EntryContentBase>(shoppingCategoryPage.FeatureProduct.MenuFeatureLink);
+        EntryContentBase product = contentLoader.Get<EntryContentBase>(featurePage.FeatureProduct.MenuFeatureLink);
         <li class="offer">
             <div class="col-1">
-                <p class="p-style2">@shoppingCategoryPage.FeatureProduct.MenuFeatureText</p>
+                <p class="p-style2">@featurePage.FeatureProduct.MenuFeatureText</p>
             </div>
             <div class="col-2">
                 @SetImageTag(product, urlResolver)
-                @CreateButton(product, shoppingCategoryPage.FeatureProduct.MenuFeatureActionText, contentLoader, urlResolver)
+                @CreateButton(product, featurePage.FeatureProduct.MenuFeatureActionText, contentLoader, urlResolver)
             </div>
         </li>
     }

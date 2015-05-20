@@ -850,6 +850,8 @@
     <Content Include="Views\ProductSearchBlock\FindError.cshtml" />
     <Content Include="Views\ProductSearchBlock\EmptyResult.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_ProductListViewRelatedProducts.cshtml" />
+    <Content Include="Views\Newsletter\Blocks\VariationContent.cshtml" />
+    <Content Include="Views\Newsletter\Blocks\ProductContent.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1454,6 +1456,7 @@
     <Compile Include="Models\Files\VideoFile.cs" />
     <Compile Include="Models\FindModels\GenericFindVariant.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
+    <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />
     <Compile Include="Models\PageTypes\Payment\GenericPaymentPage.cs" />
     <Compile Include="Models\ViewModels\Contracts\ISliderContent.cs" />

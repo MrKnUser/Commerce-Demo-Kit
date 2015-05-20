@@ -272,18 +272,6 @@
 					</imagetextbackgroundtransparency>
 				</properties>
 			</productteaserblock>
-			<sliderblock>
-				<name>Bildekarusell</name>
-				<description>Karusellen roterer bildene fra høyre til venstre</description>
-				<properties>
-					<items>
-						<caption>ikke i bruk</caption>
-					</items>
-					<images>
-						<caption>Bilder</caption>
-					</images>
-				</properties>
-			</sliderblock>
 			<socialmedialinkblock>
 				<name>Sosiale medier blokk</name>
 				<description>Brukes i rammemalen for ikon og lenke til sosiale medier</description>
@@ -732,18 +720,6 @@
 					</imagetextbackgroundtransparency>
 				</properties>
 			</productteaserblock>
-			<sliderblock>
-				<name>Image Carusel</name>
-				<description>Slides images from right to left</description>
-				<properties>
-					<items>
-						<caption>Not in use</caption>
-					</items>
-					<images>
-						<caption>Images</caption>
-					</images>
-				</properties>
-			</sliderblock>
 			<socialmedialinkblock>
 				<name>Social Media</name>
 				<description>Used in the footer to show icon and link to social media (Facebook, Twitter, Instagram, YouTube)</description>

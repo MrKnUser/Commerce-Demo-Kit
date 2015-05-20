@@ -6,7 +6,9 @@
 }
 
 <div class="row">
-    <h2>@Html.PropertyFor(p => p.Heading)</h2>
+    <div class="col-sm-12">
+        <h2>@Html.PropertyFor(p => p.Heading)</h2>
+    </div>
 </div>
 <div class="row">
     @foreach (var product in Model.Products)

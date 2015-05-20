@@ -36,7 +36,7 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks.ProductFilters
 
         public override ITypeSearch<FindProduct> ApplyFilter(ITypeSearch<FindProduct> query)
         {
-            if(string.IsNullOrEmpty(FieldName) == false && string.IsNullOrEmpty(FieldValue))
+            if(string.IsNullOrEmpty(FieldName) == false && string.IsNullOrEmpty(FieldValue) == false)
             {
                 query = query.AddStringFilter(FieldValue, FieldName);
             }

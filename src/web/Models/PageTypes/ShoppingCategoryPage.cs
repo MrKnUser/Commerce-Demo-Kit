@@ -25,7 +25,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
                   GroupName = WebGlobal.GroupNames.Commerce,
                   Description = "Shopping Category Page.")]
      [SiteImageUrl(thumbnail: EditorThumbnail.Commerce)]
-    public class ShoppingCategoryPage : CommerceSampleModulePage
+    public class ShoppingCategoryPage : CommerceSampleModulePage, IHasFeatureProduct
     {
          [Searchable(true)]
          [Display(Name = "CatalogNodes", Description = "Selected Categories for this page", GroupName = SystemTabNames.Content, Order = 5)]

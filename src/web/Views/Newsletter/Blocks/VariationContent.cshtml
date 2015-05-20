@@ -1,0 +1,34 @@
+﻿@using EPiServer.ServiceLocation
+@using OxxCommerceStarterKit.Core.Extensions
+@using OxxCommerceStarterKit.Web.Extensions
+@using OxxCommerceStarterKit.Web.Models.ViewModels.Simple
+@using OxxCommerceStarterKit.Web.Services
+@model EPiServer.Commerce.Catalog.ContentTypes.VariationContent
+@{
+	Layout = null;
+    
+	var image = Html.AssetImageUrls(Model).FirstOrDefault();
+	if (image != null && image.Contains(","))
+	{
+		image = image.Split(',')[0];
+	}
+	var imageWidth = ViewData["imageWidth"];
+}
+<center class="product">
+	<div class="image">
+		<a href="@Url.ContentUrl(Model.ContentLink)">
+			@if (image != null)
+			{
+				<img class="img-responsive center" src="@(image + imageWidth)" />
+			}
+			else
+			{
+				<img class="img-responsive no-image center" src="/siteassets/system/no-image.png@(imageWidth)">
+			}
+		</a>
+	</div>
+	<h2 class="name">@Model.DisplayName</h2>
+    <div class="price">
+        @Model.GetDisplayPrice()
+    </div>
+</center>

@@ -79,17 +79,28 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             findProduct.DefaultPrice = productVariants.GetDisplayPrice(market);
             findProduct.DefaultPriceAmount = productVariants.GetDefaultPriceAmount(market);
-            findProduct.DiscountedPrice = productVariants.GetDiscountDisplayPrice(defaultPrice, market);
 
-            // TODO: Set if not the same as default price
-            findProduct.DiscountedPriceAmount = 0;
+            PriceAndMarket discountPrice = productVariants.GetDiscountPrice(market);
+            findProduct.DiscountedPrice = GetDisplayPriceWithCheck(discountPrice);
+            findProduct.DiscountedPriceAmount = GetPriceWithCheck(discountPrice);
+
             PriceAndMarket customerClubPrice = productVariants.GetCustomerClubPrice(market);
-            findProduct.CustomerClubPriceAmount = customerClubPrice != null ? (double)customerClubPrice.UnitPrice.Amount : 0;
-            findProduct.CustomerClubPrice = customerClubPrice != null ? customerClubPrice.Price : string.Empty;
+            findProduct.CustomerClubPriceAmount = GetPriceWithCheck(customerClubPrice);
+            findProduct.CustomerClubPrice = GetDisplayPriceWithCheck(customerClubPrice);
             
             findProduct.GenericVariants = variations;
 
             return findProduct;
+        }
+
+        private double GetPriceWithCheck(PriceAndMarket price)
+        {
+            return price != null ? (double)price.UnitPrice.Amount : 0;
+        }
+
+        private string GetDisplayPriceWithCheck(PriceAndMarket price)
+        {
+            return price != null ? price.Price : string.Empty;
         }
 
         public List<VariationContent> GetVariants(ProductContent product)

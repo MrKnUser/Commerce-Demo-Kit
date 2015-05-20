@@ -109,7 +109,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             findProduct.DiscountedPriceAmount = GetPriceWithCheck(discountPrice);
             findProduct.DiscountedPrice = GetDisplayPriceWithCheck(discountPrice);
             
-
             PriceAndMarket customerClubPrice = this.GetCustomerClubPrice(market);
             findProduct.CustomerClubPriceAmount = GetPriceWithCheck(customerClubPrice);
             findProduct.CustomerClubPrice = GetDisplayPriceWithCheck(customerClubPrice);

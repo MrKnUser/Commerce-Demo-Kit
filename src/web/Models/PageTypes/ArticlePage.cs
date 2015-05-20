@@ -18,18 +18,19 @@ using EPiServer.Shell.ObjectEditing;
 using EPiServer.Web;
 using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Web.EditorDescriptors;
+using OxxCommerceStarterKit.Web.Models.Blocks;
 using OxxCommerceStarterKit.Web.Models.CustomProperties;
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
 {
-	[ContentType(GUID = "d7cdf1da-83a0-4f9e-b602-55017ad333ee",
+    [ContentType(GUID = "d7cdf1da-83a0-4f9e-b602-55017ad333ee",
 	 DisplayName = "Article",
 	 Description = "An article template",
      GroupName = WebGlobal.GroupNames.Default,
 	 Order = 100)]
     [SiteImageUrl(thumbnail: EditorThumbnail.Content)]
-	public class ArticlePage : SitePage
-	{
+	public class ArticlePage : SitePage, IHasFeatureProduct
+    {
 		[Display(
 			Name = "List view image",
 			GroupName = SystemTabNames.Content,
@@ -79,6 +80,11 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 		Order = 50)]
         [CultureSpecific]
 		public virtual ContentArea BodyContent { get; set; }
+
+        [Display(Name = "Menu feature product", 
+            Description = "", GroupName = SystemTabNames.Content, Order = 60)]
+        public virtual FeatureProductBlock FeatureProduct { get; set; }
+
 
 	}
 }

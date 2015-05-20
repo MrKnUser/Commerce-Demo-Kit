@@ -91,6 +91,7 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks.Base
                 language = ContentLanguage.PreferredCulture.Name;
 
             query = query.Filter((x => x.Language.MatchCaseInsensitive(language)));
+            query = query.OrderByDescending(x => x.AverageRating);
             return query.Take(numberofPages)
                 //.StaticallyCacheFor(TimeSpan.FromMinutes(1))
                 .GetResult();

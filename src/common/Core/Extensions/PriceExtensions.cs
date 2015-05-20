@@ -196,6 +196,17 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return discountedPrice;
         }
 
+        public static PriceAndMarket GetDiscountPrice(this List<VariationContent> variations, IMarket market = null)
+        {
+            if (variations.Any())
+            {
+                VariationContent variationContent = variations.FirstOrDefault(x => x.GetPricesWithMarket(market) != null);
+                return variationContent.GetDiscountPrice(market);
+            }
+            return null;
+        }
+
+
         /// <summary>
         /// Gets the discount price, if no discount is set, returns string.Empty
         /// </summary>

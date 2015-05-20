@@ -389,7 +389,7 @@
                 item: 2,
                 loop: false,
                 verticalHeight: 550,
-                slideMargin: 0,
+                slideMargin: 5,
                 pager: false,
                 vertical: true
             });

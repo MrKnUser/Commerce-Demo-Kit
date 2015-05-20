@@ -14,6 +14,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
 using OxxCommerceStarterKit.Core.Extensions;
+using OxxCommerceStarterKit.Core.Models;
 using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
@@ -71,10 +72,29 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = this.GetDefaultPrice();
             findProduct.DefaultPrice = this.GetDisplayPrice(market);
             findProduct.DefaultPriceAmount = this.GetDefaultPriceAmount(market);
+
+            PriceAndMarket discountPrice = this.GetDiscountPrice(market);
+            findProduct.DiscountedPriceAmount = GetPriceWithCheck(discountPrice);
+            findProduct.DiscountedPrice = GetDisplayPriceWithCheck(discountPrice);
+            
             findProduct.DiscountedPrice = this.GetDiscountDisplayPrice(defaultPrice, market);
-            findProduct.CustomerClubPrice = this.GetCustomerClubDisplayPrice(market);
+
+            PriceAndMarket customerClubPrice = this.GetCustomerClubPrice(market);
+            findProduct.CustomerClubPriceAmount = customerClubPrice != null ? (double)customerClubPrice.UnitPrice.Amount : 0;
+            findProduct.CustomerClubPrice = customerClubPrice != null ? customerClubPrice.Price : string.Empty;
+
             findProduct.Brand = this.Facet_Brand;
             return findProduct;
+        }
+
+        private double GetPriceWithCheck(PriceAndMarket price)
+        {
+            return price != null ? (double)price.UnitPrice.Amount : 0;
+        }
+
+        private string GetDisplayPriceWithCheck(PriceAndMarket price)
+        {
+            return price != null ? price.Price : string.Empty;
         }
 
         public bool ShouldIndex()

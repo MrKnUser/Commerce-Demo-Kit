@@ -1057,7 +1057,12 @@ tr.collapse.in {
 }
 .cart-message {
   position: fixed;
-  top: 20%;
+  top: 150px;
   z-index: 10000;
 }
-/*# sourceMappingURL=commerce-starter-kit.css.map */
+.lSAction > .lSNext {
+  z-index: 9;
+}
+.lslide .productRow .tile h3 {
+  font-size: 16px;
+}
