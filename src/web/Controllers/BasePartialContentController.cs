@@ -47,6 +47,9 @@ namespace OxxCommerceStarterKit.Web.Controllers
                 case WebGlobal.ContentAreaTags.OneThirdWidth:
                     viewSize = "OneThird";
                     break;
+                case WebGlobal.ContentAreaTags.RelatedProducts:
+                    viewSize = WebGlobal.ContentAreaTags.RelatedProducts;
+                    break;
 
 
 

@@ -11672,7 +11672,7 @@ header .search-form .close-search:hover {
 }
 .catalog-grid .tile .footer .tools .add-cart-btn i,
 .productRow .tile .footer .tools .add-cart-btn i {
-  font-size: 1.1em;
+  font-size: 1.4em;
   vertical-align: middle;
 }
 .catalog-grid .tile .footer .tools .add-cart-btn:hover,
@@ -11744,8 +11744,8 @@ header .search-form .close-search:hover {
   position: absolute;
   display: none;
   top: -13px;
-  left: -70px;
-  width: 200px;
+  left: -30px;
+  width: 160px;
   height: 48px;
   z-index: 2;
   background: #fff;

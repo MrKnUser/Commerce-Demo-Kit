@@ -62,12 +62,18 @@ namespace OxxCommerceStarterKit.Web.Controllers
             viewModel.Media = GetMedia(currentContent);
             viewModel.PriceViewModel = GetPriceModel(currentContent);
             viewModel.AllVariationSameStyle = CreateRelatedVariationViewModelCollection(currentContent, Constants.AssociationTypes.SameStyle);
+            if (viewModel.RelatedProductsContentArea == null)
+            {
+                viewModel.RelatedProductsContentArea = CreateRelatedProductsContentArea(currentContent, Constants.AssociationTypes.Default);
+            }
             viewModel.CartItem = new CartItemModel(currentContent) { CanBuyEntry = true };
             TrackAnalytics(viewModel);
 
             viewModel.IsSellable = IsSellable(currentContent);
             return View(viewModel);
         }
+
+       
         private List<MediaData> GetMedia(GenericSizeVariationContent currentContent)
         {
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();

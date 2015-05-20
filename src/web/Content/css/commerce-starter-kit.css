@@ -286,6 +286,9 @@
 .shop-filters .filter-section:last-child {
   border-bottom: 2px solid #a3c756;
 }
+.lslide .footer {
+  padding-top: 12px !important;
+}
 .lightbox-open {
   overflow: hidden;
 }
@@ -1048,5 +1051,13 @@ tr.collapse.in {
 }
 .imageGallery {
   display: none;
+}
+.relatedProducts {
+  display: none;
+}
+.cart-message {
+  position: fixed;
+  top: 20%;
+  z-index: 10000;
 }
 /*# sourceMappingURL=commerce-starter-kit.css.map */

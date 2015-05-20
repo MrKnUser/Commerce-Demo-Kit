@@ -1,0 +1,22 @@
+﻿@model ProductListViewModel
+@{
+    var chrome = (Chrome)ViewBag.Chrome;
+    Layout = null;
+}
+<div class="productRow">
+    <div class="tile">
+        <div class="price-label">
+            <span>@Model.PriceString</span>
+
+        </div>
+
+        <a href="@Model.ProductUrl">
+            <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
+        </a>
+
+        <div class="footer">
+            <a href="@Model.ProductUrl"><h3 class="name">@Model.DisplayName</h3></a>
+            
+        </div>
+    </div>
+</div>

@@ -164,6 +164,10 @@
 		animateCartCount: function() {
 		    var lineHeight = this._$cartCounter.css('line-height');
 		    this._$cartCounter.animate({ fontSize: '250%', lineHeight: '0px' }).animate({ fontSize: '100%', lineHeight: lineHeight });
+		    $('.cart-message').addClass('visible');
+		    setTimeout(function () {
+		        $('.cart-message').removeClass('visible');
+		    }, 1500);
 		},
 
 //********************************************************************************
@@ -372,7 +376,7 @@
                 loop: true,
                 thumbItem: 3,
                 slideMargin: 4,
-                enableDrag: true,
+                enableDrag: false,
                 currentPagerPosition: 'left',
                 onSliderLoad: function (el) {
                     el.lightGallery({
@@ -380,6 +384,16 @@
                     });
                 }
             });
+            $('.relatedProducts').show();
+            $('.relatedProducts').lightSlider({
+                item: 2,
+                loop: false,
+                verticalHeight: 550,
+                slideMargin: 0,
+                pager: false,
+                vertical: true
+            });
+           
         }
        
 

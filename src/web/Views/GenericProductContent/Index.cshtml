@@ -31,11 +31,7 @@
     <img src="@url" />
 }
 
-<!--Shopping Cart Message-->
-<section class="cart-message">
-    <i class="fa fa-check-square"></i>
-    <p class="p-style3">@Model.CatalogContent.DisplayName was successfully added to your cart.</p>
-</section><!--Shopping Cart Message Close-->
+
 
 <section class="catalog-single">
     <div ng-controller="CartController" class="row product" id="@id">
@@ -130,8 +126,14 @@
             </div>
 
         </div>
-        <div>
-            @*@Html.PropertyFor(p => p.CatalogContent.AdditionalContent, new { EditContainerClass = "overflow-hidden", CssClass = "clearfix" })*@
+        <div class="col-md-2 hide-for-small hidden-xs">
+            @if (Model.RelatedProductsContentArea != null && (Model.RelatedProductsContentArea.Items != null && Model.RelatedProductsContentArea.Items.Any()))
+            {
+                @*<div class="panel-heading">
+                    <span class="panel-title">@Html.Translate("/common/product/cross_sell")</span>
+                </div>*@
+                @Html.PropertyFor(x => x.RelatedProductsContentArea, new { CustomTag = "ul", ChildrenCustomTagName = "li", cssClass = "relatedProducts", Tag = "relatedProducts" })
+            }
         </div>
     </div>
 

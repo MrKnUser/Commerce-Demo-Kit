@@ -35,5 +35,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public double AverageRating { get; set; }
         public List<string> AllImageUrls { get; set; }
         public XhtmlString Overview { get; set; }
+        public bool IsVariation { get; set; }
     }
 }

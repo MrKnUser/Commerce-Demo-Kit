@@ -149,6 +149,21 @@ namespace OxxCommerceStarterKit.Web.Controllers
             return model;
         }
 
+        public ContentArea CreateRelatedProductsContentArea(EntryContentBase catalogContent, string associationType)
+        {
+            IEnumerable<Association> associations = LinksRepository.GetAssociations(catalogContent.ContentLink);
+            ContentArea relatedEntriesCA = new ContentArea();
+            List<EntryContentBase> relatedEntires = Enumerable.Where(associations, p => p.Group.Name.Equals(associationType))
+                    .Select(a => ContentLoader.Get<EntryContentBase>(a.Target)).ToList();
+            foreach (var relatedEntire in relatedEntires)
+            {
+                ContentAreaItem caItem = new ContentAreaItem();
+                caItem.ContentLink = relatedEntire.ContentLink;
+                relatedEntriesCA.Items.Add(caItem);
+            }
+            return relatedEntriesCA;
+        }
+
         private IEnumerable<TEntryContent> GetChildrenAndRelatedEntries<TEntryContent>(CatalogContentBase catalogContent)
             where TEntryContent : EntryContentBase
         {

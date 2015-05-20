@@ -11,6 +11,7 @@ Copyright (C) 2013-2014 BV Network AS
 using System;
 using System.Collections.Generic;
 using EPiServer.Commerce.Catalog.ContentTypes;
+using EPiServer.Core;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
@@ -30,6 +31,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public IEnumerable<IProductViewModel<ProductContent>> AllProductsSameStyle { get; set; }
         public IEnumerable<IVariationViewModel<VariationContent>> AllVariationSameStyle { get; set; }
         public IEnumerable<IProductViewModel<ProductContent>> RelatedProducts { get; set; }
+        public ContentArea RelatedProductsContentArea { get; set; }
         public LazyVariationViewModelCollection Variants { get; set; }
         public EntryContentBase ContentWithAssets { get; set; }
     }

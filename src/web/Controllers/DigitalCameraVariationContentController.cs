@@ -61,6 +61,10 @@ namespace OxxCommerceStarterKit.Web.Controllers
            
             viewModel.PriceViewModel = GetPriceModel(currentContent);
             viewModel.AllVariationSameStyle = CreateRelatedVariationViewModelCollection(currentContent, Constants.AssociationTypes.SameStyle);
+            if (viewModel.RelatedProductsContentArea == null)
+            {
+                viewModel.RelatedProductsContentArea = CreateRelatedProductsContentArea(currentContent, Constants.AssociationTypes.Default);
+            }
             TrackAnalytics(viewModel);
 
             viewModel.IsSellable = IsSellable(currentContent);
