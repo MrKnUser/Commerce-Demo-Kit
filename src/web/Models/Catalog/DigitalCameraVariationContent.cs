@@ -94,10 +94,10 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             Order = 18)]
         public virtual string Facet_Brand { get; set; }
 
-        public FindModels.FindProduct GetFindProduct(Mediachase.Commerce.IMarket market)
+        public FindProduct GetFindProduct(Mediachase.Commerce.IMarket market)
         {
             var language = (Language == null ? string.Empty : Language.Name);
-            var findProduct = new DigitalCameraFindProduct(this, language);
+            var findProduct = new FindProduct(this, language);
 
             findProduct.Description = Description;
             findProduct.Overview = Overview;
@@ -113,6 +113,16 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             PriceAndMarket customerClubPrice = this.GetCustomerClubPrice(market);
             findProduct.CustomerClubPriceAmount = GetPriceWithCheck(customerClubPrice);
             findProduct.CustomerClubPrice = GetDisplayPriceWithCheck(customerClubPrice);
+
+            findProduct.Brand = Facet_Brand;
+            findProduct.Resolution = Resolution;
+            findProduct.LensMount = LensMount;
+            findProduct.CameraFormat = CameraFormat;
+            findProduct.FileFormat = FileFormat;
+            findProduct.Connectivity = Connectivity;
+            findProduct.Battery = Battery;
+            findProduct.MemoryCardType = MemoryCardType;
+            findProduct.Weight = Weight;
 
 
             return findProduct;

@@ -32,7 +32,7 @@ namespace OxxCommerceStarterKit.Web.Api
                 }
                 string language = Language;
                 //Starting the find query
-                var query = SearchClient.Instance.Search<WineFindProduct>(GetFindLanguage(language));
+                var query = SearchClient.Instance.Search<FindProduct>(GetFindLanguage(language));
                 if (!string.IsNullOrEmpty(q))
                     query = query.Filter(x => x.Brand.PrefixCaseInsensitive(q));
                 var facetResult =  query.TermsFacetFor(x => x.Brand)
@@ -61,7 +61,7 @@ namespace OxxCommerceStarterKit.Web.Api
                 }
                 string language = Language;
                 //Starting the find query
-                var query = SearchClient.Instance.Search<WineFindProduct>(GetFindLanguage(language));
+                var query = SearchClient.Instance.Search<FindProduct>(GetFindLanguage(language));
                 if (!string.IsNullOrEmpty(q))
                     query = query.Filter(x => x.Country.PrefixCaseInsensitive(q));
                 var facetResult = query.TermsFacetFor(x => x.Country)

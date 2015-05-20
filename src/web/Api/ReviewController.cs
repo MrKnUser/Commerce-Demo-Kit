@@ -128,7 +128,7 @@ namespace OxxCommerceStarterKit.Web.Api
                     ReviewDate = postedReview.ReviewDate
 
                 };
-                UpdateProductWithAverageReview(product);
+                UpdateProductWithAverageReview(product, language);
                 return review;
             }
 
@@ -136,7 +136,7 @@ namespace OxxCommerceStarterKit.Web.Api
 
         }
 
-        private void UpdateProductWithAverageReview(EntryContentBase product)
+        private void UpdateProductWithAverageReview(EntryContentBase product, string language)
         {
             EntryContentBase writableProduct = product.CreateWritableClone() as EntryContentBase;
             if (writableProduct != null && writableProduct.Property["AverageRating"] != null)
@@ -147,9 +147,19 @@ namespace OxxCommerceStarterKit.Web.Api
                 {
                     writableProduct.Property["AverageRating"].Value = reviewResult.AverageReview;
                     _contentRepository.Save(writableProduct, SaveAction.ForceCurrentVersion, AccessLevel.NoAccess);
+                    UpdateFindProductWithAverageReview(writableProduct.ContentLink.ID, language, reviewResult.AverageReview);
                 }
                
             }
+
+        }
+
+        private void UpdateFindProductWithAverageReview(int entryId, string language,double averageRating)
+        {
+            IClient client = Client.CreateFromConfig();
+            string id = entryId + "_" + language;
+            client.Update<FindProduct>(id).Field(x => x.AverageRating, averageRating).Execute();
+
 
         }
 

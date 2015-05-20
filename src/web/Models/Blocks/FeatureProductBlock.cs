@@ -25,5 +25,11 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
           Order = 30)]
         [CultureSpecific]
         public virtual XhtmlString MenuFeatureText { get; set; }
+
+        [Display(
+         GroupName = SystemTabNames.Content,
+         Order = 40)]
+        [CultureSpecific]
+        public virtual string MenuFeatureActionText { get; set; }
     }
 }

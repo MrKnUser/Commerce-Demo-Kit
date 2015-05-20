@@ -154,7 +154,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         public FindProduct GetFindProduct(IMarket market)
         {
             var language = (Language == null ? string.Empty : Language.Name);
-            var findProduct = new WineFindProduct(this, language);
+            var findProduct = new FindProduct(this, language);
             
             findProduct.Description = Info_Description;
             findProduct.Sizes = new List<string>() { this.Size };
@@ -165,7 +165,16 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             findProduct.CustomerClubPrice = this.GetCustomerClubDisplayPrice(market);
             findProduct.GrapeMixList = GetGrapeMixList();
 
-            // Wine does not have variations. It is a variation
+            findProduct.Varieties = GrapeMix;
+            findProduct.Vintage = Vintage;
+            findProduct.Taste = Taste;
+            findProduct.Style = Style;
+            findProduct.Country = Country;
+            findProduct.Region = Region;
+            findProduct.Maturity = Maturity;
+            findProduct.Alcohol = Alcohol;
+            findProduct.Closure = Closure;
+            findProduct.Brand = Facet_Brand;
 
             return findProduct;
         }
