@@ -48,7 +48,6 @@ namespace OxxCommerceStarterKit.Web.Api
                         .Filter(x => x.CategoryName.Match(currentProduct.CategoryName))
                         .Filter(x => x.MainCategoryName.Match(currentProduct.MainCategoryName))
                         .Filter(x => !x.DisplayName.Match(currentProduct.DisplayName))
-                        //.Filter(x => x.ShowInList.Match(true))
                         .Filter(x => x.Language.Match(language))
                         .StaticallyCacheFor(TimeSpan.FromMinutes(1))
                         .GetResult();

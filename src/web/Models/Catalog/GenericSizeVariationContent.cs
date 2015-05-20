@@ -24,12 +24,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
       MetaClassName = "GenericSizeVariationContent")]
     public class GenericSizeVariationContent : VariationContent, IIndexableContent, IProductListViewModelInitializer, IResourceable
     {
-        [Display(Name = "Show in product list",
-         Order = 10,
-         GroupName = SystemTabNames.PageHeader)]
-        [DefaultValue(true)]
-        public virtual bool ShowInList { get; set; }
-
         // Same for all languages
         [Display(Name = "Facet Brand",
             Order = 15)]
@@ -73,7 +67,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             findProduct.Color = Color != null ? new List<string>() { Color } : new List<string>();
             findProduct.Description = Description;
             findProduct.Overview = Overview;
-            findProduct.ShowInList = ShowInList;
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = this.GetDefaultPrice();
             findProduct.DefaultPrice = this.GetDisplayPrice(market);
             findProduct.DefaultPriceAmount = this.GetDefaultPriceAmount(market);

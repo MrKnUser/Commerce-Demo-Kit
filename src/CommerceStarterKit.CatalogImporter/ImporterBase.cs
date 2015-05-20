@@ -20,6 +20,7 @@ namespace CommerceStarterKit.CatalogImporter
 
         public virtual ContentType DefaultContentType { get; set; }
         public virtual CatalogContent RootCatalog { get; set; }
+        public virtual Defaults Defaults { get; set; }
 
         public ImporterBase(IContentRepository contentRepository, ReferenceConverter referenceConverter, IContentTypeRepository typeRepository, ILogger logger)
         {

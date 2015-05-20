@@ -50,7 +50,6 @@ namespace OxxCommerceStarterKit.Web.Api
                                 a => a.DisplayName, a => a.Brand, a => a.Country, a => string.Join(",", a.GrapeMixList),
                                 a => a.Fit, a => a.Description.ToString(), a => string.Join(",", a.ParentCategoryName))
                             .InAllField()
-                            .Filter(z => z.ShowInList.Match(true))
                             .Filter(a => a.Language.Match(language))
                             .Filter(z => !z.DefaultImageUrl.Match("/siteassets/system/no-image.png"))
                             // remove products without image

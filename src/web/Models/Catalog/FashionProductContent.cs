@@ -64,12 +64,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         [Editable(false)]
         public virtual string Fit { get; set; }
 
-        [Display(Name = "Show in product list",
-            Order = 50,
-            GroupName = SystemTabNames.PageHeader)]
-        [DefaultValue(true)]
-        public virtual bool ShowInList { get; set; }
-
         [CultureSpecific]
         [Display(Name = "New item",
             Order = 55,
@@ -113,7 +107,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             findProduct.SizesList = CreateSizeList(variations.Select(x => x.Size).Distinct().ToList(), SizeUnit,
                 sizeType);
 
-            findProduct.ShowInList = ShowInList && variations.Any(x => x.Stock > 0);
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = productVariants.GetDefaultPrice(market);
 
             findProduct.DefaultPrice = productVariants.GetDisplayPrice(market);

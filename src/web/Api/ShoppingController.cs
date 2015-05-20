@@ -266,8 +266,8 @@ namespace OxxCommerceStarterKit.Web.Api
 
         private static ITypeSearch<FindProduct> ApplyCommonFilters(ITypeSearch<FindProduct> query, string language)
         {
-            return query.Filter(x => x.Language.Match(language))
-                .Filter(x => x.ShowInList.Match(true));
+            return query.Filter(x => x.Language.Match(language));
+
         }
 
         /// <summary>

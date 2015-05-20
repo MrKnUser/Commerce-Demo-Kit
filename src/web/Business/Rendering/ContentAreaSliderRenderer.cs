@@ -45,16 +45,12 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
     public class SliderContentAreaRenderer : ContentAreaRenderer
     {
         private IContentRepository _contentRepository;
-        private TemplateResolver _templateResolver;
         private IContentRenderer _contentRenderer;
 
-        public SliderContentAreaRenderer(IContentRenderer contentRenderer, TemplateResolver templateResolver, ContentFragmentAttributeAssembler attributeAssembler, IContentRepository contentRepository, DisplayOptions displayOptions)
+        public SliderContentAreaRenderer(IContentRenderer contentRenderer, IContentRepository contentRepository)
         {
             _contentRenderer = contentRenderer;
-            _templateResolver = templateResolver;
-            //_attributeAssembler = attributeAssembler;
             _contentRepository = contentRepository;
-            //_displayOptions = displayOptions;
         }
 
         public override void Render(HtmlHelper htmlHelper, ContentArea contentArea)

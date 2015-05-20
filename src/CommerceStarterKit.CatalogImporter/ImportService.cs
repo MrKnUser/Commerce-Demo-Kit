@@ -56,11 +56,12 @@ namespace CommerceStarterKit.CatalogImporter
         {
             NodeImporter nodeImporter = ServiceLocator.Current.GetInstance<NodeImporter>();
 
-            var defaultContentType = _typeRepository.Load(root.defaultNodeType);
+            var defaultContentType = _typeRepository.Load(root.defaults.defaultNodeType);
             nodeImporter.DefaultContentType = defaultContentType;
             _log.Debug("Default content type: {0}", defaultContentType != null ? defaultContentType.FullName : "None");
 
             nodeImporter.RootCatalog = catalogContent;
+            nodeImporter.Defaults = root.defaults;
 
             nodeImporter.Import(root.nodes);
         }    
@@ -69,11 +70,12 @@ namespace CommerceStarterKit.CatalogImporter
         {
             EntryImporter entryImporter = ServiceLocator.Current.GetInstance<EntryImporter>();
 
-            var defaultContentType = _typeRepository.Load(root.defaultEntryType);
+            var defaultContentType = _typeRepository.Load(root.defaults.defaultEntryType);
             entryImporter.DefaultContentType = defaultContentType;
             _log.Debug("Default content type: {0}", defaultContentType != null ? defaultContentType.FullName : "None");
 
             entryImporter.RootCatalog = catalogContent;
+            entryImporter.Defaults = root.defaults;
 
             entryImporter.Import(root.entries);
         }

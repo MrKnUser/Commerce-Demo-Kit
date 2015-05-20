@@ -31,13 +31,6 @@
     <img src="@url" />
 }
 
-@if (Html.IsInEditMode())
-{
-    <div class="row">
-        <div class="col-xs-2">Show In Search Result:</div>
-        <div class="col-xs-2">@Html.PropertyFor(m => m.CatalogContent.ShowInList)</div>
-    </div>
-}
 <!--Shopping Cart Message-->
 <section class="cart-message">
     <i class="fa fa-check-square"></i>

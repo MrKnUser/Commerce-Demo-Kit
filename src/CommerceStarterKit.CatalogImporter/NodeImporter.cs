@@ -64,17 +64,6 @@ namespace CommerceStarterKit.CatalogImporter
             }
         }
 
-        private NodeContent GetNodeContent(string code)
-        {
-            var contentLink = _referenceConverter.GetContentLink(code, CatalogContentType.CatalogNode);
-            if (ContentReference.IsNullOrEmpty(contentLink) == false)
-            {
-                var content = _contentRepository.Get<NodeContent>(contentLink);
-                return content;
-            }
-            return null;
-        }
-
         public ContentReference CreateNew(ContentReference parentNodeLink, Node node, ContentType nodeType)
         {
             //Create a new instance of CatalogContentTypeSample that will be a child to the specified parentNode.

@@ -89,19 +89,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         [Editable(false)]
         public virtual double AverageRating { get; set; }
 
-        //[Display(Name = "Weight",
-        //  Description = "",
-        //  Order = 90)]
-        //public virtual string Weight { get; set; }
-
-
-        [Display(Name = "Show in lists",
-         Description = "Default is true, set to false to hide product from lists. The product can still be linked to and found through search.",
-         Order = 100,
-         GroupName = SystemTabNames.PageHeader)]
-        [DefaultValue(true)]
-        public virtual bool ShowInList { get; set; }
-
         // Same for all languages
         [Display(Name = "Brand",
             Order = 18)]
@@ -114,7 +101,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             findProduct.Description = Description;
             findProduct.Overview = Overview;
-            findProduct.ShowInList = ShowInList;
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = this.GetDefaultPrice();
             findProduct.DefaultPrice = this.GetDisplayPrice(market);
             findProduct.DefaultPriceAmount = this.GetDefaultPriceAmount(market);

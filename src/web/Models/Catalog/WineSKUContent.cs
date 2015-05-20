@@ -48,13 +48,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             GroupName = SystemTabNames.Settings)]
         public virtual int RecommendBoost { get; set; }
 
-        [Display(Name = "Show in lists",
-            Description = "Default is true, set to false to hide product from lists. The product can still be linked to and found through search.",
-            Order = 100,
-            GroupName = SystemTabNames.PageHeader)]
-        [DefaultValue(true)]
-        public virtual bool ShowInList { get; set; }
-
         // Multi lang
         [Display(Name = "Description", Order = 10)]
         [CultureSpecific]
@@ -165,7 +158,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             
             findProduct.Description = Info_Description;
             findProduct.Sizes = new List<string>() { this.Size };
-            findProduct.ShowInList = ShowInList;
             EPiServer.Commerce.SpecializedProperties.Price defaultPrice = this.GetDefaultPrice();
             findProduct.DefaultPrice = this.GetDisplayPrice(market);
             findProduct.DefaultPriceAmount = this.GetDefaultPriceAmount(market);

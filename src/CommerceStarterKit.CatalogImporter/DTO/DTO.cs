@@ -17,6 +17,7 @@ namespace CommerceStarterKit.CatalogImporter.DTO
         public string parent { get; set; }
         public List<Property> properties { get; set; }
         public string contentType { get; set; }
+        public List<Image> images { get; set; }
     }
 
     public class Entry
@@ -27,6 +28,31 @@ namespace CommerceStarterKit.CatalogImporter.DTO
         public string parent { get; set; }
         public List<Property> properties { get; set; }
         public string contentType { get; set; }
+        public List<Image> images { get; set; }
+        public List<Price> prices { get; set; }
+    }
+
+    public class Image
+    {
+        public string path { get; set; }
+        public string groupName { get; set; }
+    }
+
+    public class Defaults
+    {
+        public string defaultNodeType { get; set; }
+        public string defaultEntryType { get; set; }
+        public int variationMinQuantity { get; set; }
+        public int variationMaxQuantity { get; set; }
+        public bool variationEnableTracking { get; set; }
+        public int variationDefaultInventoryStock { get; set; }
+    }
+
+    public class Price
+    {
+        public decimal price { get; set; }
+        public string currency { get; set; }
+        public string marketId { get; set; }
     }
 
     public class CatalogRoot
@@ -34,7 +60,6 @@ namespace CommerceStarterKit.CatalogImporter.DTO
         public string catalog { get; set; }
         public List<Node> nodes { get; set; }
         public List<Entry> entries { get; set; }
-        public string defaultNodeType { get; set; }
-        public string defaultEntryType { get; set; }
+        public Defaults defaults { get; set; }
     }
 }

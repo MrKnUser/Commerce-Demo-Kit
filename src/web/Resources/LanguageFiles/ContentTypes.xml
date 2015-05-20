@@ -405,9 +405,6 @@
 					<fit>
 						<caption>Passform</caption>
 					</fit>
-					<showinlist>
-						<caption>Vis i produktliste</caption>
-					</showinlist>
 					<newitemtext>
 						<caption>Nyhet</caption>
 					</newitemtext>
@@ -869,9 +866,6 @@
 					<fit>
 						<caption>Fit</caption>
 					</fit>
-					<showinlist>
-						<caption>Show in product list</caption>
-					</showinlist>
 					<newitemtext>
 						<caption>Campaign text</caption>
 					</newitemtext>

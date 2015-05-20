@@ -74,7 +74,6 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string DefaultImageUrl { get; set; }
         // List of images - wrap in ImageInfo (url, type of image, etc.)
         public string ProductUrl { get; set; }
-        public bool ShowInList { get; set; }
         public string DefaultPrice { get; set; }
         /// <summary>
         /// Used for filtering on range, is rounded to int
