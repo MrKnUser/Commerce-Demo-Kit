@@ -11,9 +11,12 @@
 
                 @if (@Model.AllImageUrls != null)
                 {
+                    <ul class="imageGallery">
                         @foreach (var url in Model.AllImageUrls)
                         {
+                            <li data-thumb="@url?preset=sliderimage"
                                 data-src="@url">
+                                <img src="@url?preset=imagehalf" />
                             </li>
                         }
                     </ul>
