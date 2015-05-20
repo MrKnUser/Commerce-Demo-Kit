@@ -7,12 +7,16 @@
             <title>
               Reviews
             </title>
+            <username>Name</username>
             <description>Reviews</description>
             <average>Average</average>
             <write>Write review</write>
             <post>Post review</post>
             <newreview_heading>Review title</newreview_heading>
             <newreview_text>Your review</newreview_text>
+            <required_username>Please enter a username</required_username>
+            <required_title>Please enter a title</required_title>
+            <required_review>Please enter a review</required_review>
         </review>
         </components>
     </language>
@@ -21,12 +25,16 @@
         <components>
             <review>
                 <title>Vurderinger</title>
+              <username>Navn</username>
               <description>Vurderinger</description>
               <average>Snitt</average>
               <write>Skriv vurdering</write>
               <post>Send inn vurdering</post>
               <newreview_heading>Overskrift</newreview_heading>
               <newreview_text>Din vurdering</newreview_text>
+              <required_username>Skriv inn et navn</required_username>
+              <required_title>Skriv inn en tittel</required_title>
+              <required_review>Skriv inn en tekst</required_review>
             </review>
         </components>
     </language>

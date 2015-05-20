@@ -1027,6 +1027,7 @@ input[type="checkbox"] {
 #reviews .review h3 {
   margin-top: 15px;
   margin-bottom: 5px;
+  font-size: 1.8em;
 }
 header .logo {
   max-width: 200px;
@@ -1044,5 +1045,8 @@ header .logo {
 }
 tr.collapse.in {
   display: table-row;
+}
+.imageGallery {
+  display: none;
 }
 /*# sourceMappingURL=commerce-starter-kit.css.map */

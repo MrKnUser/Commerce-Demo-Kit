@@ -22,6 +22,7 @@
 <div class="col-md-8">
     <div class="review" ng-repeat="review in reviewResult.Reviews">
         <h3 ng-bind="review.Heading"></h3>
+        <div><span ng-bind="review.UserName"></span>, <span>{{ review.ReviewDate | date : 'dd/MM/yyyy'}}</span></div>
         <div class="rate">
             <span ng-class="{'active' : review.Rating > 0}"></span>
             <span ng-class="{'active' : review.Rating > 1}"></span>
@@ -35,17 +36,33 @@
 </div>
 <div class="col-md-4">
     <h3>
-        <a id="openWriteReview" ng-model="collapsedWriteReview" ng-click="collapsedWriteReview=!collapsedWriteReview"> @LocalizationService.Current.GetStringByCulture("/components/review/write", currentCulture)</a>
+        <a id="openWriteReview" ng-click="toggleReview()"> @LocalizationService.Current.GetStringByCulture("/components/review/write", currentCulture)</a>
     </h3>
-    <div ng-show="collapsedWriteReview">
-        <form ng-submit="submitReview(formData)">
+    <div >
+        <form ng-submit="submitReview(reviewForm)" name="reviewForm" ng-show="collapsedWriteReview">
             <div class="form-group">
-                <label class="sr-only" for="review-tittle">Review title</label>
-                <input type="text" class="form-control" ng-model="formData.heading" name="title" id="review-heading" placeholder="@LocalizationService.Current.GetStringByCulture("/components/review/newreview_heading", currentCulture)">
+                <label class="sr-only" for="review-heading">Name</label>
+                <input type="text" class="form-control" ng-model="reviewData.UserName" required name="username" id="review-username" placeholder="@LocalizationService.Current.GetStringByCulture("/components/review/username", currentCulture)">
+            </div>
+            <div class="alert alert-danger"
+                 ng-show="reviewForm.username.$error.required && reviewForm.username.$dirty">
+                @LocalizationService.Current.GetStringByCulture("/components/review/required_username", currentCulture)
             </div>
             <div class="form-group">
-                <label class="sr-only" for="review-text">Your review</label>
-                <textarea class="form-control" name="message" ng-model="formData.text" id="review-text" rows="5" placeholder="@LocalizationService.Current.GetStringByCulture("/components/review/newreview_text", currentCulture)"></textarea>
+                <label class="sr-only" for="review-heading">@LocalizationService.Current.GetStringByCulture("/components/review/newreview_heading", currentCulture)</label>
+                <input type="text" class="form-control" ng-model="reviewData.Heading" required name="title" id="review-heading" placeholder="@LocalizationService.Current.GetStringByCulture("/components/review/newreview_heading", currentCulture)">
+            </div>
+            <div class="alert alert-danger"
+                 ng-show="reviewForm.title.$error.required && reviewForm.title.$dirty">
+                @LocalizationService.Current.GetStringByCulture("/components/review/required_title", currentCulture)
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="review-text">@LocalizationService.Current.GetStringByCulture("/components/review/newreview_text", currentCulture)</label>
+                <textarea class="form-control" name="message" required ng-model="reviewData.Text" id="review-text" rows="5" placeholder="@LocalizationService.Current.GetStringByCulture("/components/review/newreview_text", currentCulture)"></textarea>
+            </div>
+            <div class="alert alert-danger"
+                 ng-show="reviewForm.message.$error.required && reviewForm.message.$dirty">
+                @LocalizationService.Current.GetStringByCulture("/components/review/required_review", currentCulture)
             </div>
             <div class="form-group">
                 <div class="rate">
@@ -58,7 +75,7 @@
             </div>
 
             <div>
-                <input class="btn btn-primary" type="submit" value="@LocalizationService.Current.GetStringByCulture("/components/review/post", currentCulture)" ng-click="Submit">
+                <input class="btn btn-primary" type="submit" ng-disabled="reviewForm.$invalid" value="@LocalizationService.Current.GetStringByCulture("/components/review/post", currentCulture)" ng-click="Submit">
             </div>
         </form>
     </div>

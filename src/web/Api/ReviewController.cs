@@ -111,7 +111,7 @@ namespace OxxCommerceStarterKit.Web.Api
             newReview.Heading = reviewData.Heading;
             newReview.Text = reviewData.Text;
             //TODO: Get currentuser, need to be logedin to post review
-            newReview.UserDisplayName = "Sveinung";
+            newReview.UserDisplayName = reviewData.UserName;
             newReview.Name = newReview.UserDisplayName + "(" + DateTime.Now.ToShortDateString() + ")";
             newReview.ReviewDate = DateTime.Now;
             ContentReference cf = _contentRepository.Save(newReview, SaveAction.Publish, AccessLevel.NoAccess);

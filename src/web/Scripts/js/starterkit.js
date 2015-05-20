@@ -20,6 +20,7 @@
 
 		init: function () {
 		    console.log("init");
+		    this.initImageGallery();
 		    this._language = Oxx.AjaxUtils.language;
 			this._$wishlist = $('.wishlist-counter');
 			this._$wishlistCounter = this._$wishlist.find('.val');
@@ -31,7 +32,7 @@
 			this.initVideoStarters();
 			this.initFooterHelpButtons();
 			this.initHotSpotImages();
-			this.initImageGallery();
+			
 		
 			// attach close event to light box close buttons
 			$('.lightbox .close').on('click', $.proxy(this._onLightBoxCloseClick, this));
@@ -363,7 +364,8 @@
 			commercestarterkit.openProductDialog(productId);
 
 		},
-        initImageGallery:function() {
+		initImageGallery: function () {
+		    $('.imageGallery').show();
             $('.imageGallery').lightSlider({
                 gallery: true,
                 item: 1,
