@@ -222,6 +222,7 @@
     <Compile Include="DTO\DTO.cs" />
     <Compile Include="ImporterBase.cs" />
     <Compile Include="ImportService.cs" />
+    <Compile Include="EntryImporter.cs" />
     <Compile Include="NodeImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

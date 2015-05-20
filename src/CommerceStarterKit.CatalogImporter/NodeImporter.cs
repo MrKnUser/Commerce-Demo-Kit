@@ -24,9 +24,6 @@ namespace CommerceStarterKit.CatalogImporter
 
         }
 
-        public ContentType DefaultContentType { get; set; }
-        public CatalogContent RootCatalog { get; set; }
-
         public void Import(List<Node> nodes)
         {
             // TODO: Iterate over list trying to find parents as we go, the
@@ -58,20 +55,7 @@ namespace CommerceStarterKit.CatalogImporter
                     _log.Debug("Starting importing NEW node '{0}' ({1})", node.name, node.code);
 
                     // Get type of node
-                    ContentType nodeType = null;
-                    if(string.IsNullOrEmpty(node.contentType) == false)
-                    {
-                        nodeType = _typeRepository.Load(node.contentType);
-                    }
-                    if (nodeType == null)
-                    {
-                        nodeType = DefaultContentType;
-                    }
-
-                    if(nodeType == null)
-                    {
-                        throw new Exception("Cannot load content type for " + node.code);
-                    }
+                    var nodeType = GetContentType(node.contentType);
 
 
                     CreateNew(parent.ContentLink, node, nodeType);

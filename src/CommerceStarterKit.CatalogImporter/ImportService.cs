@@ -46,25 +46,36 @@ namespace CommerceStarterKit.CatalogImporter
             _log.Debug("Importing to catalog {0}", catalogContent.Name);
 
             // Import Nodes
+            ImportNodes(root, catalogContent);
+
+            // Import Entries
+            ImportEntries(root, catalogContent);
+        }
+
+        protected void ImportNodes(CatalogRoot root, CatalogContent catalogContent)
+        {
             NodeImporter nodeImporter = ServiceLocator.Current.GetInstance<NodeImporter>();
 
-            // Listing content types
-            //foreach (ContentType contentType in _typeRepository.List())
-            //{
-            //    _log.Debug("Contentype: {0} ({1})", contentType.Name, contentType.ID);
-            //}
-
-            var defaultNodeType = _typeRepository.Load(root.defaultNodeType);
-            nodeImporter.DefaultContentType = defaultNodeType;
-            _log.Debug("Default node type: {0}", defaultNodeType != null ? defaultNodeType.FullName : "None");
+            var defaultContentType = _typeRepository.Load(root.defaultNodeType);
+            nodeImporter.DefaultContentType = defaultContentType;
+            _log.Debug("Default content type: {0}", defaultContentType != null ? defaultContentType.FullName : "None");
 
             nodeImporter.RootCatalog = catalogContent;
 
             nodeImporter.Import(root.nodes);
+        }    
+        
+        protected void ImportEntries(CatalogRoot root, CatalogContent catalogContent)
+        {
+            EntryImporter entryImporter = ServiceLocator.Current.GetInstance<EntryImporter>();
 
+            var defaultContentType = _typeRepository.Load(root.defaultEntryType);
+            entryImporter.DefaultContentType = defaultContentType;
+            _log.Debug("Default content type: {0}", defaultContentType != null ? defaultContentType.FullName : "None");
 
-            // Import Entries
+            entryImporter.RootCatalog = catalogContent;
 
+            entryImporter.Import(root.entries);
         }
 
         private CatalogContent GetCatalogFromName(string catalog)
