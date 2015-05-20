@@ -9,25 +9,25 @@
     <div class="tile clearfix">
         <div class="col-md-6">
 
-                @if (@Model.AllImageUrls != null)
-                {
-                    <ul class="imageGallery">
-                        @foreach (var url in Model.AllImageUrls)
-                        {
-                            <li data-thumb="@url?preset=sliderimage"
-                                data-src="@url">
-                                <img src="@url?preset=imagehalf" />
-                            </li>
-                        }
-                    </ul>
-                }
-               
-            </div>
+            @if (@Model.AllImageUrls != null)
+            {
+                <ul class="imageGallery">
+                    @foreach (var url in Model.AllImageUrls)
+                    {
+                        <li data-thumb="@url?preset=sliderimage"
+                            data-src="@url">
+                            <img src="@url?preset=imagehalf" />
+                        </li>
+                    }
+                </ul>
+            }
 
-            @*<a href="@Model.ProductUrl">
-                    <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
-                </a>*@
-     
+        </div>
+
+        @*<a href="@Model.ProductUrl">
+                <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
+            </a>*@
+
 
         <div class="col-md-6">
 
@@ -59,11 +59,20 @@
                         <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
                     </div>
                     <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@Model.DisplayName.Replace("'", "")',1 ,'','', 'anim-img-@Model.ContentLink')">
-                        <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
-                        <a class="wishlist-btn" ng-click="addToWishlist(product)">
-                            <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
-                            <i class="fa fa-plus"></i>
-                        </a>
+                        
+                        @if (Model.IsVariation)
+                        {
+                            <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                            <a class="wishlist-btn" ng-click="addToWishlist(product)">
+                                <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="add-cart-btn" href="@Model.ProductUrl"><span>@Html.Translate("/common/product/details")</span><i class="icon-arrow-right"></i></a>
+                        }
+
                     </div>
                 </div>
             </div>

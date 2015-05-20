@@ -156,13 +156,6 @@
                 SelectedProductCategories: $scope.selectedProductCategories,
                 Facets: $scope.selectedFacets,
                 SelectedFacetName: $scope.CurrentSelectedFacetType
-                //SelectedMainCategoryFacets: $scope.selectedMainCategoryFacets,
-                //SelectedColorFacets: $scope.selectedColorFacets,
-                //SelectedSizeFacets: $scope.selectedSizeFacets,
-                //SelectedFitsFacets: $scope.selectedFitFacets,
-                //SelectedRegionFacets: $scope.selectedRegionFacets,
-                //SelectedGrapeFacets: $scope.selectedGrapeFacets,
-                //SelectedCountryFacets: $scope.selectedCountryFacets
             };
         }
 

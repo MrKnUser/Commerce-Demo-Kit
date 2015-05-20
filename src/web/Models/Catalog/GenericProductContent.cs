@@ -151,7 +151,8 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                  AllImageUrls = this.AssetUrls(),
                  PriceString = variation.GetDisplayPrice(market),
                  ContentType = this.GetType().Name,
-                 AverageRating = this.GetAverageRating()
+                 AverageRating = this.GetAverageRating(),
+                 IsVariation = false
              };
 
              productListViewModel.PriceAmount = variation.GetDefaultPriceAmount(market);

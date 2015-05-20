@@ -94,7 +94,8 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                 ProductUrl = urlResolver.GetUrl(ContentLink),
                 ImageUrl = this.GetDefaultImage(),
                 PriceString = this.GetDisplayPrice(currentMarket),
-                ContentType = this.GetType().Name
+                ContentType = this.GetType().Name,
+                IsVariation = true
             };
 
             productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket);

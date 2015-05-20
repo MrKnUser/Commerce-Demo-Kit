@@ -5,7 +5,7 @@
                 <span class="sale"></span>
             </div>
             <div class="price-label">
-                <span ng-show ="product.DiscountedPrice">{{product.DiscountedPrice}}</span>
+                <span ng-show="product.DiscountedPrice">{{product.DiscountedPrice}}</span>
                 <span ng-hide="product.DiscountedPrice">{{product.DefaultPrice}}</span>
                 @*<span class="member-price" ng-show="product.CustomerClubPrice">@Html.Translate("/common/product/member_price"): {{product.CustomerClubPrice}}</span>
                     <span class="sale-price" ng-show="product.DiscountedPrice">@Html.Translate("/common/product/sale_price"): {{product.DiscountedPrice}}</span>*@
@@ -28,15 +28,20 @@
                         <span ng-class="{'active' : product.AverageRating  >= 3.5, 'half' : product.AverageRating  == 3.5}"></span>
                         <span ng-class="{'active' : product.AverageRating  >= 4.5, 'half' : product.AverageRating  == 4.5 }"></span>
                     </div>
-                    <span ng-controller="BuyController" ng-init="initWithProduct(product)">
-                        <!--Add To Cart Button-->
-                        <a class="add-cart-btn" ng-click="addToCartDefault()"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                    <span ng-hide="product.GenericVariants.length > 0">
+                        <span ng-controller="BuyController" ng-init="initWithProduct(product)">
+                            <!--Add To Cart Button-->
+                            <a class="add-cart-btn" ng-click="addToCartDefault()"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
 
-                        <!--Add To Wishlist Button-->
-                        <a class="wishlist-btn" ng-click="addToWishlist(product)">
-                            <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
-                            <i class="fa fa-plus"></i>
-                        </a>
+                            <!--Add To Wishlist Button-->
+                            <a class="wishlist-btn" ng-click="addToWishlist(product)">
+                                <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </span>
+                    </span>
+                    <span ng-show="product.GenericVariants.length > 0">
+                        <a class="add-cart-btn" href="{{ product.ProductUrl }}"><span>@Html.Translate("/common/product/details")</span><i class="icon-arrow-right"></i></a>
                     </span>
                 </div>
                 @*<div class="add-to-cart-form" ng-controller="BuyController" ng-init="initWithProduct(product)">

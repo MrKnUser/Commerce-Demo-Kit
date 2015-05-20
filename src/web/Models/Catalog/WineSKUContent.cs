@@ -218,7 +218,8 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                 PriceString = this.GetDisplayPrice(market),
                 BrandName = Facet_Brand,
                 Country = Country,
-                ContentType = this.GetType().Name
+                ContentType = this.GetType().Name,
+                IsVariation = true
             };
             ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
             productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());
