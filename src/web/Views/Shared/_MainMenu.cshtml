@@ -1,4 +1,6 @@
-﻿@using EPiServer.Commerce.Catalog.ContentTypes
+﻿@using EPiServer
+@using EPiServer.Commerce.Catalog.ContentTypes
+@using EPiServer.Commerce.Catalog.Linking
 @using EPiServer.Core
 @using EPiServer.ServiceLocation
 @using EPiServer.Web.Routing
@@ -78,7 +80,7 @@
             </div>
             <div class="col-2">
                 @SetImageTag(product, urlResolver)
-                <a class="btn btn-block" href="#"><span>584$</span>Special offer</a>
+                @CreateButton(product, shoppingCategoryPage.FeatureProduct.MenuFeatureActionText, contentLoader, urlResolver)
             </div>
         </li>
     }
@@ -111,6 +113,38 @@
     {
         <div>@product.DisplayName</div>
     }
+
+}
+@helper CreateButton(EntryContentBase entry, string menuFeatureActionText, IContentLoader contentLoader, UrlResolver urlResolver)
+{
+
+    string displayPrice = string.Empty;
+    VariationContent variation = null;
+    if (entry is VariationContent)
+    {
+        variation = entry as VariationContent;
+
+    }
+    else
+    {
+        var LinksRepository = ServiceLocator.Current.GetInstance<ILinksRepository>();
+
+        var relationsBySource = LinksRepository.GetRelationsBySource(entry.ContentLink)
+            .OfType<ProductVariation>();
+
+        variation = contentLoader.GetItems(
+            relationsBySource.Select(r => r.Target), LanguageSelector.AutoDetect())
+            .OfType<VariationContent>().FirstOrDefault();
+
+    }
+    if (variation != null)
+    {
+        var priceModel = variation.GetPriceModel();
+        displayPrice = priceModel.Price.UnitPrice.ToString(System.Globalization.CultureInfo.CurrentCulture);
+        var buttonText = string.Format(menuFeatureActionText, displayPrice);
+        <a class="btn btn-block" href="@urlResolver.GetUrl(entry.ContentLink)">@buttonText</a>
+    }
+
 
 }
 
