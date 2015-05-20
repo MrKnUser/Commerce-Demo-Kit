@@ -1055,4 +1055,9 @@ tr.collapse.in {
 .relatedProducts {
   display: none;
 }
+.cart-message {
+  position: fixed;
+  top: 20%;
+  z-index: 10000;
+}
 /*# sourceMappingURL=commerce-starter-kit.css.map */

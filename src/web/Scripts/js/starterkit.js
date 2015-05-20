@@ -164,6 +164,10 @@
 		animateCartCount: function() {
 		    var lineHeight = this._$cartCounter.css('line-height');
 		    this._$cartCounter.animate({ fontSize: '250%', lineHeight: '0px' }).animate({ fontSize: '100%', lineHeight: lineHeight });
+		    $('.cart-message').addClass('visible');
+		    setTimeout(function () {
+		        $('.cart-message').removeClass('visible');
+		    }, 1500);
 		},
 
 //********************************************************************************

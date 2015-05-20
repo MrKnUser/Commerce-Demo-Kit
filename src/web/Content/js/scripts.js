@@ -43,6 +43,7 @@ $(document).ready(function(e) {
 	var $scrollTopBtn = $('#scrollTop-btn');
 	var $qcfBtn = $('#qcf-btn');
 	var $addToCartBtn = $('#addItemToCart');
+	var $addToCartBtnSmall = $('.add-cart-btn');
 	var $addedToCartMessage = $('.cart-message');
 	var $promoLabels = $('.promo-labels div');
 	var $panelToggle = $('.panel-toggle');
@@ -497,23 +498,7 @@ $(document).ready(function(e) {
 		e.preventDefault();
 	});
 	
-	/*Added To Cart Message + Action (For Demo Purpose)
-	**************************************************/
-	$addToCartBtn.click(function(){
-		$addedToCartMessage.removeClass('visible');
-		var $itemName = $(this).parent().parent().find('h1').text();
-		var $itemPrice = $(this).parent().parent().find('.price').text();
-		var $itemQnty = $(this).parent().find('#quantity').val();
-		var $cartTotalItems = parseInt($('.cart-btn a span').text()) +1;
-		//$addedToCartMessage.find('p').text('"' + $itemName + '"' + '  ' + 'was successfully added to your cart.');
-		//$('.cart-dropdown table').append(
-		//	'<tr class="item"><td><div class="delete"></div><a href="#">' + $itemName + 
-		//	'<td><input type="text" value="' + $itemQnty +
-		//	'"></td><td class="price">' + $itemPrice + '</td>' 
-		//);
-		//$('.cart-btn a span').text($cartTotalItems);
-		$addedToCartMessage.addClass('visible');
-	});
+	
 	
 	/*Promo Labels Popovers
 	*******************************************/
