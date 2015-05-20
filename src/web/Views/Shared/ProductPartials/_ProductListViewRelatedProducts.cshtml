@@ -1,0 +1,31 @@
+﻿@model ProductListViewModel
+@{
+    var chrome = (Chrome)ViewBag.Chrome;
+    Layout = null;
+}
+<div class="productRow">
+    <div class="tile">
+        <div class="price-label">
+            <span>@Model.PriceString</span>
+
+        </div>
+
+        <a href="@Model.ProductUrl">
+            <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
+        </a>
+
+        <div class="footer">
+            <a href="@Model.ProductUrl"><h3 class="name">@Model.DisplayName</h3></a>
+            @*<div class="tools">
+                <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@Model.DisplayName.Replace("'", "")',1 ,'','', 'anim-img-@Model.ContentLink')">
+                    <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                    <a class="wishlist-btn" ng-click="addToWishlist(product)">
+                        <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+
+            </div>*@
+        </div>
+    </div>
+</div>

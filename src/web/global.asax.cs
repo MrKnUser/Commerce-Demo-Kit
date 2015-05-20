@@ -61,7 +61,6 @@ namespace OxxCommerceStarterKit.Web
 
             var options = ServiceLocator.Current.GetInstance<DisplayOptions>();
             options
-                .Add("slider", "/displayoptions/slider", ContentAreaTags.Slider, "", "")
                 .Add("full", "/displayoptions/full", ContentAreaTags.FullWidth, "", "epi-icon__layout--full")
                 .Add("wide", "/displayoptions/wide", ContentAreaTags.TwoThirdsWidth, "", "epi-icon__layout--two-thirds")
                 .Add("half", "/displayoptions/half", ContentAreaTags.HalfWidth, "", "epi-icon__layout--half")
@@ -153,6 +152,7 @@ namespace OxxCommerceStarterKit.Web
             public const string HalfWidth = "col-sm-6";
             public const string OneThirdWidth = "col-sm-4";
             public const string NoRenderer = "norenderer";
+            public const string RelatedProducts = "relatedProducts";
         }
 
         public static class GroupNames

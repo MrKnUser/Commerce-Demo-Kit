@@ -30,5 +30,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         bool IsSellable { get; set; }
         List<MediaData> Media { get; set; }
         CartItemModel CartItem { get; set; }
+        ContentArea RelatedProductsContentArea { get; set; }
     }
 }

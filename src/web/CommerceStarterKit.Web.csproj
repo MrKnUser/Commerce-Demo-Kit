@@ -848,6 +848,7 @@
     <Content Include="Views\ProductSearchBlock\Index.cshtml" />
     <Content Include="Views\ProductSearchBlock\FindError.cshtml" />
     <Content Include="Views\ProductSearchBlock\EmptyResult.cshtml" />
+    <Content Include="Views\Shared\ProductPartials\_ProductListViewRelatedProducts.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -49,7 +49,7 @@
 				</memberclub>
 			</account>
 			<cart>
-				<move_to_wishlist>Flytt til ønskeliste</move_to_wishlist>
+				<move_to_wishlist>Ønskeliste</move_to_wishlist>
 				<move_wishlist_to_cart>Flytt hele listen til handlekurven</move_wishlist_to_cart>
 				<share_wishlist>Del ønskelisten</share_wishlist>
 				<move_to_cart>Flytt til handlekurv</move_to_cart>

@@ -372,7 +372,7 @@
                 loop: true,
                 thumbItem: 3,
                 slideMargin: 4,
-                enableDrag: true,
+                enableDrag: false,
                 currentPagerPosition: 'left',
                 onSliderLoad: function (el) {
                     el.lightGallery({
@@ -380,6 +380,16 @@
                     });
                 }
             });
+            $('.relatedProducts').show();
+            $('.relatedProducts').lightSlider({
+                item: 2,
+                loop: false,
+                verticalHeight: 550,
+                slideMargin: 0,
+                pager: false,
+                vertical: true
+            });
+           
         }
        
 

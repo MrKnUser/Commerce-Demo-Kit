@@ -11744,8 +11744,8 @@ header .search-form .close-search:hover {
   position: absolute;
   display: none;
   top: -13px;
-  left: -70px;
-  width: 200px;
+  left: -30px;
+  width: 160px;
   height: 48px;
   z-index: 2;
   background: #fff;

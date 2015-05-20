@@ -108,16 +108,19 @@ namespace OxxCommerceStarterKit.Web.Controllers
          
             model.Variants = model.Variants ?? CreateLazyVariantContentViewModels(model.CatalogContent);
 
-            if (model.RelatedProducts == null)
+            if (model.RelatedProductsContentArea == null)
             {
-                model.RelatedProducts = CreateRelatedProductContentViewModels(model.CatalogContent, Constants.AssociationTypes.Default);
+                model.RelatedProductsContentArea = CreateRelatedProductsContentArea(model.CatalogContent, Constants.AssociationTypes.Default);
             }
 
         }
 
+       
+
         private IEnumerable<IProductViewModel<ProductContent>> CreateRelatedProductContentViewModels(CatalogContentBase catalogContent, string associationType)
         {
             IEnumerable<Association> associations = LinksRepository.GetAssociations(catalogContent.ContentLink);
+
             IEnumerable<IProductViewModel<ProductContent>> productViewModels =
                 Enumerable.Where(associations, p => p.Group.Name.Equals(associationType) && IsProduct<ProductContent>(p.Target))
                     .Select(a => CreateProductViewModel(ContentLoader.Get<ProductContent>(a.Target)));

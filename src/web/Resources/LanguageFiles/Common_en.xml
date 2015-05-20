@@ -146,7 +146,7 @@
 				<terms_error>You must accept the terms and conditions</terms_error>
 			</checkout>
 			<product>
-				<add_to_wishlist>Add to wishlist</add_to_wishlist>
+				<add_to_wishlist>Wishlist</add_to_wishlist>
 				<add_to_wishlist_complete>Added to wishlist</add_to_wishlist_complete>
 				<add_to_cart>Add to cart</add_to_cart>
 				<add_to_cart_complete>Added to cart</add_to_cart_complete>
