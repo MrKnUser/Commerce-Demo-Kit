@@ -1334,6 +1334,7 @@
     <Compile Include="Api\ReviewController.cs" />
     <Compile Include="Api\SystemController.cs" />
     <Compile Include="Business\FacetRegistry\FacetStringListDefinition.cs" />
+    <Compile Include="Business\Payment\PaymentRegistry.cs" />
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\NumericOperatorSelectionFactory.cs" />

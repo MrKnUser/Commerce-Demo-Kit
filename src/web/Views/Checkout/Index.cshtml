@@ -73,7 +73,7 @@
 
 
                     @* if Klarna is present *@
-                    @if (Model.PaymentInfo.PaymentMethods.Any(x => x.PaymentMethodId == new Guid("8dca4a96-a5bb-4e85-82a4-2754f04c2117") ||
+                    @*@if (Model.PaymentSelection.PaymentMethods.Any(x => x.PaymentMethodId == new Guid("8dca4a96-a5bb-4e85-82a4-2754f04c2117") ||
                                                                x.PaymentMethodId == new Guid("c2ea88f8-c702-4331-819e-0e77e7ac5450")))
                     {
                         <div class="row">
@@ -88,7 +88,7 @@
                                 </div>
                             </div>
                         </div>
-                    }
+                    }*@
                     @if (!User.Identity.IsAuthenticated)
                     {
                         <div class="row">
@@ -158,11 +158,11 @@
                 </tr>
             </table>
 
-            @Html.Partial("PagePartials/_PaymentMethods", Model.PaymentInfo)
+            @Html.Partial("PagePartials/_PaymentMethods", Model.PaymentSelection)
 
             <div class="row">
                 <div class="col-xs-12">
-                    @Html.ValidationMessageFor(m => m.PaymentInfo.SelectedPayment)
+                    @Html.ValidationMessageFor(m => m.PaymentSelection.SelectedPayment)
                 </div>
             </div>
             

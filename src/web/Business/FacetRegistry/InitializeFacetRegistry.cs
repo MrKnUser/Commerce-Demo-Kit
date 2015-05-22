@@ -73,6 +73,12 @@ namespace OxxCommerceStarterKit.Web.Business.FacetRegistry
                 FieldName = "Brand"
             });
 
+            registry.FacetDefinitions.Add(new FacetStringDefinition()
+            {
+                Name = "Connectivity",
+                FieldName = "Connectivity"
+            });
+
 
 
         }

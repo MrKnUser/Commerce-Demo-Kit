@@ -36,6 +36,7 @@ using OxxCommerceStarterKit.Core.PaymentProviders.Payment;
 using OxxCommerceStarterKit.Core.Repositories;
 using OxxCommerceStarterKit.Web.Business;
 using OxxCommerceStarterKit.Web.Business.Analytics;
+using OxxCommerceStarterKit.Web.Business.Payment;
 using OxxCommerceStarterKit.Web.Models;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 using OxxCommerceStarterKit.Web.Models.PageTypes.Payment;
@@ -53,8 +54,16 @@ namespace OxxCommerceStarterKit.Web.Controllers
         private readonly ICurrentMarket _currentMarket;
         private readonly LocalizationService _localizationService;
         private readonly ICustomerFactory _customerFactory;
+        private readonly IWarehouseInventoryService _warehouseInventory;
+        private readonly IWarehouseRepository _warehouseRepository;
+        private readonly PaymentRegistry _paymentRegistry;
 
-        public CheckoutController(CustomerAddressRepository customerAddressRepository, IContentRepository contentRepository, ICurrentMarket currentMarket, ICustomerFactory customerFactory, LocalizationService localizationService)
+        public CheckoutController(CustomerAddressRepository customerAddressRepository, IContentRepository contentRepository, 
+            ICurrentMarket currentMarket, ICustomerFactory customerFactory, 
+            LocalizationService localizationService,
+            IWarehouseInventoryService warehouseInventory,
+            IWarehouseRepository warehouseRepository,
+            PaymentRegistry paymentRegistry)
         {
             _customerAddressRepository = customerAddressRepository;
             _contactRepository = new ContactRepository();
@@ -62,6 +71,9 @@ namespace OxxCommerceStarterKit.Web.Controllers
             _currentMarket = currentMarket;
             _localizationService = localizationService;
             _customerFactory = customerFactory;
+            _warehouseInventory = warehouseInventory;
+            _warehouseRepository = warehouseRepository;
+            _paymentRegistry = paymentRegistry;
         }
 
         public ActionResult Index(CheckoutPage currentPage)
@@ -74,7 +86,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
             model.Email = contact.Email;
             model.Phone = contact.PhoneNumber;
 
-            model.PaymentInfo = GetPaymentInfo();
+            model.PaymentSelection = GetPaymentInfo();
             model.AvailableCategories = GetAvailableCategories();
 
             model.TermsArticle = currentPage.TermsArticle;
@@ -131,14 +143,13 @@ namespace OxxCommerceStarterKit.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(CheckoutPage currentPage, CheckoutViewModel model, PaymentInfo paymentInfo, int[] SelectedCategories)
+        public ActionResult Index(CheckoutPage currentPage, CheckoutViewModel model, PaymentSelection paymentSelection, int[] SelectedCategories)
         {
-            model.PaymentInfo = paymentInfo;
+            model.PaymentSelection = paymentSelection;
             model.AvailableCategories = GetAvailableCategories();
             model.SelectedCategories = SelectedCategories;
 
-            bool requireSSN = paymentInfo.SelectedPayment == new Guid("8dca4a96-a5bb-4e85-82a4-2754f04c2117") ||
-                    paymentInfo.SelectedPayment == new Guid("c2ea88f8-c702-4331-819e-0e77e7ac5450");
+            bool requireSSN = _paymentRegistry.PaymentMethodRequiresSocialSecurityNumber(paymentSelection);
 
             // validate input!
             ValidateFields(model, requireSSN);
@@ -174,36 +185,24 @@ namespace OxxCommerceStarterKit.Web.Controllers
                     }
                     OrderGroupWorkflowManager.RunWorkflow(ch.Cart, OrderGroupWorkflowManager.CartPrepareWorkflowName);
 
-                    AddPayment(ch.Cart, paymentInfo.SelectedPayment.ToString(), billingAddress);
+                    AddPayment(ch.Cart, paymentSelection.SelectedPayment.ToString(), billingAddress);
 
                     ch.Cart.AcceptChanges();
 
-                    BasePaymentPage page = null;
-                    var startPage = _contentRepository.Get<HomePage>(ContentReference.StartPage);
-                    foreach (var p in _contentRepository.GetChildren<BasePaymentPage>(startPage.Settings.PaymentContainerPage))
-                    {
-                        if (p.PaymentMethod.Equals(model.PaymentInfo.SelectedPayment.ToString()))
-                        {
-                            page = p;
-                            break;
-                        }
-                    }
+                    var url = _paymentRegistry.GetPaymentMethodPageUrl(model.PaymentSelection.SelectedPayment.ToString());
 
-                    var resolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
-                    if (page != null)
+                    if (url != null)
                     {
-                        var url = resolver.GetUrl(page.ContentLink);
                         return Redirect(url);
                     }
                 }
             }
 
-            Guid? selectedPayment = model.PaymentInfo.SelectedPayment;
-            model.PaymentInfo = GetPaymentInfo();
+            Guid? selectedPayment = model.PaymentSelection.SelectedPayment;
+            model.PaymentSelection = GetPaymentInfo();
             if (selectedPayment.HasValue)
             {
-                model.PaymentInfo.SelectedPayment = selectedPayment.Value;
+                model.PaymentSelection.SelectedPayment = selectedPayment.Value;
             }
             model.TermsArticle = currentPage.TermsArticle;
 
@@ -216,13 +215,10 @@ namespace OxxCommerceStarterKit.Web.Controllers
         /// <param name="lineItems"></param>
         void ConfirmStocks(IEnumerable<LineItem> lineItems)
         {
-            // TODO: Additonal stock check
-
-            var warehouseInventory = ServiceLocator.Current.GetInstance<IWarehouseInventoryService>();
-            var warehouseRepository = ServiceLocator.Current.GetInstance<IWarehouseRepository>();
+            // TODO: Additonal stock check, if necessary - here is your chance to update stock from the ERP system for an example
 
             // TODO: Confirm use of default warehouse for your project
-            var epiWarehouses = warehouseRepository.List().Where(w => w.Code.Equals("default")).ToList();
+            var epiWarehouses = _warehouseRepository.List().Where(w => w.Code.Equals("default")).ToList();
 
             if (lineItems == null || lineItems.Any() == false)
                 return;
@@ -249,7 +245,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
             foreach (var p in summary)
             {
                 var catalogKey = new CatalogKey(AppContext.Current.ApplicationId, p.Key);
-                var inventory = warehouseInventory.GetTotal(catalogKey, epiWarehouses);
+                var inventory = _warehouseInventory.GetTotal(catalogKey, epiWarehouses);
 
                 if (inventory == null || inventory.InStockQuantity < p.Value.Item1)
                 {
@@ -390,7 +386,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
                 }
             }
 
-            if (model.PaymentInfo.SelectedPayment == Guid.Empty)
+            if (model.PaymentSelection.SelectedPayment == Guid.Empty)
             {
                 ModelState.AddModelError("PaymentInfo.SelectedPayment", string.Format(requiredString,
                         _localizationService.GetString("/common/checkout/payment_methods_title")));
@@ -403,20 +399,27 @@ namespace OxxCommerceStarterKit.Web.Controllers
             }
         }
 
-        private PaymentInfo GetPaymentInfo()
+        private PaymentSelection GetPaymentInfo()
         {
+
             var paymentMethods = PaymentManager.GetPaymentMethods(_currentMarket.GetCurrentMarket().DefaultLanguage.ToString());
-            var paymentInfo = new PaymentInfo();
+            var paymentInfo = new PaymentSelection();
 
             foreach (var paymentMethodRow in paymentMethods.PaymentMethod.OrderBy(p => p.Ordering))
             {
-                paymentInfo.PaymentMethods.Add(paymentMethodRow);
+                var methodInfo = new PaymentMethodInfo();
+                methodInfo.PaymentMethod = paymentMethodRow;
+
+                // Enrich with payment information from page
+                var page = _paymentRegistry.GetPaymentContentPageByMethodId(paymentMethodRow.PaymentMethodId);
+                methodInfo.Description = page.Description != null ? page.Description.ToHtmlString() : string.Empty;
+                paymentInfo.PaymentMethods.Add(methodInfo);
             }
 
             // if there is only 1 choice, select it as default
             if (paymentInfo.PaymentMethods.Count == 1)
             {
-                paymentInfo.PaymentMethods.First().IsDefault = true;
+                paymentInfo.PaymentMethods.First().PaymentMethod.IsDefault = true;
             }
             return paymentInfo;
         }

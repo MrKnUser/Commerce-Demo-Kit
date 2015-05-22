@@ -1,4 +1,4 @@
-﻿@model OxxCommerceStarterKit.Web.Models.ViewModels.PaymentInfo
+﻿@model OxxCommerceStarterKit.Web.Models.ViewModels.PaymentSelection
 @{
     bool oneIsChecked = false;
     bool onlyOnePaymentMethod = Model.PaymentMethods.Count == 1;
@@ -11,18 +11,20 @@
     <div class="col-xs-12">
         @foreach (var p in Model.PaymentMethods)
         {
-            bool isChecked = !oneIsChecked && p.IsDefault && (Model.SelectedPayment == Guid.Empty || Model.SelectedPayment == p.PaymentMethodId);
+            bool isChecked = !oneIsChecked && p.PaymentMethod.IsDefault && (Model.SelectedPayment == Guid.Empty || Model.SelectedPayment == p.PaymentMethod.PaymentMethodId);
             if (isChecked)
             {
                 oneIsChecked = true;
             }
             <div class="payment-method">
                 <label>
-                    <span class="image"><img src="@Url.Content("~/Content/images/paymentMethods/" + p.Name.ToLower() + ".png")" alt="@p.Name" /></span>
                     <span @(onlyOnePaymentMethod ? "style=display:none;" : "")>
                         <div class="radio light">
-                            @Html.RadioButton("SelectedPayment", p.PaymentMethodId, isChecked)
-                            <span class="text">@p.Name</span>
+                            @Html.RadioButton("SelectedPayment", p.PaymentMethod.PaymentMethodId, isChecked)
+                            <span class="text">@p.PaymentMethod.Name</span>
+                            <div>
+                                @Html.Raw(p.Description)
+                            </div>
                         </div>
                     </span>
 

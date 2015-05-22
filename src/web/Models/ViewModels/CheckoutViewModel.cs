@@ -48,7 +48,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 		public string Phone { get; set; }
 
 
-        public PaymentInfo PaymentInfo { get; set; }
+        public PaymentSelection PaymentSelection { get; set; }
 
 		[LocalizedDisplayName("/common/checkout/placeholder/password")]
 		[DataType(DataType.Password)]
@@ -65,14 +65,23 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 		public int[] SelectedCategories { get; set; }
 	}
 
-    public class PaymentInfo
+    public class PaymentSelection
     {
-        public PaymentInfo()
+        public PaymentSelection()
         {
-            PaymentMethods = new List<PaymentMethodDto.PaymentMethodRow>();
+
+            PaymentMethods = new List<PaymentMethodInfo>();
         }
 
-        public List<PaymentMethodDto.PaymentMethodRow> PaymentMethods { get; set; }
-        public Guid SelectedPayment { get; set; }        
+        public List<PaymentMethodInfo> PaymentMethods { get; set; }
+        public Guid SelectedPayment { get; set; }
     }
+
+    public class PaymentMethodInfo
+    {
+        public PaymentMethodDto.PaymentMethodRow PaymentMethod { get; set; }
+        public string Description { get; set; }
+         
+    }
+    
 }
