@@ -211,7 +211,14 @@
 			commercestarterkit.updateWishlistCounter(commercestarterkit.getWishlistCounter() + parseInt(product.quantity));
 		};
 
-		
+		$scope.increaseQuantity = function(product) {
+		    product.Quantity++;
+		    $scope.update(product);
+		}
+		$scope.decreaseQuantity = function (product) {
+		    product.Quantity--;
+		    $scope.update(product);
+		}
 
 		/**
 		 * Update a product in the cart

@@ -32,9 +32,9 @@
         </td>
         <td class="price">{{p.PlacedPrice}}</td>
         <td class="qnt-count">
-            <a class="incr-btn" href="#">-</a>
-            <input id="quantity" name="Quantity" ng-model="p.Quantity" class="form-control" type="text">
-            <a class="incr-btn" href="#">+</a>
+            <a class="incr-btn" ng-click="decreaseQuantity(p)">-</a>
+            <input id="quantity" name="Quantity" ng-model="p.Quantity" ng-blur="update(p)" class="form-control" type="text">
+            <a class="incr-btn" ng-click="increaseQuantity(p)">+</a>
         </td>
 
         <td class="total">

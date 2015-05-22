@@ -8,7 +8,7 @@
     productApp.controller('ProductAndSearchController',['$scope', '$location', '$window', 'productService', 'articleService',
     function ($scope, $location, $window, productService, articleService) {
         $scope.selectedProductCategories = [];
-        $scope.selectedMainCategoryFacets = [];
+      
 
         $scope.selectedFacets = {};
 
@@ -25,35 +25,21 @@
         $scope.ShowMainCategoryFacets = false;
         $scope.SearchDone = false;
         $scope.SearchPage = false;
-		$scope.windowWidth = $window.innerWidth;
-        /*Selected all filters */
-      
 
-        $scope.init = function (preSelectedCategory, mainCategory, language, pageSize) {
-            $scope.language = language;
+		$scope.init = function (preSelectedCategory, language, pageSize) {
+		    $scope.language = language;
             if (preSelectedCategory) {
                 $scope.selectedProductCategories = preSelectedCategory.split(",");
             } else {
                 $scope.selectedProductCategories = [];
             }
-            if (mainCategory) {
-                $scope.selectedMainCategoryFacets = [mainCategory];
-            } else {
-                $scope.selectedMainCategoryFacets = [];
-            }
+          
             $scope.productPageSize = pageSize;
             $scope.pageSizeAtThreeColumns = pageSize;
-            $scope.reset();
-        };
-        $scope.reset = function() {
-            $scope.selectedColorFacets = [];
-            $scope.selectedSizeFacets = [];
-            $scope.selectedFitFacets = [];
-            $scope.selectedRegionFacets = [];
-            $scope.selectedGrapeFacets = [];
-            $scope.selectedCountryFacets = [];
+            updateWithData();
 
-        };
+		};
+      
 
         $scope.initSearch = function (language, productPageSize, articlePageSize, searchedQuery) {
             $scope.SearchPage = true;
@@ -61,11 +47,9 @@
             $scope.productPageSize = productPageSize;
             $scope.articlePageSize = articlePageSize;
             $scope.pageSizeAtThreeColumns = productPageSize;
-            $scope.ShowCategoriesAsCheckboxes = true;
-            $scope.ShowMainCategoryFacets = true;
             if (searchedQuery) {
                 $scope.queryTerm = searchedQuery;
-                //$scope.search();
+                $scope.search();
             }
         };
 
@@ -111,13 +95,6 @@
 			      $scope.totalResult = data.totalResult;
 			      $scope.showMore = data.totalResult > $scope.products.length;
 			      $scope.productCategories = data.productCategoryFacets;
-			      $scope.mainCategoryFacets = data.mainCategoryFacets;
-			      $scope.productColorFacets = data.productColorFacets;
-			      $scope.allSizeFacetLists = data.allSizeFacetLists;
-			      $scope.productFitFacets = data.productFitFacets;
-			      $scope.productRegionFacets = data.productRegionFacets;
-			      $scope.productGrapeFacets = data.productGrapeFacets;
-			      $scope.productCountryFacets = data.productCountryFacets;
 			      $scope.facets = data.facets;
 			      $scope.selectedFacets = angular.copy($scope.facets);
 			  },
@@ -146,7 +123,6 @@
         function setNewProductDataAndUpdate() {
             $scope.page = 1;
             setProductdata();
-            //updateUrlWithFacets();
             $scope.loadProductData();
         }
 
@@ -159,117 +135,6 @@
             };
         }
 
-        //Update url, adding selected facets for product type, colors, sizes and fits
-        function updateUrlWithFacets() {
-            if ($scope.selectedMainCategoryFacets.length > 0) {
-                $location.search('gender', $scope.selectedMainCategoryFacets.join(','));
-            } else {
-                $location.search('gender', null);
-            }
-            if ($scope.selectedProductCategories.length > 0) {
-                $location.search('categories', $scope.selectedProductCategories.join(','));
-            } else {
-                $location.search('categories', null);
-            }
-            if ($scope.selectedColorFacets.length > 0) {
-                $location.search('colors', $scope.selectedColorFacets.join(","));
-            } else {
-                $location.search('colors', null);
-            }
-            if ($scope.selectedSizeFacets.length > 0) {
-                $location.search('sizes', $scope.selectedSizeFacets.join(","));
-            } else {
-                $location.search('sizes', null);
-            }
-            if ($scope.selectedFitFacets.length > 0) {
-                $location.search('fits', $scope.selectedFitFacets.join(","));
-            } else {
-                $location.search('fits', null);
-            }
-            if ($scope.selectedRegionFacets.length > 0) {
-                $location.search('regions', $scope.selectedRegionFacets.join(","));
-            } else {
-                $location.search('regions', null);
-            }
-            if ($scope.selectedGrapeFacets.length > 0) {
-                $location.search('grapes', $scope.selectedGrapeFacets.join(","));
-            } else {
-                $location.search('grapes', null);
-            }
-            if ($scope.selectedCountryFacets.length > 0) {
-                $location.search('countries', $scope.selectedCountryFacets.join(","));
-            } else {
-                $location.search('countries', null);
-            }
-        }
-
-        //We have a watch here, so users can send links with search query and filters, back and forward button will in the browser will also work
-        $scope.$watch(function () { return $location.search(); }, function (newUrl, oldUrl) {
-            if (jQuery.isEmptyObject(newUrl) && !$scope.SearchPage) {
-                $scope.reset();
-                updateWithData();
-            } else {
-                //if (oldUrl != newUrl) {
-                    var anyFilters = false;
-                    if ($location.search().gender) {
-                        $scope.selectedMainCategoryFacets = $location.search().gender.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedMainCategoryFacets = [];
-                    }
-                    if ($location.search().categories) {
-                        $scope.selectedProductCategories = $location.search().categories.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedProductCategories = [];
-                    }
-                    if ($location.search().colors) {
-                        $scope.selectedColorFacets = $location.search().colors.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedColorFacets = [];
-                    }
-                    if ($location.search().sizes) {
-                        $scope.selectedSizeFacets = $location.search().sizes.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedSizeFacets = [];
-                    }
-                    if ($location.search().fits) {
-                        $scope.selectedFitFacets = $location.search().fits.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedFitFacets = [];
-                    }
-                    if ($location.search().regions) {
-                        $scope.selectedRegionFacets = $location.search().regions.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedRegionFacets = [];
-                    }
-                    if ($location.search().grapes) {
-                        $scope.selectedGrapeFacets = $location.search().grapes.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedGrapeFacets = [];
-                    }
-                    if ($location.search().countries) {
-                        $scope.selectedCountryFacets = $location.search().countries.split(',');
-                        anyFilters = true;
-                    } else {
-                        $scope.selectedCountryFacets = [];
-                    }
-                    if ($scope.SearchPage) {
-                        if ($scope.queryTerm || anyFilters) {
-                            $scope.search();
-                        }
-                    } else {
-                       setNewProductDataAndUpdate();
-
-                    }
-                }
-            //}
-        });
 
         $scope.LoadMore = function () {
             $scope.page++;

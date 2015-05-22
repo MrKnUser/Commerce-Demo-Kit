@@ -19,34 +19,9 @@
 <div class="filter-toggle" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter"></i></div>
 <div class="catalog-grid">
 
-    <div id="equalHeights" class="row" ng-controller="ProductAndSearchController" ng-init="init('@Model.CommerceCategoryIds','@Model.CommerceRootCategoryName', '@Model.Language', @Model.NumberOfProductsToShow)">
+    <div id="equalHeights" class="row" ng-controller="ProductAndSearchController" ng-init="init('@Model.CommerceCategoryIds', '@Model.Language', @Model.NumberOfProductsToShow)">
         <div class="filters-mobile col-lg-3 col-md-3 col-sm-4">
             <aside class="shop-filters">
-                <section class="filter-section" ng-cloak>
-                    <h3>@Model.ParentName <a href="javascript:;" class="visible-xs glyphicon glyphicon-chevron-up" data-toggle="collapse" data-target="#id76123"> </a></h3>
-                    <ul class="categories" id="id76123">
-                        @foreach (var page in Model.CategoryPages)
-                        {
-                            var children = page.GetChildren<ShoppingCategoryPage>();
-                            bool active = page.ContentLink.ID == Model.CurrentPage.ContentLink.ID || children.Any(x => x.ContentLink.ID == Model.CurrentPage.ContentLink.ID);
-                            <li class="@(children.Count() > 0 ? "has-subcategory" : "")">
-                                <a href="@Url.ContentUrl(page.ContentLink)">@page.PageName</a>
-                                @if (children.Count() > 0)
-                                {
-                                    <ul class="subcategory">
-                                        @foreach (var childPage in children)
-                                        {
-                                            <li>
-                                                <a href="@Url.ContentUrl(childPage.ContentLink)">@childPage.PageName</a>
-                                            </li>
-                                        }
-                                    </ul>
-                                }
-                            </li>
-                        }
-                    </ul>
-
-                </section>
                 @Html.Partial("PagePartials/_Facets")
             </aside>
         </div>
