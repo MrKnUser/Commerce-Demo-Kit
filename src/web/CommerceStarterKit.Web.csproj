@@ -47,6 +47,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="App_Data\" />
     <Folder Include="Views\ImportEPiServerData\" />
     <Folder Include="Views\NodeContentPartial\" />
     <Folder Include="Views\PaymentBase\" />
@@ -68,7 +69,6 @@
     <Content Include="Content\css\commerce-starter-kit\blocks\_productsearchblock.less" />
     <Content Include="Content\css\commerce-starter-kit\blocks\_titleBlock.less" />
     <Content Include="Content\css\commerce-starter-kit\blocks\_bannerBlock.less" />
-    <Content Include="App_Data\GeoLiteCity.dat" />
     <None Include="Content\css\commerce-starter-kit\_mypage.less" />
     <None Include="Content\css\commerce-starter-kit\_header.less" />
     <None Include="Content\css\commerce-starter-kit\_search-autocomplete.less" />
