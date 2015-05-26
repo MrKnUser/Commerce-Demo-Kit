@@ -5,15 +5,16 @@
 }
 <div class="productRow col-sm-12">
     <div class="tile">
-        @Html.Partial("ProductPartials/_PriceLabel")        
-
+        @Html.Partial("ProductPartials/_Badges")
+        @Html.Partial("ProductPartials/_PriceLabel")
         <a href="@Model.ProductUrl">
-            <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium"/>
+            <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=listmedium" />
         </a>
 
         <div class="footer">
             <a href="@Model.ProductUrl">
-                <h3 class="name">@Model.DisplayName</h3></a>
+                <h3 class="name">@Model.DisplayName</h3>
+            </a>
             <p>@Model.Description</p>
             <div class="tools">
                 @{ double rating = Model.AverageRating; }
