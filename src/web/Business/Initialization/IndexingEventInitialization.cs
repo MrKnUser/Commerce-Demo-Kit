@@ -143,7 +143,7 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
         {            
             if (p.ShouldIndex())
             {
-            var currentMarket = ServiceLocator.Current.GetInstance<Mediachase.Commerce.ICurrentMarket>().GetCurrentMarket();
+                var currentMarket = ServiceLocator.Current.GetInstance<Mediachase.Commerce.ICurrentMarket>().GetCurrentMarket();
 				FindProduct findProduct = p.GetFindProduct(currentMarket);
 				if (findProduct != null)
 				{

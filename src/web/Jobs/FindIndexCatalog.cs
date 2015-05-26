@@ -181,7 +181,7 @@ namespace OxxCommerceStarterKit.Web.Jobs
 
 		public ContentReference Root
 		{
-
+            // TODO: Get rid of magic number
             get { return referenceConverter.GetContentLink(-2147483638, CatalogContentType.Catalog, 0); }
             //get { return referenceConverter.GetRootLink(); }
 		}

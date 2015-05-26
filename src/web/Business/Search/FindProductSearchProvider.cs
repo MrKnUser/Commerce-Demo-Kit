@@ -42,6 +42,7 @@ namespace OxxCommerceStarterKit.Web.Business.Search
                    ServiceLocator.Current.GetInstance<ReferenceConverter>(), 
                    ServiceLocator.Current.GetInstance<IContentLoader>())
         {
+            _log.Debug("FindProductUiSearchProvider has been created.");
         }
 
         public FindProductUiSearchProvider(LocalizationService localizationService, ICatalogSystem catalogSystem, ReferenceConverter referenceConverter, IContentLoader contentLoader)
@@ -157,12 +158,12 @@ namespace OxxCommerceStarterKit.Web.Business.Search
 
         public string Area
         {
-            get { return "Commerce"; }
+            get { return "Commerce/Catalog"; }
         }
 
         public string Category
         {
-            get { return "Catalog Products"; }
+            get { return "Custom Catalog Products"; }
         }
     }
 }

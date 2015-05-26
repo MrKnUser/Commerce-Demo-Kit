@@ -31,7 +31,6 @@ namespace OxxCommerceStarterKit.Web.Business.Payment
 
         public virtual BasePaymentPage GetPaymentContentPageByMethodId(string paymentMethodId)
         {
-            BasePaymentPage page = null;
             var paymentPages = GetPaymentContentPages();
             foreach (var p in paymentPages)
             {

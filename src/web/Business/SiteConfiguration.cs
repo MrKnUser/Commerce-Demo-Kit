@@ -41,8 +41,10 @@ namespace OxxCommerceStarterKit.Web.Business
                 {
                     startPage = contentLoader.Get<HomePage>(ContentReference.StartPage);
                 }
-                catch (Exception ex)
+                catch 
                 {
+                    // In order to prevent the site from crashing during changes to
+                    // language settings for the site, we need to swallow this.
                     return null;
                 }
                 return startPage;
