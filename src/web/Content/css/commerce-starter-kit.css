@@ -1071,3 +1071,13 @@ tr.collapse.in {
   padding: 14px 10px 5px 10px;
   margin-bottom: 24px;
 }
+/* Editor styles */
+img.img-grayscale {
+  -webkit-filter: grayscale(100%);
+}
+img.img-sepia-100 {
+  -webkit-filter: sepia(100%);
+}
+img.img-sepia-50 {
+  -webkit-filter: sepia(100%);
+}

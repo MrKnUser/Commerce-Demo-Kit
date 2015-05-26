@@ -46,6 +46,21 @@ img.img-responsive {
   EditMenuName: Responsive;
 }
 
+img.img-grayscale {
+    EditMenuName: "Grayscale";
+    -webkit-filter: grayscale(100%);
+}
+
+img.img-sepia-100 {
+    EditMenuName: "Sepia 100%";
+    -webkit-filter: sepia(100%);
+}
+img.img-sepia-50 {
+    EditMenuName: "Sepia 50%";
+    -webkit-filter: sepia(50%);
+}
+
+
 p {
 
 	/*
@@ -63,6 +78,13 @@ p a, a:visited {
 	color: #2d839e;
 	text-decoration: underline;
 	font-weight: bold;
+}
+
+/* Scale image in textbox */
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
 }
 
 /* Miscellaneous styles */
