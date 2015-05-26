@@ -100,8 +100,9 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         private string GetDisplayPriceWithCheck(PriceAndMarket price)
         {
-            return price != null ? price.Price : string.Empty;
+            return price != null ? price.UnitPrice.ToString() : string.Empty;
         }
+
 
         private List<GenericFindVariant> GetGenericVariants(IEnumerable<VariationContent> productVariants, IMarket market)
         {
@@ -136,29 +137,28 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
              return !(StopPublish != null && StopPublish < DateTime.Now);
          }
 
+         
          public ProductListViewModel Populate(IMarket market)
          {
-             UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
+             // TODO: A bit weak, will not identify other variations with discounts
+             // Works for models where all variations usually have the same price (and discount)
              var variation = this.GetFirstVariation();
 
-             ProductListViewModel productListViewModel = new ProductListViewModel
+             ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
              {
-                 Code = this.Code,
-                 ContentLink = this.ContentLink,
-                 DisplayName = this.DisplayName,
                  Description = Description,
                  Overview = Overview,
-                 ProductUrl = urlResolver.GetUrl(ContentLink),
-                 ImageUrl = this.GetDefaultImage(),
+                 BrandName = Facet_Brand,
                  AllImageUrls = this.AssetUrls(),
                  PriceString = variation.GetDisplayPrice(market),
-                 ContentType = this.GetType().Name,
-                 AverageRating = this.GetAverageRating(),
-                 IsVariation = false
+                 PriceAmount = variation.GetDefaultPriceAmount(market)
              };
 
-             productListViewModel.PriceAmount = variation.GetDefaultPriceAmount(market);
+             // Discounts
+             var discountPriceAmount = variation.GetDiscountPrice();
+             productListViewModel.DiscountPriceAmount = GetPriceWithCheck(discountPriceAmount);
+             productListViewModel.DiscountPriceString = GetDisplayPriceWithCheck(discountPriceAmount);
+
              return productListViewModel;
          }
 

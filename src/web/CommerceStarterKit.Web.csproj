@@ -859,6 +859,7 @@
     <Content Include="Views\Shared\ProductPartials\_ProductListViewRelatedProducts.cshtml" />
     <Content Include="Views\Newsletter\Blocks\VariationContent.cshtml" />
     <Content Include="Views\Newsletter\Blocks\ProductContent.cshtml" />
+    <Content Include="Views\Shared\ProductPartials\_PriceLabel.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

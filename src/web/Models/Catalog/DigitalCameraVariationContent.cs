@@ -132,10 +132,12 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             return discountPrice != null ? (double)discountPrice.UnitPrice.Amount : 0;
         }
 
-        private string GetDisplayPriceWithCheck(PriceAndMarket discountPrice)
+        private string GetDisplayPriceWithCheck(PriceAndMarket price)
         {
-            return discountPrice != null ? discountPrice.Price : string.Empty;
+            return price != null ? price.UnitPrice.ToString() : string.Empty;
         }
+
+
 
         public bool ShouldIndex()
         {
@@ -144,24 +146,12 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)
         {
-            UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
-            ProductListViewModel productListViewModel = new ProductListViewModel
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket)
             {
-                Code = this.Code,
-                ContentLink = this.ContentLink,
-                DisplayName = this.DisplayName,
                 Description = Description,
-                ProductUrl = urlResolver.GetUrl(ContentLink),
-                ImageUrl = this.GetDefaultImage(),
-                PriceString = this.GetDisplayPrice(currentMarket),
-                BrandName = Facet_Brand,
-                //Country = Country,
-                ContentType = this.GetType().Name,
-                IsVariation = true
+                BrandName = Facet_Brand
             };
-            
-            productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket);
+
             return productListViewModel;
         }
 

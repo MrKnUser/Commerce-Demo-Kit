@@ -8,11 +8,7 @@
 
 <div class="productRow col-sm-12">
     <div class="tile">
-        <div class="price-label">
-            <span>@Model.PriceString</span>
-
-        </div>
-
+        @Html.Partial("ProductPartials/_PriceLabel")
         <a href="@Model.ProductUrl">
             <img id="anim-img-@Model.ContentLink" class="image img-responsive" src="@Model.ImageUrl?preset=largethumbnail" />
         </a>

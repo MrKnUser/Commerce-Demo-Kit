@@ -76,8 +76,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             PriceAndMarket discountPrice = this.GetDiscountPrice(market);
             findProduct.DiscountedPriceAmount = GetPriceWithCheck(discountPrice);
             findProduct.DiscountedPrice = GetDisplayPriceWithCheck(discountPrice);
-            
-            findProduct.DiscountedPrice = this.GetDiscountDisplayPrice(defaultPrice, market);
 
             PriceAndMarket customerClubPrice = this.GetCustomerClubPrice(market);
             findProduct.CustomerClubPriceAmount = customerClubPrice != null ? (double)customerClubPrice.UnitPrice.Amount : 0;
@@ -94,8 +92,9 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         private string GetDisplayPriceWithCheck(PriceAndMarket price)
         {
-            return price != null ? price.Price : string.Empty;
+            return price != null ? price.UnitPrice.ToString() : string.Empty;
         }
+
 
         public bool ShouldIndex()
         {
@@ -120,22 +119,11 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)
         {
-            UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
-            ProductListViewModel productListViewModel = new ProductListViewModel
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket)
             {
-                Code = this.Code,
-                ContentLink = this.ContentLink,
-                DisplayName = this.DisplayName,
                 Description = Description,
-                ProductUrl = urlResolver.GetUrl(ContentLink),
-                ImageUrl = this.GetDefaultImage(),
-                PriceString = this.GetDisplayPrice(currentMarket),
-                ContentType = this.GetType().Name,
-                IsVariation = true
             };
-
-            productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket);
+            
             return productListViewModel;
         }
 
