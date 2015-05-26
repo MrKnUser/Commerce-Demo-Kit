@@ -62,7 +62,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public FindProduct GetFindProduct(IMarket market)
         {
-            List<VariationContent> productVariants = GetVariants(this);
+            List<VariationContent> productVariants = this.GetVaritions().ToList();
             var variations = GetGenericVariants(productVariants, market);
 
             var language = (Language == null ? string.Empty : Language.Name);
@@ -103,19 +103,11 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
             return price != null ? price.Price : string.Empty;
         }
 
-        public List<VariationContent> GetVariants(ProductContent product)
+        private List<GenericFindVariant> GetGenericVariants(IEnumerable<VariationContent> productVariants, IMarket market)
         {
-            var linksRepository = ServiceLocator.Current.GetInstance<ILinksRepository>();
-            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-            CultureInfo cultureInfo = product.Language;
+            if(productVariants == null)
+                return null;
 
-            IEnumerable<Relation> relationsBySource = linksRepository.GetRelationsBySource(product.ContentLink).OfType<ProductVariation>();
-            List<VariationContent> productVariants = relationsBySource.Select(x => contentLoader.Get<VariationContent>(x.Target, new LanguageSelector(cultureInfo.Name))).ToList();
-            return productVariants;
-        }
-
-        private List<GenericFindVariant> GetGenericVariants(List<VariationContent> productVariants, IMarket market)
-        {
             List<GenericFindVariant> variations = new List<GenericFindVariant>();
             foreach (var variation in productVariants)
             {

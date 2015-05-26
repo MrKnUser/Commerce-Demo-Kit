@@ -74,10 +74,17 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
             // Override result with priority products
             MergePriorityProducts(currentContent, productListViewModels);
-
-            if (productListViewModels.Count > currentContent.ResultsPerPage)
+            
+            // Editor could let this one be empty
+            int resultsPerPage = currentContent.ResultsPerPage;
+            if(resultsPerPage == 0)
             {
-                productListViewModels = productListViewModels.Take(currentContent.ResultsPerPage).ToList();
+                resultsPerPage = 1000; // Default Find limit
+            }
+
+            if (productListViewModels.Count > resultsPerPage)
+            {
+                productListViewModels = productListViewModels.Take(resultsPerPage).ToList();
             }
 
             if(productListViewModels.Any() == false)

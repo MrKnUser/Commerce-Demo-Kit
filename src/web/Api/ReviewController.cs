@@ -159,8 +159,6 @@ namespace OxxCommerceStarterKit.Web.Api
             IClient client = Client.CreateFromConfig();
             string id = entryId + "_" + language;
             client.Update<FindProduct>(id).Field(x => x.AverageRating, averageRating).Execute();
-
-
         }
 
         // PUT api/<controller>/5

@@ -10,6 +10,7 @@ Copyright (C) 2013-2014 BV Network AS
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using EPiServer;
@@ -89,6 +90,18 @@ namespace OxxCommerceStarterKit.Core.Extensions
 
             return null;
         }
+
+        public static IEnumerable<VariationContent> GetVaritions(this ProductContent product)
+        {
+            var linksRepository = ServiceLocator.Current.GetInstance<ILinksRepository>();
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            CultureInfo cultureInfo = product.Language;
+
+            IEnumerable<Relation> relationsBySource = linksRepository.GetRelationsBySource(product.ContentLink).OfType<ProductVariation>();
+            IEnumerable<VariationContent> productVariants = relationsBySource.Select(x => contentLoader.Get<VariationContent>(x.Target, new LanguageSelector(cultureInfo.Name)));
+            return productVariants;
+        }
+
 
 
         /// <summary>
@@ -238,8 +251,24 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return parentCategories.DistinctBy(a => a.ContentLink.ID).ToList();
         }
 
+        public static decimal GetStock(this EntryContentBase content)
+        {
+            if(content is VariationContent)
+            {
+                return GetStock(content as VariationContent);
+            }
+            else if (content is ProductContent)
+            {
+                return GetStock(content as ProductContent);
+            }
+            return 0;
+        }
+
         public static decimal GetStock(this VariationContent content)
         {
+            if (content == null)
+                return 0;
+
             var inventoryService = ServiceLocator.Current.GetInstance<IWarehouseInventoryService>();
             var inventory = inventoryService.GetTotal(new CatalogKey(AppContext.Current.ApplicationId, content.Code));
 
@@ -248,6 +277,34 @@ namespace OxxCommerceStarterKit.Core.Extensions
                 return inventory.InStockQuantity - inventory.ReservedQuantity;
             }
             return 0;
+        }
+
+        /// <summary>
+        /// Gets inventory for all of the variations for a given product
+        /// </summary>
+        /// <remarks>
+        /// If none of the variations has stock, then 0 is returned. 
+        /// </remarks>
+        /// <param name="content">The content.</param>
+        /// <returns>The sum of all variation's stock</returns>
+        public static decimal GetStock(this ProductContent content)
+        {
+            if (content == null)
+                return 0;
+
+            var varitions = content.GetVaritions();
+            if (varitions == null)
+            {
+                return 0;
+            } 
+
+            decimal stock = 0;
+            foreach (VariationContent varition in varitions)
+            {
+                stock += varition.GetStock();
+            }
+
+            return stock;
         }
 
 

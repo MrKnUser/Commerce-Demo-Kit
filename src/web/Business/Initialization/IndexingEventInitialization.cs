@@ -105,13 +105,12 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
             if(IndexingEnabled == false)
                 return;
 
-            FindHelper helper = ServiceLocator.Current.GetInstance<FindHelper>();
           
             if (e.Content is IIndexableContent)
             {
                 try
                 {
-                    IndexProduct(helper, e.Content as IIndexableContent);
+                    IndexProduct(e.Content as IIndexableContent);
                 }
                 catch (Exception exception)
                 {
@@ -127,7 +126,7 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
                 {
                     try
                     {
-                        IndexProduct(helper, productContent);
+                        IndexProduct(productContent);
                     }
                     catch (Exception exception)
                     {
@@ -139,7 +138,7 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
             }
         }
 
-        private static void IndexProduct(FindHelper helper, IIndexableContent p)
+        private static void IndexProduct(IIndexableContent p)
         {            
             if (p.ShouldIndex())
             {

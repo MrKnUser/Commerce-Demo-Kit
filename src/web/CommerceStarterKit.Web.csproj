@@ -72,6 +72,12 @@
     <None Include="Content\css\commerce-starter-kit\_mypage.less" />
     <None Include="Content\css\commerce-starter-kit\_header.less" />
     <None Include="Content\css\commerce-starter-kit\_search-autocomplete.less" />
+    <Content Include="Content\css\editorNames-lead.css">
+      <DependentUpon>editorNames-lead.less</DependentUpon>
+    </Content>
+    <Content Include="Content\css\editorNames-lead.min.css">
+      <DependentUpon>editorNames-lead.css</DependentUpon>
+    </Content>
     <Content Include="Content\css\editorNames.css">
       <DependentUpon>editorNames.less</DependentUpon>
     </Content>
@@ -425,6 +431,7 @@
     <Content Include="Plugins\CommerceTools\static\scripts\bootstrap.min.js" />
     <Content Include="CommerceStarterKit.Web.nuspec" />
     <Content Include="Content\css\editorNames.less" />
+    <Content Include="Content\css\editorNames-lead.less" />
     <None Include="Content\css\print.less" />
     <None Include="Content\css\hotspotseditor\hotspotseditor.less" />
     <Content Include="modules\BVNetwork.FileNotFound.RedirectGadget\Views\Web.config" />
@@ -934,9 +941,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="EPiCode.Commerce.RestApi, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="EPiCode.Commerce.RestApi, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiCode.Commerce.RestApi.1.1.12\lib\net45\EPiCode.Commerce.RestApi.dll</HintPath>
+      <HintPath>..\..\packages\EPiCode.Commerce.RestApi.1.1.13\lib\net45\EPiCode.Commerce.RestApi.dll</HintPath>
     </Reference>
     <Reference Include="EPiCode.GoogleAnalytics.UniversalTracking, Version=1.1.5555.1132, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -1574,7 +1581,6 @@
     <Compile Include="global.asax.cs">
       <DependentUpon>global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\FindHelper.cs" />
     <Compile Include="Helpers\HtmlHelpers.cs" />
     <Compile Include="Helpers\UrlHelpers.cs" />
     <Compile Include="Business\Initialization\Initialization.cs" />

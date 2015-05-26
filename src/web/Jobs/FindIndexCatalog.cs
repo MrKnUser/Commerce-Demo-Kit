@@ -94,7 +94,7 @@ namespace OxxCommerceStarterKit.Web.Jobs
 			//Delete all
 			client.Delete<FindProduct>(x => x.MatchType(typeof(FindProduct)));
             
-            var findHelper = ServiceLocator.Current.GetInstance<FindHelper>();
+            
 			var language = LanguageSelector.MasterLanguage();
 			var localizationService = ServiceLocator.Current.GetInstance<LocalizationService>();
 			var marketService = ServiceLocator.Current.GetInstance<IMarketService>();
@@ -135,7 +135,7 @@ namespace OxxCommerceStarterKit.Web.Jobs
                         {
 							info.NumberOfProductsFoundAfterExpiredFilter++;
 
-                            var findProduct = content.GetFindProduct(market); //findHelper.GetProductAndVariants(content as CatalogContentBase, availableLocalization, market);
+                            var findProduct = content.GetFindProduct(market); 
 
 							if (findProduct != null)
 							{

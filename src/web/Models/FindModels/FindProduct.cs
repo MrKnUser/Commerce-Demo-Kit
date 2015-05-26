@@ -25,7 +25,7 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
 {
     public class FindProduct
     {
-        private static Injected<UrlResolver> urlResolverInjected;
+        private static Injected<UrlResolver> _urlResolver;
 
         public FindProduct()
         {
@@ -46,10 +46,10 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
             ParentCategoryName = entryContentBase.GetParentCategoryNames(language);
             MainCategoryName = entryContentBase.GetMainCategory(language);
             CategoryName = entryContentBase.GetCategoryName(language);
-            ProductUrl = urlResolverInjected.Service.GetUrl(entryContentBase.ContentLink, language);
+            ProductUrl = _urlResolver.Service.GetUrl(entryContentBase.ContentLink, language);
             DefaultImageUrl = entryContentBase.GetDefaultImage();
             AverageRating = entryContentBase.GetAverageRating();
-            
+            DefaultInventory = entryContentBase.GetStock();
         }
 
       
@@ -82,7 +82,8 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public string CategoryName { get; set; }
         public string DefaultImageUrl { get; set; }
         public string ProductUrl { get; set; }
-        
+        [NumericFilter(DisplayName = "Default Inventory")]
+        public decimal DefaultInventory { get; set; }
 
         /// <summary>
         /// Prices - used for filtering on range, is rounded to int
