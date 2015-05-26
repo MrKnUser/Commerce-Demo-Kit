@@ -20,6 +20,7 @@ using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using Newtonsoft.Json;
+using OxxCommerceStarterKit.Web.Controllers;
 
 
 namespace OxxCommerceStarterKit.Web

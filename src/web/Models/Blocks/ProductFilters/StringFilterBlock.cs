@@ -3,7 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.Find;
+using EPiServer.Shell.ObjectEditing;
 using OxxCommerceStarterKit.Core.Attributes;
+using OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories;
 using OxxCommerceStarterKit.Web.Extensions;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 
@@ -23,6 +25,7 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks.ProductFilters
             Description = "Name of field in index",
             GroupName = SystemTabNames.Content,
             Order = 1)]
+        [SelectOne(SelectionFactoryType = typeof(FindProductFilterStringFieldSelectionFactory))]
         public virtual String FieldName { get; set; }
 
         [Display(

@@ -12,6 +12,7 @@ using System.ComponentModel.DataAnnotations;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.Shell.ObjectEditing;
 using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Web.Business.Rendering;
 
@@ -35,14 +36,14 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
             GroupName = SystemTabNames.Content,
             Name = "Text Color",
             Order = 50)]
-        // [RegularExpression("#([0-9a-f]{3}|[0-9a-f]{6})")]
+        [ClientEditor(ClientEditingClass = "dijit/ColorPalette")]
         public virtual string TextColor { get; set; }
 
         [Display(
             GroupName = SystemTabNames.Content,
             Name = "Background Color",
             Order = 60)]
-        //[RegularExpression("#([0-9a-f]{3}|[0-9a-f]{6})")]
+        [ClientEditor(ClientEditingClass = "dijit/ColorPalette" /*, EditorConfiguration = "{\"palette\": \"3x4\"}"*/ )]
         public virtual string TextBackgroundColor { get; set; }
 
         [Display(

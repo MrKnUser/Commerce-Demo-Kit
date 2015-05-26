@@ -1333,10 +1333,16 @@
     <Compile Include="Api\DeliveryLocationsController.cs" />
     <Compile Include="Api\ReviewController.cs" />
     <Compile Include="Api\SystemController.cs" />
+    <Compile Include="Business\FacetRegistry\IFacetRegistry.cs" />
+    <Compile Include="Business\FacetRegistry\ProductFilterRegistry.cs" />
     <Compile Include="Business\FacetRegistry\FacetStringListDefinition.cs" />
+    <Compile Include="Business\FacetRegistry\IProductFilterRegistry.cs" />
+    <Compile Include="Business\FacetRegistry\NumericFilterAttribute.cs" />
     <Compile Include="Business\Payment\PaymentRegistry.cs" />
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
+    <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterNumericFieldSelectionFactory.cs" />
+    <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterStringFieldSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\NumericOperatorSelectionFactory.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
     <Compile Include="Business\DependencyResolverInitialization.cs" />
@@ -1455,7 +1461,9 @@
     <Compile Include="Models\Catalog\GenericProductContent.cs" />
     <Compile Include="Models\Catalog\GenericSizeVariationContent.cs" />
     <Compile Include="Models\Files\VideoFile.cs" />
+    <Compile Include="Business\FacetRegistry\FilterAttribute.cs" />
     <Compile Include="Models\FindModels\GenericFindVariant.cs" />
+    <Compile Include="Business\FacetRegistry\StringFilterAttribute.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />

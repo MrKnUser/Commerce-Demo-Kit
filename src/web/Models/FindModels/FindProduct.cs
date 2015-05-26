@@ -8,6 +8,7 @@ Copyright (C) 2013-2014 BV Network AS
 
 */
 
+using System;
 using System.Collections.Generic;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.UI.Controllers;
@@ -17,6 +18,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Core.Models;
+using OxxCommerceStarterKit.Web.Business.FacetRegistry;
 using OxxCommerceStarterKit.Web.Models.Catalog;
 
 namespace OxxCommerceStarterKit.Web.Models.FindModels
@@ -57,59 +59,93 @@ namespace OxxCommerceStarterKit.Web.Models.FindModels
         public int Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        [StringFilter(DisplayName = "Display Name")]
         public string DisplayName { get; set; }
+        [StringFilter]
         public string Language { get; set; }
         public XhtmlString Description { get; set; }
         public XhtmlString Overview { get; set; }
         public List<string> Color { get; set; }
         public List<string> Sizes { get; set; }
+        [StringFilter]
         public string SizeUnit { get; set; }
-		public string SizeType { get; set; }
+        [StringFilter]
+        public string SizeType { get; set; }
+        [StringFilter]
         public string Fit { get; set; }
         public List<string> SizesList { get; set; } 
         public List<string> ParentCategoryName { get; set; }
         public List<int> ParentCategoryId { get; set; }
+        [StringFilter(DisplayName = "Main Category")]
         public string MainCategoryName { get; set; }
+        [StringFilter(DisplayName = "Category")]
         public string CategoryName { get; set; }
         public string DefaultImageUrl { get; set; }
-        // List of images - wrap in ImageInfo (url, type of image, etc.)
         public string ProductUrl { get; set; }
-        public string DefaultPrice { get; set; }
+        
+
         /// <summary>
-        /// Used for filtering on range, is rounded to int
+        /// Prices - used for filtering on range, is rounded to int
         /// </summary>
+        public string DefaultPrice { get; set; }
+        [NumericFilter(DisplayName = "Defalt Price")]
         public int DefaultPriceAmount { get; set; }
+
         public string DiscountedPrice { get; set; }
+        [NumericFilter(DisplayName = "Discounted Price")]
         public double DiscountedPriceAmount { get; set; }
+        
+        public string CustomerClubPrice { get; set; }
+        [NumericFilter(DisplayName = "Customer Club Price")]
+        public double CustomerClubPriceAmount { get; set; }
+
         public List<FashionVariant> Variants { get; set; }
         public List<GenericFindVariant> GenericVariants { get; set; }
 		public string NewItemText { get; set; }
-		public int SalesCounter { get; set; }
-		public string CustomerClubPrice { get; set; }
-        public double CustomerClubPriceAmount { get; set; }
+
+        public int SalesCounter { get; set; }
+
+        [StringFilter(DisplayName = "Brand")]
         public string Brand { get; set; }
-        //Wine facets
+
+        [StringFilter]
         public string Varieties { get; set; }
+        [StringFilter]
         public string Vintage { get; set; }
+        [StringFilter]
         public string Taste { get; set; }
+        [StringFilter]
         public string Style { get; set; }
+        [StringFilter]
         public string Region { get; set; }
+        [StringFilter]
         public string Maturity { get; set; }
+        [StringFilter]
         public decimal Alcohol { get; set; }
+        [StringFilter]
         public string Closure { get; set; }
         public List<string> GrapeMixList { get; set; }
+        [StringFilter]
         public string Country { get; set; }
         //Photo facets
+        [StringFilter]
         public decimal Resolution { get; set; }
+        [StringFilter(DisplayName = "Lens Mount")]
         public string LensMount { get; set; }
+        [StringFilter(DisplayName = "Camera Format")]
         public string CameraFormat { get; set; }
+        [StringFilter(DisplayName = "File Format")]
         public string FileFormat { get; set; }
+        [StringFilter]
         public string Connectivity { get; set; }
+        [StringFilter]
         public string Battery { get; set; }
+        [StringFilter(DisplayName = "Memory Card Type")]
         public string MemoryCardType { get; set; }
+        [NumericFilter]
         public double Weight { get; set; }
+        [NumericFilter(DisplayName = "Average Rating")]
         public double AverageRating { get; set; }
        
     }
-
 }

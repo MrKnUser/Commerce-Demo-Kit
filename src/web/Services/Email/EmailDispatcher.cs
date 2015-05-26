@@ -21,8 +21,7 @@ namespace OxxCommerceStarterKit.Web.Services.Email
 
         public SendEmailResponse SendEmail(Postal.Email email)
         {
-            var log = LogManager.GetLogger();
-            return SendEmail(email, log);
+            return SendEmail(email, _logger);
         }
 
         public SendEmailResponse SendEmail(Postal.Email email, ILogger log)
@@ -77,7 +76,7 @@ namespace OxxCommerceStarterKit.Web.Services.Email
 
 			catch (Exception ex)
 			{
-				log.Error(ex);
+                _logger.Error("Error sending email", ex);
 				output.Exception = ex;
 			}
 

@@ -30,11 +30,12 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks.ProductFilters
             Description = "Name of field in index",
             GroupName = SystemTabNames.Content,
             Order = 1)]
+        [SelectOne(SelectionFactoryType = typeof(FindProductFilterNumericFieldSelectionFactory))]
         public virtual String FieldName { get; set; }
 
         [Display(
             GroupName = SystemTabNames.Content,
-            Order = 5,
+            Order = 25,
             Name = "Filter Value",
             Description = "The value to filter search results on")]
         [CultureSpecific(true)]
