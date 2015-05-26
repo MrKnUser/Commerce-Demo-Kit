@@ -24,10 +24,7 @@
         </div>
         <div class="col-md-6">
 
-            <div class="price-label">
-                <span>@Model.PriceString</span>
-
-            </div>
+            @Html.Partial("ProductPartials/_PriceLabel")
             <a href="@Model.ProductUrl"><h2 class="productFullWidthHeader">@Model.DisplayName</h2></a>
 
 
@@ -52,7 +49,7 @@
                         <span class="@(rating >= 4.5 ? "active" : "")@(rating == 4.5 ? " half" : "")"></span>
                     </div>
                     <div class="add-to-cart-form" ng-controller="BuyController" ng-init="init('@chrome.Language','@Model.Code','@Model.DisplayName.Replace("'", "")',1 ,'','', 'anim-img-@Model.ContentLink')">
-                        
+
                         @if (Model.IsVariation)
                         {
                             <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
