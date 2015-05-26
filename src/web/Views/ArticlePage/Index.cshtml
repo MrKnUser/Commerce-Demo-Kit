@@ -5,7 +5,7 @@
 }
 <div class="article-page">
 	<div class="pre-content">
-		@Html.PropertyFor(x => x.CurrentPage.PreBodyContent, new { CssClass = "overflow-hidden row" })
+		@Html.PropertyFor(x => x.CurrentPage.PreBodyContent, new { CssClass = "overflow-hidden" })
 	</div>
 	@if(!string.IsNullOrEmpty(Model.CurrentPage.PageTitle) || Html.IsInEditMode()) {
 	<h1>@Html.PropertyFor(m => m.CurrentPage.PageTitle)</h1>
@@ -19,6 +19,6 @@
 	</div>
 
 	<div class="body-content">
-		@Html.PropertyFor(x => x.CurrentPage.BodyContent, new { CssClass = "overflow-hidden row" })
+		@Html.PropertyFor(x => x.CurrentPage.BodyContent, new { CssClass = "overflow-hidden" })
 	</div>
 </div>
