@@ -82,3 +82,27 @@ blockquote.blockquote-reverse {
   ChangeElementType: true;
   EditMenuName: "Quote right aligned";
 }
+a.btn {
+  EditMenuName: "Default Button";
+  font-size: 1.25em;
+  color: #ffffff;
+  padding: 10px 40px;
+  font-weight: normal;
+  text-align: center;
+  background-color: #2f343b;
+  vertical-align: middle;
+  cursor: pointer;
+  border: none;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  white-space: nowrap;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  outline: 0;
+  margin-right: 5px;
+}
+body.epi_visualaid a.btn {
+  background-color: #2f343b;
+}

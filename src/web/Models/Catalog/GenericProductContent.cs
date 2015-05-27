@@ -146,10 +146,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
              ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
              {
-                 Description = Description,
-                 Overview = Overview,
                  BrandName = Facet_Brand,
-                 AllImageUrls = this.AssetUrls(),
                  PriceString = variation.GetDisplayPrice(market),
                  PriceAmount = variation.GetDefaultPriceAmount(market)
              };

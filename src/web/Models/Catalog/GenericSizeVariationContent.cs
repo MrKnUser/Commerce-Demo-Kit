@@ -119,10 +119,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)
         {
-            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket)
-            {
-                Description = Description,
-            };
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket);
             
             return productListViewModel;
         }

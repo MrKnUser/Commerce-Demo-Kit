@@ -148,7 +148,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         {
             ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket)
             {
-                Description = Description,
                 BrandName = Facet_Brand
             };
 

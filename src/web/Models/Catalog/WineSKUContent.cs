@@ -207,19 +207,11 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
         {
             UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 
-            ProductListViewModel productListViewModel = new ProductListViewModel
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
             {
-                Code = this.Code,
-                ContentLink = this.ContentLink,
-                DisplayName = DisplayName ?? Name,
-                Description = Info_Description,
-                ProductUrl = urlResolver.GetUrl(ContentLink),
-                ImageUrl = this.GetDefaultImage(),
                 PriceString = this.GetDisplayPrice(market),
                 BrandName = Facet_Brand,
                 Country = Country,
-                ContentType = this.GetType().Name,
-                IsVariation = true
             };
             ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
             productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());

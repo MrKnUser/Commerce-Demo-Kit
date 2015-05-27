@@ -117,12 +117,13 @@
 
         </div>
         <div class="col-md-2 hide-for-small hidden-xs">
-            @if (Model.RelatedProductsContentArea != null && (Model.RelatedProductsContentArea.Items != null && Model.RelatedProductsContentArea.Items.Any()))
+            @*TODO: Fix rendering in edit mode*@
+            @if (isInEditMode == false && Model.RelatedProductsContentArea != null && (Model.RelatedProductsContentArea.Items != null && Model.RelatedProductsContentArea.Items.Any()))
             {
                 @*<div class="panel-heading">
                     <span class="panel-title">@Html.Translate("/common/product/cross_sell")</span>
                 </div>*@
-                @Html.PropertyFor(x => x.RelatedProductsContentArea, new { CustomTag = "ul", ChildrenCustomTagName = "li", cssClass = "relatedProducts", Tag = "relatedProducts" })
+                @Html.PropertyFor(x => x.RelatedProductsContentArea, new {CustomTag = "ul", ChildrenCustomTagName = "li", cssClass = "relatedProducts", Tag = "relatedProducts"})
             }
         </div>
         <div>

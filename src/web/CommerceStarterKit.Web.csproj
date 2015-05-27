@@ -860,6 +860,7 @@
     <Content Include="Views\Newsletter\Blocks\VariationContent.cshtml" />
     <Content Include="Views\Newsletter\Blocks\ProductContent.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_PriceLabel.cshtml" />
+    <Content Include="Views\Shared\ProductPartials\_Badges.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

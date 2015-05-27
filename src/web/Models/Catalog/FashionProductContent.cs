@@ -186,17 +186,10 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             var variation = this.GetFirstVariation();
 
-            ProductListViewModel productListViewModel = new ProductListViewModel
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
             {
-                Code = this.Code,
                 NewItemText = NewItemText,
-                ContentLink = this.ContentLink,
-                DisplayName = DisplayName ?? Name,
-                Description = Description,
-                ProductUrl = urlResolver.GetUrl(ContentLink),
-                ImageUrl = this.GetDefaultImage(),
                 PriceString = variation.GetDisplayPrice(market),
-                ContentType = this.GetType().Name
             };
             ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
             productListViewModel.PriceAmount = variation.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());

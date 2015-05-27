@@ -35,8 +35,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 
         public ProductListViewModel(VariationContent content, Mediachase.Commerce.IMarket currentMarket) : this()
         {
-            
-
             Code = content.Code;
             ContentLink = content.ContentLink;
             DisplayName = content.DisplayName;
@@ -49,7 +47,12 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
             var discountPriceAmount =  content.GetDiscountPrice();
             DiscountPriceAmount = GetPriceWithCheck(discountPriceAmount);
             DiscountPriceString = GetDisplayPriceWithCheck(discountPriceAmount);
+            AllImageUrls = content.AssetUrls();
+            Overview = content.GetPropertyValue("Overview");
+            Description = content.GetPropertyValue("Description");
 
+            if (string.IsNullOrEmpty(Overview))
+                Overview = Description;
         }
 
         public ProductListViewModel(ProductBase content, IMarket currentMarket) : this()
@@ -61,6 +64,13 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
             ImageUrl = content.GetDefaultImage();
             ContentType = content.GetType().Name;
             IsVariation = false;
+            AllImageUrls = content.AssetUrls();
+            Description = content.GetPropertyValue("Description");
+            Overview = content.GetPropertyValue("Overview");
+
+            if (string.IsNullOrEmpty(Overview))
+                Overview = Description;
+
         }
 
         private double GetPriceWithCheck(PriceAndMarket price)
@@ -77,7 +87,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public string Code { get; set; }
         public string DisplayName { get; set; }
         public string NewItemText { get; set; }
-        public XhtmlString Description { get; set; }
+        public string Description { get; set; }
         public ContentReference ContentLink { get; set; }
         public string PriceString { get; set; }
         public double PriceAmount { get; set; }
@@ -92,7 +102,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public string ContentType { get; set; }
         public double AverageRating { get; set; }
         public List<string> AllImageUrls { get; set; }
-        public XhtmlString Overview { get; set; }
+        public string Overview { get; set; }
         public bool IsVariation { get; set; }
     }
 }
