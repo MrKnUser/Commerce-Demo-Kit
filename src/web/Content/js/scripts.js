@@ -174,8 +174,13 @@ $(document).ready(function(e) {
 	/*Catalog 3-rd Level Submenu positioning
 	*******************************************/
 	$('.catalog .submenu .has-submenu').hover(function(){
-		var $offseTop = $(this).position().top;
-		$(this).find('.sub-submenu').height($('.catalog .submenu .offer').height()-12);
+	    var $offseTop = $(this).position().top;
+	    var submenuHeight = $('.catalog .submenu .offer').height();
+	    if (submenuHeight == 0) {
+	        submenuHeight = $(this).parent().height();
+	    } 
+	    $(this).find('.sub-submenu').height(submenuHeight - 12);
+	    
 		$('.catalog .submenu .offer .col-1 p').hide();
 		$(this).find('.sub-submenu').css({top: -$offseTop +12 + "px"}).show();
 	},function(){
