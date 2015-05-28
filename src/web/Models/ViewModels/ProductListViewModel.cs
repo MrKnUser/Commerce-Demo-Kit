@@ -50,6 +50,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
             AllImageUrls = content.AssetUrls();
             Overview = content.GetPropertyValue("Overview");
             Description = content.GetPropertyValue("Description");
+            AverageRating = content.GetPropertyValue<double>("AverageRating");
 
             if (string.IsNullOrEmpty(Overview))
                 Overview = Description;
@@ -67,9 +68,15 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
             AllImageUrls = content.AssetUrls();
             Description = content.GetPropertyValue("Description");
             Overview = content.GetPropertyValue("Overview");
+            AverageRating = content.GetPropertyValue<double>("AverageRating");
 
             if (string.IsNullOrEmpty(Overview))
                 Overview = Description;
+
+        }
+
+        protected void PopulateCommonData(ProductBase content, IMarket currentMarket)
+        {
 
         }
 

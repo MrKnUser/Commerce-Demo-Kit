@@ -3,6 +3,16 @@
 @model ProductListViewModel
 @{
     var chrome = (Chrome)ViewBag.Chrome;
+    var description = Model.Description;
+    if (string.IsNullOrEmpty(description))
+    {
+        description = Model.Overview;
+    }
+    if (description != null && description.Length > 1000)
+    {
+        description = description.Substring(0, 1000);
+    }
+    
     Layout = null;
 }
 <div class="productRow col-sm-12">
@@ -29,15 +39,7 @@
 
 
             <div class="footer">
-                @if (Model.Overview != null && Model.Overview.IsEmpty)
-                {
-                    <p>@Model.Description</p>
-                }
-                else
-                {
-                    <p>@Model.Overview</p>
-                }
-
+                <p>@Html.Raw(description)</p>
                 <div class="tools">
                     @{ double rating = Model.AverageRating; }
 
