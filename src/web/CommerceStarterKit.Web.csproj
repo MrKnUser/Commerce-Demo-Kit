@@ -1738,6 +1738,6 @@
     <OctoPackEnforceAddingFiles>true</OctoPackEnforceAddingFiles>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)WarmMeUp\WarmMeUp.exe http://localhost:49883/</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)WarmMeUp\WarmMeUp.exe" http://localhost:49883/</PostBuildEvent>
   </PropertyGroup>
 </Project>
