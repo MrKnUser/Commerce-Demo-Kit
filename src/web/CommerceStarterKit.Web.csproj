@@ -1686,6 +1686,7 @@
     <Compile Include="Services\Email\Models\SendEmailResponse.cs" />
     <Compile Include="Services\Email\Models\Welcome.cs" />
     <Compile Include="Models\ViewModels\Contracts\IProductListViewModelInitializer.cs" />
+    <Compile Include="Services\OrderSettingsFromSettingsBlock.cs" />
     <Compile Include="Services\PostNord\IPostNordClient.cs" />
     <Compile Include="Services\PostNord\PostNord.cs" />
     <Compile Include="Services\PostNord\PostNordClient.cs" />

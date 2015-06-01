@@ -70,5 +70,32 @@ namespace OxxCommerceStarterKit.Core.Extensions
 			return ContentLoader.Service.Get<T>(ReferenceConverter.Service.GetContentLink(code, CatalogContentType.CatalogEntry));
 		}
 
+        /// <summary>
+        /// Updates the data for a line item object based on data we might know, but that has not been
+        /// set previously. The line item could have been added from Commerce Manager or some other API
+        /// </summary>
+        /// <param name="lineItemDto">The line item dto.</param>
+        /// <param name="lineItem">The line item.</param>
+        public static void UpdateData(this OxxCommerceStarterKit.Core.Objects.LineItem lineItemDto, Mediachase.Commerce.Orders.LineItem lineItem)
+        {
+            if (string.IsNullOrEmpty(lineItemDto.ArticleNumber))
+            {
+                lineItemDto.ArticleNumber = lineItem.Code;
+            }
+
+            if (string.IsNullOrEmpty(lineItemDto.ImageUrl))
+            {
+                // Attempt to get it again - the variation could have been added 
+                // manually from Commerce Mangager
+                var entryContent = GetEntryContent<EntryContentBase>(lineItem);
+                if (entryContent != null)
+                {
+                    lineItemDto.ImageUrl = entryContent.GetImage();
+                }
+            }
+        }
+
+
+
     }
 }

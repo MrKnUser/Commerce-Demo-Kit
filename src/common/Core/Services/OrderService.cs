@@ -33,12 +33,14 @@ namespace OxxCommerceStarterKit.Core.Services
         private readonly IOrderRepository _orderRepository;
         private readonly ICustomerFactory _customerFactory;
         private readonly IEmailService _emailService;
+        private readonly IOrderSettings _orderSettings;
 
-        public OrderService(IOrderRepository orderRepository, ICustomerFactory customerFactory, IEmailService emailService)
+        public OrderService(IOrderRepository orderRepository, ICustomerFactory customerFactory, IEmailService emailService, IOrderSettings orderSettings)
         {
             _orderRepository = orderRepository;
             _customerFactory = customerFactory;
             _emailService = emailService;
+            _orderSettings = orderSettings;
         }
 
         public PurchaseOrderModel GetOrderByTrackingNumber(string trackingNumber)
@@ -238,9 +240,12 @@ namespace OxxCommerceStarterKit.Core.Services
 
             var shipment = order.OrderForms.First().Shipments.First();
 
-            OrderStatusManager.ReleaseOrderShipment(shipment);
-            OrderStatusManager.PickForPackingOrderShipment(shipment);
-
+            // 
+            if(_orderSettings.ReleaseShipmentAutomatically)
+            {
+                OrderStatusManager.ReleaseOrderShipment(shipment);
+                OrderStatusManager.PickForPackingOrderShipment(shipment);
+            }
             order.AcceptChanges();
         }
 
@@ -256,12 +261,18 @@ namespace OxxCommerceStarterKit.Core.Services
                 MembershipUser user = null;
                 if (!identity.IsAuthenticated)
                 {
-                    string email = billingAddress.Email.Trim();
+                    string email = null;
+                    if (billingAddress != null)
+                    {
+                        email = billingAddress.Email.Trim();
+                        user = Membership.GetUser(email);
+                    }
 
-                    user = Membership.GetUser(email);
                     if (user == null)
                     {
-                        var customer = CreateCustomer(email, Guid.NewGuid().ToString(), billingAddress.DaytimePhoneNumber, billingAddress, shippingAddress, false, createStatus => Log.Error("Failed to create user during order completion. " + createStatus.ToString()));
+                        var customer = CreateCustomer(email, Guid.NewGuid().ToString(), 
+                            billingAddress.DaytimePhoneNumber, billingAddress, shippingAddress, false, 
+                            createStatus => Log.Error("Failed to create user during order completion. " + createStatus.ToString()));
                         if (customer != null)
                         {
                             order.CustomerId = Guid.Parse(customer.PrimaryKeyId.Value.ToString());

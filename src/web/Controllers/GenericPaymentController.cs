@@ -51,7 +51,13 @@ namespace OxxCommerceStarterKit.Web.Controllers
         private readonly ICurrentMarket _currentMarket;
         private readonly ILogger _logger;
 
-        public GenericPaymentController(IContentRepository contentRepository, IOrderService orderService, IPaymentCompleteHandler paymentCompleteHandler, ISiteSettingsProvider siteConfiguration, ICurrentMarket currentMarket, ILogger logger)
+        public GenericPaymentController(
+            IContentRepository contentRepository, 
+            IOrderService orderService, 
+            IPaymentCompleteHandler paymentCompleteHandler, 
+            ISiteSettingsProvider siteConfiguration, 
+            ICurrentMarket currentMarket, 
+            ILogger logger)
         {
             _contentRepository = contentRepository;
             _orderService = orderService;
@@ -131,7 +137,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
                 var order = _orderService.GetOrderByTrackingNumber(orderNumber);
 
                 // Must be run after order is complete, 
-                // This will release the order for shipment and 
+                // This might release the order for shipment and 
                 // send the order receipt by email
                 _paymentCompleteHandler.ProcessCompletedPayment(order, User.Identity);
 

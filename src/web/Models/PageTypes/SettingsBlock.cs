@@ -162,6 +162,14 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 			Order = 200)]
         [UIHint(UIHint.Textarea)]
 		public virtual string HeaderScripts { get; set; }
-		
+
+
+	    [Display(
+	        GroupName = SystemTabNames.Settings,
+	        Order = 220,
+            Name = "Release Shipment Automatically",
+            Description = "If selected, an order shipment will automatically be released, skipping the pick list.")]
+	    [CultureSpecific(false)]
+	    public virtual  bool ReleaseShipmentAutomatically { get; set; }
 	}
 }

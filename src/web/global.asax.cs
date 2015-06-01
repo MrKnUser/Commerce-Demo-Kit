@@ -110,6 +110,10 @@ namespace OxxCommerceStarterKit.Web
 		{
 			var exception = Server.GetLastError();
 
+            // We still need to log everything
+            ILogger log = LogManager.GetLogger();
+            log.Error("Handling exception: ", exception);
+
 			Response.Clear();
 			Server.ClearError();
 

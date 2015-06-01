@@ -124,6 +124,14 @@ namespace OxxCommerceStarterKit.Core.Extensions
             return null;
         }
 
+        /// <summary>
+        /// Gets the default image for a product. If none can be found, returns
+        /// /siteassets/system/no-image.png (with a preset if specified)
+        /// </summary>
+        /// <param name="productContent">Content of the product.</param>
+        /// <param name="preset">The preset.</param>
+        /// <param name="groupName">Name of the group.</param>
+        /// <returns></returns>
         public static string GetDefaultImage(this EntryContentBase productContent, string preset = null, string groupName = null)
         {
             string defaultImage = GetImage(productContent, preset, groupName);

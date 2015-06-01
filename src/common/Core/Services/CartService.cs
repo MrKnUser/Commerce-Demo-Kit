@@ -133,7 +133,9 @@ namespace OxxCommerceStarterKit.Core.Services
             {
                 foreach (Mediachase.Commerce.Orders.LineItem lineItem in ch.LineItems)
                 {
-                    items.Add(new LineItem(lineItem, language));
+                    var item = new LineItem(lineItem, language);
+                    item.UpdateData(lineItem);
+                    items.Add(item);
                 }
             }
 
@@ -156,6 +158,7 @@ namespace OxxCommerceStarterKit.Core.Services
                 ch.Cart.AcceptChanges();
             }
 
+            // TODO: Should we always return success? What if the messages indicate otherwise?
             return new CartActionResult() { Success = true, Message = messages };
         }
 
@@ -302,7 +305,12 @@ namespace OxxCommerceStarterKit.Core.Services
 
         private void AddCustomProperties(LineItem lineItem, Cart cart)
         {
-            var item = cart.OrderForms[0].LineItems.FindItemByCatalogEntryId(lineItem.Code);
+
+            Mediachase.Commerce.Orders.LineItem item = cart.OrderForms[0].LineItems.FindItemByCatalogEntryId(lineItem.Code);
+
+            // Make sure we have all available data on the item before
+            // we proceed
+            lineItem.UpdateData(item);
 
             //TODO: Let specific model implementation populate these fields, we need to know too much about the model here
             item[Constants.Metadata.LineItem.DisplayName] = lineItem.Name;

@@ -357,7 +357,9 @@
     <Compile Include="Services\IEnumerableExtensions.cs" />
     <Compile Include="Services\IExportOrderService.cs" />
     <Compile Include="Services\IOrderService.cs" />
+    <Compile Include="Services\IOrderSettings.cs" />
     <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\OrderSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="PaymentProviders\DIBS\ConfigurePayment.ascx" />
