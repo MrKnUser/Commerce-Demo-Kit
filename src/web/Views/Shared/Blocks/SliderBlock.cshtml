@@ -8,6 +8,7 @@
     bool isInEditMode = Html.IsInEditMode();
     string sliderName = ((IContent) Model).Name;
     sliderName = sliderName.Replace(" ", "-").ToLowerInvariant();
+    sliderName = sliderName.Replace(":", "_").ToLowerInvariant();
     sliderName = sliderName + "-slider";
     
     var height = Model.Height;

@@ -19,14 +19,17 @@
 <div class="row">
     <strong>Content:</strong>
     <div class="tags" @Html.EditAttributes(x => x.SliderContent)>
-        @foreach (var item in Model.SliderContent.Items)
+        @if (Model.SliderContent != null)
         {
-            var itemContent = item.GetContent();
-            <button type="button" class="btn btn-primary"
-                    style="margin: 2px;"
-                    data-epi-block-id="@item.ContentLink.ToString()">
-                @itemContent.Name (@itemContent.ContentTypeName())
-            </button>
+            foreach (var item in Model.SliderContent.Items)
+             {
+                 var itemContent = item.GetContent();
+                 <button type="button" class="btn btn-primary"
+                         style="margin: 2px;"
+                         data-epi-block-id="@item.ContentLink.ToString()">
+                     @itemContent.Name (@itemContent.ContentTypeName())
+                 </button>
+             }
         }
     </div>
 </div>
