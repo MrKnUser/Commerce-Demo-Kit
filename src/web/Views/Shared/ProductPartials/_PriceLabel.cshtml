@@ -25,12 +25,12 @@
         <div class="price-label">
             <span>@Model.DiscountPriceString</span>
         </div>
-        <div class="price-label member-price-secondary">
-            <span>@Model.CustomerClubMemberPriceString</span>
-        </div>
-        <div class="price-label old-price-third">
-            <span>@Model.PriceString</span>
-        </div>
+    <div class="price-label member-price member-price-secondary">
+        <span>@Model.CustomerClubMemberPriceString</span>
+    </div>
+    <div class="price-label old-price old-price-third">
+        <span>@Model.PriceString</span>
+    </div>
     }
     else
     {
@@ -47,7 +47,7 @@ else
 {
     if (Model.CustomerPriceAvailable)
     {
-        <div class="price-label member-price-primary">
+        <div class="price-label member-price">
             <span>@Model.CustomerClubMemberPriceString</span>
         </div>
         <div class="price-label old-price">

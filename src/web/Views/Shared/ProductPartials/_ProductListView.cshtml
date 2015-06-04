@@ -32,7 +32,15 @@
 
                     @if (Model.IsVariation)
                     {
-                        <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                        if (Model.InStock)
+                        {
+                             <a class="add-cart-btn" ng-click="addToCart(product)"><span>@Html.Translate("/common/product/add_to_cart")</span><i class="icon-shopping-cart"></i></a>
+                        }
+                        else
+                        {
+                            <a class="add-cart-btn" href="@Model.ProductUrl"><span>@Html.Translate("/common/product/details")</span><i class="icon-arrow-right"></i></a>
+                        }
+
                         <a class="wishlist-btn" ng-click="addToWishlist(product)">
                             <div class="hover-state">@Html.Translate("/common/product/add_to_wishlist")</div>
                             <i class="fa fa-plus"></i>

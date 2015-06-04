@@ -44,6 +44,12 @@
 .productRow .three .product:nth-child(3n+1) {
   clear: left;
 }
+.product-list .three .footer .price-label,
+.fashionproductcontent .three .footer .price-label,
+.wineskucontent .three .footer .price-label,
+.productRow .three .footer .price-label {
+  visibility: hidden;
+}
 .product-list .five .product:nth-child(5n+1),
 .fashionproductcontent .five .product:nth-child(5n+1),
 .wineskucontent .five .product:nth-child(5n+1),
@@ -72,6 +78,44 @@
 .fashionproductcontent .five .wishlist-btn,
 .wineskucontent .five .wishlist-btn,
 .productRow .five .wishlist-btn {
+  visibility: hidden;
+}
+.product-list .five .price-label,
+.fashionproductcontent .five .price-label,
+.wineskucontent .five .price-label,
+.productRow .five .price-label {
+  height: 24px;
+  font-size: 1em;
+  padding: 2px;
+  /*&.member-price {
+                text-decoration: none;
+                -webkit-border-radius: 0 0 0 0;
+                -moz-border-radius: 0 0 0 0;
+                border-radius: 0 0 0 0;
+            }*/
+}
+.product-list .five .price-label.old-price,
+.fashionproductcontent .five .price-label.old-price,
+.wineskucontent .five .price-label.old-price,
+.productRow .five .price-label.old-price {
+  top: 24px !important;
+}
+.product-list .five .price-label.old-price-third,
+.fashionproductcontent .five .price-label.old-price-third,
+.wineskucontent .five .price-label.old-price-third,
+.productRow .five .price-label.old-price-third {
+  top: 48px !important;
+}
+.product-list .five .price-label.member-price-secondary,
+.fashionproductcontent .five .price-label.member-price-secondary,
+.wineskucontent .five .price-label.member-price-secondary,
+.productRow .five .price-label.member-price-secondary {
+  top: 24px;
+}
+.product-list .five .badges,
+.fashionproductcontent .five .badges,
+.wineskucontent .five .badges,
+.productRow .five .badges {
   visibility: hidden;
 }
 .product-list .tile,
@@ -216,8 +260,8 @@
   font-weight: normal;
 }
 .view-selector {
-  width: 53px;
-  height: 14px;
+  width: 73px;
+  height: 24px;
   overflow: hidden;
 }
 .view-selector .view-three {
@@ -226,8 +270,8 @@
   cursor: pointer;
 }
 .view-selector .view-three span {
-  width: 7px;
-  height: 11px;
+  width: 10px;
+  height: 21px;
 }
 .view-selector .selected span {
   background-color: #999999;
@@ -243,8 +287,8 @@
   cursor: pointer;
 }
 .view-selector .view-five span {
-  width: 4px;
-  height: 5px;
+  width: 6px;
+  height: 10px;
   margin-bottom: 1px;
 }
 .catalog-grid .tile,
@@ -1083,21 +1127,17 @@ img.img-sepia-50 {
   -webkit-filter: sepia(100%);
 }
 .tile .price-label.old-price-third {
-  background: #b2b2b2;
-  top: 94px;
-  text-decoration: line-through;
-  -webkit-border-radius: 0 0 0 5px;
-  -moz-border-radius: 0 0 0 5px;
-  border-radius: 0 0 0 5px;
+  top: 94px !important;
 }
-.tile .price-label.member-price-primary {
+.tile .price-label.member-price {
   background: #ff6f69;
   text-decoration: none;
+  -webkit-border-radius: 0 0 0 0;
+  -moz-border-radius: 0 0 0 0;
+  border-radius: 0 0 0 0;
 }
 .tile .price-label.member-price-secondary {
-  background: #ff6f69;
   top: 47px;
-  text-decoration: none;
   -webkit-border-radius: 0 0 0 0;
   -moz-border-radius: 0 0 0 0;
   border-radius: 0 0 0 0;

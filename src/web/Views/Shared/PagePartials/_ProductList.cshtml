@@ -1,25 +1,18 @@
 ﻿<div class="row three" ng-class="{ 'five': nrOfColumns === 5, 'three': nrOfColumns !== 5 }">
     <div class="col-lg-4 col-md-6 col-sm-12 product" ng-repeat="product in products">
         <div class="tile">
-            <div class="badges" ng-show="product.DiscountedPrice">
-                <span class="sale"></span>
+            <div class="badges">
+                <span class="sale" ng-show="product.DiscountedPrice"></span>
+                <span class="out" ng-show="product.DefaultInventory == 0"></span>
             </div>
-            <div class="price-label">
-                <span ng-show="product.DiscountedPrice">{{product.DiscountedPrice}}</span>
-                <span ng-hide="product.DiscountedPrice">{{product.DefaultPrice}}</span>
-                @*<span class="member-price" ng-show="product.CustomerClubPrice">@Html.Translate("/common/product/member_price"): {{product.CustomerClubPrice}}</span>
-                    <span class="sale-price" ng-show="product.DiscountedPrice">@Html.Translate("/common/product/sale_price"): {{product.DiscountedPrice}}</span>*@
-            </div>
-            <div class="price-label old-price" ng-show="product.DiscountedPrice">
-                {{product.DefaultPrice}}
-            </div>
-
+            @PriceHelper()
             <a href="{{ product.ProductUrl }}">
                 <img class="img-responsive" ng-src="{{product.DefaultImageUrl}}?preset=largethumbnail" />
             </a>
             <div class="footer">
                 @*<div class="newitemtext" ng-show="product.NewItemText">{{product.NewItemText}}</div>*@
-                <a href="{{ product.ProductUrl }}"><h3 class="name">{{ product.DisplayName }}</h3></a>
+                <a href="{{ product.ProductUrl }}">
+                    <h3 class="name">{{ product.DisplayName }}</h3></a>
                 <div class="tools">
                     <div class="rate">
                         <span ng-class="{'active' : product.AverageRating  >= 0.5, 'half' : product.AverageRating  == 0.5}"></span>
@@ -57,3 +50,21 @@
         @Html.Translate("/common/productlist/show_more")
     </button>
 </div>
+
+@helper PriceHelper() {
+    <div class="price-label">
+        <span ng-hide="product.DiscountedPrice">{{product.DefaultPrice}}</span>
+        <span ng-show="product.DiscountedPrice">{{product.DiscountedPrice}}</span>
+    </div>
+    <div class="price-label member-price" ng-hide="(product.DiscountedPrice && product.CustomerClubPrice) || !product.CustomerClubPrice">
+        <span>{{product.CustomerClubPrice}}</span>
+    </div>
+    <div class="price-label member-price member-price-secondary" ng-show="product.DiscountedPrice && product.CustomerClubPrice">
+        <span>{{product.CustomerClubPrice}}</span>
+    </div>
+    <div class="price-label old-price"
+         ng-class="{'old-price-third' : product.CustomerClubPrice && product.DiscountedPrice}"
+         ng-show="product.DiscountedPrice || product.CustomerClubPrice">
+        {{product.DefaultPrice}}
+    </div>
+}

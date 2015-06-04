@@ -384,23 +384,19 @@ img.img-sepia-50 {
     .price-label {
 
         &.old-price-third {
-            background: #b2b2b2;
-            top: 47px * 2;
-            text-decoration: line-through;
-            -webkit-border-radius: 0 0 0 5px;
-            -moz-border-radius: 0 0 0 5px;
-            border-radius: 0 0 0 5px;
+            top: 47px * 2 !important;
         }
 
-        &.member-price-primary {
+        &.member-price {
             background: @brand-danger;
             text-decoration: none;
+            -webkit-border-radius: 0 0 0 0;
+            -moz-border-radius: 0 0 0 0;
+            border-radius: 0 0 0 0;
         }
 
         &.member-price-secondary {
-            background: @brand-danger;
             top: 47px;
-            text-decoration: none;
             -webkit-border-radius: 0 0 0 0;
             -moz-border-radius: 0 0 0 0;
             border-radius: 0 0 0 0;
