@@ -1,11 +1,64 @@
 ﻿@model ProductListViewModel
 @{
     Layout = null;
-    bool hasDiscount = string.IsNullOrEmpty(Model.DiscountPriceString) == false;
 }
-@if (hasDiscount)
+@*
+
+    Customer club price should be shown regardless of the
+    current user is a member or not, but we change what
+    the primary price is depending on the member status.
+
+    If is member, there is a discount and member price is
+    lower than discount price, that will be used as current
+    price. Old price will then be discount price.
+
+    If not member, and member price is lower than discount price
+    we show discount price as current price, and member price below
+    tagged as member price
+*@
+
+
+@if (Model.DiscountPriceAvailable)
 {
-    <div class="badges">
-        <span class="sale"></span>
-    </div>
+    if (Model.CustomerPriceAvailable)
+    {
+        <div class="price-label">
+            <span>@Model.DiscountPriceString</span>
+        </div>
+        <div class="price-label member-price-secondary">
+            <span>@Model.CustomerClubMemberPriceString</span>
+        </div>
+        <div class="price-label old-price-third">
+            <span>@Model.PriceString</span>
+        </div>
+    }
+    else
+    {
+        <div class="price-label">
+            <span>@Model.DiscountPriceString</span>
+        </div>
+        <div class="price-label old-price">
+            <span>@Model.PriceString</span>
+        </div>
+    }
+
 }
+else
+{
+    if (Model.CustomerPriceAvailable)
+    {
+        <div class="price-label member-price-primary">
+            <span>@Model.CustomerClubMemberPriceString</span>
+        </div>
+        <div class="price-label old-price">
+            <span>@Model.PriceString</span>
+        </div>
+    }
+    else
+    {
+        <div class="price-label">
+            <span>@Model.PriceString</span>
+        </div>
+    }
+}
+

@@ -24,6 +24,7 @@ using EPiServer.Shell.ObjectEditing;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Catalog.Objects;
+using Mediachase.Commerce.Customers;
 using Mediachase.Search;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories;
@@ -205,16 +206,13 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public ProductListViewModel Populate(IMarket market)
         {
-            UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-
-            ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, market, CustomerContext.Current.CurrentContact)
             {
                 PriceString = this.GetDisplayPrice(market),
                 BrandName = Facet_Brand,
-                Country = Country,
+                Country = Country
             };
-            ICurrentMarket currentMarket = ServiceLocator.Current.GetInstance<ICurrentMarket>();
-            productListViewModel.PriceAmount = this.GetDefaultPriceAmount(currentMarket.GetCurrentMarket());
+            productListViewModel.PriceAmount = this.GetDefaultPriceAmount(market);
             return productListViewModel;
         }
 

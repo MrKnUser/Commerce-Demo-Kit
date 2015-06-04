@@ -66,5 +66,16 @@ namespace OxxCommerceStarterKit.Core.Extensions
                 contact[Constants.Metadata.Customer.HasPassword] = hasPassword;
             }
         }
+
+        public static bool IsCustomerClubMember(this CustomerContact contact)
+        {
+            if (contact != null && (contact.CustomerGroup != null && contact.CustomerGroup == Constants.CustomerGroup.CustomerClub))
+            {
+                return true;
+            }
+            return false;
+        }
+
+
     }
 }

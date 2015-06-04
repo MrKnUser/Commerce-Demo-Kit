@@ -12,6 +12,7 @@ using OxxCommerceStarterKit.Web.Models.ViewModels;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Mediachase.Commerce.Customers;
 using OxxCommerceStarterKit.Core.Models;
 
 namespace OxxCommerceStarterKit.Web.Models.Catalog
@@ -146,7 +147,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)
         {
-            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket)
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket, CustomerContext.Current.CurrentContact)
             {
                 BrandName = Facet_Brand
             };

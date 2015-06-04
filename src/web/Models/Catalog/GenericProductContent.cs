@@ -15,6 +15,7 @@ using EPiServer.DataAnnotations;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
+using Mediachase.Commerce.Customers;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Core.Models;
 using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
@@ -144,7 +145,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
              // Works for models where all variations usually have the same price (and discount)
              var variation = this.GetFirstVariation();
 
-             ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
+             ProductListViewModel productListViewModel = new ProductListViewModel(this, market, CustomerContext.Current.CurrentContact)
              {
                  BrandName = Facet_Brand,
                  PriceString = variation.GetDisplayPrice(market),

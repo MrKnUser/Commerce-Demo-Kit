@@ -1,24 +1,21 @@
 ﻿@model ProductListViewModel
 @{
     Layout = null;
-    string price = string.IsNullOrEmpty(Model.PriceString) == false ? Model.PriceString : "";
     bool hasDiscount = string.IsNullOrEmpty(Model.DiscountPriceString) == false;
-    string discount = hasDiscount ? Model.DiscountPriceString : "";
+    bool hasCustomerClubPrice = string.IsNullOrEmpty(Model.CustomerClubMemberPriceString) == false;
 }
-<div class="price-label">
-    @if (hasDiscount)
+<div class="badges">
+
+    @if (Model.InStock == false)
     {
-        <span>@discount</span>
+        <span class="out"></span>
     }
-    else
+    else if (Model.CustomerPriceAvailable)
     {
-        <span>@price</span>
+        <span class="sale"></span>
+    }
+    else if (Model.DiscountPriceAvailable)
+    {
+        <span class="sale"></span>
     }
 </div>
-@if (hasDiscount) {
-    <div class="price-label old-price">
-        <span>@price</span>
-    </div>
-}
-
-

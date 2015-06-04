@@ -25,6 +25,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Shell.ObjectEditing;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
+using Mediachase.Commerce.Customers;
 using Microsoft.Ajax.Utilities;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Web.EditorDescriptors;
@@ -186,7 +187,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
             var variation = this.GetFirstVariation();
 
-            ProductListViewModel productListViewModel = new ProductListViewModel(this, market)
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, market, CustomerContext.Current.CurrentContact)
             {
                 NewItemText = NewItemText,
                 PriceString = variation.GetDisplayPrice(market),

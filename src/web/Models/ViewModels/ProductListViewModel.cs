@@ -17,6 +17,7 @@ using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
+using Mediachase.Commerce.Customers;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Core.Models;
 using OxxCommerceStarterKit.Web.Models.Catalog;
@@ -33,52 +34,72 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
             _urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
         }
 
-        public ProductListViewModel(VariationContent content, Mediachase.Commerce.IMarket currentMarket) : this()
+        public ProductListViewModel(VariationContent content, 
+            IMarket currentMarket, 
+            CustomerContact currentContact) : this()
         {
-            Code = content.Code;
-            ContentLink = content.ContentLink;
-            DisplayName = content.DisplayName;
-            ProductUrl = _urlResolver.GetUrl(ContentLink);
             ImageUrl = content.GetDefaultImage();
-            PriceString = content.GetDisplayPrice(currentMarket);
-            PriceAmount = content.GetDefaultPriceAmount(currentMarket);
-            ContentType = content.GetType().Name;
-            IsVariation = true;
-            var discountPriceAmount =  content.GetDiscountPrice();
-            DiscountPriceAmount = GetPriceWithCheck(discountPriceAmount);
-            DiscountPriceString = GetDisplayPriceWithCheck(discountPriceAmount);
             AllImageUrls = content.AssetUrls();
-            Overview = content.GetPropertyValue("Overview");
-            Description = content.GetPropertyValue("Description");
-            AverageRating = content.GetPropertyValue<double>("AverageRating");
+            IsVariation = true;
 
-            if (string.IsNullOrEmpty(Overview))
-                Overview = Description;
+            PopulateCommonData(content, currentMarket, currentContact);
+
+            PopulatePrices(content, currentMarket);
+
         }
 
-        public ProductListViewModel(ProductBase content, IMarket currentMarket) : this()
+        public ProductListViewModel(ProductBase content, 
+            IMarket currentMarket,
+            CustomerContact currentContact)
+            : this()
         {
-            Code = content.Code;
-            ContentLink = content.ContentLink;
-            DisplayName = content.DisplayName;
-            ProductUrl = _urlResolver.GetUrl(ContentLink);
             ImageUrl = content.GetDefaultImage();
-            ContentType = content.GetType().Name;
             IsVariation = false;
             AllImageUrls = content.AssetUrls();
+
+            PopulateCommonData(content, currentMarket, currentContact);
+        }
+
+        protected void PopulateCommonData(EntryContentBase content, IMarket currentMarket, CustomerContact currentContact)
+        {
+            Code = content.Code;
+            ContentLink = content.ContentLink;
+            DisplayName = content.DisplayName;
+            ProductUrl = _urlResolver.GetUrl(ContentLink);
             Description = content.GetPropertyValue("Description");
             Overview = content.GetPropertyValue("Overview");
             AverageRating = content.GetPropertyValue<double>("AverageRating");
 
+            InStock = content.GetStock() > 0;
+
+            ContentType = content.GetType().Name;
+
             if (string.IsNullOrEmpty(Overview))
                 Overview = Description;
 
+            CurrentContactIsCustomerClubMember = currentContact.IsCustomerClubMember();
+
         }
 
-        protected void PopulateCommonData(ProductBase content, IMarket currentMarket)
+        protected void PopulatePrices(VariationContent content, IMarket currentMarket)
         {
+            PriceString = content.GetDisplayPrice(currentMarket);
+            PriceAmount = content.GetDefaultPriceAmount(currentMarket);
 
+            var discountPriceAmount = content.GetDiscountPrice();
+            DiscountPriceAmount = GetPriceWithCheck(discountPriceAmount);
+            DiscountPriceString = GetDisplayPriceWithCheck(discountPriceAmount);
+
+            DiscountPriceAvailable = DiscountPriceAmount > 0;
+
+            var customerClubPriceAmount = content.GetCustomerClubPrice();
+            CustomerClubMemberPriceAmount = GetPriceWithCheck(customerClubPriceAmount);
+            CustomerClubMemberPriceString = GetDisplayPriceWithCheck(customerClubPriceAmount);
+
+            CustomerPriceAvailable = CustomerClubMemberPriceAmount > 0;
         }
+
+        
 
         private double GetPriceWithCheck(PriceAndMarket price)
         {
@@ -96,10 +117,17 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public string NewItemText { get; set; }
         public string Description { get; set; }
         public ContentReference ContentLink { get; set; }
+        
+        // Pricing
         public string PriceString { get; set; }
         public double PriceAmount { get; set; }
         public string DiscountPriceString { get; set; }
         public double DiscountPriceAmount { get; set; }
+        public string CustomerClubMemberPriceString { get; set; }
+        public double CustomerClubMemberPriceAmount { get; set; }
+        public bool CustomerPriceAvailable { get; set; }
+        public bool DiscountPriceAvailable { get; set; }
+
         public string BrandName { get; set; }
         public Dictionary<string, ContentReference> Images { get; set; }
         public Dictionary<string, string> Variants { get; set; }
@@ -111,5 +139,8 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public List<string> AllImageUrls { get; set; }
         public string Overview { get; set; }
         public bool IsVariation { get; set; }
+        public bool CurrentContactIsCustomerClubMember { get; set; }
+        public bool InStock { get; set; }
+
     }
 }

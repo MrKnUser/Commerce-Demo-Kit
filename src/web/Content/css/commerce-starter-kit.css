@@ -1,4 +1,5 @@
-﻿/*@import "commerce-starter-kit/_variables.less";
+﻿/* Theme variables we want to reuse */
+/*@import "commerce-starter-kit/_variables.less";
 @import "commerce-starter-kit/_header.less";
 @import "commerce-starter-kit/_footer.less";
 @import "commerce-starter-kit/_hotSpotImage.less";
@@ -1080,4 +1081,24 @@ img.img-sepia-100 {
 }
 img.img-sepia-50 {
   -webkit-filter: sepia(100%);
+}
+.tile .price-label.old-price-third {
+  background: #b2b2b2;
+  top: 94px;
+  text-decoration: line-through;
+  -webkit-border-radius: 0 0 0 5px;
+  -moz-border-radius: 0 0 0 5px;
+  border-radius: 0 0 0 5px;
+}
+.tile .price-label.member-price-primary {
+  background: #ff6f69;
+  text-decoration: none;
+}
+.tile .price-label.member-price-secondary {
+  background: #ff6f69;
+  top: 47px;
+  text-decoration: none;
+  -webkit-border-radius: 0 0 0 0;
+  -moz-border-radius: 0 0 0 0;
+  border-radius: 0 0 0 0;
 }

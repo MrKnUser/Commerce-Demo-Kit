@@ -13,6 +13,7 @@ using EPiServer.DataAnnotations;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using Mediachase.Commerce;
+using Mediachase.Commerce.Customers;
 using OxxCommerceStarterKit.Core.Extensions;
 using OxxCommerceStarterKit.Core.Models;
 using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
@@ -119,7 +120,7 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
 
         public ProductListViewModel Populate(Mediachase.Commerce.IMarket currentMarket)
         {
-            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket);
+            ProductListViewModel productListViewModel = new ProductListViewModel(this, currentMarket, CustomerContext.Current.CurrentContact);
             
             return productListViewModel;
         }
