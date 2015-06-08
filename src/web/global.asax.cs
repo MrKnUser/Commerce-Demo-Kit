@@ -176,5 +176,6 @@ namespace OxxCommerceStarterKit.Web
         /// Virtual path to folder with static graphics, such as "~/Static/gfx/"
         /// </summary>
         public const string StaticGraphicsFolderPath = "~/Content/images/";
+        public const string NoImageUrl = "/globalassets/system/no-image.png";
     }
 }

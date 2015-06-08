@@ -42,6 +42,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public IEnumerable<ChromeLanguageInfo> Languages { get; set; }
         public ContentArea GlobalFooterContent { get; set; }
         public string HomePageUrl { get; set; }
+        public string ColorScheme { get; set; }
 
         //TODO: Remove after configuration
         public bool ShowWarning

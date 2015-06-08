@@ -1,5 +1,9 @@
 ﻿@import url('/content/bootstrap.css');
+@import url('/content/css/styles.css');
+/* Import order is important */
 /*@fontSerif: "Georgia", "Serif";*/
+/*@import "../less/mixins.less";
+@import "../less/type.less";*/
 body {
   background: transparent;
   background-image: none;
@@ -13,15 +17,15 @@ body {
 h1 {
   EditMenuTitle: "Headings";
   EditMenuName: "Header 1";
-  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 22px;
-  margin: 0 0 12px;
+  font-size: 2.25em;
 }
 h2 {
   EditMenuName: "Header 2";
-  font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  margin: 28px 0 3px;
+  font-size: 1.75em;
+}
+h3 {
+  EditMenuName: "Header 3";
+  font-size: 1.5em;
 }
 img.img-rounded {
   EditMenuTitle: Images;
@@ -54,11 +58,9 @@ p {
     font-size: 14px;
 	line-height: 21px;
 
-	*/
-  margin: 0 0 10px;
-}
-p strong {
-  font-weight: normal;
+	
+	margin: 0 0 10px;
+        */
 }
 p a,
 a:visited {

@@ -2,6 +2,16 @@
 @{
     var chrome = (Chrome)ViewBag.Chrome;
     Layout = null;
+    var description = Model.Description;
+    if (string.IsNullOrEmpty(description))
+    {
+        description = Model.Overview;
+    }
+    const int maxLen = 300;
+    if (description != null && description.Length > maxLen)
+    {
+        description = description.Substring(0, maxLen);
+    }
 }
 <div class="productRow col-sm-12">
     <div class="tile">
@@ -15,7 +25,7 @@
             <a href="@Model.ProductUrl">
                 <h3 class="name">@Model.DisplayName</h3>
             </a>
-            <p>@Model.Description</p>
+            <p>@Html.Raw(description)</p>
             <div class="tools">
                 @{ double rating = Model.AverageRating; }
 

@@ -1,4 +1,3 @@
-
 /* Theme variables we want to reuse */
 @import "../less/variables.less";
 
@@ -148,7 +147,11 @@ a {
 
 #frontpage {
     .block {
-        margin-bottom: 26px;
+        margin-bottom: 20px;
+    }
+
+    .productRow {
+        margin-bottom: 5px;
     }
 
     .alert {
@@ -168,14 +171,14 @@ a {
     padding-left: 20px;
 }
 
-h1 {
+/*h1 {
     font-size: 32px;
     margin: 0 0 20px;
 }
 
 h2 {
     font-size: 22px;
-}
+}*/
 
 .loader {
     text-align: center;
@@ -274,6 +277,7 @@ h2 {
     cursor: pointer;
     -webkit-transition: color .3s ease;
     -moz-transition: color .3s ease;
+    -o-transition: color .3s ease;
     transition: color .3s ease;
 }
 
@@ -420,3 +424,12 @@ img.img-sepia-50 {
         text-decoration: line-through;
     }
 }*/
+
+/* Title Block */
+h1.titleBlock, h2.titleBlock {
+    margin-bottom: 0;
+}
+
+.catalog-single .relatedProducts .old-price {
+    margin: 0;
+}

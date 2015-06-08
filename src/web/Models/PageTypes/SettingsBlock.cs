@@ -17,6 +17,7 @@ using EPiServer.DataAnnotations;
 using EPiServer.Shell.ObjectEditing;
 using EPiServer.SpecializedProperties;
 using EPiServer.Web;
+using OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories;
 using OxxCommerceStarterKit.Web.Models.Blocks;
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
@@ -122,12 +123,6 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 		public virtual ContentReference SearchPage { get; set; }
 
 		[Searchable(false)]
-		[Display(Name = "Show Prices For Related Products",
-			GroupName = SystemTabNames.Settings,
-			Order = 120)]
-		public virtual bool ShowRelatedProductPrices { get; set; }
-
-		[Searchable(false)]
 		[Display(Name = "Error 500 title",
 			GroupName = SystemTabNames.Settings,
 			Order = 130)]
@@ -163,7 +158,6 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
         [UIHint(UIHint.Textarea)]
 		public virtual string HeaderScripts { get; set; }
 
-
 	    [Display(
 	        GroupName = SystemTabNames.Settings,
 	        Order = 220,
@@ -171,5 +165,14 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
             Description = "If selected, an order shipment will automatically be released, skipping the pick list.")]
 	    [CultureSpecific(false)]
 	    public virtual  bool ReleaseShipmentAutomatically { get; set; }
-	}
+
+        [Searchable(false)]
+        [CultureSpecific]
+        [Display(Name = "Color scheme",
+            GroupName = SystemTabNames.Settings,
+            Order = 240)]
+        [SelectOne(SelectionFactoryType = typeof(ColorSchemeSelectionFactory))]
+        public virtual string Scheme { get; set; }
+
+    }
 }

@@ -15,7 +15,9 @@ using EPiServer.Framework.Web;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Mvc;
+using OxxCommerceStarterKit.Web.Controllers;
 using OxxCommerceStarterKit.Web.Models.Blocks;
+using OxxCommerceStarterKit.Web.Models.PageTypes;
 
 namespace OxxCommerceStarterKit.Web.Business.Rendering
 {
@@ -27,11 +29,11 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
 
 		public static void OnTemplateResolved(object sender, TemplateResolverEventArgs args)
 		{
-			//Disable DefaultPageController for page types that shouldn't have any renderer as pages
-			//if (args.ItemToRender is IContainerPage && args.SelectedTemplate != null && args.SelectedTemplate.TemplateType == typeof(DefaultPageController))
-			//{
-			//	args.SelectedTemplate = null;
-			//}
+			// Disable DefaultPageController for page types that shouldn't have any renderer as pages
+			if (args.ItemToRender is IContainerPage && args.SelectedTemplate != null && args.SelectedTemplate.TemplateType == typeof(DefaultPageController))
+			{
+				args.SelectedTemplate = null;
+			}
 		}
 
         /// <summary>
@@ -59,6 +61,29 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
                 AvailableWithoutTag = false,
                 Default = false
             });
+
+            viewTemplateModelRegistrator.Add(typeof(ArticlePage), new TemplateModel()
+            {
+                Name = "Article rendered in Full view",
+                Inherit = true,
+                Tags = new[] { WebGlobal.ContentAreaTags.FullWidth },
+                Path = BlockPath("ArticlePage.Full.cshtml"),
+                TemplateTypeCategory = TemplateTypeCategories.MvcPartialView,
+                AvailableWithoutTag = false,
+                Default = false
+            });
+
+            viewTemplateModelRegistrator.Add(typeof(ArticleWithSidebarPage), new TemplateModel()
+            {
+                Name = "Article with sidebar rendered in Full view",
+                Inherit = true,
+                Tags = new[] { WebGlobal.ContentAreaTags.FullWidth },
+                Path = BlockPath("ArticlePage.Full.cshtml"),
+                TemplateTypeCategory = TemplateTypeCategories.MvcPartialView,
+                AvailableWithoutTag = false,
+                Default = false
+            });
+
 
             // All Slider blocks are rendered specially
             viewTemplateModelRegistrator.Add(typeof(VariationContent), new TemplateModel()

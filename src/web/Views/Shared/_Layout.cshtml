@@ -21,6 +21,11 @@
       <script src="@Url.Content("~/Scripts/libraries/respond.min.js")"></script>
     <![endif]-->
     @Styles.Render("~/bundles/css")
+    @if (string.IsNullOrEmpty(chrome.ColorScheme) == false)
+    {
+        <link href="@Url.Content("~/Content/css/colors/" + chrome.ColorScheme + ".css")" rel="stylesheet" type="text/css" />
+    }
+        
     <!--Modernizr-->
     <script src="@Url.Content("~/Content/js/libs/modernizr.custom.js")"></script>
     <!--Adding Media Queries Support for IE8-->

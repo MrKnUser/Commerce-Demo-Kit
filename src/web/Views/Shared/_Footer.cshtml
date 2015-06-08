@@ -17,9 +17,6 @@
     </div>
     <div class="container">
         <nav role="navigation" class="menu-footer">
-
-
-
             <div class="copyright row">
                 @if (Model.FooterMenu != null)
                 {
@@ -31,14 +28,9 @@
                     }
                 }
 
-                @Html.PropertyFor(p => p.SocialMediaIcons, new { CustomTag = "", ChildrenCustomTagName = "", CssClass = "col-lg-6 social", ChildrenCssClass = "pull-left", EditContainerClass = "social-media" })
+                @Html.PropertyFor(p => p.SocialMediaIcons, new { ChildrenCustomTagName = "", CssClass = "col-lg-6 social", ChildrenCssClass = "pull-left", EditContainerClass = "social-media" })
 
-                </div>
-
-
-
-
-
+            </div>
         </nav>
     </div>
 </div>

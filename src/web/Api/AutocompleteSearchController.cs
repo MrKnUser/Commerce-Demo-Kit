@@ -51,7 +51,7 @@ namespace OxxCommerceStarterKit.Web.Api
                                 a => a.Fit, a => a.Description.ToString(), a => string.Join(",", a.ParentCategoryName))
                             .InAllField()
                             .Filter(a => a.Language.Match(language))
-                            .Filter(z => !z.DefaultImageUrl.Match("/siteassets/system/no-image.png"))
+                            .Filter(z => !z.DefaultImageUrl.Match(WebGlobal.NoImageUrl))
                             // remove products without image
                             .Take(3)
                             .Select(y => new AutoCompleteObject

@@ -126,7 +126,7 @@ namespace OxxCommerceStarterKit.Core.Extensions
 
         /// <summary>
         /// Gets the default image for a product. If none can be found, returns
-        /// /siteassets/system/no-image.png (with a preset if specified)
+        /// /globalassets/system/no-image.png (with a preset if specified)
         /// </summary>
         /// <param name="productContent">Content of the product.</param>
         /// <param name="preset">The preset.</param>
@@ -138,7 +138,7 @@ namespace OxxCommerceStarterKit.Core.Extensions
             if (defaultImage != null)
                 return defaultImage;
 
-            string noImage = "/siteassets/system/no-image.png";
+            string noImage = "/globalassets/system/no-image.png";
             if (preset != null)
             {
                 noImage = noImage + "?preset=" + preset;

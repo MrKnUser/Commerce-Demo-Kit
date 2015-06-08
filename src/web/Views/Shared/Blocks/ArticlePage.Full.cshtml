@@ -1,0 +1,34 @@
+﻿@using OxxCommerceStarterKit.Web
+@using OxxCommerceStarterKit.Web.Helpers
+@using OxxCommerceStarterKit.Web.Models.ViewModels
+@model OxxCommerceStarterKit.Web.Models.PageTypes.ArticleWithSidebarPage
+@{
+	Layout = null;
+	var page = new PageListBlockItemViewModel(Model);
+	var tag = ViewData["Tag"] as string;
+    page.ImageExtraUrlParameters = "preset=imagehalf";
+}
+<section class="info-block">
+    <div class="container">
+        <div class="row">
+            <div class="text col-lg-5 col-md-5 col-sm-6">
+                <h2><a href="@Url.ContentUrl(page.ContentLink)">@page.Title</a></h2>
+                @if (!string.IsNullOrEmpty(page.Text))
+                {
+                    <p>@Html.Raw(page.Text)</p>
+                }
+                <a class="btn-outlined btn-primary" href="@Url.ContentUrl(page.ContentLink)">Read more</a>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-6">
+                @if (!string.IsNullOrEmpty(page.ImageUrl))
+                {
+                    <img src="@(page.ImageUrl)" class="center-block" />
+                }
+                else
+                {
+                    <img src="@(WebGlobal.NoImageUrl)" class="center-block" />
+                }
+            </div>
+        </div>
+    </div>
+</section>

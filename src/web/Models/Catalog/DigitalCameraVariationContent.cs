@@ -14,6 +14,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using Mediachase.Commerce.Customers;
 using OxxCommerceStarterKit.Core.Models;
+using OxxCommerceStarterKit.Web.Business.Rendering;
 
 namespace OxxCommerceStarterKit.Web.Models.Catalog
 {
@@ -173,5 +174,6 @@ namespace OxxCommerceStarterKit.Web.Models.Catalog
                 IsModified = true;
             }
         }
+
     }
 }

@@ -29,7 +29,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
      GroupName = WebGlobal.GroupNames.Default,
 	 Order = 100)]
     [SiteImageUrl(thumbnail: EditorThumbnail.Content)]
-	public class ArticlePage : SitePage, IHasFeatureProduct
+	public class ArticlePage : SitePage, IHasFeatureProduct, IHasListViewContentItem
     {
 		[Display(
 			Name = "List view image",
@@ -86,5 +86,51 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
         public virtual FeatureProductBlock FeatureProduct { get; set; }
 
 
-	}
+        public IListViewContentItem GetListViewContentItem()
+        {
+            var item = new ListViewContentItem();
+            item.Title = PageTitle ?? PageName;
+            item.Intro = ListViewText;
+            if(Intro != null)
+            {
+                item.Intro =  this.Intro.ToString();
+            }
+            if(this.ListViewImage != null)
+            {
+                item.ImageUrl = this.ListViewImage.ToString();
+            }
+            else
+            {
+                item.ImageUrl = WebGlobal.NoImageUrl;
+            }
+
+            item.ContentLink = this.ContentLink;
+
+            return item;
+        }
+    }
+
+    public interface IHasListViewContentItem
+    {
+        IListViewContentItem GetListViewContentItem();
+    }
+
+    public interface IListViewContentItem
+    {
+        string Title { get; set; }
+        string Intro { get; set; }
+        string ImageUrl { get; set; }
+        ContentReference ContentLink { get; set; }
+    }
+
+    public class ListViewContentItem : IListViewContentItem
+    {
+        public string Title { get; set; }
+
+        public string Intro { get; set; }
+
+        public string ImageUrl { get; set; }
+
+        public ContentReference ContentLink { get; set; }
+    }
 }

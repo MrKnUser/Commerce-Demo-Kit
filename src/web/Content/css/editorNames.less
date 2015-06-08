@@ -1,6 +1,10 @@
-﻿@import "commerce-starter-kit/_variables.less";
-
+﻿/* Import order is important */
 @import url('/content/bootstrap.css');
+@import url('/content/css/styles.css');
+@import "commerce-starter-kit/_variables.less";
+@import "../less/variables.less";
+/*@import "../less/mixins.less";
+@import "../less/type.less";*/
 
 body {
 	background: transparent;
@@ -17,17 +21,19 @@ body {
 h1 {
   EditMenuTitle: "Headings";
   EditMenuName: "Header 1";
-	font-family: @fontSerif;
-	font-size: 22px;
-	margin: 0 0 12px;
+	font-size: @font-size-h1;
 }
 
 h2 {
   EditMenuName: "Header 2";
-	font-family: @fontSerif;
-	font-size: 18px;
-	margin: 28px 0 3px;
+	font-size: @font-size-h2;
 }
+
+h3 {
+  EditMenuName: "Header 3";
+	font-size: @font-size-h3;
+}
+
 
 img.img-rounded {
   EditMenuTitle: Images;
@@ -68,11 +74,9 @@ p {
     font-size: 14px;
 	line-height: 21px;
 
-	*/
+	
 	margin: 0 0 10px;
-}
-p strong {
-	font-weight: normal;
+        */
 }
 p a, a:visited {
 	color: #2d839e;

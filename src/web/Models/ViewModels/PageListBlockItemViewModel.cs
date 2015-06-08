@@ -27,12 +27,11 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 				{
 					if (_imageUrl.Contains("?"))
 					{
-						var split = _imageUrl.Split('?');
-						return split[0] + ImageExtraUrlParameters + "?" + split[1];
+                        return _imageUrl + "&" + ImageExtraUrlParameters;
 					}
 					else
 					{
-						return _imageUrl + ImageExtraUrlParameters;
+						return _imageUrl + "?" + ImageExtraUrlParameters;
 					}
 				}
 
@@ -47,55 +46,27 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
 
 		public PageListBlockItemViewModel(PageData page)
 		{
-			Title = page.Name;
-			ContentLink = page.ContentLink;
-			Text = GetPageListBlockItemText(page);
-			_imageUrl = GetPageListBlockItemImageUrl(page);
-		}
+		    IHasListViewContentItem hasListViewContent = page as IHasListViewContentItem;
+            if(hasListViewContent != null)
+            {
+                var urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
 
-		private string GetPageListBlockItemText(PageData page)
-		{
-			if (page is BlogPage)
-			{
-				var blog = (BlogPage)page;
-				return blog.ListViewText;
-			}
-			else if (page is ArticlePage)
-			{
-				var article = (ArticlePage)page;
-				if (!string.IsNullOrEmpty(article.ListViewText))
-				{
-					return article.ListViewText;
-				}
-				else
-				{
-					if (article.Intro != null)
-					{
-						return article.Intro.ToHtmlString().StripHtml().StripPreviewText(255);
-					}
-				}
-			}
-			return string.Empty;
-		}
-		private string GetPageListBlockItemImageUrl(PageData page)
-		{
-			if (page is BlogPage)
-			{
-				var blog = (BlogPage)page;
-				if (blog.ListViewImage != null)
-				{
-					return ServiceLocator.Current.GetInstance<UrlResolver>().GetUrl(blog.ListViewImage.ToString());
-				}
-			}
-			else if (page is ArticlePage)
-			{
-				var article = (ArticlePage)page;
-				if (article.ListViewImage != null)
-				{
-					return ServiceLocator.Current.GetInstance<UrlResolver>().GetUrl(article.ListViewImage.ToString());
-				}
-			}
-			return "";
+                var item = hasListViewContent.GetListViewContentItem();
+                Title = item.Title;
+                Text = item.Intro;
+                ContentLink = item.ContentLink;
+                if(ContentReference.IsNullOrEmpty(item.ContentLink) == false)
+                {
+                    _imageUrl = urlResolver.GetUrl(item.ImageUrl);
+                }
+            }
+            else
+            {
+                // Fallback for other types
+                Title = page.Name;
+                ContentLink = page.ContentLink;
+            }
+
 		}
 	}
 }

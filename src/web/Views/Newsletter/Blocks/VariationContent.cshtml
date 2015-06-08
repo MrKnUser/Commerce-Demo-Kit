@@ -1,5 +1,6 @@
 ﻿@using EPiServer.ServiceLocation
 @using OxxCommerceStarterKit.Core.Extensions
+@using OxxCommerceStarterKit.Web
 @using OxxCommerceStarterKit.Web.Extensions
 @using OxxCommerceStarterKit.Web.Models.ViewModels.Simple
 @using OxxCommerceStarterKit.Web.Services
@@ -20,11 +21,11 @@
 			@if (image != null)
 			{
 				<img class="img-responsive center" src="@(image + imageWidth)" />
-			}
-			else
-			{
-				<img class="img-responsive no-image center" src="/siteassets/system/no-image.png@(imageWidth)">
-			}
+            }
+            else
+            {
+                <img class="img-responsive no-image center" src="@(WebGlobal.NoImageUrl)@(imageWidth)">
+            }
 		</a>
 	</div>
 	<h2 class="name">@Model.DisplayName</h2>

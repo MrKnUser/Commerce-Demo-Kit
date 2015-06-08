@@ -244,10 +244,14 @@
     <Content Include="Content\less\bootstrap\utilities.less" />
     <Content Include="Content\less\bootstrap\variables.less" />
     <Content Include="Content\less\bootstrap\wells.less" />
-    <Content Include="Content\less\bootstrap\_notes\dwsync.xml" />
     <Content Include="Content\less\buttons.less" />
+    <Content Include="Content\less\colors\color.css">
+      <DependentUpon>color.less</DependentUpon>
+    </Content>
     <Content Include="Content\less\colors\color.less" />
-    <Content Include="Content\less\colors\_notes\dwsync.xml" />
+    <Content Include="Content\less\colors\color.min.css">
+      <DependentUpon>color.css</DependentUpon>
+    </Content>
     <Content Include="Content\less\font-awesome\bordered-pulled.less" />
     <Content Include="Content\less\font-awesome\core.less" />
     <Content Include="Content\less\font-awesome\fixed-width.less" />
@@ -261,18 +265,15 @@
     <Content Include="Content\less\font-awesome\spinning.less" />
     <Content Include="Content\less\font-awesome\stacked.less" />
     <Content Include="Content\less\font-awesome\variables.less" />
-    <Content Include="Content\less\font-awesome\_notes\dwsync.xml" />
     <Content Include="Content\less\footer.less" />
     <Content Include="Content\less\forms.less" />
     <Content Include="Content\less\header.less" />
     <Content Include="Content\less\home.less" />
     <Content Include="Content\less\lightGallery\lightGallery.less" />
-    <Content Include="Content\less\lightGallery\_notes\dwsync.xml" />
     <Content Include="Content\less\mixins.less" />
     <Content Include="Content\less\modals.less" />
     <Content Include="Content\less\navi.less" />
     <Content Include="Content\less\nouislider\nouislider.less" />
-    <Content Include="Content\less\nouislider\_notes\dwsync.xml" />
     <Content Include="Content\less\outlined-iconset\outlined-iconset.css">
       <DependentUpon>outlined-iconset.less</DependentUpon>
     </Content>
@@ -280,7 +281,6 @@
     <Content Include="Content\less\outlined-iconset\outlined-iconset.min.css">
       <DependentUpon>outlined-iconset.css</DependentUpon>
     </Content>
-    <Content Include="Content\less\outlined-iconset\_notes\dwsync.xml" />
     <Content Include="Content\less\pages.less" />
     <Content Include="Content\less\scaffolding.less" />
     <Content Include="Content\less\shop.less" />
@@ -294,7 +294,6 @@
     <Content Include="Content\less\type.less" />
     <Content Include="Content\less\variables.less" />
     <Content Include="Content\less\widgets.less" />
-    <Content Include="Content\less\_notes\dwsync.xml" />
     <Content Include="Content\masterslider\blank.gif" />
     <Content Include="Content\masterslider\skins\black-1\black-skin-1-retina.png" />
     <Content Include="Content\masterslider\skins\black-1\black-skin-1.png" />
@@ -861,6 +860,8 @@
     <Content Include="Views\Newsletter\Blocks\ProductContent.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_PriceLabel.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_Badges.cshtml" />
+    <Content Include="Views\Shared\Blocks\ArticleWithSidebarPage.cshtml" />
+    <Content Include="Views\Shared\Blocks\ArticlePage.Full.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1349,11 +1350,15 @@
     <Compile Include="Business\FacetRegistry\NumericFilterAttribute.cs" />
     <Compile Include="Business\Initialization\CreatingContentSetDefaultsHandler.cs" />
     <Compile Include="Business\Payment\PaymentRegistry.cs" />
+    <Compile Include="Business\Rendering\IContainerPage.cs" />
+    <Compile Include="Business\UIDescriptor\ContainerPageUIDescriptor.cs" />
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
+    <Compile Include="EditorDescriptors\SelectionFactories\HeadingElementSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterNumericFieldSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterStringFieldSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\NumericOperatorSelectionFactory.cs" />
+    <Compile Include="EditorDescriptors\SelectionFactories\ColorSchemeSelectionFactory.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
     <Compile Include="Business\DependencyResolverInitialization.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
@@ -1474,6 +1479,7 @@
     <Compile Include="Models\FindModels\GenericFindVariant.cs" />
     <Compile Include="Business\FacetRegistry\StringFilterAttribute.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
+    <Compile Include="Models\PageTypes\ContainerPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />
     <Compile Include="Models\PageTypes\Payment\GenericPaymentPage.cs" />

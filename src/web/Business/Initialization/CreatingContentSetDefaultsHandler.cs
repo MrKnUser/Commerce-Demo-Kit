@@ -42,14 +42,14 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
                 return;
 
             var content = contentEventArgs.Content;
-            
-            SetPropertyValue(content, "Heading", content.Name);
-
-            SetPropertyValue(content, "Title", content.Name);
-
-            SetPropertyValue(content, "PageName", content.Name);
-
-           //if (contentEventArgs.Content is ISetDefaults)
+            if (content != null)
+            {
+                SetPropertyValue(content, "Heading", content.Name);
+                SetPropertyValue(content, "Title", content.Name);
+                SetPropertyValue(content, "Header", content.Name);
+                SetPropertyValue(content, "PageName", content.Name);
+            }
+            //if (contentEventArgs.Content is ISetDefaults)
             //{
 
             //}

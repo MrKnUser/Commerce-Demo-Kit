@@ -80,12 +80,16 @@ namespace OxxCommerceStarterKit.Web
 
             // Note - //"~/Content/bootstrap.min.css", // Part of the template
             bundles.Add(new StyleBundle("~/bundles/css").Include(
-				"~/Content/css/jqueryui/jquery-ui-1.10.4.custom.min.css",
+                "~/Content/css/jqueryui/jquery-ui-1.10.4.custom.min.css",
                 "~/Content/masterslider/style/masterslider.css",
                 "~/Content/css/flexslider/flexslider.css",
                 "~/Content/css/lightslider.css")
-                .Include("~/Content/less/styles.css", new CssRewriteUrlTransform()) // Fix font-references
-                .Include("~/Content/css/commerce-starter-kit.css")); // Bushido template 
+                // Original Bushido template  + Fix font-references
+                .Include("~/Content/less/styles.css", new CssRewriteUrlTransform())
+                // Our Overrides
+                .Include("~/Content/css/commerce-starter-kit.css")); 
+                
+            // .Include("~/Content/css/colors/color-scheme2.css")); // Color Scheme
 
             bundles.Add(new ScriptBundle("~/bundles/angular_app").IncludeDirectory(
                 "~/Scripts/app/", "*.js",true

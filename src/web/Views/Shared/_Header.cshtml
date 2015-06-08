@@ -1,11 +1,11 @@
 ﻿@using EPiServer.Core
 @using EPiServer.Web.Mvc.Html
-@using Mediachase.Commerce.Customers
 @using OxxCommerceStarterKit.Web.Helpers
 @using OxxCommerceStarterKit.Web.Models.PageTypes
 @using OxxCommerceStarterKit.Web.Models.PageTypes.System
 @model Chrome
 @{
+
     bool isInEditMode = Html.IsInEditMode();
     ChromeLanguageInfo selectedLanguage = Model.Languages.FirstOrDefault(l => l.Selected == true);
     if (selectedLanguage == null) // Odd case
@@ -13,19 +13,31 @@
         selectedLanguage = new ChromeLanguageInfo() { DisplayName = "Unknown", Selected = true, Url = "/", EditUrl = "/" };
     }
 
+    var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var homePage = contentLoader.Get<HomePage>(new ContentReference(ContentReference.StartPage.ID));
+
+    var loginPage = Model.LoginPage != null ? contentLoader.Get<LoginPage>(Model.LoginPage) : null;
+    var accountPage = Model.AccountPage != null ? contentLoader.Get<PageData>(Model.AccountPage) : null;
+    var wishlistPage = homePage.Settings.WishListPage != null ? contentLoader.Get<PageData>(homePage.Settings.WishListPage) : null;
 }
 <!--Search Form-->
-<form class="search-form closed" action="@Url.ContentUrl(Model.SearchPage)">
-    <div class="container">
-        <div class="close-search"><i class="icon-delete"></i></div>
-        <div class="form-group" ng-controller="AutoCompleteController">
-            <label class="sr-only" for="SearchText">@Html.Translate("/common/layout/search_label")</label>
-            <span data-valmsg-replace="true" data-valmsg-for="SearchText" class="field-validation-valid"></span>
-            <input id="SearchText" type="text" class="form-control" placeholder="@Html.Translate("/common/layout/search_placeholder")" name="q" data-val-required="@string.Format(Html.Translate("/common/validation/required"), Html.Translate("/common/layout/search_label"))" required="required" data-val="true" ng-init="init('@Model.Language')" auto-complete />
-            <button type="submit"><i class="icon-magnifier"></i></button>
+@if (Model.SearchPage != null)
+{
+    <form class="search-form closed" action="@Url.ContentUrl(Model.SearchPage)">
+        <div class="container">
+            <div class="close-search">
+                <i class="icon-delete"></i>
+            </div>
+            <div class="form-group" ng-controller="AutoCompleteController">
+                <label class="sr-only" for="SearchText">@Html.Translate("/common/layout/search_label")</label>
+                <span data-valmsg-replace="true" data-valmsg-for="SearchText" class="field-validation-valid"></span>
+                <input id="SearchText" type="text" class="form-control" placeholder="@Html.Translate("/common/layout/search_placeholder")" name="q" data-val-required="@string.Format(Html.Translate("/common/validation/required"), Html.Translate("/common/layout/search_label"))" required="required" data-val="true" ng-init="init('@Model.Language')" auto-complete />
+                <button type="submit"><i class="icon-magnifier"></i></button>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+}
+
 <!--Split Background-->
 <div class="left-bg"></div>
 <div class="right-bg"></div>
@@ -75,28 +87,26 @@
         <button class="search-btn btn-outlined-invert"><i class="icon-magnifier"></i></button>
         <div class="middle-btns">
             @{
-                var contentLoader = EPiServer.ServiceLocation.ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
-                var homePage = contentLoader.Get<HomePage>(new EPiServer.Core.ContentReference(EPiServer.Core.ContentReference.StartPage.ID));
-                var loginPage = contentLoader.Get<LoginPage>(homePage.Settings.LoginPage);
-                var wishlistPage = contentLoader.Get<WishListPage>(homePage.Settings.WishListPage);
-                var accountPage = contentLoader.Get<ArticlePage>(Model.AccountPage);
-                var cartPage = contentLoader.Get<CartSimpleModulePage>(homePage.Settings.CartPage);
-                var checkOutPage = contentLoader.Get<CheckoutPage>(homePage.Settings.CheckoutPage);
-                <a class="btn-outlined-invert" href="@Url.ContentUrl(wishlistPage.ContentLink)"><i class="icon-heart"></i> <span>@wishlistPage.Name</span></a>
-                if (User.Identity.IsAuthenticated)
+                if (wishlistPage != null)
                 {
-                    <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(Model.AccountPage)"><i class="icon-profile"></i> <span>@accountPage.Name</span></a>
+                    <a class="btn-outlined-invert" href="@Url.ContentUrl(wishlistPage.ContentLink)"><i class="icon-heart"></i> <span>@wishlistPage.Name</span></a>
                 }
-                else
+                if (loginPage != null && accountPage != null)
                 {
-                    <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(loginPage.ContentLink)"><i class="icon-profile"></i> <span>@loginPage.Name</span></a>
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(accountPage.ContentLink)"><i class="icon-profile"></i> <span>@accountPage.Name</span></a>
+                    }
+                    else
+                    {
+                        <a class="login-btn btn-outlined-invert" href="@Url.ContentUrl(loginPage.ContentLink)"><i class="icon-profile"></i> <span>@loginPage.Name</span></a>
+                    }
                 }
-
             }
         </div>
 
         <div class="cart-btn" ng-mouseenter="GetCartItemsToHeader('@Model.Language')">
-            <a class="btn btn-outlined-invert" href="@Url.ContentUrl(cartPage.ContentLink)"><i class="icon-shopping-cart-content"></i><span></span></a>
+            <a class="btn btn-outlined-invert" href="@Url.ContentUrl(homePage.Settings.CartPage)"><i class="icon-shopping-cart-content"></i><span></span></a>
             <!--Cart Dropdown-->
             <div class="cart-dropdown">
                 <span></span><!--Small rectangle to overlap Cart button-->
@@ -116,8 +126,8 @@
                 </div>
                 <div class="footer group">
                     <div class="buttons">
-                        <a class="btn btn-outlined-invert" href="@Url.ContentUrl(checkOutPage.ContentLink)"><i class="icon-download"></i>Checkout</a>
-                        <a class="btn btn-outlined-invert" href="@Url.ContentUrl(cartPage.ContentLink)"><i class="icon-shopping-cart-content"></i>To cart</a>
+                        <a class="btn btn-outlined-invert" href="@Url.ContentUrl(Model.CheckoutPage)"><i class="icon-download"></i>Checkout</a>
+                        <a class="btn btn-outlined-invert" href="@Url.ContentUrl(homePage.Settings.CartPage)"><i class="icon-shopping-cart-content"></i>To cart</a>
                     </div>
                     <div class="total">{{cartTotalAmount}}</div>
                 </div>
@@ -125,71 +135,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-@*<nav class="navbar navbar-default navbar-static-top navbar-main" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header logo">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainmenu-top">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="@Model.HomePageUrl"><img src="@Model.LogoImageUrl?preset=imagenarrow" class="img-responsive" alt="Logo"></a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="mainmenu-top">
-                <ul class="nav navbar-nav navbar-left">
-                    <li>
-                        @if (this.User.Identity.IsAuthenticated)
-                        {
-                            @Html.ContentLink(@CustomerContext.Current.CurrentContact.FullName, Model.AccountPage ?? ContentReference.StartPage)
-                        }
-                        else
-                        {
-                            @Html.ContentLink(Model.LoginPage)
-                        }
-                    </li>
-                    @if (Model.TopLeftMenu != null)
-                    {
-                        @Html.Partial("_TopMenu", Model.TopLeftMenu)
-                    }
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    @Html.Partial("_TopMenu", Model.TopRightMenu, new ViewDataDictionary() { { "ShowCountsOnLinks", true } })
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="@selectedLanguage.IconUrl" />&nbsp;@selectedLanguage.DisplayName <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            @foreach (var langInfo in Model.Languages)
-                            {
-                                if (langInfo.Selected == false)
-                                {
-                                    if (isInEditMode == false)
-                                    {
-                                        <li><a href="/@langInfo.Url"><img src="@langInfo.IconUrl" />&nbsp;@langInfo.DisplayName</a></li>
-                                    }
-                                    else
-                                    {
-                                        <li><a href="@langInfo.EditUrl" target="_top"><img src="@langInfo.IconUrl" />&nbsp;@langInfo.DisplayName</a></li>
-                                    }
-                                }
-                            }
-                        </ul>
-                    </li>
-                </ul>
-
-
-
-
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>*@
-
-
-

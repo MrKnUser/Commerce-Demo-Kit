@@ -13,8 +13,10 @@ using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using EPiServer.Shell.ObjectEditing;
+using Newtonsoft.Json;
 using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Web.Business.Rendering;
+using OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories;
 
 namespace OxxCommerceStarterKit.Web.Models.Blocks
 {
@@ -31,6 +33,14 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
 			Order = 10)]
 		[CultureSpecific]
 		public virtual string Title{ get; set; }
+
+        [Display(
+            GroupName = SystemTabNames.Content,
+            Name = "Header Style",
+            Order = 20)]
+        [SelectOne(SelectionFactoryType = typeof(HeadingElementSelectionFactory))]
+        public virtual string HeaderStyle { get; set; }
+
 
         [Display(
             GroupName = SystemTabNames.Content,
@@ -65,5 +75,14 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
 	        get { return WebGlobal.ContentAreaTags.FullWidth; }
 	    }
 
+	    public override void SetDefaultValues(ContentType contentType)
+	    {
+	        base.SetDefaultValues(contentType);
+            HeaderStyle = DefaultHeaderElement;
+	    }
+
+        [JsonIgnore]
+        [ScaffoldColumn(false)]
+	    public string DefaultHeaderElement = "h2";
 	}
 }

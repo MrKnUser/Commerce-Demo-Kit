@@ -6,6 +6,18 @@
         return string.IsNullOrEmpty(value) ? "" : style + ": " + value + ";";
     }
 }
-<h1 class="titleBlock" style="@GetStyle("color", Model.TextColor) @GetStyle("background-color", Model.TextBackgroundColor) @GetStyle("padding", Model.Padding) @GetStyle("margin", Model.Margin)">
+@helper GetHeaderElement()
+{
+    if (string.IsNullOrEmpty(Model.HeaderStyle) == false)
+    {
+        @Model.HeaderStyle
+    }
+    else
+    {
+        @Model.DefaultHeaderElement
+    }
+}
+
+<@GetHeaderElement() class="titleBlock" style="@GetStyle("color", Model.TextColor) @GetStyle("background-color", Model.TextBackgroundColor) @GetStyle("padding", Model.Padding) @GetStyle("margin", Model.Margin)">
     @Html.PropertyFor(m => m.Title)
-</h1>
+</@GetHeaderElement()>

@@ -90,6 +90,7 @@ namespace OxxCommerceStarterKit.Web.Business
                     var startPage = contentLoader.Get<HomePage>(ContentReference.StartPage);
                     chrome.Language = startPage.LanguageBranch;
                     chrome.Languages = GetLanguageInfo(startPage);
+                    chrome.ColorScheme = settings.Scheme;
 
                     filterContext.Controller.ViewBag.Chrome = chrome;
                 }
