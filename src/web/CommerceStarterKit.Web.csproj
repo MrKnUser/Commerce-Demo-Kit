@@ -1347,6 +1347,7 @@
     <Compile Include="Business\FacetRegistry\FacetStringListDefinition.cs" />
     <Compile Include="Business\FacetRegistry\IProductFilterRegistry.cs" />
     <Compile Include="Business\FacetRegistry\NumericFilterAttribute.cs" />
+    <Compile Include="Business\Initialization\CreatingContentSetDefaultsHandler.cs" />
     <Compile Include="Business\Payment\PaymentRegistry.cs" />
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
