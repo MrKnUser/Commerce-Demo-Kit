@@ -1,0 +1,12 @@
+﻿@using OxxCommerceStarterKit.Web.Helpers
+@model OxxCommerceStarterKit.Web.Models.ViewModels.IPageViewModel<OxxCommerceStarterKit.Web.Models.PageTypes.ArticlePage>
+@if (Html.IsInEditMode())
+{
+    <h1>@Html.PropertyFor(m => m.CurrentPage.PageTitle)</h1>
+}
+else if (string.IsNullOrEmpty(Model.CurrentPage.PageTitle) == false)
+{
+    // We want to change the title on mobile
+    <h1 class="hidden-xs">@Model.CurrentPage.PageTitle</h1>
+    <h1 class="hidden-sm hidden-md hidden-lg">@Model.CurrentPage.Name</h1>
+}

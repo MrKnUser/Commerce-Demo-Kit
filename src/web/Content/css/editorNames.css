@@ -40,6 +40,16 @@ img.img-thumbnail {
 img.img-responsive {
   EditMenuName: Responsive;
 }
+img.img-float-top-left {
+  EditMenuName: Float Top Left;
+  float: left;
+  padding: 0 0.5em 0.5em 0;
+}
+img.img-float-top-right {
+  EditMenuName: Float Top Right;
+  float: right;
+  padding: 0 0 0.5em 0.5em;
+}
 img.img-grayscale {
   EditMenuName: "Grayscale";
   -webkit-filter: grayscale(100%);

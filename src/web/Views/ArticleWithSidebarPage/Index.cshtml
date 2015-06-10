@@ -6,12 +6,9 @@
 <div class="article-page">
     <div class="row">
         <div class="pre-content">
-            @Html.PropertyFor(x => x.CurrentPage.PreBodyContent, new { CssClass = "overflow-hidden" })
+            @Html.PropertyFor(x => x.CurrentPage.PreBodyContent, new { CssClass = "overflow-hidden clearfix" })
         </div>
-        @if (!string.IsNullOrEmpty(Model.CurrentPage.PageTitle) || Html.IsInEditMode())
-        {
-            <h1>@Html.PropertyFor(m => m.CurrentPage.PageTitle)</h1>
-        }
+        @Html.Partial("PagePartials/_PageTitle", Model)
     </div>
     <div class="row">
         <div class="col-md-8">
