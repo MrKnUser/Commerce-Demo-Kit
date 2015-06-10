@@ -1,26 +1,28 @@
 ﻿@using OxxCommerceStarterKit.Web
 @model OxxCommerceStarterKit.Web.Models.ViewModels.PageListBlockItemViewModel
+@{
+    var textColSize = "col-md-8";
+    if (string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        textColSize = "col-md-12";
+    }
+}
 <div class="row tile">
-	@if (Model.ImageUrl != null)
-	{
-		<div class="col-md-6">
-			<a href="@Url.ContentUrl(Model.ContentLink)">
-				@if (!string.IsNullOrEmpty(Model.ImageUrl)) { 
-				<img src="@(Model.ImageUrl)" class="img-responsive" />
-				}
-				else
-				{
-					<img src="@(WebGlobal.NoImageUrl)" />
-				}
-			</a>
-		</div>
-	}
-    <div class="col-md-6">
+    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+    {
+        <div class="col-md-4">
+            <a href="@Url.ContentUrl(Model.ContentLink)">
+                <img src="@(Model.ImageUrl)?preset=listmedium" class="img-responsive" />
+            </a>
+        </div>
+    }
+
+    <div class="@(textColSize)">
         <h2><a class="name" href="@Url.ContentUrl(Model.ContentLink)">@Model.Title</a></h2>
         @if (!string.IsNullOrEmpty(Model.Text))
         {
             <p>@Html.Raw(Model.Text)</p>
         }
+        <a class="btn-sm btn-outlined btn-primary" href="@Url.ContentUrl(Model.ContentLink)">@Html.TranslateFallback("/general/readmore", "Read more")</a>
     </div>
 </div>
-

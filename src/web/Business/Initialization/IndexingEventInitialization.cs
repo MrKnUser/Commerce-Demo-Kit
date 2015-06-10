@@ -60,7 +60,6 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
 
 			// other page types we do not want in the index
 			ContentIndexer.Instance.Conventions.ForInstancesOf<ReceiptPage>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<ContentFolder>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<OrdersPage>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<HomePage>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<CartSimpleModulePage>().ShouldIndex(x => false);
@@ -72,9 +71,11 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
 			ContentIndexer.Instance.Conventions.ForInstancesOf<DefaultPage>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<LoginPage>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<CheckoutPage>().ShouldIndex(x => false);
-			// others
+			
+            // Others
 			ContentIndexer.Instance.Conventions.ForInstancesOf<NotificationSettings>().ShouldIndex(x => false);
-			// blocks
+			
+            // Blocks
 			ContentIndexer.Instance.Conventions.ForInstancesOf<YouTubeBlock>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<ViddlerBlock>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<VimeoBlock>().ShouldIndex(x => false);
@@ -84,8 +85,10 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
 			ContentIndexer.Instance.Conventions.ForInstancesOf<SliderBlock>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<OneTwoColumnsBlock>().ShouldIndex(x => false);
 			ContentIndexer.Instance.Conventions.ForInstancesOf<PageListBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<ImageFile>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<GenericFile>().ShouldIndex(x => false);
+            
+            // We want editors to be able to search for images
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<ImageFile>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<GenericFile>().ShouldIndex(x => false);
 
 			// hook up events for indexing
 			IContentEvents events = ServiceLocator.Current.GetInstance<IContentEvents>();

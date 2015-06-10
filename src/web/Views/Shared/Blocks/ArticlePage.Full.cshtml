@@ -17,7 +17,7 @@
                 {
                     <p>@Html.Raw(page.Text)</p>
                 }
-                <a class="btn-outlined btn-primary" href="@Url.ContentUrl(page.ContentLink)">Read more</a>
+                <a class="btn-outlined btn-primary" href="@Url.ContentUrl(page.ContentLink)">@Html.TranslateFallback("/general/readmore", "Read more")</a>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-6">
                 @if (!string.IsNullOrEmpty(page.ImageUrl))

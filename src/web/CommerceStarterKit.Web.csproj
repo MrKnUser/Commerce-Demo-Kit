@@ -829,13 +829,11 @@
     <Content Include="Views\DeveloperTools\MetaClass.cshtml" />
     <Content Include="Views\DeveloperTools\Index.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_ProductListView.cshtml" />
-    <Content Include="Views\WineProductSearchBlock\Index.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_ProductListViewFull.cshtml" />
     <Content Include="Views\Shared\ProductPartials\_ProductListViewHalf.cshtml" />
     <Content Include="Views\DibsPayment\CancelPayment.cshtml" />
     <Content Include="Views\Shared\Blocks\HtmlBlock.Full.cshtml" />
     <Content Include="Views\Shared\SetupWarning.cshtml" />
-    <Content Include="Views\WineProductSearchBlock\FindError.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\VideoFile.cshtml" />
     <Content Include="Views\GenericPayment\Index.cshtml" />
     <Content Include="Views\Shared\Error\_EmptyCartError.cshtml" />
@@ -1481,6 +1479,9 @@
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\ContainerPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
+    <Compile Include="Models\ViewModels\Contracts\IHasListViewContentItem.cs" />
+    <Compile Include="Models\ViewModels\Contracts\IListViewContentItem.cs" />
+    <Compile Include="Models\ViewModels\ListViewContentItem.cs" />
     <Compile Include="Models\PageTypes\Payment\BasePaymentPage.cs" />
     <Compile Include="Models\PageTypes\Payment\GenericPaymentPage.cs" />
     <Compile Include="Models\ViewModels\Contracts\ISliderContent.cs" />
@@ -1488,7 +1489,6 @@
     <Compile Include="Models\ViewModels\Email\NotificationSettings.cs" />
     <Compile Include="Models\ViewModels\GenericProductViewModel.cs" />
     <Compile Include="Models\ViewModels\Payment\CancelPaymentViewModel.cs" />
-    <Compile Include="Controllers\WineProductSearchBlockController.cs" />
     <Compile Include="EditorDescriptors\Attributes\TagSelectorApiAttribute.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\WineClosureSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\WineColorSelectionFactory.cs" />
@@ -1496,7 +1496,6 @@
     <Compile Include="EditorDescriptors\TagSelectorEditorDescriptor.cs" />
     <Compile Include="Helpers\PriceHelper.cs" />
     <Compile Include="Models\Blocks\Base\FindBaseBlockType.cs" />
-    <Compile Include="Models\Blocks\WineProductSearchBlock.cs" />
     <Compile Include="EditorDescriptors\FloatingEditorDescriptor.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\GenericSelectionFactory.cs" />
     <Compile Include="Models\CustomProperties\PropertyTagList.cs">

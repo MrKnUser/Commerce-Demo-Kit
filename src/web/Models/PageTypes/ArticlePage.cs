@@ -20,6 +20,8 @@ using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Web.EditorDescriptors;
 using OxxCommerceStarterKit.Web.Models.Blocks;
 using OxxCommerceStarterKit.Web.Models.CustomProperties;
+using OxxCommerceStarterKit.Web.Models.ViewModels;
+using OxxCommerceStarterKit.Web.Models.ViewModels.Contracts;
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
 {
@@ -99,38 +101,10 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
             {
                 item.ImageUrl = this.ListViewImage.ToString();
             }
-            else
-            {
-                item.ImageUrl = WebGlobal.NoImageUrl;
-            }
 
             item.ContentLink = this.ContentLink;
 
             return item;
         }
-    }
-
-    public interface IHasListViewContentItem
-    {
-        IListViewContentItem GetListViewContentItem();
-    }
-
-    public interface IListViewContentItem
-    {
-        string Title { get; set; }
-        string Intro { get; set; }
-        string ImageUrl { get; set; }
-        ContentReference ContentLink { get; set; }
-    }
-
-    public class ListViewContentItem : IListViewContentItem
-    {
-        public string Title { get; set; }
-
-        public string Intro { get; set; }
-
-        public string ImageUrl { get; set; }
-
-        public ContentReference ContentLink { get; set; }
     }
 }

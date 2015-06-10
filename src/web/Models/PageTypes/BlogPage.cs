@@ -24,45 +24,13 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
      GroupName = WebGlobal.GroupNames.Default,
 	 Order = 100)]
     [SiteImageUrl(thumbnail: EditorThumbnail.Content)]
-	public class BlogPage : SitePage
+    public class BlogPage : ArticlePage
 	{
-		[Display(
-			Name = "List view image",
-			GroupName = SystemTabNames.Content,
-			Order = 1)]
-		[UIHint(UIHint.Image)]
-		public virtual Url ListViewImage { get; set; }
-
-		[Display(
-			Name = "List view text",
-			GroupName = SystemTabNames.Content,
-			Order = 10)]
-		public virtual string ListViewText { get; set; }
-
-		[Display(
-			Name = "Content area top",
-			GroupName = SystemTabNames.Content,
-			Order = 15)]
-		public virtual ContentArea PreBodyContent { get; set; }
-
-		[Display(
-			Name = "Page title",
-			GroupName = SystemTabNames.Content,
-			Order = 20)]
-		[CultureSpecific]
-		public virtual string PageTitle { get; set; }
-
 		[Display(
 			Name = "Sub page title",
 			GroupName = SystemTabNames.Content,
 			Order = 30)]
 		[CultureSpecific]
 		public virtual string SubPageTitle { get; set; }
-
-		[Display(
-		Name = "Content area bottom",
-		GroupName = SystemTabNames.Content,
-		Order = 40)]
-		public virtual ContentArea BodyContent { get; set; }
 	}
 }

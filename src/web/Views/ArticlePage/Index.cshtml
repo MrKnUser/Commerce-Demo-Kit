@@ -7,9 +7,11 @@
 	<div class="pre-content">
 		@Html.PropertyFor(x => x.CurrentPage.PreBodyContent, new { CssClass = "overflow-hidden clearfix" })
 	</div>
-	@if(!string.IsNullOrEmpty(Model.CurrentPage.PageTitle) || Html.IsInEditMode()) {
-	<h1>@Html.PropertyFor(m => m.CurrentPage.PageTitle)</h1>
-	}
+	@if (!string.IsNullOrEmpty(Model.CurrentPage.PageTitle) || Html.IsInEditMode())
+    {
+        <h1 class="hidden-xs">@Html.PropertyFor(m => m.CurrentPage.PageTitle)</h1>
+        <h1 class="visible-xs-block">@Html.PropertyFor(m => m.CurrentPage.Name)</h1>
+    }
 
 	@if(Model.CurrentPage.Intro != null || Html.IsInEditMode()) {
 	<div class="lead">@Html.PropertyFor(m => m.CurrentPage.Intro)</div>

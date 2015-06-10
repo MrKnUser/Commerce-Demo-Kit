@@ -115,7 +115,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
             return pages;
         }
 
-                public IEnumerable<PageData> FindPagesByPageType(PageReference pageLink, bool recursive, int pageTypeId)
+        public IEnumerable<PageData> FindPagesByPageType(PageReference pageLink, bool recursive, int pageTypeId)
         {
             if (PageReference.IsNullOrEmpty(pageLink))
             {
@@ -130,8 +130,9 @@ namespace OxxCommerceStarterKit.Web.Controllers
         }
 
 
-                private IEnumerable<PageData> FindPagesByPageTypeRecursively(PageReference pageLink, int pageTypeId)
+        private IEnumerable<PageData> FindPagesByPageTypeRecursively(PageReference pageLink, int pageTypeId)
         {
+            // TODO! Use Find instead of FindPagesWithCriteria
             var criteria = new PropertyCriteriaCollection
                                {
                                     new PropertyCriteria

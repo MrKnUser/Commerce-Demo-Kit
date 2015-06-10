@@ -13,6 +13,7 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
 using OxxCommerceStarterKit.Web.Extensions;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
+using OxxCommerceStarterKit.Web.Models.ViewModels.Contracts;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
