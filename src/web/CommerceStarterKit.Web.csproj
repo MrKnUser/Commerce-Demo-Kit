@@ -860,6 +860,7 @@
     <Content Include="Views\Shared\ProductPartials\_Badges.cshtml" />
     <Content Include="Views\Shared\Blocks\ArticleWithSidebarPage.cshtml" />
     <Content Include="Views\Shared\Blocks\ArticlePage.Full.cshtml" />
+    <Content Include="Views\Shared\PagePartials\_PageTitle.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
