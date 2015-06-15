@@ -351,6 +351,10 @@
     <Content Include="lang\bvnerrorhandlerSV.xml" />
     <Content Include="lang\EPiCode.Newsletter.EN.xml" />
     <Content Include="lang\EPiCode.Newsletter.NO.xml" />
+    <Content Include="modulesbin\AppleWatchChannel.dll" />
+    <Content Include="modules\AppleWatchChannel\ClientResources\AppleWatch\AppleWatch.css" />
+    <Content Include="modules\AppleWatchChannel\ClientResources\AppleWatch\applewatch.png" />
+    <Content Include="modules\AppleWatchChannel\Views\Pages\AppleWatchPageTemplate.aspx" />
     <Content Include="modules\BVNetwork.FileNotFound.RedirectGadget\Content\Images\BaseSprite.png" />
     <Content Include="modules\BVNetwork.FileNotFound.RedirectGadget\Content\Images\Gradients.png" />
     <Content Include="modules\BVNetwork.FileNotFound.RedirectGadget\Content\Images\gray_border.png" />
@@ -485,6 +489,9 @@
     <Content Include="modules\_protected\EPiServer.Social\module.config" />
     <Content Include="modules\_protected\EPiServer.Social\EPiServerSocial.config" />
     <Content Include="modules\_protected\EPiServer.Social\EPiServer.Social.zip" />
+    <Content Include="modules\AppleWatchChannel\Views\web.config" />
+    <Content Include="modules\AppleWatchChannel\Views\Pages\AppleWatch.cshtml" />
+    <Content Include="modules\AppleWatchChannel\module.config" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -916,6 +923,9 @@
     <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="AppleWatchChannel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AppleWatchChannel.1.1.12\lib\net40\AppleWatchChannel.dll</HintPath>
     </Reference>
     <Reference Include="AuthorizeNet">
       <HintPath>..\..\packages\AuthorizeNet.1.8.2\lib\AuthorizeNet.dll</HintPath>
