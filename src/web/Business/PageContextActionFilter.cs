@@ -74,10 +74,11 @@ namespace OxxCommerceStarterKit.Web.Business
             {
                 OpenGraphModel openGraph = new OpenGraphModel()
                 {
-                    Title =  model.CurrentPage.MetaTitle
+                    // TODO: Add domain too
+                    Url = _urlResolver.GetUrl(model.CurrentPage.ContentLink),
+                    Title =  model.CurrentPage.MetaTitle,
                     ContentType = model.CurrentPage.ContentTypeName()
                 };
-
                 filterContext.Controller.ViewBag.OpenGraph = openGraph;
                 
             }
