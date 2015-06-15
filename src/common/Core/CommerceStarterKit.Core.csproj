@@ -294,7 +294,6 @@
     <Compile Include="Extensions\PriceExtensions.cs" />
     <Compile Include="Extensions\PurchaseOrderExtensions.cs" />
     <Compile Include="Extensions\ShippingExtensions.cs" />
-    <Compile Include="Initialization\CommerceInitialization.cs" />
     <Compile Include="Models\PriceAndMarket.cs" />
     <Compile Include="Models\SiteCategoryContent.cs" />
     <Compile Include="Models\SiteSubCategoryContent.cs" />

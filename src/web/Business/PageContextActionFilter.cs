@@ -23,8 +23,10 @@ using EPiServer.ServiceLocation;
 using EPiServer.UI.Report;
 using EPiServer.Web;
 using EPiServer.Web.Routing;
+using OxxCommerceStarterKit.Web.Helpers;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
+using OxxCommerceStarterKit.Web.Models.ViewModels.Contracts;
 
 namespace OxxCommerceStarterKit.Web.Business
 {
@@ -81,21 +83,33 @@ namespace OxxCommerceStarterKit.Web.Business
             var siteUrl = SiteDefinition.Current.SiteUrl.ToString();
             siteUrl = siteUrl.TrimEnd('/');
 
-            OpenGraphModel openGraph = new OpenGraphModel()
-            {
-                Url = siteUrl + _urlResolver.GetUrl(model.CurrentPage.ContentLink),
-                Title = model.CurrentPage.MetaTitle,
-                ContentType = model.CurrentPage.ContentTypeName()
-            };
+            OpenGraphModel openGraph = new OpenGraphModel();
+            openGraph.Url = siteUrl + _urlResolver.GetUrl(model.CurrentPage.ContentLink);
+            openGraph.ContentType = "article";
 
-            // See if there is an image we can use
-            var imageUrlProp = model.CurrentPage.GetPropertyValue<Url>("ListViewImage");
-            if (imageUrlProp != null)
+            // The list view model works best
+            var listItem = model.CurrentPage as IHasListViewContentItem;
+            if (listItem != null)
             {
-                var imageUrl = _urlResolver.GetUrl(new UrlBuilder(imageUrlProp), ContextMode.Default);
-                openGraph.ImageUrl = siteUrl + imageUrl + "?preset=ogpage";
+                var listItemModel = listItem.GetListViewContentItem();
+                openGraph.Description = listItemModel.Intro;
+                openGraph.Title = listItemModel.Title;
+                openGraph.ImageUrl = siteUrl + listItemModel.ImageUrl + "?preset=ogpage";
             }
-            
+            else
+            {
+                openGraph.Title = model.CurrentPage.MetaTitle;
+                openGraph.Description = model.CurrentPage.MetaDescription;
+                // See if there is an image we can use
+                var imageUrlProp = model.CurrentPage.GetPropertyValue<Url>("ListViewImage");
+                if (imageUrlProp != null)
+                {
+                    var imageUrl = _urlResolver.GetUrl(new UrlBuilder(imageUrlProp), ContextMode.Default);
+                    openGraph.ImageUrl = siteUrl + imageUrl + "?preset=ogpage";
+                }
+            }
+            openGraph.Description = HtmlHelpers.ScrubHtml(openGraph.Description);
+
             filterContext.Controller.ViewBag.OpenGraph = openGraph;
         }
 

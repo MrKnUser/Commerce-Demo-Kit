@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -548,5 +549,16 @@ namespace OxxCommerceStarterKit.Web.Helpers
 
 		#endregion
 
+        /// <summary>
+        /// Scrubs the HTML for most markup.
+        /// </summary>
+        /// <param name="value">The html content to scrub.</param>
+        /// <returns></returns>
+        public static string ScrubHtml(string value)
+        {
+            var step1 = Regex.Replace(value, @"<[^>]+>|&nbsp;", "").Trim();
+            var step2 = Regex.Replace(step1, @"\s{2,}", " ");
+            return step2;
+        }
 	}
 }
