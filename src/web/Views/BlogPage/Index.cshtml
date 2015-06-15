@@ -77,6 +77,10 @@
                         <input type="text" class="form-control" name="search-blog" placeholder="Search">
                         <button type="submit"></button>
                     </form>
+
+                    @*Content area on the right hand side of the page*@
+                    @Html.PropertyFor(x => x.CurrentPage.SidebarContent, new { CssClass = "overflow-hidden clearfix" })
+
                     <!--Tags-->
                     <h3>Tags</h3>
                     <div class="tags">

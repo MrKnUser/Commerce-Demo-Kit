@@ -12,9 +12,26 @@
 
 @import "commerce-starter-kit/_productDialog.less";
 @import "commerce-starter-kit/blocks/_productTeaserBlock.less";
-@import "commerce-starter-kit/blocks/_video.less";
+
 @import "commerce-starter-kit/blocks/_productsearchblock.less";
 @import "commerce-starter-kit/blocks/_titleblock.less";*/
+.video-container {
+  position: relative;
+  padding-bottom: 43%;
+  padding-top: 31px;
+  height: 0;
+  overflow: hidden;
+}
+.video-container iframe,
+.video-container object,
+.video-container embed,
+.video-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 .banner-container a {
   color: black;
 }
@@ -1152,4 +1169,7 @@ img.img-float-top-left {
 img.img-float-top-right {
   float: right;
   padding: 0 0 0.5em 0.5em;
+}
+.formblock legend {
+  font-size: 1em;
 }

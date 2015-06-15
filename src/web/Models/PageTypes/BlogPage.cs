@@ -32,5 +32,13 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 			Order = 30)]
 		[CultureSpecific]
 		public virtual string SubPageTitle { get; set; }
+
+        [Display(
+        Name = "Sidebar content area",
+        GroupName = SystemTabNames.Content,
+        Order = 55)]
+        [CultureSpecific]
+        public virtual ContentArea SidebarContent { get; set; }
+
 	}
 }
