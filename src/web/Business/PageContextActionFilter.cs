@@ -61,7 +61,7 @@ namespace OxxCommerceStarterKit.Web.Business
                 // This can actually be null if we have a problem with our language settings
                 if (settings != null)
                 {
-                    var chrome = PupulateChrome(homePage, settings);
+                    var chrome = PopulateChrome(homePage, settings);
 
                     filterContext.Controller.ViewBag.Chrome = chrome;
                 }
@@ -72,19 +72,34 @@ namespace OxxCommerceStarterKit.Web.Business
             var model = viewModel as IPageViewModel<SitePage>;
             if (model != null)
             {
-                OpenGraphModel openGraph = new OpenGraphModel()
-                {
-                    // TODO: Add domain too
-                    Url = _urlResolver.GetUrl(model.CurrentPage.ContentLink),
-                    Title =  model.CurrentPage.MetaTitle,
-                    ContentType = model.CurrentPage.ContentTypeName()
-                };
-                filterContext.Controller.ViewBag.OpenGraph = openGraph;
-                
+                PopulateOpenGraph(filterContext, model);
             }
         }
 
-        private Chrome PupulateChrome(HomePage homePage, SettingsBlock settings)
+        protected virtual void PopulateOpenGraph(ResultExecutingContext filterContext, IPageViewModel<SitePage> model)
+        {
+            var siteUrl = SiteDefinition.Current.SiteUrl.ToString();
+            siteUrl = siteUrl.TrimEnd('/');
+
+            OpenGraphModel openGraph = new OpenGraphModel()
+            {
+                Url = siteUrl + _urlResolver.GetUrl(model.CurrentPage.ContentLink),
+                Title = model.CurrentPage.MetaTitle,
+                ContentType = model.CurrentPage.ContentTypeName()
+            };
+
+            // See if there is an image we can use
+            var imageUrlProp = model.CurrentPage.GetPropertyValue<Url>("ListViewImage");
+            if (imageUrlProp != null)
+            {
+                var imageUrl = _urlResolver.GetUrl(new UrlBuilder(imageUrlProp), ContextMode.Default);
+                openGraph.ImageUrl = siteUrl + imageUrl + "?preset=ogpage";
+            }
+            
+            filterContext.Controller.ViewBag.OpenGraph = openGraph;
+        }
+
+        protected virtual Chrome PopulateChrome(HomePage homePage, SettingsBlock settings)
         {
             var chrome = new Chrome();
             chrome.TopLeftMenu = homePage.TopLeftMenu;

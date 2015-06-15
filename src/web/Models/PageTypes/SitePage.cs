@@ -21,7 +21,8 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
     {
         [Display(
             GroupName = WebGlobal.GroupNames.MetaData,
-            Order = 100)]
+            Order = 100,
+            Name = "Meta Title")]
         [CultureSpecific]
         public virtual string MetaTitle
         {
@@ -39,21 +40,24 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 
         [Display(
             GroupName = WebGlobal.GroupNames.MetaData,
-            Order = 200)]
+            Order = 200,
+            Name = "Meta Keywords")]
         [CultureSpecific]
         [BackingType(typeof(PropertyStringList))]
         public virtual string[] MetaKeywords { get; set; }
 
         [Display(
             GroupName = WebGlobal.GroupNames.MetaData,
-            Order = 300)]
+            Order = 300,
+            Name =  "Meta Description")]
         [CultureSpecific]
         [UIHint(UIHint.LongString)]
         public virtual string MetaDescription { get; set; }
 
         [Display(
             GroupName = WebGlobal.GroupNames.MetaData,
-            Order = 400)]
+            Order = 400,
+            Name = "Disable Indexing")]
         [CultureSpecific]
         public virtual bool DisableIndexing { get; set; }
 
