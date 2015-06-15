@@ -894,6 +894,7 @@
     <Content Include="Views\Shared\DisplayTemplates\MediaUrl.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\StringList.cshtml" />
     <Content Include="Views\Shared\_OpenGraphView.cshtml" />
+    <Content Include="Views\Shared\Blocks\FormBlock.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1522,6 +1523,7 @@
     <Compile Include="IIdentityProvider.cs" />
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\FeatureProductBlock.cs" />
+    <Compile Include="Models\Blocks\FormBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\FilterBaseBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\NumericFilterBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\ExistsFilterBlock.cs" />
