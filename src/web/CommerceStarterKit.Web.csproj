@@ -881,6 +881,8 @@
     <Content Include="Views\Shared\Blocks\ArticlePage.Full.cshtml" />
     <Content Include="Views\Shared\PagePartials\_PageTitle.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MediaUrl.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\StringList.cshtml" />
+    <Content Include="Views\Shared\_OpenGraphView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1529,6 +1531,7 @@
     <Compile Include="Models\ViewModels\DigitalCameraVariationViewModel.cs" />
     <Compile Include="Models\ViewModels\Email\NotificationSettings.cs" />
     <Compile Include="Models\ViewModels\GenericProductViewModel.cs" />
+    <Compile Include="Models\ViewModels\OpenGraphModel.cs" />
     <Compile Include="Models\ViewModels\Payment\CancelPaymentViewModel.cs" />
     <Compile Include="EditorDescriptors\Attributes\TagSelectorApiAttribute.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\WineClosureSelectionFactory.cs" />

@@ -15,6 +15,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="msapplication-config" content="none" />
     <title>@ViewBag.Title</title>
+
+    @* Facebook Open Graph *@
+    @Html.Partial("_OpenGraphView")
+
     <link rel="icon" type="image/ico" href="" />
     <!--[if lt IE 9]>
       <script src="@Url.Content("~/Scripts/libraries/html5shiv.js")"></script>

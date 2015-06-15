@@ -1,0 +1,21 @@
+﻿@*@model OxxCommerceStarterKit.Web.Models.ViewModels.OpenGraphModel*@
+@{
+    var openGraph = ViewBag.OpenGraph as OpenGraphModel;
+}
+
+@if (openGraph != null)
+{
+    @WriteMetaTag("og:url", openGraph.Url)
+    @WriteMetaTag("og:type", openGraph.ContentType)
+    @WriteMetaTag("og:title", openGraph.Title)
+    @WriteMetaTag("og:description", openGraph.Description)
+    @WriteMetaTag("og:image", openGraph.ImageUrl)
+}
+
+@helper WriteMetaTag(string property, string value)
+{
+    if (string.IsNullOrEmpty(property) == false && string.IsNullOrEmpty(value) == false)
+    {
+        <meta property="@property" content="@value" />
+    }
+}

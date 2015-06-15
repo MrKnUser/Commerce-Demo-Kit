@@ -18,6 +18,7 @@ using EPiServer;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.Editor;
+using EPiServer.Find.Cms;
 using EPiServer.ServiceLocation;
 using EPiServer.UI.Report;
 using EPiServer.Web;
@@ -60,41 +61,62 @@ namespace OxxCommerceStarterKit.Web.Business
                 // This can actually be null if we have a problem with our language settings
                 if (settings != null)
                 {
-                    var chrome = new Chrome();
-                    chrome.TopLeftMenu = homePage.TopLeftMenu;
-                    chrome.TopRightMenu = homePage.TopRightMenu;
-                    chrome.FooterMenu = GetFooterMenuContent(homePage);
-                    chrome.SocialMediaIcons = homePage.SocialMediaIcons;
-                    chrome.LoginPage = settings.LoginPage;
-                    chrome.AccountPage = settings.AccountPage;
-                    chrome.CheckoutPage = settings.CheckoutPage;
-                    chrome.SearchPage = settings.SearchPage;
-                    if (homePage.LogoImage != null)
-                    {
-                        chrome.LogoImageUrl = _urlResolver.GetUrl(homePage.LogoImage);
-                    }
-                    else
-                    {
-                        chrome.LogoImageUrl = new Url("/Content/Images/commerce-shop-logo.png");
-                    }
-
-                    chrome.HomePageUrl = _urlResolver.GetUrl(homePage.ContentLink);
-
-                    // Note! The natural place for the footer content is in the settings block
-                    // with the rest of the content, but that makes it impossible to edit the
-                    // content area on the page. So we keep it directly on the start page.
-                    chrome.GlobalFooterContent = homePage.GlobalFooterContent;
-
-                    // Set up languages for Chrome
-                    var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-                    var startPage = contentLoader.Get<HomePage>(ContentReference.StartPage);
-                    chrome.Language = startPage.LanguageBranch;
-                    chrome.Languages = GetLanguageInfo(startPage);
-                    chrome.ColorScheme = settings.Scheme;
+                    var chrome = PupulateChrome(homePage, settings);
 
                     filterContext.Controller.ViewBag.Chrome = chrome;
                 }
             }
+
+            var viewModel = filterContext.Controller.ViewData.Model;
+
+            var model = viewModel as IPageViewModel<SitePage>;
+            if (model != null)
+            {
+                OpenGraphModel openGraph = new OpenGraphModel()
+                {
+                    Title =  model.CurrentPage.MetaTitle
+                    ContentType = model.CurrentPage.ContentTypeName()
+                };
+
+                filterContext.Controller.ViewBag.OpenGraph = openGraph;
+                
+            }
+        }
+
+        private Chrome PupulateChrome(HomePage homePage, SettingsBlock settings)
+        {
+            var chrome = new Chrome();
+            chrome.TopLeftMenu = homePage.TopLeftMenu;
+            chrome.TopRightMenu = homePage.TopRightMenu;
+            chrome.FooterMenu = GetFooterMenuContent(homePage);
+            chrome.SocialMediaIcons = homePage.SocialMediaIcons;
+            chrome.LoginPage = settings.LoginPage;
+            chrome.AccountPage = settings.AccountPage;
+            chrome.CheckoutPage = settings.CheckoutPage;
+            chrome.SearchPage = settings.SearchPage;
+            if (homePage.LogoImage != null)
+            {
+                chrome.LogoImageUrl = _urlResolver.GetUrl(homePage.LogoImage);
+            }
+            else
+            {
+                chrome.LogoImageUrl = new Url("/Content/Images/commerce-shop-logo.png");
+            }
+
+            chrome.HomePageUrl = _urlResolver.GetUrl(homePage.ContentLink);
+
+            // Note! The natural place for the footer content is in the settings block
+            // with the rest of the content, but that makes it impossible to edit the
+            // content area on the page. So we keep it directly on the start page.
+            chrome.GlobalFooterContent = homePage.GlobalFooterContent;
+
+            // Set up languages for Chrome
+            var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
+            var startPage = contentLoader.Get<HomePage>(ContentReference.StartPage);
+            chrome.Language = startPage.LanguageBranch;
+            chrome.Languages = GetLanguageInfo(startPage);
+            chrome.ColorScheme = settings.Scheme;
+            return chrome;
         }
 
         public IEnumerable<ChromeLanguageInfo> GetLanguageInfo(PageData page)
