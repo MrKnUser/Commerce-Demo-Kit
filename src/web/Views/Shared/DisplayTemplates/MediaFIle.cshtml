@@ -15,8 +15,6 @@
     {
         var imageFile = (ImageFile)content;
         @Html.Action("Image", "ImageFile", new { currentContent = imageFile, extraImageUrlParameters = ViewData["extraImageUrlParameters"] })
-	    @Html.Action("Image", "ImageFile", new { currentContent = imageFile, extraImageUrlParameters = ViewData["extraImageUrlParameters"] })
-	    
 	}
     else
     {

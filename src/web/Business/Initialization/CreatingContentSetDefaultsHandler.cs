@@ -45,6 +45,7 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
             if (content != null)
             {
                 SetPropertyValue(content, "Heading", content.Name);
+                SetPropertyValue(content, "PageTitle", content.Name);
                 SetPropertyValue(content, "Title", content.Name);
                 SetPropertyValue(content, "Header", content.Name);
                 SetPropertyValue(content, "PageName", content.Name);

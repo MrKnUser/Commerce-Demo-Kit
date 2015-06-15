@@ -14,8 +14,29 @@
 @import "commerce-starter-kit/blocks/_productTeaserBlock.less";
 @import "commerce-starter-kit/blocks/_video.less";
 @import "commerce-starter-kit/blocks/_productsearchblock.less";
-@import "commerce-starter-kit/blocks/_titleblock.less";
-@import "commerce-starter-kit/blocks/_bannerBlock.less";*/
+@import "commerce-starter-kit/blocks/_titleblock.less";*/
+.banner-container a {
+  color: black;
+}
+.banner-container {
+  position: relative;
+}
+.banner-container .caption {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 100%;
+  padding-right: 1em;
+  font-size: 2em;
+  font-size: 2vw;
+}
+.col-sm-12 .banner-container .caption {
+  font-size: 2em;
+  font-size: 2vw;
+}
+.col-md-4 .col-sm-4 .banner-container .caption {
+  font-size: 12px;
+}
 /*@fontSerif: "Georgia", "Serif";*/
 .product-list,
 .productRow {
