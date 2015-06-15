@@ -9,11 +9,12 @@
 }
 @if (!ContentReference.IsNullOrEmpty(Model))
 {
-	var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
-	var content = contentLoader.Get<IContent>(Model);
-	if (content != null && content is ImageFile)
-	{
-		var imageFile = (ImageFile)content;
+    var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
+    var content = contentLoader.Get<IContent>(Model);
+    if (content != null && content is ImageFile)
+    {
+        var imageFile = (ImageFile)content;
+        @Html.Action("Image", "ImageFile", new { currentContent = imageFile, extraImageUrlParameters = ViewData["extraImageUrlParameters"] })
 	    @Html.Action("Image", "ImageFile", new { currentContent = imageFile, extraImageUrlParameters = ViewData["extraImageUrlParameters"] })
 	    
 	}

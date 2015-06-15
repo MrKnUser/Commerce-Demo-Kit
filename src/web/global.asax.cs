@@ -171,6 +171,11 @@ namespace OxxCommerceStarterKit.Web
             public const string Specialized = "Specialized";
         }
 
+        public static class SiteUIHints
+        {
+            public const string Strings = "StringList";
+            public const string MediaUrl = "MediaUrl";
+        }
 
         /// <summary>
         /// Virtual path to folder with static graphics, such as "~/Static/gfx/"

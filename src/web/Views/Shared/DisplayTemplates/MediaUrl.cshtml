@@ -1,0 +1,22 @@
+﻿@using EPiServer.Core
+@using EPiServer.ServiceLocation
+@using EPiServer.Web.Routing
+@using OxxCommerceStarterKit.Web.Models.Files
+@model EPiServer.Url
+
+@{
+	Layout = null;
+}
+@if (Model != null)
+{
+	@Image()
+}
+
+@helper Image()
+{
+    <img src="@(Model.ToString() + (ViewData["extraImageUrlParameters"]))" alt=""
+         @(ViewData.ContainsKey("Width") ? "width='" + @ViewData["Width"] + "'" : "")
+         @(ViewData.ContainsKey("Height") ? "height='" + @ViewData["Height"] + "'" : "")
+         @(ViewData.ContainsKey("CssClass") ? "class='" + @ViewData["CssClass"] + "'" : "")
+         @(ViewData.ContainsKey("CssStyle") ? "style='" + @ViewData["CssStyle"] + "'" : "") />
+}

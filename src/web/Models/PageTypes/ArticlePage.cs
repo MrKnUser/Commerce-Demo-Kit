@@ -37,7 +37,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 			Name = "List view image",
 			GroupName = SystemTabNames.Content,
 			Order = 11)]
-		[UIHint(UIHint.Image)]
+		[UIHint(WebGlobal.SiteUIHints.MediaUrl)]
 		public virtual Url ListViewImage { get; set; }
 
 		[Display(

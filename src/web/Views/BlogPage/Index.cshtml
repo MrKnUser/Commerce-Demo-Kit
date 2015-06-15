@@ -39,6 +39,11 @@
 
                     <!--Post-->
                     <div class="post">
+                        @if (Model.CurrentPage.Intro != null || Html.IsInEditMode())
+                        {
+                            <div class="lead">@Html.PropertyFor(m => m.CurrentPage.Intro)</div>
+                        }                        
+
                         <p class="p-style3">
                             @Html.PropertyFor(m => m.CurrentPage.BodyText)
                         </p>
@@ -65,6 +70,7 @@
 
                 <!--Sidebar-->
                 <div class="col-lg-3 col-md-3">
+                    @Html.PropertyFor(x => x.CurrentPage.ListViewImage, new { extraImageUrlParameters = "?preset=menufeature" })
                     <!--Search Widget-->
                     <h3>Search the blog</h3>
                     <form class="sidebar-search">

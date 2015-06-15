@@ -76,15 +76,16 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
 			ContentIndexer.Instance.Conventions.ForInstancesOf<NotificationSettings>().ShouldIndex(x => false);
 			
             // Blocks
-			ContentIndexer.Instance.Conventions.ForInstancesOf<YouTubeBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<ViddlerBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<VimeoBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<TwoColumnsBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<SocialMediaLinkBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<ButtonWithHelpLinkBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<SliderBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<OneTwoColumnsBlock>().ShouldIndex(x => false);
-			ContentIndexer.Instance.Conventions.ForInstancesOf<PageListBlock>().ShouldIndex(x => false);
+            // We want editors to be able to search for blocks
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<YouTubeBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<ViddlerBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<VimeoBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<TwoColumnsBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<SocialMediaLinkBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<ButtonWithHelpLinkBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<SliderBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<OneTwoColumnsBlock>().ShouldIndex(x => false);
+            //ContentIndexer.Instance.Conventions.ForInstancesOf<PageListBlock>().ShouldIndex(x => false);
             
             // We want editors to be able to search for images
             //ContentIndexer.Instance.Conventions.ForInstancesOf<ImageFile>().ShouldIndex(x => false);

@@ -54,6 +54,8 @@
     <Folder Include="Views\WineSKUPartial\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientResources\Images\icons\layoutIcons24x24.png" />
+    <Content Include="ClientResources\Scripts\editors\StringList.js" />
     <Content Include="ClientResources\Scripts\editors\TagSelector.js" />
     <Content Include="ClientResources\Scripts\editors\HotSpotsEditor.js" />
     <Content Include="ClientResources\Scripts\select2\css\select2-spinner.gif" />
@@ -61,6 +63,8 @@
     <Content Include="ClientResources\Scripts\select2\css\select2.png" />
     <Content Include="ClientResources\Scripts\select2\css\select2x2.png" />
     <Content Include="ClientResources\Scripts\select2\select2.js" />
+    <Content Include="ClientResources\Styles\LayoutIcons.css" />
+    <Content Include="ClientResources\Styles\Styles.css" />
     <Content Include="Content\css\colors\color-default.css" />
     <Content Include="Content\css\colors\color-scheme2.css" />
     <Content Include="Content\css\colors\color-scheme3.css" />
@@ -473,6 +477,14 @@
     <Content Include="Content\less\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
+    <Content Include="modules\_protected\SiteAttentionModule\web.config" />
+    <Content Include="modules\_protected\SiteAttentionModule\SiteAttentionModule.zip" />
+    <Content Include="modules\_protected\SiteAttentionModule\module.config" />
+    <Content Include="modules\_protected\EPiServer.Social\web.config" />
+    <Content Include="modules\_protected\EPiServer.Social\Views\Web.config" />
+    <Content Include="modules\_protected\EPiServer.Social\module.config" />
+    <Content Include="modules\_protected\EPiServer.Social\EPiServerSocial.config" />
+    <Content Include="modules\_protected\EPiServer.Social\EPiServer.Social.zip" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -861,6 +873,7 @@
     <Content Include="Views\Shared\Blocks\ArticleWithSidebarPage.cshtml" />
     <Content Include="Views\Shared\Blocks\ArticlePage.Full.cshtml" />
     <Content Include="Views\Shared\PagePartials\_PageTitle.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\MediaUrl.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1087,6 +1100,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.8.1.0\lib\net45\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
+    <Reference Include="EPiServer.Social">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Social.Configuration">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Social.Models">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="EPiServer.Social.Providers">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.Providers.dll</HintPath>
+    </Reference>
     <Reference Include="EPiServer.UI, Version=8.1.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.8.1.0\lib\net45\EPiServer.UI.dll</HintPath>
@@ -1244,6 +1269,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
+    <Reference Include="SiteAttentionModule">
+      <HintPath>..\..\packages\SiteAttentionModule.2.1.0.1\lib\SiteAttentionModule.dll</HintPath>
+    </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
       <Private>True</Private>
@@ -1358,6 +1386,7 @@
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterStringFieldSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\NumericOperatorSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\ColorSchemeSelectionFactory.cs" />
+    <Compile Include="EditorDescriptors\StringListEditorDescriptor.cs" />
     <Compile Include="Extensions\SearchExtensions.cs" />
     <Compile Include="Business\DependencyResolverInitialization.cs" />
     <Compile Include="Business\FacetRegistry\FacetDefinition.cs" />
@@ -1473,6 +1502,7 @@
     <Compile Include="Models\Catalog\DigitalCameraVariationContent.cs" />
     <Compile Include="Models\Catalog\GenericProductContent.cs" />
     <Compile Include="Models\Catalog\GenericSizeVariationContent.cs" />
+    <Compile Include="Models\CustomProperties\PropertyStringList.cs" />
     <Compile Include="Models\Files\VideoFile.cs" />
     <Compile Include="Business\FacetRegistry\FilterAttribute.cs" />
     <Compile Include="Models\FindModels\GenericFindVariant.cs" />
