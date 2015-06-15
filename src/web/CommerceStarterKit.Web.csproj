@@ -352,6 +352,7 @@
     <Content Include="lang\EPiCode.Newsletter.EN.xml" />
     <Content Include="lang\EPiCode.Newsletter.NO.xml" />
     <Content Include="modulesbin\AppleWatchChannel.dll" />
+    <Content Include="modulesbin\TextTVChannel.dll" />
     <Content Include="modules\AppleWatchChannel\ClientResources\AppleWatch\AppleWatch.css" />
     <Content Include="modules\AppleWatchChannel\ClientResources\AppleWatch\applewatch.png" />
     <Content Include="modules\AppleWatchChannel\Views\Pages\AppleWatchPageTemplate.aspx" />
@@ -422,6 +423,10 @@
     <Content Include="modules\epicode.newsletter\plugin\WorkItemProviders\RecipientRemoveProvider.ascx" />
     <Content Include="modules\epicode.newsletter\plugin\WorkItemProviders\TextRemoveProvider.ascx" />
     <Content Include="modules\epicode.newsletter\preview.aspx" />
+    <Content Include="modules\TextTVChannel\ClientResources\TextTV\texttv-background.png" />
+    <Content Include="modules\TextTVChannel\ClientResources\TextTV\TextTv.css" />
+    <Content Include="modules\TextTVChannel\ClientResources\TextTV\texttv.png" />
+    <Content Include="modules\TextTVChannel\Views\Pages\TextTVPageTemplate.aspx" />
     <Content Include="Plugins\CommerceTools\Prices\UpdatePrices.aspx" />
     <Content Include="Plugins\CommerceTools\static\css\bootstrap-datepicker.css" />
     <Content Include="Plugins\CommerceTools\static\css\bootstrap-datepicker3.css" />
@@ -492,6 +497,12 @@
     <Content Include="modules\AppleWatchChannel\Views\web.config" />
     <Content Include="modules\AppleWatchChannel\Views\Pages\AppleWatch.cshtml" />
     <Content Include="modules\AppleWatchChannel\module.config" />
+    <Content Include="modules\TextTVChannel\Views\web.config" />
+    <Content Include="modules\TextTVChannel\Views\Pages\TextTV.cshtml" />
+    <Content Include="modules\TextTVChannel\module.config" />
+    <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\web.config" />
+    <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\module.config" />
+    <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\EPiServer.Cms.AddOns.Blocks.zip" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -996,6 +1007,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EPiServer.Commerce.Core.8.11.3\lib\net45\EPiServer.Business.Commerce.dll</HintPath>
     </Reference>
+    <Reference Include="EPiServer.Cms.AddOns.Blocks">
+      <HintPath>..\..\packages\EPiServer.Cms.AddOns.Blocks.2.1.0.8000\lib\EPiServer.Cms.AddOns.Blocks.dll</HintPath>
+    </Reference>
     <Reference Include="EPiServer.Cms.Shell.UI, Version=8.1.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.8.1.0\lib\net45\EPiServer.Cms.Shell.UI.dll</HintPath>
@@ -1351,6 +1365,9 @@
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TextTVChannel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\TextTVChannel.1.0.5\lib\net40\TextTVChannel.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
