@@ -94,7 +94,12 @@ namespace OxxCommerceStarterKit.Web.Business
                 var listItemModel = listItem.GetListViewContentItem();
                 openGraph.Description = listItemModel.Intro;
                 openGraph.Title = listItemModel.Title;
-                openGraph.ImageUrl = siteUrl + listItemModel.ImageUrl + "?preset=ogpage";
+                if (listItemModel.ImageUrl != null)
+                {
+                    openGraph.ImageUrl = siteUrl +
+                                         _urlResolver.GetUrl(new UrlBuilder(listItemModel.ImageUrl), ContextMode.Default)
+                                         + "?preset=ogpage";
+                }
             }
             else
             {
