@@ -496,11 +496,6 @@
     <Content Include="Content\less\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
-    <Content Include="modules\_protected\EPiServer.Social\web.config" />
-    <Content Include="modules\_protected\EPiServer.Social\Views\Web.config" />
-    <Content Include="modules\_protected\EPiServer.Social\module.config" />
-    <Content Include="modules\_protected\EPiServer.Social\EPiServerSocial.config" />
-    <Content Include="modules\_protected\EPiServer.Social\EPiServer.Social.zip" />
     <Content Include="modules\AppleWatchChannel\Views\web.config" />
     <Content Include="modules\AppleWatchChannel\Views\Pages\AppleWatch.cshtml" />
     <Content Include="modules\AppleWatchChannel\module.config" />
@@ -511,6 +506,11 @@
     <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\module.config" />
     <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\EPiServer.Cms.AddOns.Blocks.zip" />
     <Content Include="modules\_protected\SiteAttentionModule\module.config" />
+    <Content Include="modules\_protected\EPiServer.Social\web.config" />
+    <Content Include="modules\_protected\EPiServer.Social\Views\Web.config" />
+    <Content Include="modules\_protected\EPiServer.Social\module.config" />
+    <Content Include="modules\_protected\EPiServer.Social\EPiServerSocial.config" />
+    <Content Include="modules\_protected\EPiServer.Social\EPiServer.Social.zip" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -1135,17 +1135,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\EPiServer.CMS.UI.Core.8.1.0\lib\net45\EPiServer.Shell.UI.dll</HintPath>
     </Reference>
-    <Reference Include="EPiServer.Social">
-      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.dll</HintPath>
+    <Reference Include="EPiServer.Social, Version=2.1.1.8000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.1.8000\lib\net40\EPiServer.Social.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EPiServer.Social.Configuration">
-      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.Configuration.dll</HintPath>
+    <Reference Include="EPiServer.Social.Configuration, Version=2.1.1.8000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.1.8000\lib\net40\EPiServer.Social.Configuration.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EPiServer.Social.Models">
-      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.Models.dll</HintPath>
+    <Reference Include="EPiServer.Social.Models, Version=2.1.1.8000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.1.8000\lib\net40\EPiServer.Social.Models.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="EPiServer.Social.Providers">
-      <HintPath>..\..\packages\EPiServer.Social.2.1.0.8000\lib\net40\EPiServer.Social.Providers.dll</HintPath>
+    <Reference Include="EPiServer.Social.Providers, Version=2.1.1.8000, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiServer.Social.2.1.1.8000\lib\net40\EPiServer.Social.Providers.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EPiServer.UI, Version=8.1.0.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
