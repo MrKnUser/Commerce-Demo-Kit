@@ -5,11 +5,11 @@ From the Wiki: [About the Starter Kit](https://github.com/OXXAS/CommerceStarterK
 
 ## Getting Started
 1. Clone the repository
-2. Download the databases from [CommerceStarterKit-Database](https://github.com/OXXAS/CommerceStarterKit-Database/tree/master/Databases) ([download zip file](https://github.com/OXXAS/CommerceStarterKit-Database/blob/master/Databases/CommerceStarterKit.zip?raw=true))
+2. Download the databases from [Dropbox](https://dl.dropboxusercontent.com/u/3403147/2015-07-28-epicphoto.zip) (temporary location for now) 
 3. Unzip the databases to the /db/ folder
 4. Open the solution in Visual Studio 2013
 5. Run it (also see [How to Start Commerce Manager](#how-to-start-commerce-manager))
-6. Default admin account for web and manager sites is: **admin \ store**
+6. Default admin account for web and manager sites is: **admin \ st0re**
 7. Configure dependencies for more features 
 
 ## Configuring Dependencies
