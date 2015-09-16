@@ -23,6 +23,7 @@
     <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
     <NuGetPackageImportStamp>a2bf5964</NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -427,6 +428,15 @@
     <Content Include="modules\TextTVChannel\ClientResources\TextTV\TextTv.css" />
     <Content Include="modules\TextTVChannel\ClientResources\TextTV\texttv.png" />
     <Content Include="modules\TextTVChannel\Views\Pages\TextTVPageTemplate.aspx" />
+    <Content Include="modules\_protected\SiteAttentionModule\ClientResources\Scripts\CommandProviders\SiteAttentionCommandProvider.js" />
+    <Content Include="modules\_protected\SiteAttentionModule\ClientResources\Scripts\Components\SiteAttentionWidget.js" />
+    <Content Include="modules\_protected\SiteAttentionModule\ClientResources\Scripts\Content.js" />
+    <Content Include="modules\_protected\SiteAttentionModule\ClientResources\Scripts\DefaultModule.js" />
+    <Content Include="modules\_protected\SiteAttentionModule\Resources\siteattention.css" />
+    <Content Include="modules\_protected\SiteAttentionModule\Resources\siteattentioninfo.css" />
+    <Content Include="modules\_protected\SiteAttentionModule\Resources\SpriteTools.png" />
+    <Content Include="modules\_protected\SiteAttentionModule\Resources\ToolButtonBg.gif" />
+    <Content Include="modules\_protected\SiteAttentionModule\SiteAttentionPlugIn.aspx" />
     <Content Include="Plugins\CommerceTools\Prices\UpdatePrices.aspx" />
     <Content Include="Plugins\CommerceTools\static\css\bootstrap-datepicker.css" />
     <Content Include="Plugins\CommerceTools\static\css\bootstrap-datepicker3.css" />
@@ -486,9 +496,6 @@
     <Content Include="Content\less\styles.css.map">
       <DependentUpon>styles.css</DependentUpon>
     </Content>
-    <Content Include="modules\_protected\SiteAttentionModule\web.config" />
-    <Content Include="modules\_protected\SiteAttentionModule\SiteAttentionModule.zip" />
-    <Content Include="modules\_protected\SiteAttentionModule\module.config" />
     <Content Include="modules\_protected\EPiServer.Social\web.config" />
     <Content Include="modules\_protected\EPiServer.Social\Views\Web.config" />
     <Content Include="modules\_protected\EPiServer.Social\module.config" />
@@ -503,6 +510,7 @@
     <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\web.config" />
     <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\module.config" />
     <Content Include="modules\_protected\EPiServer.Cms.AddOns.Blocks\EPiServer.Cms.AddOns.Blocks.zip" />
+    <Content Include="modules\_protected\SiteAttentionModule\module.config" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -1296,8 +1304,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SiteAttentionModule">
-      <HintPath>..\..\packages\SiteAttentionModule.2.1.0.1\lib\SiteAttentionModule.dll</HintPath>
+    <Reference Include="SiteAttentionModule, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SiteAttentionModule.2.3.0.0\lib\SiteAttentionModule.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>

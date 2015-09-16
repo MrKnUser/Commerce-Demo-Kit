@@ -123,7 +123,7 @@
                 httpApplication.CompleteRequest();
             }
 
-            AppDto dto = AppContext.Current.GetApplicationDto(appName);
+            AppDto dto = Mediachase.Commerce.Core.AppContext.Current.GetApplicationDto(appName);
 
             // If application does not exists or is not active, prevent login
             if (dto == null || dto.Application.Count == 0 || !dto.Application[0].IsActive)
@@ -137,9 +137,9 @@
                 Membership.Provider.ApplicationName = appName;
                 Roles.Provider.ApplicationName = appName;
                 ProfileManager.ApplicationName = appName;
-                AppContext.Current.ApplicationId = dto.Application[0].ApplicationId;
-                AppContext.Current.ApplicationName = dto.Application[0].Name;
-                log4net.ThreadContext.Properties["ApplicationId"] = AppContext.Current.ApplicationId;
+                Mediachase.Commerce.Core.AppContext.Current.ApplicationId = dto.Application[0].ApplicationId;
+                Mediachase.Commerce.Core.AppContext.Current.ApplicationName = dto.Application[0].Name;
+                log4net.ThreadContext.Properties["ApplicationId"] = Mediachase.Commerce.Core.AppContext.Current.ApplicationId;
                 log4net.ThreadContext.Properties["Username"] = Mediachase.Commerce.Security.SecurityContext.Current.CurrentUserName;
             }
 

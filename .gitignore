@@ -45,3 +45,4 @@ packages/*
 db/*
 !db/readme.md
 CommerceStarterKit.sln.ide/
+.vs/*
