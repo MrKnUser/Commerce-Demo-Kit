@@ -242,10 +242,6 @@
 				</Grid>
 				<Grid placeName="ContactRoleAssignment-List">
 					<Columns>
-						<Column columnType="CheckBox" />
-						<Column width="20" headingText="" columnType="Action" dataField="RoleAssignId">
-							<Item toolTip="" imageUrl="~/Apps/Shell/Styles/images/edit.gif" commandName="RoleAssignment_Edit" commandParameters="RoleAssignId" permissions="businessfoundation:contact:edit:permission"></Item>
-						</Column>
 						<Column width="150" allowSorting="false" dataField="RoleName" headingText="{Customer:RoleAssignment_RoleName}"></Column>
 						<Column width="150" allowSorting="false" dataField="OrganizationName" headingText="{Customer:RoleAssignment_OrganizationName}"></Column>
 						<Column width="100" allowSorting="false" dataField="CheckModeFriendlyName" headingText="{Customer:RoleAssignment_CheckMode}"></Column>
@@ -298,10 +294,6 @@
 				<Toolbar placeName="ContactMembershipAccount-List">
 					<Button id="CreateAccount" text="{Customer:NewAccount}" commandName="MembershipAccount_New"></Button>
 					<Button id="DeleteAccount" text="{Customer:DeleteAccount}"  commandName="MembershipAccount_Delete" itemSplitter="Right"></Button>
-				</Toolbar>
-				<Toolbar placeName="ContactRoleAssignment-List">
-					<Button id="AssignRole" text="{Customer:AssignRole}" imageUrl="~/Apps/MetaDataBase/images/newitem.gif" commandName="RoleAssignment_New" permissions="businessfoundation:contact:edit:permission" itemSplitter="Right"></Button>
-					<Button id="DeleteRoleAssignment" text="{Customer:DeleteRole}" imageUrl="~/Apps/MetaDataBase/images/delete.gif" commandName="RoleAssignment_Delete" permissions="businessfoundation:contact:edit:permission" itemSplitter="Right"></Button>
 				</Toolbar>
         <Toolbar placeName="ContactContactNotes-List">
           <Button id="AddContactNote" text="{Customer:AddNewContactNote}" imageUrl="~/Apps/MetaDataBase/images/newitem.gif" commandName="MC_ContactNote_NewItem" itemSplitter="Right"></Button>
@@ -476,37 +468,7 @@
 				<!--****************************-->
 				<!--*ContactRoleAssignment-List*-->
 				<!--****************************-->
-				<Command id="RoleAssignment_Delete">
-					<BeforeClientScript>Toolbar_GridHasItemsSelected</BeforeClientScript>
-					<ConfirmationText>{SharedStrings:Delete_Selected}</ConfirmationText>
-					<CommandType>ServerAction</CommandType>
-          <EnableHandler type="Mediachase.Commerce.Manager.CommandHandlers.PermissionEnableHandler, Mediachase.ConsoleManager" />
-					<Handler type="Mediachase.Commerce.Manager.Apps.Customer.CommandHandlers.DeleteSelectedRoleAssignmentHandler, Mediachase.ConsoleManager" />
-					<UpdatePanelIds>panelMainListView</UpdatePanelIds>
-				</Command>
-				<Command id="RoleAssignment_Edit">
-					<CommandType>OpenFrameModalPopup</CommandType>
-					<PopupTitle>{Customer:EditRoleAssignment}</PopupTitle>
-          <EnableHandler type="Mediachase.Commerce.Manager.CommandHandlers.PermissionEnableHandler, Mediachase.ConsoleManager" />
-          <Url>~/Apps/Core/Controls/DialogPage.aspx?_a=Customer&amp;_v=RoleAssignment-Edit&amp;CustomerContactId={QueryString:ObjectId}&amp;RoleAssignId=[ClientParam:RoleAssignId]&amp;commandName=RoleAssignment_Edit</Url>
-					<Width>550</Width>
-					<Height>350</Height>
-					<Top>55</Top>
-					<Left>55</Left>
-					<Drag>True</Drag>
-				</Command>
-				<Command id="RoleAssignment_New">
-					<CommandType>OpenFrameModalPopup</CommandType>
-					<PopupTitle>{Customer:AssignRole}</PopupTitle>
-					<Url>~/Apps/Core/Controls/DialogPage.aspx?_a=Customer&amp;_v=RoleAssignment-Edit&amp;CustomerContactId={QueryString:ObjectId}&amp;commandName=RoleAssignment_New</Url>
-          <EnableHandler type="Mediachase.Commerce.Manager.CommandHandlers.PermissionEnableHandler, Mediachase.ConsoleManager" />
-          <Width>550</Width>
-					<Height>350</Height>
-					<Top>55</Top>
-					<Left>55</Left>
-					<Drag>True</Drag>
-					<DependCommand>RoleAssignment_Edit</DependCommand>
-				</Command>
+				
 
 			</add>
 		</Commands>
