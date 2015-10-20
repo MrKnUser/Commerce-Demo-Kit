@@ -4087,7 +4087,6 @@
       <IsTransformFile>True</IsTransformFile>
     </Content>
     <Content Include="Properties\SlowCheetah\SlowCheetah.Transforms.targets" />
-    <Content Include="EPiServerFramework.config" />
     <None Include="Properties\PublishProfiles\Temp.pubxml" />
   </ItemGroup>
   <ItemGroup>
