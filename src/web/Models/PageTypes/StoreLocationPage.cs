@@ -1,13 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using EPiServer.Core;
+using EPiServer.DataAbstraction;
+using EPiServer.DataAnnotations;
 using OxxCommerceStarterKit.Core.Attributes;
 using EPiServer.Find;
-using EPiServer.DataAnnotations;
-using EPiServer.DataAbstraction;
-using EPiServer.Core;
 using EPiServer.Shell.ObjectEditing;
 using OxxCommerceStarterKit.Web.Business.UIDescriptor;
-
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
 {
@@ -87,14 +86,11 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
             Order = 6)]
         public virtual string Country { get; set; }
 
-
         [Display(Name = "Select Location",
                     GroupName = WebGlobal.GroupNames.Location,
                     Order = 7)]
         [EditorDescriptor(EditorDescriptorType = typeof(CoordinatesEditorDescriptor))]
         public virtual string GeoLocation { get; set; }
-
-
 
         [Ignore]
         public GeoLocation Coordinates
@@ -117,7 +113,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 
                 return new GeoLocation(latitude, longitude);
             }
-        }
 
+        }
     }
 }
