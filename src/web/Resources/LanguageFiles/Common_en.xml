@@ -150,6 +150,8 @@
 				<add_to_wishlist_complete>Added to wishlist</add_to_wishlist_complete>
 				<add_to_cart>Add to cart</add_to_cart>
 				<add_to_cart_complete>Added to cart</add_to_cart_complete>
+        <add_to_pickup>Pickup from store</add_to_pickup>
+				<add_to_pickup_complete>Added to pickup</add_to_pickup_complete>
 				<share>Share:</share>
 				<show_fullscreen>Show fullscreen</show_fullscreen>
         			<cross_sell>Goes with</cross_sell>

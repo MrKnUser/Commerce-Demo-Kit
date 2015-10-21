@@ -482,6 +482,7 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
+    <Compile Include="Business\UIDescriptor\CoordinatesEditorDescriptor.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\Shell\web.config" />
@@ -879,6 +880,8 @@
     <Content Include="Views\Shared\_OpenGraphView.cshtml" />
     <Content Include="Views\Shared\Blocks\FormBlock.cshtml" />
     <Content Include="Views\NewsletterSignupBlock\Index.cshtml" />
+    <Content Include="Views\StoreLocationPage\Index.cshtml" />
+    <Content Include="Views\Shared\_StoreInventory.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1395,11 +1398,13 @@
     <Compile Include="Business\FacetRegistry\IProductFilterRegistry.cs" />
     <Compile Include="Business\FacetRegistry\NumericFilterAttribute.cs" />
     <Compile Include="Business\Initialization\CreatingContentSetDefaultsHandler.cs" />
+    <Compile Include="Business\Initialization\StoreLocatorAddressInitialization.cs" />
     <Compile Include="Business\Payment\PaymentRegistry.cs" />
     <Compile Include="Business\Rendering\IContainerPage.cs" />
     <Compile Include="Business\UIDescriptor\ContainerPageUIDescriptor.cs" />
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
+    <Compile Include="Controllers\StoreLocationPageController.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\HeadingElementSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterNumericFieldSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterStringFieldSelectionFactory.cs" />
@@ -1497,6 +1502,7 @@
     <Compile Include="Controllers\SliderPreviewController.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\SliderLayoutSelectionFactory.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\WarehouseHelper.cs" />
     <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
     <Compile Include="Controllers\IReceiptViewModelBuilder.cs" />
@@ -1529,6 +1535,7 @@
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\ContainerPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
+    <Compile Include="Models\PageTypes\StoreLocationPage.cs" />
     <Compile Include="Models\ViewModels\Contracts\IHasListViewContentItem.cs" />
     <Compile Include="Models\ViewModels\Contracts\IListViewContentItem.cs" />
     <Compile Include="Models\ViewModels\ListViewContentItem.cs" />
@@ -1554,12 +1561,14 @@
     </Compile>
     <Compile Include="Models\ViewModels\ChromeLanguageInfo.cs" />
     <Compile Include="Models\ViewModels\Payment\GenericPaymentViewModel.cs" />
+    <Compile Include="Models\ViewModels\SearchPageViewModel.cs" />
     <Compile Include="Models\ViewModels\Simple\FeatureProductViewModel.cs" />
     <Compile Include="Models\ViewModels\SliderPreviewModel.cs" />
     <Compile Include="Models\ViewModels\ProductListViewModel.cs" />
     <Compile Include="Models\ViewModels\Simple\LandingNodeViewModel.cs" />
     <Compile Include="Models\ViewModels\Simple\Product.cs" />
     <Compile Include="Models\ViewModels\Simple\ProductVariant.cs" />
+    <Compile Include="Models\ViewModels\WarehouseInventoryViewModel.cs" />
     <Compile Include="Plugins\CommerceTools\Menu.cs" />
     <Compile Include="Plugins\CommerceTools\Prices\UpdatePrices.aspx.cs">
       <DependentUpon>UpdatePrices.aspx</DependentUpon>
@@ -1711,7 +1720,6 @@
     <Compile Include="Models\ViewModels\PersonalInformationViewModel.cs" />
     <Compile Include="Models\ViewModels\PreviewModel.cs" />
     <Compile Include="Models\ViewModels\ProductViewModel.cs" />
-    <Compile Include="Models\ViewModels\SearchPageViewModel.cs" />
     <Compile Include="Models\ViewModels\SelectListItem.cs" />
     <Compile Include="Models\ViewModels\SelectMarketModel.cs" />
     <Compile Include="Models\ViewModels\ShoppingCategoryViewModel.cs" />
