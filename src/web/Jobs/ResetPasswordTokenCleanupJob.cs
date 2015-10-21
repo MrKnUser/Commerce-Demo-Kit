@@ -9,15 +9,15 @@ Copyright (C) 2013-2014 BV Network AS
 */
 
 using System;
-using EPiServer.BaseLibrary.Scheduling;
 using EPiServer.PlugIn;
+using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using OxxCommerceStarterKit.Web.ResetPassword;
 
 namespace OxxCommerceStarterKit.Web.Jobs
 {
     [ScheduledPlugIn(DisplayName = "Cleanup Password Tokens")]
-    public class ResetPasswordTokenCleanupJob : JobBase
+    public class ResetPasswordTokenCleanupJob : ScheduledJobBase
     {
         private bool _stopSignaled;
 

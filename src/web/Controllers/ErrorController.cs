@@ -12,18 +12,15 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BVNetwork.Bvn.FileNotFound.Logging;
-using BVNetwork.Bvn.FileNotFound.Upgrade;
-using BVNetwork.FileNotFound.Configuration;
-using BVNetwork.FileNotFound.Redirects;
+using BVNetwork.NotFound.Core.Configuration;
+using BVNetwork.NotFound.Core.CustomRedirects;
+using BVNetwork.NotFound.Core.Upgrade;
 using EPiServer;
 using EPiServer.Core;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
-using log4net;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
-using LogManager = log4net.LogManager;
 
 namespace OxxCommerceStarterKit.Web.Controllers
 {
@@ -119,7 +116,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
 			}
 			else if (Configuration.Logging == LoggerMode.On && Upgrader.Valid)
 			{
-				Logger.LogRequest(str, referer == null ? string.Empty : referer.ToString());
+				BVNetwork.NotFound.Core.Logging.RequestLogger.Instance.LogRequest(str, referer == null ? string.Empty : referer.ToString());
 			}
 			context.Response.TrySkipIisCustomErrors = true;
 			context.Response.StatusCode = 404;

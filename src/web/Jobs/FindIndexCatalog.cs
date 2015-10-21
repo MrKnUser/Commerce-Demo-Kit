@@ -14,29 +14,25 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using EPiServer;
-using EPiServer.BaseLibrary.Scheduling;
-using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Core;
 using EPiServer.Find;
 using EPiServer.Find.Framework;
 using EPiServer.Framework.Localization;
 using EPiServer.PlugIn;
+using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Catalog;
 using Mediachase.Commerce.Markets;
 using Mediachase.Commerce.Pricing;
-using OxxCommerceStarterKit.Web.Api;
-using OxxCommerceStarterKit.Web.Helpers;
 using OxxCommerceStarterKit.Web.Models.Blocks.Contracts;
-using OxxCommerceStarterKit.Web.Models.Catalog;
 using OxxCommerceStarterKit.Web.Models.FindModels;
 
 namespace OxxCommerceStarterKit.Web.Jobs
 {
-	[ScheduledPlugIn(DisplayName = "Index Product Catalog")]
-	public class FindIndexCatalog : JobBase
-	{
+    [ScheduledPlugIn(DisplayName = "Index Product Catalog")]
+	public class FindIndexCatalog : ScheduledJobBase
+    {
 		class IndexInformation
 		{
 			public IndexInformation()

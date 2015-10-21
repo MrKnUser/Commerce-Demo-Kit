@@ -10,9 +10,9 @@ Copyright (C) 2013-2014 BV Network AS
 
 using System.Collections.Generic;
 using System.Diagnostics;
-using EPiServer.BaseLibrary.Scheduling;
 using EPiServer.Logging;
 using EPiServer.PlugIn;
+using EPiServer.Scheduler;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
 using Mediachase.Commerce.Orders;
@@ -30,7 +30,7 @@ namespace OxxCommerceStarterKit.Web.Jobs
 
 	[ScheduledPlugIn(DisplayName = "Export Orders to Backend System", 
         Description = "Checks all open orders and checks if they are ready to be exported to a back end system for further processing.")]
-	public class ExportOrderJob : JobBase
+	public class ExportOrderJob : ScheduledJobBase
 	{
 		private bool _stopSignaled;
 		protected static ILogger _log = LogManager.GetLogger();

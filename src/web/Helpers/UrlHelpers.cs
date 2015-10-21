@@ -51,10 +51,10 @@ namespace OxxCommerceStarterKit.Web.Helpers
 		{
 			if (url != null)
 			{
-				var reference = PermanentLinkUtility.GetContentReference(new UrlBuilder(url.ToString()));
-				if (reference != null && reference.ID > 0)
+				var reference = UrlResolver.Current.Route(new UrlBuilder(url.ToString()));
+                if (reference != null && reference.ContentLink.ID > 0)
 				{
-					return reference.ID;
+					return reference.ContentLink.ID;
 				}
 			}
 			return -1;

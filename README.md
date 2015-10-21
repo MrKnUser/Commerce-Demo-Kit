@@ -1,7 +1,6 @@
 # Commerce Starterkit
-From the Wiki: [About the Starter Kit](https://github.com/OXXAS/CommerceStarterKit/wiki) | [Feature List](https://github.com/OXXAS/CommerceStarterKit/wiki/features) | [FAQ](https://github.com/OXXAS/CommerceStarterKit/wiki/FAQ)
+An EPiServer Commerce project you can use for demos, learning from and possibly base your next web site on. 
 
-![Starter Kit Logo](https://github.com/OXXAS/CommerceStarterKit/raw/master/doc/img/logo/logo-500px.png)
 
 ## Getting Started
 1. Clone the repository
@@ -11,6 +10,8 @@ From the Wiki: [About the Starter Kit](https://github.com/OXXAS/CommerceStarterK
 5. Run it (also see [How to Start Commerce Manager](#how-to-start-commerce-manager))
 6. Default admin account for web and manager sites is: **admin \ st0re**
 7. Configure dependencies for more features 
+
+**Note!** In case you update the source and want to keep your existing database, please read the section on [how to upgrade the CMS and Commerce databases](#how-to-upgrade-the-databases).
 
 ## Configuring Dependencies
 The Commerce Starter Kit has these dependencies:
@@ -51,7 +52,7 @@ This can be found on the [DIBS administration web site](https://payment.architra
 You can find a [list of test cards](http://tech.dibspayment.com/toolbox/test_information_cards) on the DIBS web site. Use these to test the checkout process.
 
 ### Postnord
-For the Norwegian market, you can select a pickup location for the order. This is based on the shipping address. The availble pick up locations are retrieved by calling a public Postnord web service. In order to use this, you should have your 
+For the Norwegian market, you can select a pickup location for the order. This is based on the shipping address. The availble pick up locations are retrieved by calling a public Postnord web service.
 
 [Register for Web Service Access](http://www.postnordlogistics.no/en/e-services/widgets-and-web-services/Pages/Register-as-webservice-widget-consumer.aspx) on the Postnord web site.
 
@@ -62,6 +63,8 @@ Add your consumerId to the `PostNord.ConsumerId` appSettings value in `web.confi
     <appSettings>
 
 Without the Postnord integration, you should still be able to do a checkout, but you will not be able to demonstrate the pickup location feature.
+
+**Note!** The Postnord feature will be removed from the source in the future.
 
 ### Google Analytics
 The starter kit has extended ecommerce tracking, which will start tracking when you configure the EPiServer Google Analytics Add-on.
@@ -75,7 +78,7 @@ By default, the following is tracked:
 * View cart
 * Checkout
 * Payment
-* Wine Configurable Search Block 
+* Configurable Search Blocks 
 
 # Nice to Know
 Various helpful stuff
