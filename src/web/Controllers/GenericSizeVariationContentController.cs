@@ -58,7 +58,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
             if (currentContent == null) throw new ArgumentNullException("currentContent");
 
             IVariationViewModel<GenericSizeVariationContent> viewModel = CreateVariationViewModel<GenericSizeVariationContent>(currentContent);
-
+            
             viewModel.Media = GetMedia(currentContent);
             viewModel.PriceViewModel = GetPriceModel(currentContent);
             viewModel.AllVariationSameStyle = CreateRelatedVariationViewModelCollection(currentContent, Constants.AssociationTypes.SameStyle);

@@ -1,0 +1,114 @@
+﻿@model IEnumerable<WarehouseInventoryViewModel>
+
+<script type="text/javascript">
+    function SelectWarehouse(inStockQuantity, warehouseCode, warehouseName) {
+        $('#litInStock').html(inStockQuantity);
+        $('#litInStorePickUp').html('Store:');
+        $('#litWarehouseCode').html(warehouseName);
+        $('#checkstoresmodal').modal('hide');
+        $('#hidWarehouseCode').val(warehouseCode);
+    }
+</script>
+
+
+@Html.Hidden("hidWarehouseCode")
+
+@{ 
+    var chrome = (Chrome)ViewBag.Chrome;
+    int totalWarehouses = Model.Count();
+}
+
+<div ng-init="init('@chrome.Language')">
+    <a class="btn btn-primary btn-sm" id="addItemToPickup" href="#" ng-click="addToPickup(product)"><i class="icon-shopping-cart"></i>@Html.Translate("/common/product/add_to_pickup")</a>
+    <div class="loader" ng-show="loaderVisible === true"><img src="@Url.Content("~/Content/Images/ajax-loader-lightbg-ts.gif")" /></div>
+</div>
+<li>
+    In Stock: <strong>
+        <label id="litInStock" style="display: inline; font-weight: bold">@Model.FirstOrDefault().InStockLevel</label>
+
+        units
+    </strong>
+</li>
+<li>
+    <label id="litInStorePickUp" style="display: inline;"></label>
+    <label id="litWarehouseCode" style="display: inline; font-weight: bold">@Model.FirstOrDefault().WarehouseName</label>
+    
+    <br />
+    @if (totalWarehouses > 1)
+    {
+    <a data-toggle="modal" href='#checkstoresmodal'>
+        <strong>
+            Check Stores
+        </strong>
+    </a>
+    }
+</li>
+
+
+
+@if (totalWarehouses > 1)
+{
+<div id='checkstoresmodal' class="modal hide fade">
+    <div class="modal-header">
+        <a class="close" data-dismiss="modal">&times;</a>
+        <h3>
+            Warehouse Information
+        </h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped table-bordered table-condensed">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th style="text-align: center">Availability</th>
+                    <th style="text-align: center">Reserved</th>
+                    <th style="text-align: center">In Stock</th>
+                    <th style="text-align: center">Pick up</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var warehouseModel in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="#" data-toggle="collapse" data-target="@warehouseModel.WarehouseCode">@warehouseModel.WarehouseName</a>
+                            <div id="@warehouseModel.WarehouseCode" class="collapse">
+                                @warehouseModel.WarehouseContact
+                                <br />
+                                Address:
+                                <!-- TODO make a hyperlink -->
+                                @warehouseModel.WarehouseAddress
+                            </div>
+                        </td>
+                        <td style="text-align: center">
+                            @if (warehouseModel.IsAvailable)
+            {
+                                @:Available
+            }
+            else
+            {
+                                @:Not Available
+            }
+                        </td>
+                        <td style="text-align: center">
+                            @warehouseModel.ReservedLevel units
+                        </td>
+                        <td style="text-align: center">
+                            @warehouseModel.InStockLevel units
+                        </td>
+                        <td style="text-align: center">
+                            @if (warehouseModel.IsAvailable)
+            {
+                                <a class="btn btn-info span2" onclick="SelectWarehouse('@warehouseModel.InStockLevel','@warehouseModel.WarehouseCode','@warehouseModel.WarehouseName');">Pick</a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <a href="#" class="btn" data-dismiss="modal">Close</a>
+    </div>
+</div>
+}

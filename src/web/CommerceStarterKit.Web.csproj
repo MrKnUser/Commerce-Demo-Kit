@@ -525,6 +525,10 @@
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\web.config" />
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\module.config" />
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\EPiServer.GoogleAnalytics.Commerce.zip" />
+    <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
+    <Compile Include="Business\UIDescriptor\CoordinatesEditorDescriptor.cs" />
+    <Compile Include="Controllers\NewsletterSignupController.cs" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\Shell\web.config" />
     <Content Include="modules\_protected\Shell\Shell.zip" />
     <Content Include="modules\_protected\CMS\web.config" />
@@ -911,6 +915,8 @@
     <Content Include="Views\Emails\_oxygen.mobile.css.cshtml" />
     <Content Include="Views\Emails\Receipt.Html.cshtml" />
     <Content Include="Views\StoreLocationPage\Index.cshtml" />
+    <Content Include="Views\StoreLocationPage\Index.cshtml" />
+    <Content Include="Views\Shared\_StoreInventory.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1595,6 +1601,7 @@
     <Compile Include="Models\ViewModels\Simple\LandingNodeViewModel.cs" />
     <Compile Include="Models\ViewModels\Simple\Product.cs" />
     <Compile Include="Models\ViewModels\Simple\ProductVariant.cs" />
+    <Compile Include="Models\ViewModels\WarehouseInventoryViewModel.cs" />
     <Compile Include="Plugins\CommerceTools\Menu.cs" />
     <Compile Include="Plugins\CommerceTools\Prices\UpdatePrices.aspx.cs">
       <DependentUpon>UpdatePrices.aspx</DependentUpon>
