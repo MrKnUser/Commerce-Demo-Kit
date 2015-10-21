@@ -1,0 +1,43 @@
+﻿@using OxxCommerceStarterKit.Web.Helpers
+@model IPageViewModel<OxxCommerceStarterKit.Web.Models.PageTypes.StoreLocationPage>
+@{
+	ViewBag.Title = Model.CurrentPage.Name;
+}
+<div class="article-page">
+    @if (Html.IsInEditMode())
+    {
+    @Html.FullRefreshPropertiesMetaData(new[] { "WarehouseCode" })
+    <h1>@Html.PropertyFor(m => m.CurrentPage.LocationName)</h1>      
+    @:If linking to a Warehouse, please enter the code here
+    @Html.PropertyFor(m => m.CurrentPage.WarehouseCode)
+    }
+    else if (string.IsNullOrEmpty(Model.CurrentPage.LocationName) == false)
+    {
+    // We want to change the title on mobile
+    <h1 class="hidden-xs">@Model.CurrentPage.LocationName</h1>
+    <h1 class="hidden-sm hidden-md hidden-lg">@Model.CurrentPage.Name</h1>
+    }
+
+  <div class="lead">
+    Address:
+      <p>
+          @Html.PropertyFor(m => m.CurrentPage.Address)<br />
+          @Html.PropertyFor(m => m.CurrentPage.City)<br />
+          @Html.PropertyFor(m => m.CurrentPage.State) @Html.PropertyFor(m => m.CurrentPage.PostCode)<br />
+          @Html.PropertyFor(m => m.CurrentPage.Country)<br />
+      </p>
+    Contact:
+      <p>
+          Telephone @Html.PropertyFor(m => m.CurrentPage.Telephone)<br />
+          Fax @Html.PropertyFor(m => m.CurrentPage.Fax)<br />
+          Email @Html.PropertyFor(m => m.CurrentPage.Email)
+      </p>
+  </div>
+  <div class="body">
+		@Html.PropertyFor(m => m.CurrentPage.BodyText)
+	</div>
+
+	<div class="body-content">
+		@Html.PropertyFor(x => x.CurrentPage.BodyContent, new { CssClass = "overflow-hidden clearfix" })
+	</div>
+</div>
