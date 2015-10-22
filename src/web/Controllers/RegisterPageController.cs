@@ -134,8 +134,8 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
 			if (!existingUserWithoutPassword)
 			{
-				SecurityContext.Current.AssignUserToGlobalRole(user, AppRoles.EveryoneRole);
-				SecurityContext.Current.AssignUserToGlobalRole(user, AppRoles.RegisteredRole);
+                Roles.AddUserToRole(user.UserName, AppRoles.EveryoneRole);
+                Roles.AddUserToRole(user.UserName, AppRoles.RegisteredRole);
 			}
 			else
 			{
