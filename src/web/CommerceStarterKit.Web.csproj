@@ -75,6 +75,10 @@
     <Content Include="Content\css\commerce-starter-kit\blocks\_productsearchblock.less" />
     <Content Include="Content\css\commerce-starter-kit\blocks\_titleBlock.less" />
     <Content Include="Content\css\commerce-starter-kit\blocks\_bannerBlock.less" />
+    <None Include="compilerconfig.json" />
+    <Content Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </Content>
     <None Include="Content\css\commerce-starter-kit\_mypage.less" />
     <None Include="Content\css\commerce-starter-kit\_header.less" />
     <None Include="Content\css\commerce-starter-kit\_search-autocomplete.less" />
