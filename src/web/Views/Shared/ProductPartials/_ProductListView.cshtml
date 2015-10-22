@@ -4,6 +4,7 @@
     var chrome = (Chrome)ViewBag.Chrome;
     var displayName = @Model.DisplayName ?? "";
     displayName = displayName.Replace("'", "");
+    double rating = Model.AverageRating; 
 }
 
 <div class="productRow col-sm-12">
@@ -19,7 +20,7 @@
                 <h3 class="name">@Model.DisplayName</h3>
             </a>
             <div class="tools">
-                @{ double rating = Model.AverageRating; }
+                
 
                 <div class="rate">
                     <span class="@(rating >= 0.5 ? "active" : "")@(rating == 0.5 ? " half" : "")"></span>

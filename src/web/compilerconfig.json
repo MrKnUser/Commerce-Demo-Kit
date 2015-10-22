@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Content/less/styles.css",
+    "inputFile": "Content/less/styles.less"
+  },
+  {
+    "outputFile": "Content/css/commerce-starter-kit.css",
+    "inputFile": "Content/css/commerce-starter-kit.less"
+  }
+]

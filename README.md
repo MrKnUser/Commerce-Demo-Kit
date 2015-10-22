@@ -1,7 +1,6 @@
 # Commerce Starterkit
 An EPiServer Commerce project you can use for demos, learning from and possibly base your next web site on. 
 
-
 ## Getting Started
 1. Clone the repository
 2. Download the databases from [Dropbox](https://dl.dropboxusercontent.com/u/3403147/2015-10-21-epicphoto.zip) (temporary location for now) 
@@ -17,13 +16,11 @@ An EPiServer Commerce project you can use for demos, learning from and possibly 
 The Commerce Starter Kit has these dependencies:
 
 ### EPiServer Find
-
 EPiServer Find is used in most product lists, as the wine and fashion lists, and also by the configurable search block. The main search and the search-as-you-type function also uses Find.
 
 You will have a hard time using the starter kit without Find.
 
 **Configuration**
-
 1. Go to [http://find.episerver.com](http://find.episerver.com), log in, and create a new developer index (with English and Norwegian languages).
 2. Add the `<episerver.find ... >` configuration to web.config. Search for it, it is already in the web.config, but with invalid configuration settings. 
 2. Go to [http://localhost:49883/episerver/CMS/Admin/Default.aspx](http://localhost:49883/episerver/CMS/Admin/Default.aspx "Admin mode"), find the "Index Product Catalog" Scheduled Job and run it.
@@ -87,6 +84,28 @@ Various helpful stuff
 When you start the project in Visual Studio, it will only start the the default site (the designated Startup Project). This is typically the web site and not Commerce Manager.
 
 To start Commerce Manager, right click the CommerceStarterKit.Commerce project in Visual Studio, View, View in Browser (or Ctrl+Shift+W)
+
+## Hot to start the B2B Site
+There is a B2B site included, which is set up to run on localhost:49900 in IIS Express by default. Your local IIS Express (the one that runs when you start the project in Visual Studio) will not know how to resolve this addess. You can add this binding yourself by editing the applicationhost.config file for IIS Express.
+
+If you use Visual Studio 2015, open `SoltutionDir\.vs\config\applicationhost.config`
+
+If you use Visual Studio 2013, open `%USERPROFILE%\My Documents\IISExpress\config\applicationhost.config`
+
+Find a section that looks like this and add the second binding as shown below:
+```xml
+<site name="CommerceStarterKit.Web" id="3">
+    <application path="/" applicationPool="Clr4IntegratedAppPool">
+        <virtualDirectory path="/" physicalPath="...\src\web" />
+    </application>
+    <bindings>
+        <binding protocol="http" bindingInformation="*:49883:localhost" />
+        <!-- The B2B site -->
+        <binding protocol="http" bindingInformation="*:49900:localhost" />
+    </bindings>
+</site>
+```
+You will probably have to restart IIS Express after the change.
 
 ## How to Upgrade the Databases
 Now and then the CMS and Commerce databases need to be upgraded. This is typically done using the `update-epidatabase` command in the Package Manager Console in Visual Studio. 

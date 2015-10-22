@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceStarterKit.Core", "src\common\Core\CommerceStarterKit.Core.csproj", "{01A92F8F-E704-4F78-8DCA-67E76B8A6CCF}"
 EndProject
@@ -12,6 +12,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceStarterKit.Web.UnitTests", "src\CommerceStarterKit.Web.UnitTests\CommerceStarterKit.Web.UnitTests.csproj", "{102BB184-DC1A-43D3-9462-2A32BE581878}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommerceStarterKit.CatalogImporter", "src\CommerceStarterKit.CatalogImporter\CommerceStarterKit.CatalogImporter.csproj", "{B10CCE50-1168-40F1-83C1-FFC343883C65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{E62B8E79-6930-4FB9-8710-4630D84E2200}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
