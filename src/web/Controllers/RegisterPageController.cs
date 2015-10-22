@@ -113,7 +113,15 @@ namespace OxxCommerceStarterKit.Web.Controllers
 			{
 				user = Membership.GetUser(emailAddress);
 				var customer1 = CustomerContext.Current.GetContactForUser(user);
-				if (customer1.GetHasPassword())
+
+                if (customer1 == null)
+                {
+
+                    customer1 = CustomerContact.CreateInstance(user);
+                }
+
+
+                if (customer1.GetHasPassword())
 				{
 					ModelState.AddModelError("RegisterForm.ValidationMessage", _localizationService.GetString("/common/account/register_error_unique_username"));
 				}
@@ -145,7 +153,14 @@ namespace OxxCommerceStarterKit.Web.Controllers
 			}
 
 			var customer = CustomerContext.Current.GetContactForUser(user);
-			customer.FirstName = registerForm.Address.FirstName;
+
+            if (customer == null)
+            {
+
+                customer = CustomerContact.CreateInstance(user);
+            }
+
+            customer.FirstName = registerForm.Address.FirstName;
 			customer.LastName = registerForm.Address.LastName;
 			customer.SetPhoneNumber(registerForm.Phone);
 			customer.FullName = string.Format("{0} {1}", customer.FirstName, customer.LastName);
