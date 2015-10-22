@@ -59,6 +59,7 @@
     <Content Include="ClientResources\Scripts\editors\StringList.js" />
     <Content Include="ClientResources\Scripts\editors\TagSelector.js" />
     <Content Include="ClientResources\Scripts\editors\HotSpotsEditor.js" />
+    <Content Include="ClientResources\Scripts\MenuPin\MenuPinInit.js" />
     <Content Include="ClientResources\Scripts\select2\css\select2-spinner.gif" />
     <Content Include="ClientResources\Scripts\select2\css\select2.css" />
     <Content Include="ClientResources\Scripts\select2\css\select2.png" />
@@ -1211,6 +1212,10 @@
       <HintPath>..\..\packages\EPiServer.Commerce.Core.9.0.0\lib\net45\Mediachase.WebConsoleLib.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MenuPin, Version=3.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MenuPin.3.2.0\lib\net45\MenuPin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.ReportViewer.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -1365,6 +1370,7 @@
     <Compile Include="Api\DeliveryLocationsController.cs" />
     <Compile Include="Api\ReviewController.cs" />
     <Compile Include="Api\SystemController.cs" />
+    <Compile Include="Business\Seo\CustomProductRedirectHandler.cs" />
     <Compile Include="Business\FacetRegistry\IFacetRegistry.cs" />
     <Compile Include="Business\FacetRegistry\ProductFilterRegistry.cs" />
     <Compile Include="Business\FacetRegistry\FacetStringListDefinition.cs" />
