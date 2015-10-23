@@ -105,7 +105,7 @@ Find a section that looks like this and add the second binding as shown below:
     </bindings>
 </site>
 ```
-You will probably have to restart IIS Express after the change.
+You need to restart IIS Express after the change.
 
 ## How to Upgrade the Databases
 Now and then the CMS and Commerce databases need to be upgraded. This is typically done using the `update-epidatabase` command in the Package Manager Console in Visual Studio. 
