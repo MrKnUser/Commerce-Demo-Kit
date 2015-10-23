@@ -20,18 +20,24 @@ namespace OxxCommerceStarterKit.Web.Business.Seo
             {
                 // Give it a thorough look - see if we can redirect it
                 Url uri = new Url(url);
-                var productId = uri.QueryCollection.GetValues("productid").FirstOrDefault();
-                if (productId != null && string.IsNullOrEmpty(productId) == false)
+                string[] productIds = uri.QueryCollection.GetValues("productid");
+                if(productIds != null && productIds.Any())
                 {
-                    SearchResults<FindProduct> results = SearchClient.Instance.Search<FindProduct>()
-                        .Filter(p => p.Code.MatchCaseInsensitive(productId))
-                        .GetResult();
-                    if (results.Hits.Any())
+                    string productId = productIds.FirstOrDefault();
+
+                    if (productId != null && string.IsNullOrEmpty(productId) == false)
                     {
-                        // Pick the first one
-                        SearchHit<FindProduct> product = results.Hits.FirstOrDefault();
-                        return product.Document.ProductUrl;
+                        SearchResults<FindProduct> results = SearchClient.Instance.Search<FindProduct>()
+                            .Filter(p => p.Code.MatchCaseInsensitive(productId))
+                            .GetResult();
+                        if (results.Hits.Any())
+                        {
+                            // Pick the first one
+                            SearchHit<FindProduct> product = results.Hits.FirstOrDefault();
+                            return product.Document.ProductUrl;
+                        }
                     }
+                    
                 }
             }
             return null;

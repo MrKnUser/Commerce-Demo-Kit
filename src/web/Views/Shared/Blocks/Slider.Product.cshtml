@@ -1,8 +1,5 @@
-﻿@using EPiServer.Cms.Shell
-@using EPiServer.Core
-@using EPiServer.Shell
+﻿@using EPiServer.Commerce.Catalog.ContentTypes
 @using OxxCommerceStarterKit.Core.Extensions
-@using OxxCommerceStarterKit.Web.Helpers
 @model EPiServer.Commerce.Catalog.ContentTypes.ProductContent
 
 @{
@@ -12,6 +9,13 @@
         name = name.Substring(0, 20) + "...";
     }
     string imageUrl = Model.GetDefaultImage();
+    string displayPrice = "";
+    VariationContent firstVariation = Model.GetFirstVariation();
+    if (firstVariation != null)
+    {
+        displayPrice = firstVariation.GetDisplayPrice();
+    }
+
 }
 
 <div class="overlay"></div>
@@ -34,6 +38,6 @@
 <div style="left: 110px; top: 300px;" class="ms-layer button"
      data-effect="bottom(50,true)" data-duration="600" data-delay="950"
      data-ease="easeOutQuad">
-    <a class="btn btn-primary" href="@Url.ContentUrl(Model.ContentLink)"><span>1845$</span>Buy it now</a>
+    <a class="btn btn-primary" href="@Url.ContentUrl(Model.ContentLink)"><span>@displayPrice</span>Buy it now</a>
 </div>
 
