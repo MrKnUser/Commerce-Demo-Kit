@@ -1,0 +1,83 @@
+﻿@using BVNetwork.EPiSendMail.Configuration
+@using EPiServer.Editor
+@model OxxCommerceStarterKit.Web.Models.Blocks.NewsletterSignupBlock
+@{
+    // This allows multiple sign up forms on the same page
+    Random rnd = new Random(DateTime.Now.Millisecond);
+    string uniqueId = rnd.Next(0, 100).ToString();
+    string btnId = "btnSubscribe" + uniqueId;
+    string txtId = "txtEmail" + uniqueId;
+    string successId = "pnlSuccess" + uniqueId;
+    string failedId = "pnlFailed" + uniqueId;
+    string defaultVisibility = "hidden";
+    if (PageEditing.PageIsInEditMode) // ViewBag.BlockPreview == true || ViewData.ContainsKey("IsBlockPreview"))
+    {
+        // When editing the block, we'll show the error and success panels
+        defaultVisibility = "";
+    }
+    
+}
+@Html.FullRefreshPropertiesMetaData(new[] { "InlineText", "ButtonText" })
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#@btnId').click(function () {
+            $('#@failedId').addClass('hidden');
+            $('#@successId').addClass('hidden');
+            var email = $('#@txtId').val();
+            if (IsEmail(email)) {
+                $.ajax({
+                    dataType: 'json',
+                    url: '@NewsLetterConfiguration.GetModuleBaseDir()/api/subscription/subscribe?email=' + email,
+                    type: 'POST'
+                })
+                    .done(function (data) {
+                        var success = data.subscriptionResult;
+                        if (success) {
+                            $('#@successId').removeClass('hidden');
+                            // $('#@txtId').val('');
+                        } else {
+                            $('#@failedId').removeClass('hidden');
+                        }
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        console.log(jqXHR);
+                        $('#@failedId').removeClass('hidden');
+                    });
+            } else {
+                $('#@failedId').removeClass('hidden');
+            }
+            return false;
+        });
+    });
+    // Simple email validation - first step
+    function IsEmail(email) {
+        var regex = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        return regex.test(email);
+    }
+</script>
+@* Note! This uses the Bootstrap 2 markup used by the Alloy demo site. If you're using a more recent
+    version, you will have to update the classes *@
+
+<div class="well well-sm text-center">
+    <h2>@Html.PropertyFor(m => m.Title)</h2>
+
+    <form action="" method="post">
+        <div class="form-group has-success">
+            <label class="control-label" for="@txtId">@Html.PropertyFor(m => m.Lead)</label>
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+                <input type="text" id="@txtId" class="form-control" placeholder="@Model.InlineText" @Html.EditAttributes(m=> m.InlineText)>
+            </div>
+        </div>
+
+            <p>
+                <input type="submit" id="@btnId" value="@Model.ButtonText" class="btn btn-large" @Html.EditAttributes(m=> m.ButtonText)/>
+            </p>
+            <div class="@defaultVisibility alert alert-warning alert-block" id="@failedId">
+                @Html.PropertyFor(m => m.ErrorText)
+            </div>
+            <div class="@defaultVisibility alert alert-success alert-block" id="@successId">
+                @Html.PropertyFor(m => m.SuccessText)
+            </div>
+</form>
+</div>

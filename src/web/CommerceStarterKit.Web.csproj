@@ -488,6 +488,7 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Content Include="modules\_protected\BVNetwork.404Handler\BVNetwork.404Handler.zip" />
+    <Compile Include="Controllers\NewsletterSignupController.cs" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -874,6 +875,7 @@
     <Content Include="Views\Shared\DisplayTemplates\StringList.cshtml" />
     <Content Include="Views\Shared\_OpenGraphView.cshtml" />
     <Content Include="Views\Shared\Blocks\FormBlock.cshtml" />
+    <Content Include="Views\NewsletterSignupBlock\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1500,6 +1502,7 @@
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\FeatureProductBlock.cs" />
     <Compile Include="Models\Blocks\FormBlock.cs" />
+    <Compile Include="Models\Blocks\NewsletterSignupBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\FilterBaseBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\NumericFilterBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\ExistsFilterBlock.cs" />
