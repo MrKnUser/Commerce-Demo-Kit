@@ -110,6 +110,7 @@
     <Content Include="Content\Images\EditorThumbnails\Commerce-thumbnail.png" />
     <Content Include="Content\Images\EditorThumbnails\Content-thumbnail.png" />
     <Content Include="Content\Images\EditorThumbnails\Multimedia-thumbnail.png" />
+    <Content Include="Content\Images\EditorThumbnails\Newsletter-thumbnail.png" />
     <Content Include="Content\Images\EditorThumbnails\Social-thumbnail.png" />
     <Content Include="Content\Images\EditorThumbnails\System-thumbnail.png" />
     <Content Include="Content\Images\empty-shopping-cart.png" />
@@ -489,6 +490,7 @@
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Content Include="modules\_protected\BVNetwork.404Handler\BVNetwork.404Handler.zip" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
