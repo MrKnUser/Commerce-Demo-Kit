@@ -481,6 +481,7 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
+    <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\EPiServer.Commerce.Shell\EPiServer.Commerce.Shell.zip" />
@@ -1443,13 +1444,11 @@
     <Compile Include="Business\FacetRegistry\SelectableNumericRangeResult.cs" />
     <Compile Include="Business\Initialization\CatalogEventListener.cs" />
     <Compile Include="Business\Initialization\CommerceCachePrimer.cs" />
-    <Compile Include="Business\FindCatalogIndexingChangeNotificationProcessor.cs" />
     <Compile Include="Business\Initialization\CustomizedRenderingInitialization.cs" />
     <Compile Include="Business\Initialization\CustomModelMetadataProvider.cs" />
     <Compile Include="Business\Initialization\DependencyResolverInitialization.cs" />
     <Compile Include="Business\Initialization\DisplayModesInitialization.cs" />
     <Compile Include="Business\Initialization\IndexingEventInitialization.cs" />
-    <Compile Include="Business\Initialization\FindCatalogIndexingChangeNotificationInitialization.cs" />
     <Compile Include="Business\Initialization\MetadataInitialization.cs" />
     <Compile Include="Business\Initialization\SearchFieldInitialization.cs" />
     <Compile Include="Business\ISiteSettingsProvider.cs" />
