@@ -15,8 +15,7 @@
         // Code that runs on application startup
         Application["ComponentArtWebUI_AppKey"] = "This edition of ComponentArt Web.UI is licensed for EPiServer Framework only.";
 
-        string[] resolvedPaths = new string[]
-        {
+        string[] resolvedPaths = new string[] {
             "~/Apps/MetaDataBase/Primitives/",
             "~/Apps/MetaDataBase/MetaUI/Primitives/",
             "~/Apps/MetaUIEntity/Primitives/",
@@ -34,7 +33,7 @@
         Mediachase.Ibn.Web.UI.Layout.WorkspaceTemplateFactory.ControlsFolderPath = "~/Apps/";
 
         var configuration = WebConfigurationManager.OpenWebConfiguration("/");
-        var authenticationSection = (AuthenticationSection) configuration.GetSection("system.web/authentication");
+        var authenticationSection = (AuthenticationSection)configuration.GetSection("system.web/authentication");
         _authenticationMode = authenticationSection.Mode;
     }
 
@@ -48,13 +47,13 @@
 
         if (ex != null)
         {
-            if (typeof (AccessDeniedException) == ex.GetType())
+            if (typeof(AccessDeniedException) == ex.GetType())
             {
                 Response.Redirect(String.Format("~/Apps/Shell/Pages/Unauthorized.html"));
             }
-            else if (typeof (HttpException) == ex.GetType())
+            else if (typeof(HttpException) == ex.GetType())
             {
-                int errorCode = ((HttpException) ex).ErrorCode;
+                int errorCode = ((HttpException)ex).ErrorCode;
                 if (errorCode == 500) // consider 500 a fatal exception
                 {
                     // Log the exception
@@ -91,7 +90,7 @@
     {
         // Bug fix for MS SSRS Blank.gif 500 server error missing parameter IterationId
         if (HttpContext.Current.Request.Url.PathAndQuery.StartsWith("/Reserved.ReportViewerWebControl.axd") &&
-            !String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["ResourceStreamID"]) &&
+         !String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["ResourceStreamID"]) &&
             HttpContext.Current.Request.QueryString["ResourceStreamID"].ToLower().Equals("blank.gif"))
         {
             Context.RewritePath(String.Concat(HttpContext.Current.Request.Url.PathAndQuery, "&IterationId=0"));
@@ -105,7 +104,7 @@
 
     protected void Application_AuthorizeRequest(object sender, EventArgs e)
     {
-        HttpApplication httpApplication = (HttpApplication) sender;
+        HttpApplication httpApplication = (HttpApplication)sender;
 
         if (this.Request.IsAuthenticated)
         {
@@ -183,7 +182,7 @@
                 }
             }
             else if (!Mediachase.Commerce.Security.SecurityContext.Current.CheckCurrentUserInAnyGlobalRoles(
-                new string[] {Mediachase.Commerce.Core.AppRoles.AdminRole, Mediachase.Commerce.Core.AppRoles.ManagerUserRole}))
+                new string[] { Mediachase.Commerce.Core.AppRoles.AdminRole, Mediachase.Commerce.Core.AppRoles.ManagerUserRole }))
             {
                 FormsAuthentication.SignOut();
                 this.Response.Redirect("~/Apps/Shell/Pages/Unauthorized.html");
@@ -217,5 +216,4 @@
         // with the CurrentCulture property.
         System.Threading.Thread.CurrentThread.CurrentUICulture = System.Threading.Thread.CurrentThread.CurrentCulture;
     }
-
 </script>
