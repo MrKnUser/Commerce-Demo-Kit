@@ -1146,6 +1146,10 @@
     <Reference Include="ImageResizer.Plugins.DiskCache">
       <HintPath>..\..\packages\ImageResizer.Plugins.DiskCache.3.4.3\lib\ImageResizer.Plugins.DiskCache.dll</HintPath>
     </Reference>
+    <Reference Include="ImageResizer.Plugins.EPiServerBlobReader, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ImageResizer.Plugins.EPiServerBlobReader.2.0.1\lib\net452\ImageResizer.Plugins.EPiServerBlobReader.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
       <Private>True</Private>
