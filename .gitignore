@@ -32,8 +32,7 @@ src/commerce/App_Data/
 src/web/App_Data/
 
 # ImageResize.NET Disk Cache, we need the config file, but not the cached images
-src/web/diskcache/*
-!src/web/diskcache/Web.config
+!src/web/App_Data/diskcache/Web.config
 
 # NuGet Packages Directory is not committed
 packages/*
