@@ -45,19 +45,22 @@ namespace OxxCommerceStarterKit.Web.Api
             try
             {
                 string language = Language;
-                var queryResult = SearchClient.Instance.Search<PageData>()
+                var queryResult = SearchClient.Instance.Search<PageData>(GetFindLanguage(language))
                     .For(articleSearchData.SearchTerm)
                     .Filter(x => x.Language.Name.Match(language))
                     .Skip((articleSearchData.Page - 1)*articleSearchData.PageSize)
                     .Take(articleSearchData.PageSize)
                     .Track()
                     .FilterForVisitor()
+                    .ApplyBestBets()
                     .Select(y => new ArticleObject
                     {
                         DisplayName = y.PageName,
                         Image = "",
                         Url = UrlResolver.Current.GetUrl(y.PageLink)
-                    }).StaticallyCacheFor(TimeSpan.FromMinutes(1)).GetResult();
+                    })
+                    .StaticallyCacheFor(TimeSpan.FromMinutes(1))
+                    .GetResult();
                 var totalMatching = queryResult.TotalMatching;
                 var result = new
                 {

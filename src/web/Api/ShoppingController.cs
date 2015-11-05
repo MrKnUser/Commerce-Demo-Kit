@@ -192,7 +192,9 @@ namespace OxxCommerceStarterKit.Web.Api
             productsQuery = productsQuery
                 .Skip((productSearchData.Page - 1) * productSearchData.PageSize)
                 .Take(productSearchData.PageSize)
-                .StaticallyCacheFor(TimeSpan.FromMinutes(1));
+                .StaticallyCacheFor(TimeSpan.FromMinutes(1))
+                .ApplyBestBets();
+
             var productsSearchResult = productsQuery.GetResult();
             return productsSearchResult;
         }
