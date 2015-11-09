@@ -1,5 +1,7 @@
 # Commerce Starterkit
-An EPiServer Commerce project you can use for demos, learning from and possibly base your next web site on. 
+An EPiServer Commerce project you can use for demos, learning from and possibly base your next web site on.
+
+![Start Page](https://raw.githubusercontent.com/BVNetwork/CommerceStarterKit/master/doc/img/screenshots/readme-start-page.png)
 
 ## Getting Started
 1. Clone the repository
@@ -21,6 +23,7 @@ EPiServer Find is used in most product lists, as the wine and fashion lists, and
 You will have a hard time using the starter kit without Find.
 
 **Configuration**
+
 1. Go to [http://find.episerver.com](http://find.episerver.com), log in, and create a new developer index (with English and Norwegian languages).
 2. Add the `<episerver.find ... >` configuration to web.config. Search for it, it is already in the web.config, but with invalid configuration settings. 
 2. Go to [http://localhost:49883/episerver/CMS/Admin/Default.aspx](http://localhost:49883/episerver/CMS/Admin/Default.aspx "Admin mode"), find the "Index Product Catalog" Scheduled Job and run it.
