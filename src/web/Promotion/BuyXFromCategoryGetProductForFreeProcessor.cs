@@ -55,13 +55,9 @@ namespace OxxCommerceStarterKit.Web.Promotion
                         "The promotion is not fulfilled.");
                     break;
 
-                case FulfillmentStatus.SomewhatFulfilled:
+                case FulfillmentStatus.PartiallyFulfilled:
                     result = new BuyXFromCategoryGetProductForFreeResult(fulfillment,
                         "The promotion is somewhat fulfilled.");
-                    break;
-                case FulfillmentStatus.AlmostFulfilled:
-                    result = new BuyXFromCategoryGetProductForFreeResult(fulfillment,
-                        "The promotion is almost fulfilled.");
                     break;
                 case FulfillmentStatus.Fulfilled:
                 {
@@ -87,14 +83,10 @@ namespace OxxCommerceStarterKit.Web.Promotion
             if (qualifyingProducts >= threshold)
             {
                 return FulfillmentStatus.Fulfilled;
-            }
-            if (qualifyingProducts > (decimal)(threshold * 0.75))
+            }           
+            if (qualifyingProducts > 0)
             {
-                return FulfillmentStatus.AlmostFulfilled;
-            }
-            if (qualifyingProducts > ((decimal)threshold / 2))
-            {
-                return FulfillmentStatus.SomewhatFulfilled;
+                return FulfillmentStatus.PartiallyFulfilled;
             }
             return FulfillmentStatus.NotFulfilled;
         }
