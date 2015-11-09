@@ -1720,6 +1720,9 @@
     <Compile Include="Models\ViewModels\VideoViewModel.cs" />
     <Compile Include="Models\ViewModels\WineSKUViewModel.cs" />
     <Compile Include="Models\ViewModels\WishListModel.cs" />
+    <Compile Include="Promotion\BuyXFromCategoryGetProductForFree.cs" />
+    <Compile Include="Promotion\BuyXFromCategoryGetProductForFreeProcessor.cs" />
+    <Compile Include="Promotion\BuyXFromCategoryGetProductForFreeResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetPassword\IResetPasswordRepository.cs" />
     <Compile Include="ResetPassword\IResetPasswordService.cs" />
