@@ -70,7 +70,7 @@
 {
     var featurePage = page as IHasFeatureProduct;
 
-    if (featurePage != null && featurePage.FeatureProduct != null && featurePage.FeatureProduct.MenuFeatureLink != null)
+    if (featurePage != null && featurePage.FeatureProduct != null && ContentReference.IsNullOrEmpty(featurePage.FeatureProduct.MenuFeatureLink) == false)
     {
         var contentLoader = ServiceLocator.Current.GetInstance<EPiServer.IContentLoader>();
         UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
