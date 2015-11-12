@@ -962,8 +962,8 @@
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="EPiCode.Commerce.RestApi, Version=1.1.13.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EPiCode.Commerce.RestApi.1.1.13\lib\net45\EPiCode.Commerce.RestApi.dll</HintPath>
+      <HintPath>..\..\packages\EPiCode.Commerce.RestApi.2.0.0\lib\net45\EPiCode.Commerce.RestApi.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EPiCode.GoogleAnalytics.UniversalTracking, Version=1.1.5555.1132, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
