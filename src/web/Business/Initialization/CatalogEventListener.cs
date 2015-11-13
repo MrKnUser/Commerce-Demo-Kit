@@ -115,37 +115,48 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
 
 			IClient client = SearchClient.Instance;
 
-			// find all languages in the index
-			var results = client.Search<FindProduct>()
-				.Filter(x => x.Id.Match(id))
-                .StaticallyCacheFor(TimeSpan.FromMinutes(1))
-				.GetResult();
+		    SearchResults<FindProduct> results = null;
+		    try
+		    {
+		        // find all languages in the index
+		        results = client.Search<FindProduct>()
+		            .Filter(x => x.Id.Match(id))
+		            .StaticallyCacheFor(TimeSpan.FromMinutes(1))
+		            .GetResult();
+		    }
+		    catch (Exception e)
+		    {
+		        _log.Warning("Cannot update Find", e);
+		    }
 
-			foreach (var product in results)
-			{
+            if(results != null)
+            {
+                foreach (var product in results)
+                {
 
-				if (action == DataRowState.Deleted)
-				{
-					var categoryIndex = product.ParentCategoryId.IndexOf(parentCategoryId);
-					if (categoryIndex > -1)
-					{
-						product.ParentCategoryId.RemoveAt(categoryIndex);
-						product.ParentCategoryName.RemoveAt(categoryIndex);
+                    if (action == DataRowState.Deleted)
+                    {
+                        var categoryIndex = product.ParentCategoryId.IndexOf(parentCategoryId);
+                        if (categoryIndex > -1)
+                        {
+                            product.ParentCategoryId.RemoveAt(categoryIndex);
+                            product.ParentCategoryName.RemoveAt(categoryIndex);
 						
-						client.Index(product);
-					}
-				}
-				else if(!product.ParentCategoryId.Any(x => x == parentCategoryId))
-				{
-					product.ParentCategoryId.Add(parentCategoryId);
-					product.ParentCategoryName.Add(parentCategoryName);
+                            client.Index(product);
+                        }
+                    }
+                    else if(!product.ParentCategoryId.Any(x => x == parentCategoryId))
+                    {
+                        product.ParentCategoryId.Add(parentCategoryId);
+                        product.ParentCategoryName.Add(parentCategoryName);
 
-					client.Index(product);
-				}
+                        client.Index(product);
+                    }
 
 				
-			}
-			
+                }
+                
+            }			
 
 		}
 	}

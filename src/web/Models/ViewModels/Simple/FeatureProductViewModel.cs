@@ -26,7 +26,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels.Simple
             _featureProductBlock = featureProductBlock;
             var _contentRepository = ServiceLocator.Current.GetInstance<IContentRepository>();
             UrlResolver urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
-            if (_featureProductBlock.MenuFeatureLink != null)
+            if (ContentReference.IsNullOrEmpty(_featureProductBlock.MenuFeatureLink) == false)
             {
                 EntryContentBase product = _contentRepository.Get<EntryContentBase>(_featureProductBlock.MenuFeatureLink);
 

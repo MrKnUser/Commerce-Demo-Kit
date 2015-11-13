@@ -518,7 +518,10 @@ namespace OxxCommerceStarterKit.Web.Api
         }
         private ITypeSearch<FindProduct> ApplyCategoryFilter(ITypeSearch<FindProduct> query, List<int> categories)
         {
-            return query.Filter(query.GetOrFilterForIntList(categories, "ParentCategoryId", type: null)); // Filter array of int is without type specifier in Find
+            if(categories.Any())
+                return query.Filter(query.GetOrFilterForIntList(categories, "ParentCategoryId", type: null)); // Filter array of int is without type specifier in Find
+
+            return query;
         }
         private FilterBuilder<FindProduct> GetColorFilter(List<string> colorsList)
         {

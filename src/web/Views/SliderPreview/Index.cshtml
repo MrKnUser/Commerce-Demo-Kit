@@ -24,11 +24,14 @@
             foreach (var item in Model.SliderContent.Items)
              {
                  var itemContent = item.GetContent();
-                 <button type="button" class="btn btn-primary"
-                         style="margin: 2px;"
-                         data-epi-block-id="@item.ContentLink.ToString()">
-                     @itemContent.Name (@itemContent.ContentTypeName())
-                 </button>
+                 if (itemContent != null)
+                 {
+                     <button type="button" class="btn btn-primary"
+                             style="margin: 2px;"
+                             data-epi-block-id="@item.ContentLink.ToString()">
+                         @itemContent.Name (@itemContent.ContentTypeName())
+                     </button>
+                 }
              }
         }
     </div>
