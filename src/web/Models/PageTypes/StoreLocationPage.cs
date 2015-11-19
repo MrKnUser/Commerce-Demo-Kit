@@ -5,6 +5,8 @@ using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using OxxCommerceStarterKit.Core.Attributes;
 using EPiServer.Find;
+using EPiServer.Shell.ObjectEditing;
+using OxxCommerceStarterKit.Web.Business.UIDescriptor;
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
 {
@@ -83,15 +85,12 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
             GroupName = WebGlobal.GroupNames.Location,
             Order = 6)]
         public virtual string Country { get; set; }
-        [Display(
-            GroupName = WebGlobal.GroupNames.Location,
-            Order = 7)]
-        public virtual double Latitude { get; set; }
 
-        [Display(
-            GroupName = WebGlobal.GroupNames.Location,
-            Order = 8)]
-        public virtual double Longitude { get; set; }
+        [Display(Name = "Select Location",
+                    GroupName = WebGlobal.GroupNames.Location,
+                    Order = 7)]
+        [EditorDescriptor(EditorDescriptorType = typeof(CoordinatesEditorDescriptor))]
+        public virtual string GeoLocation { get; set; }
 
 
         [Ignore]
@@ -99,11 +98,21 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
         {
             get
             {
-                if (Latitude == 0 && Longitude == 0)
+                if (string.IsNullOrWhiteSpace(GeoLocation))
                 {
                     return null;
                 }
-                return new GeoLocation(Latitude, Longitude);
+                int splitter = GeoLocation.IndexOf(',');
+                if (splitter <= 0)
+                {
+                    return null;
+                }
+
+                double latitude = 0, longitude = 0;
+                latitude = Convert.ToDouble(GeoLocation.Substring(0, splitter));
+                longitude = Convert.ToDouble(GeoLocation.Substring(splitter + 1));
+
+                return new GeoLocation(latitude, longitude);
             }
         }
 
