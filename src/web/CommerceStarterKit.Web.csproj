@@ -54,6 +54,12 @@
     <Folder Include="Views\WineSKUPartial\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ClientResources\googlemaps\async.js" />
+    <Content Include="ClientResources\googlemaps\Editor.js" />
+    <Content Include="ClientResources\googlemaps\nls\Labels.js" />
+    <Content Include="ClientResources\googlemaps\nls\sv\Labels.js" />
+    <Content Include="ClientResources\googlemaps\WidgetTemplate.css" />
+    <Content Include="ClientResources\googlemaps\WidgetTemplate.html" />
     <Content Include="ClientResources\Images\icons\layoutIcons24x24.png" />
     <Content Include="ClientResources\Scripts\editors\StringList.js" />
     <Content Include="ClientResources\Scripts\editors\TagSelector.js" />
@@ -1436,6 +1442,7 @@
     <Compile Include="Business\Payment\PaymentRegistry.cs" />
     <Compile Include="Business\Rendering\IContainerPage.cs" />
     <Compile Include="Business\UIDescriptor\ContainerPageUIDescriptor.cs" />
+    <Compile Include="Business\UIDescriptor\CoordinatesEditorDescriptor.cs" />
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
     <Compile Include="Controllers\StoreLocationPageController.cs" />
