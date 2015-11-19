@@ -92,6 +92,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
         [EditorDescriptor(EditorDescriptorType = typeof(CoordinatesEditorDescriptor))]
         public virtual string GeoLocation { get; set; }
 
+
         [Ignore]
         public GeoLocation Coordinates
         {
@@ -113,7 +114,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 
                 return new GeoLocation(latitude, longitude);
             }
-
         }
+
     }
 }
