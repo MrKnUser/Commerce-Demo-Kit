@@ -20,12 +20,11 @@
         <div class="row">
             <div class="text col-lg-5 col-md-5 col-sm-6">
                 <h2><a href="@Url.ContentUrl(page.ContentLink)">@Model.Name</a></h2>
-                @if (!string.IsNullOrEmpty(page.Text))
-                {
-                    <p>@Html.Raw(page.Text)</p>
+                
+                    <p>@Model.Telephone</p>
                     <p>@Model.Address</p>
                     <p>@Model.City</p>
-                }
+                
                 <a class="btn-outlined btn-primary" href="@Url.ContentUrl(page.ContentLink)">@Html.TranslateFallback("/general/readmore", "Read more")</a>
             </div>
             <div class="col-lg-7 col-md-7 col-sm-6">

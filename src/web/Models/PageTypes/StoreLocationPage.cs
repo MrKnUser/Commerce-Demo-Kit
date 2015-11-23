@@ -86,12 +86,22 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
             Order = 6)]
         public virtual string Country { get; set; }
 
+
         [Display(Name = "Select Location",
                     GroupName = WebGlobal.GroupNames.Location,
                     Order = 7)]
         [EditorDescriptor(EditorDescriptorType = typeof(CoordinatesEditorDescriptor))]
         public virtual string GeoLocation { get; set; }
 
+
+        [Ignore]
+        public string FullAddress
+        {
+            get
+            {
+                return string.Format("{0}<br>{1}, {2}, {3}<br>{4}", Address, City, PostCode, State, Country);
+            }
+        }
 
         [Ignore]
         public GeoLocation Coordinates
