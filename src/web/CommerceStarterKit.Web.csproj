@@ -488,6 +488,7 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
+    <Compile Include="Controllers\ClosestStoreBlockController.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\Shell\web.config" />
@@ -888,6 +889,9 @@
     <Content Include="Views\StoreLocationPage\Index.cshtml" />
     <Content Include="Views\Shared\_StoreInventory.cshtml" />
     <Content Include="Views\StoreLocationPage\Index.cshtml" />
+    <Content Include="Views\Shared\Blocks\StoreLocationPage.Full.cshtml" />
+    <Content Include="Views\Shared\Blocks\StoreLocationPage.cshtml" />
+    <Content Include="Views\Shared\Blocks\ClosestStore.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -908,7 +912,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49883</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -1509,6 +1513,7 @@
     <Compile Include="Controllers\SliderPreviewController.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\SliderLayoutSelectionFactory.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\GeoPosition.cs" />
     <Compile Include="Helpers\WarehouseHelper.cs" />
     <Compile Include="IHttpContextProvider.cs" />
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
@@ -1522,6 +1527,7 @@
     <Compile Include="HttpContextIdentityProvider.cs" />
     <Compile Include="IIdentityProvider.cs" />
     <Compile Include="Models\Blocks\BannerBlock.cs" />
+    <Compile Include="Models\Blocks\ClosestStoreBlock.cs" />
     <Compile Include="Models\Blocks\FeatureProductBlock.cs" />
     <Compile Include="Models\Blocks\FormBlock.cs" />
     <Compile Include="Models\Blocks\NewsletterSignupBlock.cs" />
@@ -1543,6 +1549,7 @@
     <Compile Include="Models\PageTypes\ContainerPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
     <Compile Include="Models\PageTypes\StoreLocationPage.cs" />
+    <Compile Include="Models\ViewModels\ClosestStoreViewModel.cs" />
     <Compile Include="Models\ViewModels\Contracts\IHasListViewContentItem.cs" />
     <Compile Include="Models\ViewModels\Contracts\IListViewContentItem.cs" />
     <Compile Include="Models\ViewModels\ListViewContentItem.cs" />
