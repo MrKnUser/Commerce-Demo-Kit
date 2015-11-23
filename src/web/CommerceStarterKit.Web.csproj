@@ -488,7 +488,6 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
-    <Compile Include="Business\UIDescriptor\CoordinatesEditorDescriptor.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\Shell\web.config" />
