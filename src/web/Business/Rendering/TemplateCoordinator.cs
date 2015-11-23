@@ -62,6 +62,17 @@ namespace OxxCommerceStarterKit.Web.Business.Rendering
                 Default = false
             });
 
+            viewTemplateModelRegistrator.Add(typeof(StoreLocationPage), new TemplateModel()
+            {
+                Name = "Store Location rendered in Full view",
+                Inherit = true,
+                Tags = new[] { WebGlobal.ContentAreaTags.FullWidth },
+                Path = BlockPath("StoreLocationPage.Full.cshtml"),
+                TemplateTypeCategory = TemplateTypeCategories.MvcPartialView,
+                AvailableWithoutTag = false,
+                Default = false
+            });
+
             viewTemplateModelRegistrator.Add(typeof(ArticlePage), new TemplateModel()
             {
                 Name = "Article rendered in Full view",
