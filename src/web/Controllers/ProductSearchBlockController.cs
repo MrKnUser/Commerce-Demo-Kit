@@ -116,13 +116,18 @@ namespace OxxCommerceStarterKit.Web.Controllers
                         EntryContentBase entryContent = _contentLoader.Get<EntryContentBase>(item.ContentLink);
                         if (entryContent != null)
                         {
-                            // Remove priority products from list
-                            productListViewModels.RemoveAll(
-                                x => x.ContentLink.CompareToIgnoreWorkID(entryContent.ContentLink));
-                            // Add to beginning
-                            ProductListViewModel priorityProduct =
-                                _productService.GetProductListViewModel((IProductListViewModelInitializer) entryContent);
-                            productListViewModels.Insert(0, priorityProduct);
+                            var viewModelInitializer = entryContent as IProductListViewModelInitializer;
+                            if (viewModelInitializer != null)
+                            {
+                                // Remove priority products from list
+                                productListViewModels.RemoveAll(
+                                    x => x.ContentLink.CompareToIgnoreWorkID(entryContent.ContentLink));
+                                // Add to beginning
+                                ProductListViewModel priorityProduct =
+                                    _productService.GetProductListViewModel(viewModelInitializer);
+                                productListViewModels.Insert(0, priorityProduct);
+                                
+                            }
                         }
                     }
                 }

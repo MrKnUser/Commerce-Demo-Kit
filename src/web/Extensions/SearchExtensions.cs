@@ -186,7 +186,16 @@ namespace OxxCommerceStarterKit.Web.Extensions
 
         public static ITypeSearch<T> AddFilterForIntList<T>(this ITypeSearch<T> query, IEnumerable<int> categories, string fieldName)
         {
-            return query.Filter(GetOrFilterForIntList<T>(query, categories, fieldName, type: null)); // Filter array of int is without type specifier in Find
+            if (categories.Any())
+            {
+                return query.Filter(GetOrFilterForIntList<T>(query, categories, fieldName, type: null));
+                    // Filter array of int is without type specifier in Find
+            }
+
+            // Nothing to filter
+            return query;
+
+
         }
 
         public static FilterBuilder<T> GetOrFilterForIntList<T>(this ITypeSearch<T> query, IEnumerable<int> values, string fieldName, Type type)

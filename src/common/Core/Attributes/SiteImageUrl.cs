@@ -48,6 +48,7 @@ namespace OxxCommerceStarterKit.Core.Attributes
         Commerce,
         Multimedia,
         Social,
-        System
+        System,
+        Newsletter
     }
 }

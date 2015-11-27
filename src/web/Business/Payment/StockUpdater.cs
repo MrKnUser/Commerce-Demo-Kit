@@ -18,13 +18,16 @@ namespace OxxCommerceStarterKit.Web.Business.Payment
             
         public void AdjustStocks(PurchaseOrderModel order)
         {
-
             // TODO: Verify if you need custom inventory adjustment
             // The workflows will adjust the inventory for us, as long as inventory tracking
             // is enabled on the variation and the warehouse inventory for this variation. If you
             // want to refresh the inventory from a back-end system, do it here.
-            return;
+            
+            // AdjustOrderInventoryFromWarehouse(order);
+        }
 
+        protected void AdjustOrderInventoryFromWarehouse(PurchaseOrderModel order)
+        {
             var warehouseRepository = ServiceLocator.Current.GetInstance<IWarehouseRepository>();
             var warehousesCache = warehouseRepository.List();
             var warehouseInventory = ServiceLocator.Current.GetInstance<IWarehouseInventoryService>();
@@ -42,7 +45,7 @@ namespace OxxCommerceStarterKit.Web.Business.Payment
                     try
                     {
                         var warehouse = warehousesCache.First(w => w.Code == i.WarehouseCode);
-                        var catalogEntry = CatalogContext.Current.GetCatalogEntry(i.CatalogEntryId);
+                        var catalogEntry = CatalogContext.Current.GetCatalogEntry((string) i.CatalogEntryId);
                         var catalogKey = new CatalogKey(catalogEntry);
                         var inventory = new WarehouseInventory(warehouseInventory.Get(catalogKey, warehouse));
 
@@ -52,7 +55,7 @@ namespace OxxCommerceStarterKit.Web.Business.Payment
                             var contentLink = referenceConverter.GetContentLink(i.CatalogEntryId);
                             var variant = contentRepository.Get<VariationContent>(contentLink);
 
-                            expirationCandidates.Add((ProductContent)variant.GetParent());
+                            expirationCandidates.Add((ProductContent) variant.GetParent());
                         }
 
                         // NOTE! Default implementation is to NOT save the inventory here,
@@ -63,14 +66,12 @@ namespace OxxCommerceStarterKit.Web.Business.Payment
                     {
                         Log.Error("Unable to adjust inventory.", ex);
                     }
-
                 }
             }
 
             // TODO: Determine if you want to unpublish products with no sellable variants
             ExpireProductsWithNoInventory(expirationCandidates, contentRepository);
             // Alterntive approach is to notify the commerce admin about the products without inventory
-
         }
 
         private void ExpireProductsWithNoInventory(HashSet<ProductContent> expirationCandidates, IContentRepository contentRepository)

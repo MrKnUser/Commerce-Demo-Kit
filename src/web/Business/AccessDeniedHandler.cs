@@ -11,11 +11,9 @@ Copyright (C) 2013-2014 BV Network AS
 using System.Web;
 using System.Web.Mvc;
 using EPiServer;
-using EPiServer.Core;
 using EPiServer.Security;
 using EPiServer.ServiceLocation;
 using EPiServer.Web.Routing;
-using OxxCommerceStarterKit.Web.Models.PageTypes;
 
 namespace OxxCommerceStarterKit.Web.Business
 {

@@ -1,0 +1,457 @@
+{
+    "catalog": "Starterkit",
+    "defaults": {
+        "defaultNodeType": "DepartmentNodeWithProductsContent",
+        "defaultEntryType": "GenericProductContent",
+        "variationMinQuantity": 0,
+        "variationMaxQuantity": 100,
+        "variationEnableTracking": true,
+        "variationDefaultInventoryStock": 1000
+
+    },
+
+
+    "nodes": [
+        {
+            "name": "Lenses",
+            "code": "lenses",
+            "parent": "camera",
+            "properties": [
+                { "language": "en", "name": "DisplayName", "value": "Lenses" },
+                { "language": "no", "name": "DisplayName", "value": "Objektiver" }
+            ]
+        },
+        {
+            "name": "For Canon",
+            "code": "lenses-canon",
+            "parent": "lenses",
+            "properties": [
+                { "language": "en", "name": "DisplayName", "value": "For Canon" },
+                { "language": "no", "name": "DisplayName", "value": "Til Canon" }
+            ]
+        },
+        {
+            "name": "For Nikon",
+            "code": "lenses-nikon",
+            "parent": "lenses",
+            "properties": [
+                { "language": "en", "name": "DisplayName", "value": "For Nikon" },
+                { "language": "no", "name": "DisplayName", "value": "Til Nikon" }
+            ]
+        },
+        {
+            "name": "For Sony",
+            "code": "lenses-sony",
+            "parent": "lenses",
+            "properties": [
+                { "language": "en", "name": "DisplayName", "value": "For Sony" },
+                { "language": "no", "name": "DisplayName", "value": "Til Sony" }
+            ]
+        }
+    ],
+    "entries": [
+        {
+            "name": "Canon EOS 5D Mark III",
+            "code": "canon-5d-m3",
+            "parent": "slr",
+            "contentType": "DigitalCameraVariationContent",
+            "properties": [
+                { "language": "en", "name": "DisplayName", "value": "Canon EOS 5D Mark III" },
+                { "language": "no", "name": "DisplayName", "value": "Canon EOS 5D Mark III" },
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-1.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-2.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-3.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-4.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-5.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-6.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-7.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-8.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-9.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/5dmarkiii/eos-5d-m3-10.jpg" },
+            ],
+            "prices": [
+                {
+                    "price": 4500,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 40000.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Canon EOS 7D",
+            "code": "canon-7d",
+            "parent": "slr",
+            "contentType": "DigitalCameraVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "prices": [
+                {
+                    "price": 1190,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 9990.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7d/eos-7d-1.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7d/eos-7d-2.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7d/eos-7d-3.jpg" }
+            ]
+        },
+
+        {
+            "name": "Canon EOS 60D",
+            "code": "canon-60d",
+            "parent": "slr",
+            "contentType": "DigitalCameraVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "prices": [
+                {
+                    "price": 1199,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 9999.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/60d/eos-60d-1.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/60d/eos-60d-2.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/60d/eos-60d-3.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/60d/eos-60d-4.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/60d/eos-60d-5.jpg" }
+            ]
+
+        },
+
+        {
+            "name": "Canon EOS 7D Mark II",
+            "code": "canon-7d-m2",
+            "parent": "slr",
+            "contentType": "DigitalCameraVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "prices": [
+                {
+                    "price": 2299,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 19999.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7dmarkii/eos-7d-m2-1.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7dmarkii/eos-7d-m2-2.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7dmarkii/eos-7d-m2-3.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7dmarkii/eos-7d-m2-4.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7dmarkii/eos-7d-m2-5.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/7dmarkii/eos-7d-m2-6.jpg" }
+            ]
+        },
+
+        {
+            "name": "Canon EOS 70D",
+            "code": "canon-70d",
+            "parent": "slr",
+            "contentType": "DigitalCameraVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/70d/eos-70d-1.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/70d/eos-70d-2.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/70d/eos-70d-3.jpg" },
+                { "path": "/globalassets/catalogs/photo/cameras/slr/canon/70d/eos-70d-4.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 1499,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 9999.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+
+
+        {
+            "name": "Oben AC-2361 3-Section Aluminum Tripod Legs (Flip Lock)",
+            "code": "ac-2361",
+            "parent": "tripod",
+            "contentType": "GenericSizeVariationContent",
+            "images": [
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/oben_ac_2361_3_section_aluminum_tripod.jpg" }
+            ],
+            "properties": [
+                { "name": "Facet_Brand", "value": "Oben" }
+            ],
+            "prices": [
+                {
+                    "price": 199,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 1700.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Oben CC-2361 3-Section Carbon Fiber Tripod Legs",
+            "code": "cc-2361",
+            "parent": "tripod",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Oben" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/oben_cc_2361_3_section_carbon_fiber.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 149,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 1200.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Manfrotto MT055XPRO3 Aluminum Tripod",
+            "code": "MT055XPRO3",
+            "parent": "tripod",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Manfrotto" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055CXPRO3_90_column_highlight.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055CXPRO3-20140707.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055CXPRO3_aluminum_tripod.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055CXPRO3_details.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055CXPRO3_easylink_use_highlight.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055XPRO3_Tripod_collapsed_small.png" }
+            ],
+            "prices": [
+                {
+                    "price": 350,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 2990.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Manfrotto MT190X3 Aluminum Tripod",
+            "code": "MT190X3",
+            "parent": "tripod",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Manfrotto" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/mt190x3_3_section_tripod_1071808.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 205,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 1800.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Manfrotto MT055CXPRO3 Carbon Fiber Tripod",
+            "code": "MT055CXPRO3",
+            "parent": "tripod",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Manfrotto" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055XPRO3_11306_main.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055XPRO3_11306_main2.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/MT055XPRO3_Tripod_collapsed_small.png" }
+            ],
+            "prices": [
+                {
+                    "price": 220,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 1990.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Gitzo GT1542T Series 1 Traveler 6x Carbon Fiber Tripod",
+            "code": "GT1542T",
+            "parent": "tripod",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Gitzo" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/Gitzo_GT1542T_collapsed.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/Gitzo_GT1542T_collapsed_2.jpg" },
+                { "path": "/globalassets/catalogs/photo/accessories/tripod/Gitzo_GT1542T_Series_1_Traveler_6x_759477.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 123.50,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 2190.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Canon EF 50mm f/1.8 STM",
+            "code": "canon-ef-50-1-8mm",
+            "parent": "lenses",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/lenses/canon/canon-ef-50-1-8mm.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 225,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 1999.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Canon EF 24-70mm f/2.8L II USM",
+            "code": "canon-ef-24-70-f28l",
+            "parent": "lenses",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/lenses/canon/canon-ef-24-70-f28l.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 2899,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 19000.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Canon EF 100-400mm f/4.5-5.6L IS II USM",
+            "code": "canon-ef-100-400-f45-56l-is-usm",
+            "parent": "lenses",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/lenses/canon/canon-ef-100-400-f45-56l-is-usm.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 3199,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 26900.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        },
+        {
+            "name": "Canon EF 16-35mm f/4L IS USM",
+            "code": "canon-ef-16-35-f4-is-usm",
+            "parent": "lenses",
+            "contentType": "GenericSizeVariationContent",
+            "properties": [
+                { "name": "Facet_Brand", "value": "Canon" }
+            ],
+            "images": [
+                { "path": "/globalassets/catalogs/photo/lenses/canon/canon-ef-16-35-f4-is-usm-1.jpg" },
+                { "path": "/globalassets/catalogs/photo/lenses/canon/canon-ef-16-35-f4-is-usm-2.jpg" }
+            ],
+            "prices": [
+                {
+                    "price": 2099,
+                    "currency": "usd",
+                    "marketId": "default"
+                },
+                {
+                    "price": 17890.00,
+                    "currency": "nok",
+                    "marketId": "norway"
+                }
+            ]
+        }
+
+
+    ]
+}

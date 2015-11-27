@@ -23,8 +23,8 @@ namespace OxxCommerceStarterKit.Core.Customers
             {
                 case MembershipCreateStatus.Success:
 
-                    SecurityContext.Current.AssignUserToGlobalRole(user, AppRoles.EveryoneRole);
-                    SecurityContext.Current.AssignUserToGlobalRole(user, AppRoles.RegisteredRole);
+                    Roles.AddUserToRole(user.UserName, AppRoles.EveryoneRole);
+                    Roles.AddUserToRole(user.UserName, AppRoles.RegisteredRole);
 
                     var customer = CustomerContext.Current.GetContactForUser(user);
                     customer.FirstName = billingAddress.FirstName;

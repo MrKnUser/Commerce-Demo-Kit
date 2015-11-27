@@ -55,7 +55,10 @@ namespace OxxCommerceStarterKit.Web.Controllers
         {
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(Language);
             Thread.CurrentThread.CurrentCulture = new CultureInfo(Language);
-            EPiServer.BaseLibrary.Context.Current["EPiServer:ContentLanguage"] = new CultureInfo(Language);
+            // TODO: Inspect why we set this here, won't default work?
+            ContentLanguage.Instance.SetCulture(Language);
+            // Removed in CMS 9
+            // EPiServer.BaseLibrary.Context.Current["EPiServer:ContentLanguage"] = new CultureInfo(Language);
         }
 
         public ActionResult Index(NodeContent currentContent)

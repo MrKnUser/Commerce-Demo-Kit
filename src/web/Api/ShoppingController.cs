@@ -192,7 +192,9 @@ namespace OxxCommerceStarterKit.Web.Api
             productsQuery = productsQuery
                 .Skip((productSearchData.Page - 1) * productSearchData.PageSize)
                 .Take(productSearchData.PageSize)
-                .StaticallyCacheFor(TimeSpan.FromMinutes(1));
+                .StaticallyCacheFor(TimeSpan.FromMinutes(1))
+                .ApplyBestBets();
+
             var productsSearchResult = productsQuery.GetResult();
             return productsSearchResult;
         }
@@ -516,7 +518,10 @@ namespace OxxCommerceStarterKit.Web.Api
         }
         private ITypeSearch<FindProduct> ApplyCategoryFilter(ITypeSearch<FindProduct> query, List<int> categories)
         {
-            return query.Filter(query.GetOrFilterForIntList(categories, "ParentCategoryId", type: null)); // Filter array of int is without type specifier in Find
+            if(categories.Any())
+                return query.Filter(query.GetOrFilterForIntList(categories, "ParentCategoryId", type: null)); // Filter array of int is without type specifier in Find
+
+            return query;
         }
         private FilterBuilder<FindProduct> GetColorFilter(List<string> colorsList)
         {

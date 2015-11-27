@@ -9,21 +9,16 @@ Copyright (C) 2013-2014 BV Network AS
 */
 
 using System.Configuration;
-using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
-using BVNetwork.Bvn.FileNotFound.Logging;
 using EPiServer;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Commerce.Routing;
 using EPiServer.Core;
-using EPiServer.Events.ChangeNotification;
 using EPiServer.Framework;
 using EPiServer.Framework.Initialization;
-using EPiServer.HtmlParsing;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
@@ -33,7 +28,6 @@ using EPiServer.Web.Routing.Segments;
 using Mediachase.BusinessFoundation.Data;
 using Mediachase.Commerce;
 using Mediachase.Commerce.Catalog;
-using Mediachase.Commerce.Catalog.Events;
 using OxxCommerceStarterKit.Core;
 using OxxCommerceStarterKit.Core.Customers;
 using OxxCommerceStarterKit.Core.Services;
@@ -121,7 +115,6 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
                     commerceRoot: firstCatalog,
                     supportSeoUri: false,
                     contentLoader: contentLoader,
-                    languageSelectorFactory: languageSelectionFactory,
                     routingSegmentLoader: routingSegmentLoader,
                     contentVersionRepository: contentVersionRepo,
                     urlSegmentRouter: urlSegmentRouter,

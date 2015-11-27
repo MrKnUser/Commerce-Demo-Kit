@@ -11,16 +11,16 @@ Copyright (C) 2013-2014 BV Network AS
 using System;
 using System.Collections.Generic;
 using EPiServer;
-using EPiServer.BaseLibrary.Scheduling;
 using EPiServer.Core;
 using EPiServer.DataAccess;
 using EPiServer.PlugIn;
+using EPiServer.Scheduler;
 using EPiServer.ServiceLocation;
 
 namespace OxxCommerceStarterKit.Web.Jobs
 {
     [ScheduledPlugIn(DisplayName = "Republish Media")]
-    public class RepublishMediaJob : JobBase
+    public class RepublishMediaJob : ScheduledJobBase
     {
         private bool _stopSignaled;
         private List<string> _error = new List<string>();

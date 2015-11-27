@@ -64,7 +64,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         {
             Code = content.Code;
             ContentLink = content.ContentLink;
-            DisplayName = content.DisplayName;
+            DisplayName = content.DisplayName ?? content.Name;
             ProductUrl = _urlResolver.GetUrl(ContentLink);
             Description = content.GetPropertyValue("Description");
             Overview = content.GetPropertyValue("Overview");

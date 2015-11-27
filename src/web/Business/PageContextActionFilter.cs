@@ -83,6 +83,10 @@ namespace OxxCommerceStarterKit.Web.Business
             var siteUrl = SiteDefinition.Current.SiteUrl.ToString();
             siteUrl = siteUrl.TrimEnd('/');
 
+            // When in preview mode, this is also run for some of the block, they have no CurrentPage
+            if (model.CurrentPage == null)
+                return;
+
             OpenGraphModel openGraph = new OpenGraphModel();
             openGraph.Url = siteUrl + _urlResolver.GetUrl(model.CurrentPage.ContentLink);
             openGraph.ContentType = "article";

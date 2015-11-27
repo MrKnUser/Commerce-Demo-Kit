@@ -8,6 +8,7 @@ Copyright (C) 2013-2015 BV Network AS
 
 */
 using System.Collections.Generic;
+using System.Web;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
 using EPiServer.Shell;
@@ -29,11 +30,17 @@ namespace OxxCommerceStarterKit.Web.Business.UI
                 return null;
 
             // We won't redirect to the Commerce Manager site directly, but through the UI menu
-            const string commerceManagerUiLink = "/episerver/Commerce/Manager/Admin/SitePlugin/CommerceManager.aspx"; // Hard-coded in Shell.ManagerIntegration too
+            string commerceManagerUiLink = VirtualPathUtility.Combine(Paths.ProtectedRootPath,
+                "EPiServer.Commerce.AddOns.Manager/Admin/SitePlugin/CommerceManager.aspx");
 
             var menuItems = new Dictionary<string, QuickNavigatorMenuItem>();
             menuItems.Add("qn-commerce-manager", new QuickNavigatorMenuItem("Commerce Manager", commerceManagerUiLink, null, null, null));
             return menuItems;
+        }
+
+        private string RemoveLeadingSlash(string path)
+        {
+            return path.TrimStart(new char[] { '/' });
         }
 
         public int SortOrder

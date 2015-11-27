@@ -118,12 +118,16 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks.Base
             foreach (SearchHit<FindProduct> searchHit in results.Hits)
             {
                 ContentReference contentLink = refConverter.GetContentLink(searchHit.Document.Id, CatalogContentType.CatalogEntry, 0);
-                var content = loader.Get<IContentData>(contentLink);
 
-                IProductListViewModelInitializer modelInitializer = content as IProductListViewModelInitializer;
-                if (modelInitializer != null)
+                // The content can be deleted from the db, but still exist in the index
+                IContentData content = null;
+                if (loader.TryGet(contentLink, out content))
                 {
-                    searchResult.Add(productService.GetProductListViewModel(modelInitializer));
+                    IProductListViewModelInitializer modelInitializer = content as IProductListViewModelInitializer;
+                    if (modelInitializer != null)
+                    {
+                        searchResult.Add(productService.GetProductListViewModel(modelInitializer));
+                    }
                 }
             }
 

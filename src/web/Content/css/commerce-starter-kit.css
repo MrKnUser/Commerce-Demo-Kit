@@ -1,20 +1,4 @@
 ﻿/* Theme variables we want to reuse */
-/*@import "commerce-starter-kit/_variables.less";
-@import "commerce-starter-kit/_header.less";
-@import "commerce-starter-kit/_footer.less";
-@import "commerce-starter-kit/_hotSpotImage.less";
-@import "commerce-starter-kit/_product.less";
-@import "commerce-starter-kit/_slider.less";
-@import "commerce-starter-kit/_search.less";
-@import "commerce-starter-kit/_box.less";
-@import "commerce-starter-kit/_cart.less";
-@import "commerce-starter-kit/_checkout.less";
-
-@import "commerce-starter-kit/_productDialog.less";
-@import "commerce-starter-kit/blocks/_productTeaserBlock.less";
-
-@import "commerce-starter-kit/blocks/_productsearchblock.less";
-@import "commerce-starter-kit/blocks/_titleblock.less";*/
 .video-container {
   position: relative;
   padding-bottom: 43%;
@@ -400,7 +384,7 @@ body.lightbox-open,
   line-height: 18px;
   color: white;
   text-align: center;
-  text-shadow: 0 -1px 0 #000000;
+  text-shadow: 0 -1px 0 #000;
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
   background: #000;
   background: rgba(0, 0, 0, 0.6);
@@ -552,7 +536,6 @@ body.lightbox-open,
 .catalog-single #imageGallery .active {
   cursor: pointer;
 }
-/*@import "commerce-starter-kit/_slider.less";*/
 .box {
   border: 1px solid #dedede;
   background-color: white;
@@ -821,7 +804,6 @@ body.lightbox-open,
   font-size: 12px;
   margin-bottom: 5px;
 }
-/*@import "commerce-starter-kit/_myPage.less";*/
 /* Important for content areas */
 /*.overflow-hidden {
     overflow: hidden !important;
