@@ -389,7 +389,6 @@
     <Content Include="modules\epicode.newsletter\content\js\bootstrap.js" />
     <Content Include="modules\epicode.newsletter\content\js\bootstrap.min.js" />
     <Content Include="modules\epicode.newsletter\content\js\jquery-1.11.2.min.js" />
-    <Content Include="modules\epicode.newsletter\content\js\jquery-2.0.3.min.js" />
     <Content Include="modules\epicode.newsletter\content\js\jsrender.js" />
     <Content Include="modules\epicode.newsletter\content\js\jsrender.min.js" />
     <Content Include="modules\epicode.newsletter\plugin\Admin\NewsLetterInstall.aspx" />
@@ -491,12 +490,6 @@
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\EPiServer.GoogleAnalytics.Commerce.zip" />
     <Content Include="modules\_protected\EPiServer.Packaging.UI\web.config" />
     <Content Include="modules\_protected\EPiServer.Packaging.UI\EPiServer.Packaging.UI.zip" />
-    <Content Include="modules\epicode.newsletter\plugin\Web.config" />
-    <Content Include="modules\epicode.newsletter\module.config" />
-    <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Content Include="modules\_protected\EPiServer.Social\web.config" />
     <Content Include="modules\_protected\EPiServer.Social\Views\Web.config" />
     <Content Include="modules\_protected\EPiServer.Social\module.config" />
@@ -507,6 +500,12 @@
     <Content Include="modules\TextTVChannel\module.config" />
     <Content Include="modules\_protected\EPiServer.Commerce.Shell\EPiServer.Commerce.Shell.zip" />
     <Content Include="modules\_protected\Commerce\Commerce.zip" />
+    <Content Include="modules\epicode.newsletter\plugin\Web.config" />
+    <Content Include="modules\epicode.newsletter\module.config" />
+    <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -919,7 +918,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49883</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
@@ -954,12 +953,12 @@
       <HintPath>..\..\packages\BVN.404Handler.4.0.1\lib\net45\BVNetwork.EPi404.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BVNetwork.EPiSendMail, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiCode.Newsletter.4.0.0\lib\net451\BVNetwork.EPiSendMail.dll</HintPath>
+    <Reference Include="BVNetwork.EPiSendMail, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiCode.Newsletter.4.2.0\lib\net451\BVNetwork.EPiSendMail.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BVNetwork.EPiSendMail.CommerceProvider, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiCode.Newsletter.Commerce.4.0.0\lib\net451\BVNetwork.EPiSendMail.CommerceProvider.dll</HintPath>
+    <Reference Include="BVNetwork.EPiSendMail.CommerceProvider, Version=4.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPiCode.Newsletter.Commerce.4.2.0\lib\net451\BVNetwork.EPiSendMail.CommerceProvider.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
