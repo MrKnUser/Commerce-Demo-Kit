@@ -461,6 +461,7 @@
     <Content Include="modules\AppleWatchChannel\Views\Pages\AppleWatch.cshtml" />
     <Content Include="EPiServerFramework.config" />
     <Content Include="modules\epicode.newsletter\plugin\Newsletter.Master" />
+    <Compile Include="Api\WarehouseController.cs" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
     <Compile Include="Controllers\ClosestStoreBlockController.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
@@ -1531,6 +1532,7 @@
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
     <Compile Include="Controllers\IReceiptViewModelBuilder.cs" />
     <Compile Include="Business\Payment\PaymentCompleteHandler.cs" />
+    <Compile Include="Jobs\WarehouseIndexing.cs" />
     <Compile Include="ModelBuilders\ReceiptViewModelBuilder.cs" />
     <Compile Include="Controllers\VideoFileController.cs" />
     <Compile Include="EditorDescriptors\TinyMcePlugins\AllowExtendedAttributes.cs" />
@@ -1557,6 +1559,7 @@
     <Compile Include="Business\FacetRegistry\FilterAttribute.cs" />
     <Compile Include="Models\FindModels\GenericFindVariant.cs" />
     <Compile Include="Business\FacetRegistry\StringFilterAttribute.cs" />
+    <Compile Include="Models\FindModels\WarehouseIndexItem.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\ContainerPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />

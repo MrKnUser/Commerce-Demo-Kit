@@ -27,7 +27,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public TVariationContent CatalogContent { get; private set; }
 
         public Lazy<Inventory> Inventory { get; set; }
-        public Lazy<IEnumerable<WarehouseInventoryViewModel>> AllWarehouseInventory { get; set; }
+        public IEnumerable<WarehouseInventoryViewModel> AllWarehouseInventory { get; set; }
         public Price Price { get; set; }
         public EntryContentBase ParentEntry { get; set; }
         public EntryContentBase ContentWithAssets { get; set; }
@@ -38,7 +38,6 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public CartItemModel CartItem { get; set; }
         public ContentArea RelatedProductsContentArea { get; set; }
 
-        
         
     }
 }

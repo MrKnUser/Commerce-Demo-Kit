@@ -94,7 +94,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
             where TViewModel : IVariationViewModel<VariationContent>
         {
             model.Inventory = model.Inventory ?? GetInventory(model.CatalogContent, Constants.Warehouse.DefaultWarehouseCode);
-            model.AllWarehouseInventory = model.AllWarehouseInventory ?? GetAllWarehouseInventory(model.CatalogContent);
+            model.AllWarehouseInventory = model.AllWarehouseInventory ?? RetrieveByClosest(model.CatalogContent);
             model.Price = model.Price ?? GetPrice(model.CatalogContent);
             model.ParentEntry = model.CatalogContent.GetParent();
             model.ContentWithAssets = model.CatalogContent.CommerceMediaCollection.Any()
@@ -102,6 +102,49 @@ namespace OxxCommerceStarterKit.Web.Controllers
                 : model.ParentEntry;            
         }
 
+        private IEnumerable<WarehouseInventoryViewModel> RetrieveByClosest(VariationContent content)
+        {
+            IEnumerable<Inventory> inventories = GetAllWarehouseInventory(content);
+            IEnumerable<WarehouseInventoryViewModel> sortedListing = SortByClosest(GetAllWarhousesByInventory(inventories));
+            return sortedListing;
+        }
+
+        private IEnumerable<WarehouseInventoryViewModel> SortByClosest(IEnumerable<WarehouseInventoryViewModel> warehouses)
+        {
+            throw new NotImplementedException();
+        }
+
+        private IEnumerable<WarehouseInventoryViewModel> GetAllWarhousesByInventory(IEnumerable<Inventory> inventories)
+        {
+            IList<WarehouseInventoryViewModel> allWarehouseInventories = new List<WarehouseInventoryViewModel>(inventories.Count());
+            if (inventories.Count() > 0)
+            {
+                foreach (Inventory inventory in inventories)
+                {
+                    var warehouse = WarehouseHelper.GetWarehouse(inventory.WarehouseCode);
+                    if (warehouse != null && warehouse.IsActive)
+                    {
+                        WarehouseInventoryViewModel model = new WarehouseInventoryViewModel()
+                        {
+                            WarehouseCode = warehouse.Code,
+                            WarehouseName = HttpUtility.HtmlEncode(warehouse.Name),
+                            WarehouseContact = HttpUtility.HtmlEncode(string.Format("{0} - {1}", warehouse.ContactInformation.FullName,
+                                                                warehouse.ContactInformation.Email)),
+                            WarehouseAddress = HttpUtility.HtmlEncode(string.Format("{0} {1}", warehouse.ContactInformation.Line1,
+                                                                 warehouse.ContactInformation.City))
+
+                        };
+                        model.InStockLevel = inventory.InStockQuantity;
+                        model.ReservedLevel = inventory.ReservedQuantity;
+                        model.IsAvailable = (inventory.InStockQuantity - inventory.ReservedQuantity > 0);
+
+                        allWarehouseInventories.Add(model);
+                    }
+                }
+            }
+
+            return allWarehouseInventories;
+        }
 
         protected Lazy<IEnumerable<NodeContent>> GetCatalogChildNodes(ContentReference contentLink)
         {
@@ -188,44 +231,17 @@ namespace OxxCommerceStarterKit.Web.Controllers
             return ContentLoader.GetItems(relatedItems, LanguageSelector.AutoDetect()).OfType<TEntryContent>();
         }
 
-        private Lazy<IEnumerable<WarehouseInventoryViewModel>> GetAllWarehouseInventory(VariationContent catalogContent)
+        private IEnumerable<Inventory> GetAllWarehouseInventory(VariationContent catalogContent)
         {
             //make sure we don't get any null reference exception when accessing Inventories.
             var inventories = Enumerable.Empty<Inventory>();
-            var allWarehouseInventory = new List<WarehouseInventoryViewModel>();
-
+            
             if (catalogContent != null && catalogContent.IsAvailableInCurrentMarket())
             {
                 inventories = catalogContent.GetStockPlacement(InventoryLoader);
             }
             
-            if (inventories.Count() > 0)
-            {
-                foreach (Inventory inventory in inventories)
-                {
-                    var warehouse = WarehouseHelper.GetWarehouse(inventory.WarehouseCode);
-                    if (warehouse != null && warehouse.IsActive)
-                    {
-                        WarehouseInventoryViewModel model = new WarehouseInventoryViewModel()
-                        {
-                            WarehouseCode = warehouse.Code,
-                            WarehouseName = HttpUtility.HtmlEncode(warehouse.Name),
-                            WarehouseContact = HttpUtility.HtmlEncode(string.Format("{0} - {1}", warehouse.ContactInformation.FullName,
-                                                                warehouse.ContactInformation.Email)),
-                            WarehouseAddress = HttpUtility.HtmlEncode(string.Format("{0} {1}", warehouse.ContactInformation.Line1,
-                                                                 warehouse.ContactInformation.City))
-
-                        };
-                        model.InStockLevel = inventory.InStockQuantity;
-                        model.ReservedLevel = inventory.ReservedQuantity;
-                        model.IsAvailable = (inventory.InStockQuantity - inventory.ReservedQuantity > 0);
-
-                        allWarehouseInventory.Add(model);
-                    }
-                }
-            }
-
-            return new Lazy<IEnumerable<WarehouseInventoryViewModel>>(() => allWarehouseInventory);
+            return inventories;
 
         }
 
