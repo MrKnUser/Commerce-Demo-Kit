@@ -20,7 +20,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         where TVariationContent : VariationContent        
     {
         Lazy<Inventory> Inventory { get; set; }
-        Lazy<IEnumerable<WarehouseInventoryViewModel>> AllWarehouseInventory { get; set; }
+        IEnumerable<WarehouseInventoryViewModel> AllWarehouseInventory { get; set; }
         Price Price { get; set; }
         EntryContentBase ParentEntry { get; set; }
         EntryContentBase ContentWithAssets { get; set; }
