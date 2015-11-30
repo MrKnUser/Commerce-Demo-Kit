@@ -127,6 +127,7 @@
 					<date>Dato:</date>
 					<status>Status:</status>
 				</order_table_headers>
+        <logout>Logg av</logout>
 			</accountpages>
 			<checkout>
 				<placeholder>
