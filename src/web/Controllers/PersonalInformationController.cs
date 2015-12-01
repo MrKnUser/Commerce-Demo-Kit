@@ -10,18 +10,23 @@ Copyright (C) 2013-2014 BV Network AS
 
 using System.Web.Mvc;
 using EPiServer.ServiceLocation;
+using EPiServer.Core;
 using Mediachase.Commerce;
 using OxxCommerceStarterKit.Core.Objects;
 using OxxCommerceStarterKit.Core.Repositories;
 using OxxCommerceStarterKit.Web.Business;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
+using System.Web.Security;
+using EPiServer.Web.Routing;
 
 namespace OxxCommerceStarterKit.Web.Controllers
 {
 	public class PersonalInformationController : PageControllerBase<PersonalInformationPage>
 	{
-		[RequireSSL]
+        private readonly UrlResolver _urlResolver;
+
+        [RequireSSL]
 		public ActionResult Index(PersonalInformationPage currentPage)
 		{
 			PersonalInformationViewModel model = new PersonalInformationViewModel(currentPage);
@@ -34,7 +39,14 @@ namespace OxxCommerceStarterKit.Web.Controllers
 			return View(model);
 		}
 
-		[HttpPost]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect(_urlResolver.GetUrl(ContentReference.StartPage));
+        }
+
+
+        [HttpPost]
 		[RequireSSL]
 		public ActionResult Index(PersonalInformationPage currentPage, PersonalSettingsForm personalSettingsForm)
         {
@@ -66,5 +78,10 @@ namespace OxxCommerceStarterKit.Web.Controllers
             //Save data
             return View(model);
         }
-	}
+
+	    public PersonalInformationController(UrlResolver urlResolver)
+	    {
+	        _urlResolver = urlResolver;
+	    }
+    }
 }
