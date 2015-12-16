@@ -18,8 +18,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resources", "Resources", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sannsyn.Episerver.Commerce", "..\..\github-bvn\sannsyn-episerver-connector\src\Sannsyn.Episerver.Commerce\Sannsyn.Episerver.Commerce.csproj", "{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,18 +78,6 @@ Global
 		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{B10CCE50-1168-40F1-83C1-FFC343883C65}.Release|x86.ActiveCfg = Release|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Debug|x86.Build.0 = Debug|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Release|x86.ActiveCfg = Release|Any CPU
-		{4BF3D566-BBC6-495A-957B-2E9CFA46C7BB}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
