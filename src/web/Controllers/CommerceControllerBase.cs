@@ -111,7 +111,7 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
         private IEnumerable<WarehouseInventoryViewModel> SortByClosest(IEnumerable<WarehouseInventoryViewModel> warehouses)
         {
-            throw new NotImplementedException();
+            return warehouses;
         }
 
         private IEnumerable<WarehouseInventoryViewModel> GetAllWarhousesByInventory(IEnumerable<Inventory> inventories)
