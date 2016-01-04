@@ -9,8 +9,10 @@
     </div>
     @Html.Partial("PagePartials/_PageTitle", Model)
 
-	@if(Model.CurrentPage.Intro != null || Html.IsInEditMode()) {
 	<div class="lead">@Html.PropertyFor(m => m.CurrentPage.MetaDescription)</div>
+    @if (Model.CurrentPage.Intro != null || Html.IsInEditMode())
+    {
+        <div class="lead">@Html.PropertyFor(m => m.CurrentPage.Intro)</div>
     }
 	<div class="body">
 		@Html.PropertyFor(m => m.CurrentPage.BodyText)

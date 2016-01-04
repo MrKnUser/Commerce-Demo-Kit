@@ -39,10 +39,12 @@
 
                     <!--Post-->
                     <div class="post">
+                        <div class="lead">@Html.PropertyFor(m => m.CurrentPage.MetaDescription)</div>
                         @if (Model.CurrentPage.Intro != null || Html.IsInEditMode())
                         {
                             <div class="lead">@Html.PropertyFor(m => m.CurrentPage.Intro)</div>
-                        }                        
+                        }
+
 
                         <p class="p-style3">
                             @Html.PropertyFor(m => m.CurrentPage.BodyText)

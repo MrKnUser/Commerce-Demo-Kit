@@ -35,7 +35,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
     {
 		[Display(
 			Name = "List view image",
-			GroupName = SystemTabNames.Content,
+			GroupName =  SystemTabNames.Content,
 			Order = 11)]
 		[UIHint(WebGlobal.SiteUIHints.MediaUrl)]
 		public virtual Url ListViewImage { get; set; }
@@ -84,7 +84,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 		public virtual ContentArea BodyContent { get; set; }
 
         [Display(Name = "Menu feature product", 
-            Description = "", GroupName = SystemTabNames.Content, Order = 60)]
+            Description = "", GroupName = WebGlobal.GroupNames.MenuFeature, Order = 70)]
         public virtual FeatureProductBlock FeatureProduct { get; set; }
 
 
