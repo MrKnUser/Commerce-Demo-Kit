@@ -12,6 +12,7 @@
     </div>
     <div class="row">
         <div class="col-md-8">
+            <div class="lead">@Html.PropertyFor(m => m.CurrentPage.MetaDescription)</div>
             @if (Model.CurrentPage.Intro != null || Html.IsInEditMode())
             {
                 <div class="lead">@Html.PropertyFor(m => m.CurrentPage.Intro)</div>

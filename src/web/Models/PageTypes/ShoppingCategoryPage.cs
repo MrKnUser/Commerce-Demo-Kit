@@ -46,7 +46,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
 		 [CultureSpecific]
 		 public virtual ContentArea BottomContentArea { get; set; }
 
-         [Display(Name = "Menu feature product", Description = "", GroupName = SystemTabNames.Content, Order = 40)]
+         [Display(Name = "Menu feature product", Description = "", GroupName = WebGlobal.GroupNames.MenuFeature, Order = 40)]
          public virtual FeatureProductBlock FeatureProduct { get; set; }
 	}
 }

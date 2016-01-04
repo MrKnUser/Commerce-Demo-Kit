@@ -77,7 +77,7 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
         [Searchable(false)]
         [Display(
             Name = "Footer menu root folder",
-            Description = "The folder who's children will be in the footer menu",
+            Description = "The folder whose children will be in the footer menu",
             GroupName = SystemTabNames.Settings,
             Order = 50)]
         public virtual PageReference FooterMenuFolder { get; set; }

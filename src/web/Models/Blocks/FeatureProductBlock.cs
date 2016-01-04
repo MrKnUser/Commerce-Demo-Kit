@@ -6,29 +6,34 @@ using System.Web;
 using EPiServer.Core;
 using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
+using EPiServer.Commerce;
 
 namespace OxxCommerceStarterKit.Web.Models.Blocks
 {
-    [ContentType(DisplayName = "Fature product",
+    [ContentType(DisplayName = "Feature product",
         GUID = "BA2F1BC6-6078-4FDC-AC88-046D156E2E06",
         AvailableInEditMode = false)]
     public class FeatureProductBlock : SiteBlockData
     {
         [Display(
-            GroupName = SystemTabNames.Content,
+            Name ="Menu feature link (catalog product)",
+            GroupName = WebGlobal.GroupNames.MenuFeature,
             Order = 10)]
         [CultureSpecific]
+        [UIHint(UIHint.CatalogEntry)]
         public virtual ContentReference MenuFeatureLink { get; set; }
 
         [Display(
-          GroupName = SystemTabNames.Content,
-          Order = 30)]
+            Name ="Menu feature text",
+            GroupName = WebGlobal.GroupNames.MenuFeature,
+            Order = 30)]
         [CultureSpecific]
         public virtual XhtmlString MenuFeatureText { get; set; }
 
         [Display(
-         GroupName = SystemTabNames.Content,
-         Order = 40)]
+            Name ="Menu feature button text",
+            GroupName = WebGlobal.GroupNames.MenuFeature,
+            Order = 40)]
         [CultureSpecific]
         public virtual string MenuFeatureActionText { get; set; }
     }

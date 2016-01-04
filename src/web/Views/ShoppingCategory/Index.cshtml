@@ -29,6 +29,8 @@
         <div class="col-lg-9 col-md-9 col-sm-8 product-list" ng-cloak>
             <h1 @Html.EditAttributes(x => x.CurrentPage.PageName)>@Model.CurrentPage.PageName</h1>
             @Html.Partial("PagePartials/_PageColumnsControl")
+            @* PETRI: added MetaDescription here to be rendered on the page. *@
+            <div class="lead">@Html.PropertyFor(m => m.CurrentPage.MetaDescription)</div>
             @Html.PropertyFor(x => x.CurrentPage.PageSubHeader)
             @Html.PropertyFor(x => x.CurrentPage.TopContentArea)
             @Html.Partial("PagePartials/_ProductList")

@@ -21,7 +21,8 @@ using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using Newtonsoft.Json;
 using OxxCommerceStarterKit.Web.Controllers;
-
+using EPiServer.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 
 namespace OxxCommerceStarterKit.Web
 {
@@ -160,16 +161,27 @@ namespace OxxCommerceStarterKit.Web
             public const string RelatedProducts = "relatedProducts";
         }
 
+        [GroupDefinitions]
         public static class GroupNames
         {
+            [Display(Order = 00)]
             public const string Default = "Default";
+            [Display(Order = 01)]
             public const string Content = "Content";
+            [Display(Order = 02)]
             public const string Commerce = "Commerce";
+            [Display(Order = 03)]
             public const string Contact = "Contact";
+            [Display(Order = 04)]
             public const string MetaData = "Metadata";
+            [Display(Order = 05)]
             public const string SiteSettings = "SiteSettings";
+            [Display(Order = 06)]
             public const string Specialized = "Specialized";
+            [Display(Order = 07)]
             public const string Location = "Location";
+            [Display(Order = 08)]
+            public const string MenuFeature = "Menu Feature";
         }
 
         public static class SiteUIHints
