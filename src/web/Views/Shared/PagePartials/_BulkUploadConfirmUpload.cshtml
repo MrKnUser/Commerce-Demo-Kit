@@ -52,8 +52,7 @@
                             @Model.ParsedUploadItems[i].Description
                         </td>
                         <td>
-                            @Model.ParsedUploadItems[i].Quantity
-                            @Html.HiddenFor(m => Model.ParsedUploadItems[i].Quantity)
+                            @Html.TextBoxFor(m => m.ParsedUploadItems[i].Quantity, new { @type = "number", @min = "1", @max="9999" })
                         </td>
 
                         <td>
