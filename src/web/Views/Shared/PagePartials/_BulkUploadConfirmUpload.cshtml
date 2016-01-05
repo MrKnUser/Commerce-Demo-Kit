@@ -1,0 +1,85 @@
+﻿@model OxxCommerceStarterKit.Web.Models.ViewModels.BulkUploadViewModel
+
+@using EPiServer.Globalization
+@using EPiServer.Editor
+
+<div>
+
+    @if (Model.ParsedUploadItems != null)
+    {
+        using (Html.BeginForm(
+            "MoveToCart",
+            "BulkUpload",
+            FormMethod.Post, new {language = ContentLanguage.PreferredCulture.Name}))
+        {
+            <h2>@Html.PropertyFor(m => Model.CurrentPage.ReviewItems)</h2>
+            <h3>
+                @Html.PropertyFor(m => Model.CurrentPage.ReviewItemsSubHeading)
+            </h3>
+            <p>
+                <button type="submit" class="btn btn-success" @Html.EditAttributes(m => m.CurrentPage.ConfirmAndMoveToCart)>
+                    @Html.DisplayFor(m => Model.CurrentPage.ConfirmAndMoveToCart)
+                </button>
+
+                <a class="btn btn-danger" href="@Url.Action("Index")" @Html.EditAttributes(m => m.CurrentPage.ClearAndStartAgain)>
+                    @Html.DisplayFor(m => m.CurrentPage.ClearAndStartAgain)
+                </a>
+            </p>
+            <table class="table-striped table-bordered">
+                <tr>
+                    <th>
+                        @Html.PropertyFor(m => Model.CurrentPage.ProductCode) &nbsp;
+                    </th>
+                    <th>
+                        @Html.PropertyFor(m => Model.CurrentPage.Description) &nbsp;
+                    </th>
+                    <th>
+                        @Html.PropertyFor(m => Model.CurrentPage.Amount) &nbsp;
+                    </th>
+                    <th>
+                        @Html.PropertyFor(m => Model.CurrentPage.UploadStatus) &nbsp;
+                    </th>
+                </tr>
+                @for (var i = 0; i < Model.ParsedUploadItems.Count; i++)
+                {
+                    var uploadedItem = Model.ParsedUploadItems[i];
+                    <tr>
+                        <td>
+                            @Model.ParsedUploadItems[i].ProductCode
+                            @Html.HiddenFor(m => Model.ParsedUploadItems[i].ProductCode)
+                        </td>
+                        <td>
+                            @Model.ParsedUploadItems[i].Description
+                        </td>
+                        <td>
+                            @Model.ParsedUploadItems[i].Quantity
+                            @Html.HiddenFor(m => Model.ParsedUploadItems[i].Quantity)
+                        </td>
+
+                        <td>
+                            @if (Model.ParsedUploadItems[i].CouldLookupProduct)
+                            {
+                                @Html.PropertyFor(m => Model.CurrentPage.ProductFound)
+                            }
+                            else
+                            {
+                                @Html.PropertyFor(m => Model.CurrentPage.ProductNotFound)
+                            }
+                            @Html.HiddenFor(m => Model.ParsedUploadItems[i].CouldLookupProduct)
+                        </td>
+                    </tr>
+                }
+            </table>
+            <p>
+                <br/>
+                <button type="submit" class="btn btn-success" @Html.EditAttributes(m => m.CurrentPage.ConfirmAndMoveToCart)>
+                    @Html.DisplayFor(m => Model.CurrentPage.ConfirmAndMoveToCart)
+                </button>
+
+                <a class="btn btn-danger" href="@Url.Action("Index")" @Html.EditAttributes(m => m.CurrentPage.ClearAndStartAgain)>
+                    @Html.DisplayFor(m => m.CurrentPage.ClearAndStartAgain)
+                </a>
+            </p>
+        }
+    }
+</div>

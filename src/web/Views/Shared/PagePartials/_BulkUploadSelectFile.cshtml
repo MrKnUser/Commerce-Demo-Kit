@@ -1,0 +1,26 @@
+﻿@model OxxCommerceStarterKit.Web.Models.ViewModels.BulkUploadViewModel
+
+@using EPiServer.Editor
+@using EPiServer.Globalization
+
+<div>
+    @using (Html.BeginForm(
+        "UploadFile",
+        "BulkUpload",
+        FormMethod.Post, new
+        {
+            enctype = "multipart/form-data",
+            language = ContentLanguage.PreferredCulture.Name
+        }))
+    {
+        <p>@Html.PropertyFor(m => m.CurrentPage.FileUploadMessage)</p>
+
+        <input name="fileUpload" type="file"/>
+        <p>
+            <br/>
+            <button type="submit" class="btn btn-primary" @Html.EditAttributes(m => m.CurrentPage.UploadFile)>
+                @Html.DisplayFor(m => Model.CurrentPage.UploadFile)
+            </button>
+        </p>
+    }
+</div>

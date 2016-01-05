@@ -99,5 +99,17 @@ namespace OxxCommerceStarterKit.Web.Helpers
 		{
 			return HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority).TrimEnd('/');
 		}
+
+        public static string GetExternalUrl(ContentReference contentReference)
+        {
+            UrlResolver _urlResolver = ServiceLocator.Current.GetInstance<UrlResolver>();
+            var internalUrl = _urlResolver.GetUrl(contentReference);
+
+            var url = new UrlBuilder(internalUrl);
+            Global.UrlRewriteProvider.ConvertToExternal(url, null, System.Text.Encoding.UTF8);
+
+            return UriSupport.AbsoluteUrlBySettings(url.ToString());
+        }
+
     }
 }

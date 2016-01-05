@@ -1,0 +1,58 @@
+﻿@using EPiServer.Editor
+@using EPiServer.Globalization
+@model OxxCommerceStarterKit.Web.Models.ViewModels.BulkUploadViewModel
+@{
+    ViewBag.Title = Model.CurrentPage.Name;
+    var settings = (Chrome)ViewBag.Chrome;
+}
+
+<!--Bulk upload Cart-->
+<section class="order-upload">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-9">
+                <h1 class="title">@Html.PropertyFor(m => m.CurrentPage.Name)</h1>
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="well text-center btn-warning">
+                        <h4>@Model.CurrentPage.ErrorHeader</h4>
+                        @foreach (ModelState modelState in ViewData.ModelState.Values)
+                        {
+                            foreach (ModelError error in modelState.Errors)
+                            {
+                                <h4>@error.ErrorMessage</h4>
+                            }
+                        }
+                    </div>
+                }
+
+                @if (Model != null && Model.ParsedUploadItems != null && Model.ParsedUploadItems.Count > 0)
+                {
+                    @Html.Partial("_BulkUploadConfirmUpload", Model)
+                }
+                else
+                {
+                    @Html.Partial("_BulkUploadSelectFile", Model)
+                }
+
+                @if (PageEditing.PageIsInEditMode)
+                {
+                    <div class="alert alert-info" style="background-color: lightyellow">
+                        <strong>Note:</strong> This section below is shown in edit mode to enable on-page editing. Data is shown for test only
+                    </div>
+                    Model.ParsedUploadItems = new List<BulkUploadFileItem>();
+                    Model.ParsedUploadItems.Add(new BulkUploadFileItem() {ProductCode = "Product 1", CouldLookupProduct = true, Description = "Product description", Quantity = 1});
+                    Model.ParsedUploadItems.Add(new BulkUploadFileItem() {ProductCode = "Invalid product", CouldLookupProduct = false, Quantity = 1});
+                    @Html.Partial("_BulkUploadConfirmUpload", Model)
+                }
+
+
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <h3>@Html.PropertyFor(x => x.CurrentPage.InstructionsHeader)</h3>
+                @Html.PropertyFor(x => x.CurrentPage.InstructionsBody)
+            </div>
+        </div>
+    </div>
+</section>
