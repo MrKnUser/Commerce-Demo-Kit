@@ -1155,3 +1155,12 @@ img.img-float-top-right {
 .formblock legend {
   font-size: 1em;
 }
+
+.order-upload table th {
+    padding: 10px;
+}
+
+.order-upload table td {
+    padding: 10px;
+}
+ 
