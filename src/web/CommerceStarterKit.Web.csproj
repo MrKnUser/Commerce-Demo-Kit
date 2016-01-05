@@ -89,6 +89,7 @@
     </Content>
     <None Include="Content\css\commerce-starter-kit\_mypage.less" />
     <None Include="Content\css\commerce-starter-kit\_header.less" />
+    <Content Include="Content\css\commerce-starter-kit\_order-upload.less" />
     <None Include="Content\css\commerce-starter-kit\_search-autocomplete.less" />
     <Content Include="Content\css\editorNames-lead.css">
       <DependentUpon>editorNames-lead.less</DependentUpon>
@@ -462,7 +463,16 @@
     <Content Include="EPiServerFramework.config" />
     <Content Include="modules\epicode.newsletter\plugin\Newsletter.Master" />
     <Compile Include="Api\WarehouseController.cs" />
+    <Compile Include="Business\BulkOrdering\DTO\FileUploadRecord.cs" />
+    <Compile Include="Business\BulkOrdering\Impl\FileParsers\CsvFileParser.cs" />
+    <Compile Include="Business\BulkOrdering\Impl\FileValidator.cs" />
+    <Compile Include="Business\BulkOrdering\Impl\ProductLookup.cs" />
+    <Compile Include="Business\BulkOrdering\Initialization\RegisterImplementationsInit.cs" />
+    <Compile Include="Business\BulkOrdering\Interfaces\IFileParser.cs" />
+    <Compile Include="Business\BulkOrdering\Interfaces\IFileValidator.cs" />
+    <Compile Include="Business\BulkOrdering\Interfaces\IProductLookup.cs" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
+    <Compile Include="Controllers\BulkUploadController.cs" />
     <Compile Include="Controllers\ClosestStoreBlockController.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -899,6 +909,9 @@
     <Content Include="Views\Shared\Blocks\StoreLocationPage.Full.cshtml" />
     <Content Include="Views\Shared\Blocks\StoreLocationPage.cshtml" />
     <Content Include="Views\Shared\Blocks\ClosestStore.cshtml" />
+    <Content Include="Views\BulkUpload\Index.cshtml" />
+    <Content Include="Views\Shared\PagePartials\_BulkUploadSelectFile.cshtml" />
+    <Content Include="Views\Shared\PagePartials\_BulkUploadConfirmUpload.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1156,6 +1169,10 @@
     </Reference>
     <Reference Include="EPiServer.XForms, Version=9.3.1.0, Culture=neutral, PublicKeyToken=8fe83dea738b45b7, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EPiServer.CMS.Core.9.3.1\lib\net45\EPiServer.XForms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FileHelpers, Version=3.1.5.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FileHelpers.3.1.5\lib\net45\FileHelpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
@@ -1561,9 +1578,12 @@
     <Compile Include="Business\FacetRegistry\StringFilterAttribute.cs" />
     <Compile Include="Models\FindModels\WarehouseIndexItem.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
+    <Compile Include="Models\PageTypes\BulkUploadModelPage.cs" />
     <Compile Include="Models\PageTypes\ContainerPage.cs" />
     <Compile Include="Models\PageTypes\IHasFeatureProduct.cs" />
     <Compile Include="Models\PageTypes\StoreLocationPage.cs" />
+    <Compile Include="Models\ViewModels\BulkUploadFileItem.cs" />
+    <Compile Include="Models\ViewModels\BulkUploadViewModel.cs" />
     <Compile Include="Models\ViewModels\ClosestStoreViewModel.cs" />
     <Compile Include="Models\ViewModels\Contracts\IHasListViewContentItem.cs" />
     <Compile Include="Models\ViewModels\Contracts\IListViewContentItem.cs" />
