@@ -76,9 +76,9 @@
     <Content Include="Content\css\commerce-starter-kit\blocks\_titleBlock.less" />
     <Content Include="Content\css\commerce-starter-kit\blocks\_bannerBlock.less" />
     <None Include="compilerconfig.json" />
-    <Content Include="compilerconfig.json.defaults">
+    <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
-    </Content>
+    </None>
     <None Include="Content\css\commerce-starter-kit\_mypage.less" />
     <None Include="Content\css\commerce-starter-kit\_header.less" />
     <None Include="Content\css\commerce-starter-kit\_search-autocomplete.less" />
@@ -262,6 +262,12 @@
     <Content Include="Content\less\colors\color.less" />
     <Content Include="Content\less\colors\color.min.css">
       <DependentUpon>color.css</DependentUpon>
+    </Content>
+    <Content Include="Content\less\epicphoto.css">
+      <DependentUpon>epicphoto.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\epicphoto.min.css">
+      <DependentUpon>epicphoto.css</DependentUpon>
     </Content>
     <Content Include="Content\less\font-awesome\bordered-pulled.less" />
     <Content Include="Content\less\font-awesome\core.less" />
@@ -492,6 +498,27 @@
     <Content Include="modules\_protected\EPiServer.Commerce.Shell\EPiServer.Commerce.Shell.zip" />
     <Content Include="modules\_protected\Commerce\Commerce.zip" />
     <Content Include="modules\_protected\EPiServer.Commerce.Shell.ManagerIntegration\EPiServer.Commerce.Shell.ManagerIntegration.zip" />
+    <Content Include="Content\less\epicphoto\blocks\_bannerBlock.less" />
+    <Content Include="Content\less\epicphoto\blocks\_productsearchblock.less" />
+    <Content Include="Content\less\epicphoto\blocks\_productTeaserBlock.less" />
+    <Content Include="Content\less\epicphoto\blocks\_titleBlock.less" />
+    <Content Include="Content\less\epicphoto\blocks\_video.less" />
+    <Content Include="Content\less\epicphoto\_bootstrap-lightbox.less" />
+    <Content Include="Content\less\epicphoto\_box.less" />
+    <Content Include="Content\less\epicphoto\_cart.less" />
+    <Content Include="Content\less\epicphoto\_checkout.less" />
+    <Content Include="Content\less\epicphoto\_footer.less" />
+    <Content Include="Content\less\epicphoto\_header.less" />
+    <Content Include="Content\less\epicphoto\_hotSpotImage.less" />
+    <Content Include="Content\less\epicphoto\_mypage.less" />
+    <Content Include="Content\less\epicphoto\_product.less" />
+    <Content Include="Content\less\epicphoto\_productDialog.less" />
+    <Content Include="Content\less\epicphoto\_productList.less" />
+    <Content Include="Content\less\epicphoto\_search-autocomplete.less" />
+    <Content Include="Content\less\epicphoto\_search.less" />
+    <Content Include="Content\less\epicphoto\_slider.less" />
+    <Content Include="Content\less\epicphoto\_variables.less" />
+    <Content Include="Content\less\epicphoto.less" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -553,8 +580,6 @@
     <Content Include="connectionStrings.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\commerce-starter-kit.css" />
@@ -585,7 +610,6 @@
     <Content Include="Content\css\jqueryui\images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\css\jqueryui\jquery-ui-1.10.4.custom.css" />
     <Content Include="Content\css\jqueryui\jquery-ui-1.10.4.custom.min.css" />
-    <Content Include="Content\easyzoom.css" />
     <Content Include="Content\Images\ajax-loader-darkbg.gif" />
     <Content Include="Content\Images\ajax-loader-lightbg-ts.gif" />
     <Content Include="Content\Images\ajax-loader-lightbg.gif" />
@@ -702,7 +726,6 @@
     <Content Include="Scripts\libraries\bootstrap-lightbox.js" />
     <Content Include="Scripts\libraries\bootstrap.js" />
     <Content Include="Scripts\libraries\bootstrap.min.js" />
-    <Content Include="Scripts\libraries\easyzoom.js" />
     <Content Include="Scripts\libraries\jquery-2.1.0.js" />
     <Content Include="Scripts\libraries\jquery-2.1.0.min.js" />
     <Content Include="Scripts\libraries\jquery-2.1.0.min.map" />
