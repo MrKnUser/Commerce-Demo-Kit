@@ -79,6 +79,7 @@
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
     </None>
+    <Content Include="Content\css\colors\readme.md" />
     <None Include="Content\css\commerce-starter-kit\_mypage.less" />
     <None Include="Content\css\commerce-starter-kit\_header.less" />
     <None Include="Content\css\commerce-starter-kit\_search-autocomplete.less" />
@@ -519,6 +520,7 @@
     <Content Include="Content\less\epicphoto\_slider.less" />
     <Content Include="Content\less\epicphoto\_variables.less" />
     <Content Include="Content\less\epicphoto.less" />
+    <Content Include="Content\less\readme.md" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -582,10 +584,6 @@
     </Content>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\css\commerce-starter-kit.css" />
-    <Content Include="Content\css\commerce-starter-kit.min.css">
-      <DependentUpon>commerce-starter-kit.css</DependentUpon>
-    </Content>
     <None Include="Content\css\commerce-starter-kit\blocks\_productTeaserBlock.less" />
     <None Include="Content\css\commerce-starter-kit\blocks\_video.less" />
     <None Include="Content\css\commerce-starter-kit\_bootstrap-lightbox.less" />
@@ -706,10 +704,6 @@
     <Content Include="Scripts\libraries\angular.js" />
     <Content Include="Scripts\libraries\angular.min.js" />
     <Content Include="Scripts\libraries\angular.min.js.map" />
-    <None Include="Content\css\commerce-starter-kit.less" />
-    <Content Include="Content\css\commerce-starter-kit.css.map">
-      <DependentUpon>commerce-starter-kit.css</DependentUpon>
-    </Content>
     <Content Include="Plugins\CommerceTools\static\css\bootstrap-theme.css.map" />
     <Content Include="Plugins\CommerceTools\static\css\bootstrap.css.map" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.map" />
