@@ -98,9 +98,6 @@
     <Content Include="Content\css\hotspotseditor\hotspotseditor.css" />
     <Content Include="Content\css\hotspotseditor\hotspotseditor.min.css" />
     <Content Include="Content\css\lightslider.css" />
-    <Content Include="Content\css\print.css" />
-    <Content Include="Content\css\print.min.css" />
-    <Content Include="Content\css\styles.css" />
     <Content Include="Content\css\uncompressed\styles.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\outlined-iconset.svg" />
@@ -300,6 +297,12 @@
       <DependentUpon>outlined-iconset.css</DependentUpon>
     </Content>
     <Content Include="Content\less\pages.less" />
+    <Content Include="Content\less\print.css">
+      <DependentUpon>print.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\print.min.css">
+      <DependentUpon>print.css</DependentUpon>
+    </Content>
     <Content Include="Content\less\scaffolding.less" />
     <Content Include="Content\less\shop.less" />
     <Content Include="Content\less\styles.css">
@@ -441,7 +444,7 @@
     <Content Include="CommerceStarterKit.Web.nuspec" />
     <Content Include="Content\css\editorNames.less" />
     <Content Include="Content\css\editorNames-lead.less" />
-    <None Include="Content\css\print.less" />
+    <None Include="Content\less\print.less" />
     <None Include="Content\css\hotspotseditor\hotspotseditor.less" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
@@ -521,6 +524,7 @@
     <Content Include="Content\less\epicphoto\_variables.less" />
     <Content Include="Content\less\epicphoto.less" />
     <Content Include="Content\less\readme.md" />
+    <Content Include="Content\css\readme.md" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
