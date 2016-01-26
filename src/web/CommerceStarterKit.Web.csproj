@@ -498,7 +498,6 @@
     <Content Include="modules\_protected\Shell\Shell.zip" />
     <Content Include="modules\_protected\CMS\web.config" />
     <Content Include="modules\_protected\CMS\CMS.zip" />
-    <Content Include="modules\_protected\BVNetwork.404Handler\BVNetwork.404Handler.zip" />
     <Content Include="modules\_protected\EPiServer.Commerce.Shell\EPiServer.Commerce.Shell.zip" />
     <Content Include="modules\_protected\Commerce\Commerce.zip" />
     <Content Include="modules\_protected\EPiServer.Commerce.Shell.ManagerIntegration\EPiServer.Commerce.Shell.ManagerIntegration.zip" />
@@ -525,6 +524,7 @@
     <Content Include="Content\less\epicphoto.less" />
     <Content Include="Content\less\readme.md" />
     <Content Include="Content\css\readme.md" />
+    <Content Include="modules\_protected\BVNetwork.404Handler\BVNetwork.404Handler.zip" />
     <None Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.js" />
     <Content Include="Plugins\CommerceTools\static\scripts\jquery-1.9.0.min.js" />
@@ -950,8 +950,8 @@
       <HintPath>..\..\packages\AuthorizeNet.1.8.2\lib\AuthorizeNet.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="BVNetwork.EPi404, Version=4.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\BVN.404Handler.4.0.3\lib\net45\BVNetwork.EPi404.dll</HintPath>
+    <Reference Include="BVNetwork.EPi404, Version=4.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\BVN.404Handler.4.1.0\lib\net45\BVNetwork.EPi404.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BVNetwork.EPiSendMail, Version=4.1.2.0, Culture=neutral, processorArchitecture=MSIL">
