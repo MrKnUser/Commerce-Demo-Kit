@@ -484,6 +484,7 @@
     <Content Include="modules\epicode.newsletter\content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="modules\epicode.newsletter\content\css\newsletterstyle.less" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
+    <Compile Include="Business\UI\AdminModeQuickNavigator.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\less\epicphoto\blocks\_bannerBlock.less" />
@@ -1498,7 +1499,7 @@
     <Compile Include="Business\UIDescriptor\CatalogContentUiDescriptor.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Business\UI\CommerceManagerNavigator.cs" />
+    <Compile Include="Business\UI\CommerceManagerQuickNavigator.cs" />
     <Compile Include="Controllers\Admin\DeveloperToolsController.cs" />
     <Compile Include="Controllers\BasePartialContentController.cs" />
     <Compile Include="Business\Payment\DibsPaymentProcessingResult.cs" />
