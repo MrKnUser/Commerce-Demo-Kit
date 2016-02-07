@@ -172,7 +172,8 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
             context.Container.Configure(c => c.For<IPostNordClient>().Singleton().Use<PostNordClient>());
             context.Container.Configure(c => c.For<IStockUpdater>().Use<StockUpdater>());
 
-            context.Container.Configure(c => c.For<IPriceService>().Singleton().Use<OxxCommerceStarterKit.PriceService.RandomPriceService>());
+            // Include this price service to get random prices
+            // context.Container.Configure(c => c.For<IPriceService>().Singleton().Use<OxxCommerceStarterKit.PriceService.RandomPriceService>());
         }
     }
 }
