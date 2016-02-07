@@ -1480,7 +1480,6 @@
     <Compile Include="Business\Initialization\DisplayModesInitialization.cs" />
     <Compile Include="Business\Initialization\IndexingEventInitialization.cs" />
     <Compile Include="Business\Initialization\MetadataInitialization.cs" />
-    <Compile Include="Business\Initialization\SearchFieldInitialization.cs" />
     <Compile Include="Business\ISiteSettingsProvider.cs" />
     <Compile Include="Business\PageContextActionFilter.cs" />
     <Compile Include="Business\Payment\IStockUpdater.cs" />
