@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Web;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
@@ -11,10 +12,19 @@ namespace OxxCommerceStarterKit.Web.Business.UI
     [ServiceConfiguration(ServiceType = typeof (IQuickNavigatorItemProvider))]
     public class AdminModeQuickNavigator : IQuickNavigatorItemProvider
     {
+        private int _sortOrder;
+
         public AdminModeQuickNavigator()
         {
-            SortOrder = 100;
+            _sortOrder = 100;
         }
+
+        public int SortOrder
+        {
+            get { return _sortOrder; }
+            private set { _sortOrder = value; }
+        }
+
         public IDictionary<string, QuickNavigatorMenuItem> GetMenuItems(ContentReference currentContent)
         {
             string adminModeUiLink = VirtualPathUtility.Combine(Paths.ProtectedRootPath,
@@ -25,6 +35,6 @@ namespace OxxCommerceStarterKit.Web.Business.UI
 
         }
 
-        public int SortOrder { get; }
+        
     }
 }
