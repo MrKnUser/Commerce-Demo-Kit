@@ -50,7 +50,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\ImportEPiServerData\" />
-    <Folder Include="Views\NodeContentPartial\" />
     <Folder Include="Views\PaymentBase\" />
     <Folder Include="Views\WineSKUPartial\" />
   </ItemGroup>
@@ -901,6 +900,7 @@
     <Content Include="Views\Shared\_OpenGraphView.cshtml" />
     <Content Include="Views\Shared\Blocks\FormBlock.cshtml" />
     <Content Include="Views\NewsletterSignupBlock\Index.cshtml" />
+    <Content Include="Views\NodeContentPartial\Blocks\NodeContentPartial.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
