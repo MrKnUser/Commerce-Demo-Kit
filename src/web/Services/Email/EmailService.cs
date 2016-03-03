@@ -152,8 +152,8 @@ namespace OxxCommerceStarterKit.Web.Services.Email
                     throw new ArgumentException("Missing From address in email settings");
                 
                 emailMessage.From = mailSettings.From;
-                emailMessage.Header = mailSettings.MailHeader.ToString();
-                emailMessage.Footer = mailSettings.MailFooter.ToString();
+                emailMessage.Header = mailSettings.MailHeader.ToHtmlString();
+                emailMessage.Footer = mailSettings.MailFooter.ToHtmlString();
 
                 if (string.IsNullOrEmpty(emailMessage.To))
                     throw new ArgumentException("Missing To address");

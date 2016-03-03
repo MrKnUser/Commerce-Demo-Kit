@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using EPiServer.Logging;
 using EPiServer.ServiceLocation;
+using EPiServer.Web;
 using OxxCommerceStarterKit.Web.Services.Email.Models;
 
 namespace OxxCommerceStarterKit.Web.Services.Email
@@ -27,6 +29,9 @@ namespace OxxCommerceStarterKit.Web.Services.Email
         public SendEmailResponse SendEmail(Postal.Email email, ILogger log)
         {
             var output = new SendEmailResponse();
+            // We need the full host to fix links in the email
+            Uri host = GetHostUrl();
+            _logger.Log(Level.Debug, "Sending email with using base uri: {0}", host.ToString());
 
 #if !DEBUG
 			try
@@ -41,13 +46,16 @@ namespace OxxCommerceStarterKit.Web.Services.Email
                 {
                     string body = new StreamReader(htmlView.ContentStream).ReadToEnd();
 
-                    // move ink styles inline with PreMailer.Net
-                    var result = PreMailer.Net.PreMailer.MoveCssInline(body, false, "#ignore");
+                    // move ink styles inline and fix urls with PreMailer.Net
+                    var result = PreMailer.Net.PreMailer.MoveCssInline(host, body, false, "#ignore");
+
+                    // Fix image resources in email
+                    string html = result.Html.Replace("src=\"/", "src=\"" + host.ToString() + "/");
 
                     htmlView.ContentStream.SetLength(0);
                     var streamWriter = new StreamWriter(htmlView.ContentStream);
 
-                    streamWriter.Write(result.Html);
+                    streamWriter.Write(html);
                     streamWriter.Flush();
 
                     htmlView.ContentStream.Position = 0;
@@ -83,5 +91,18 @@ namespace OxxCommerceStarterKit.Web.Services.Email
 #endif
             return output;
         }
+        protected Uri GetHostUrl()
+        {
+            var siteDefinition = EPiServer.Web.SiteDefinition.Current;
+            if (siteDefinition.SiteUrl == null || string.IsNullOrEmpty(siteDefinition.SiteUrl.ToString()))
+            {
+                throw new ConfigurationErrorsException("Cannot determine host name");
+            }
+
+            return siteDefinition.SiteUrl;
+        }
     }
+
+
+
 }

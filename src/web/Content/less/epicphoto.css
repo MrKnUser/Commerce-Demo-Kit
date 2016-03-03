@@ -1154,3 +1154,7 @@ img.img-float-top-right {
 .formblock legend {
   font-size: 1em;
 }
+.notification-settings-page h4 {
+  padding-top: 1em;
+  border-bottom: 1px solid #aaa;
+}

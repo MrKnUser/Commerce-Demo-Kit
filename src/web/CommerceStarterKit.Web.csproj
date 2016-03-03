@@ -1292,9 +1292,8 @@
       <HintPath>..\..\packages\Postal.0.9.2\lib\net40\Postal.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="PreMailer.Net, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\PreMailer.Net.1.2.6\lib\net40\PreMailer.Net.dll</HintPath>
+    <Reference Include="PreMailer.Net, Version=1.4.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PreMailer.Net.1.4.3\lib\net40\PreMailer.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
