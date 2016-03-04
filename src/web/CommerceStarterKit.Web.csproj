@@ -956,11 +956,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="BVNetwork.EPiSendMail, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiCode.Newsletter.4.2.1\lib\net451\BVNetwork.EPiSendMail.dll</HintPath>
+      <HintPath>..\..\packages\EPiCode.Newsletter.4.3.0\lib\net451\BVNetwork.EPiSendMail.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="BVNetwork.EPiSendMail.CommerceProvider, Version=4.2.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EPiCode.Newsletter.Commerce.4.2.1\lib\net451\BVNetwork.EPiSendMail.CommerceProvider.dll</HintPath>
+      <HintPath>..\..\packages\EPiCode.Newsletter.Commerce.4.3.0\lib\net451\BVNetwork.EPiSendMail.CommerceProvider.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
@@ -1296,9 +1296,9 @@
       <HintPath>..\..\packages\PreMailer.Net.1.4.3\lib\net40\PreMailer.Net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap, Version=3.1.6.191, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <HintPath>..\..\packages\structuremap-signed.3.1.6.191\lib\net40\StructureMap.dll</HintPath>
