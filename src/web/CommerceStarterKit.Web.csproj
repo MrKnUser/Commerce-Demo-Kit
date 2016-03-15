@@ -110,6 +110,12 @@
     <Content Include="Content\Images\EditorThumbnails\Newsletter-thumbnail.png" />
     <Content Include="Content\Images\EditorThumbnails\Social-thumbnail.png" />
     <Content Include="Content\Images\EditorThumbnails\System-thumbnail.png" />
+    <Content Include="Content\Images\email\epic-photo-logo-blue-horz-no-tag-207x47.png" />
+    <Content Include="Content\Images\email\oxygen\bg_top_02.jpg" />
+    <Content Include="Content\Images\email\oxygen\transparent.png" />
+    <Content Include="Content\Images\email\social_facebook.gif" />
+    <Content Include="Content\Images\email\social_rss.gif" />
+    <Content Include="Content\Images\email\social_twitter.gif" />
     <Content Include="Content\Images\empty-shopping-cart.png" />
     <Content Include="Content\Images\paymentMethods\pay by credit card.png" />
     <Content Include="Content\Images\paymentMethods\telefonbetaling.png" />
@@ -475,6 +481,7 @@
     <Content Include="modules\_protected\EPiServer.Social\module.config" />
     <Content Include="modules\_protected\EPiServer.Social\EPiServerSocial.config" />
     <Content Include="modules\_protected\EPiServer.Social\EPiServer.Social.zip" />
+    <Compile Include="Api\OrderController.cs" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
     <Compile Include="Business\UI\AdminModeQuickNavigator.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
@@ -638,7 +645,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="global.asax" />
     <Content Include="IndexingService\IndexingService.svc" />
-    <Content Include="modulesbin\EPiServer.Labs.LanguageManager.dll" />
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
@@ -818,7 +824,7 @@
     <Content Include="Views\Emails\Welcome.cshtml" />
     <Content Include="Views\Emails\ResetPassword.Html.cshtml" />
     <Content Include="Views\Emails\ResetPassword.cshtml" />
-    <Content Include="Views\Emails\Receipt.Html.cshtml" />
+    <Content Include="Views\Emails\Receipt.Old.Html.cshtml" />
     <Content Include="Views\Emails\Receipt.cshtml" />
     <Content Include="Views\Emails\Header.Html.cshtml" />
     <Content Include="Views\Emails\Footer.Html.cshtml" />
@@ -829,7 +835,7 @@
     <Content Include="Views\Shared\Blocks\ButtonWithHelpLinkBlock.cshtml" />
     <Content Include="Views\NotificationSettings\Index.cshtml" />
     <Content Include="Views\Emails\_Layout.Html.cshtml" />
-    <Content Include="Views\Emails\_InkMinified.css.cshtml" />
+    <Content Include="Views\Emails\_oxygen.css.cshtml" />
     <Content Include="Views\RegisterPage\Edit.cshtml" />
     <Content Include="Views\RegisterPage\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AddressWithDeliveryServicePoint.cshtml" />
@@ -901,6 +907,9 @@
     <Content Include="Views\Shared\Blocks\FormBlock.cshtml" />
     <Content Include="Views\NewsletterSignupBlock\Index.cshtml" />
     <Content Include="Views\NodeContentPartial\Blocks\NodeContentPartial.cshtml" />
+    <Content Include="Views\Emails\_InkMinified.css.cshtml" />
+    <Content Include="Views\Emails\_oxygen.mobile.css.cshtml" />
+    <Content Include="Views\Emails\Receipt.Html.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
