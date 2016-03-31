@@ -530,10 +530,8 @@
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics\EPiServer.GoogleAnalytics.zip" />
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\web.config" />
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\module.config" />
-    <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\EPiServer.GoogleAnalytics.Commerce.zip" />
-    <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
-    <Compile Include="Controllers\ClosestStoreBlockController.cs" />
-    <Compile Include="Controllers\NewsletterSignupController.cs" />
+    <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\EPiServer.GoogleAnalytics.Commerce.zip" />    
+    <Compile Include="Controllers\ClosestStoreBlockController.cs" />    
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\Shell\web.config" />
     <Content Include="modules\_protected\Shell\Shell.zip" />
