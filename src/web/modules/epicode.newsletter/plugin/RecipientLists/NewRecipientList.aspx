@@ -1,6 +1,7 @@
 <%@ Page Language="c#" EnableViewState="true" CodeBehind="NewRecipientList.aspx.cs" AutoEventWireup="True" Inherits="BVNetwork.EPiSendMail.Plugin.NewRecipientList" %>
 <%@ Register TagPrefix="EPiServerShell" Namespace="EPiServer.Shell.Web.UI.WebControls" Assembly="EPiServer.Shell" %>
 <%@ Register TagPrefix="EPiSendMail" TagName="PluginStyles" Src="../PluginStyles.ascx" %>
+<%@ Register TagPrefix="EPiSendMail" TagName="StatusMessage" Src="../StatusMessage.ascx" %>
 
 <asp:content runat="server" contentplaceholderid="HeaderContentRegion">
     <EPiSendMail:PluginStyles runat="server" />
