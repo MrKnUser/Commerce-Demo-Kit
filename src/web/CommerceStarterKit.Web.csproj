@@ -501,7 +501,6 @@
     <Content Include="modules\_protected\EPiServer.Social\EPiServerSocial.config" />
     <Content Include="modules\_protected\EPiServer.Social\EPiServer.Social.zip" />
     <Compile Include="Api\OrderController.cs" />
-    <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
     <Compile Include="Business\UI\AdminModeQuickNavigator.cs" />
     <Compile Include="Controllers\NewsletterSignupController.cs" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
@@ -543,8 +542,7 @@
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics\EPiServer.GoogleAnalytics.zip" />
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\web.config" />
     <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\module.config" />
-    <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\EPiServer.GoogleAnalytics.Commerce.zip" />    
-    <Compile Include="Controllers\ClosestStoreBlockController.cs" />    
+    <Content Include="modules\_protected\EPiServer.GoogleAnalytics.Commerce\EPiServer.GoogleAnalytics.Commerce.zip" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="modules\_protected\Shell\web.config" />
     <Content Include="modules\_protected\Shell\Shell.zip" />
@@ -1198,7 +1196,7 @@
       <HintPath>..\..\packages\EPiServer.CMS.Core.9.7.2\lib\net45\EPiServer.XForms.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  <Reference Include="FileHelpers, Version=3.1.5.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
+    <Reference Include="FileHelpers, Version=3.1.5.0, Culture=neutral, PublicKeyToken=3e0c08d59cc3d657, processorArchitecture=MSIL">
       <HintPath>..\..\packages\FileHelpers.3.1.5\lib\net45\FileHelpers.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -1569,6 +1567,7 @@
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
     <Compile Include="Controllers\IReceiptViewModelBuilder.cs" />
     <Compile Include="Business\Payment\PaymentCompleteHandler.cs" />
+    <Compile Include="Jobs\WarehouseIndexing.cs" />
     <Compile Include="ModelBuilders\ReceiptViewModelBuilder.cs" />
     <Compile Include="Controllers\VideoFileController.cs" />
     <Compile Include="EditorDescriptors\TinyMcePlugins\AllowExtendedAttributes.cs" />
@@ -1595,6 +1594,7 @@
     <Compile Include="Business\FacetRegistry\FilterAttribute.cs" />
     <Compile Include="Models\FindModels\GenericFindVariant.cs" />
     <Compile Include="Business\FacetRegistry\StringFilterAttribute.cs" />
+    <Compile Include="Models\FindModels\WarehouseIndexItem.cs" />
     <Compile Include="Models\PageTypes\ArticleWithSidebarPage.cs" />
     <Compile Include="Models\PageTypes\BulkUploadModelPage.cs" />
     <Compile Include="Models\PageTypes\ContainerPage.cs" />
