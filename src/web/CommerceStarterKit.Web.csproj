@@ -938,6 +938,8 @@
     <Content Include="Views\BulkUpload\Index.cshtml" />
     <Content Include="Views\Shared\PagePartials\_BulkUploadSelectFile.cshtml" />
     <Content Include="Views\Shared\PagePartials\_BulkUploadConfirmUpload.cshtml" />
+    <Content Include="Views\Shared\Blocks\TeaserBlock.cshtml" />
+    <Content Include="Views\Shared\Blocks\TeaserBlockWide.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1584,6 +1586,7 @@
     <Compile Include="Models\Blocks\ProductFilters\NumericFilterBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\ExistsFilterBlock.cs" />
     <Compile Include="Models\Blocks\ProductFilters\StringFilterBlock.cs" />
+    <Compile Include="Models\Blocks\TeaserBlock.cs" />
     <Compile Include="Models\Blocks\TitleBlock.cs" />
     <Compile Include="Models\Blocks\ProductSearchBlock.cs" />
     <Compile Include="Models\Catalog\DigitalCameraVariationContent.cs" />

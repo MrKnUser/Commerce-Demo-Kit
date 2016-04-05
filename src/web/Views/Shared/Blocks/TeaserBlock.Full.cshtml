@@ -1,0 +1,33 @@
+@using EPiServer.Core
+@using OxxCommerceStarterKit.Web.Controllers
+@model OxxCommerceStarterKit.Web.Models.Blocks.TeaserBlock
+@{ bool showLink = !ContentReference.IsNullOrEmpty(Model.Link) && !(ViewContext.Controller is PreviewController);}
+<div class="border">
+    @*Link the teaser block only if a link has been set and not displayed in preview*@
+    @if (showLink)
+    {
+        <a href="@Url.ContentUrl(Model.Link)" title="@Model.Heading">
+            <div class="media">
+                <div class="mediaImg" @Html.EditAttributes(x => x.Image)>
+                    <img src="@Url.ContentUrl(Model.Image)?width=368&height=176&scale=canvas" />
+                </div>
+                <div class="mediaText">
+                    <h2 @Html.EditAttributes(x => x.Heading)>@Model.Heading</h2>
+                    <p @Html.EditAttributes(x => x.Text)>@Model.Text</p>
+                </div>
+            </div>
+        </a>
+    }
+    else
+    {
+        <div class="media">
+            <div class="mediaImg" @Html.EditAttributes(x => x.Image)>
+                <img src="@Url.ContentUrl(Model.Image)?width=368&height=176&scale=canvas" />
+            </div>
+            <div class="mediaText">
+                <h2 @Html.EditAttributes(x => x.Heading)>@Model.Heading</h2>
+                <p @Html.EditAttributes(x => x.Text)>@Model.Text</p>
+            </div>
+        </div>
+    }
+</div>

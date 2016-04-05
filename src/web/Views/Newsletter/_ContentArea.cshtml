@@ -75,7 +75,11 @@
 								else if (content is HtmlBlock)
 								{
 									@Html.Partial("~/Views/Shared/Blocks/HtmlBlock.cshtml", content)
-								}
+                                }
+                                else if (content is TeaserBlock)
+                                {
+                                    @Html.Partial("~/Views/Shared/Blocks/TeaserBlock.cshtml", content)
+                                }
                                 else if (content is FashionStoreLandingNodeContent)
                                 {
 									@Html.Partial("~/Views/Newsletter/Blocks/FashionStoreLandingNodeContent.cshtml", content)

@@ -657,6 +657,15 @@
 					</html>
 				</properties>
 			</htmlblock>
+      <teaserblock>
+        <name>Teaser Image and Heading</name>
+        <description>A block where you can enter teaser content</description>
+        <properties>
+          <Heading>
+            <caption>Content</caption>
+          </Heading>
+        </properties>
+      </teaserblock>
 			<onetwocolumnsblock>
 				<name>1 + 2 columns</name>
 				<description>2 columns - 33% and 66%</description>
