@@ -17,6 +17,7 @@ using EPiServer.SpecializedProperties;
 using OxxCommerceStarterKit.Core.Attributes;
 using OxxCommerceStarterKit.Web.Business.Rendering;
 using OxxCommerceStarterKit.Web.EditorDescriptors.SelectionFactories;
+using OxxCommerceStarterKit.Web.EditorDescriptors;
 
 namespace OxxCommerceStarterKit.Web.Models.Blocks
 {
@@ -34,6 +35,7 @@ namespace OxxCommerceStarterKit.Web.Models.Blocks
 	        Order = 20,
 	        Name = "Slider Content")]
 	    [CultureSpecific(false)]
+        
 	    public virtual ContentArea SliderContent { get; set; }
 
 

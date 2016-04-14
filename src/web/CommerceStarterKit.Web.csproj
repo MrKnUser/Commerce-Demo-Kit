@@ -939,7 +939,7 @@
     <Content Include="Views\Shared\PagePartials\_BulkUploadSelectFile.cshtml" />
     <Content Include="Views\Shared\PagePartials\_BulkUploadConfirmUpload.cshtml" />
     <Content Include="Views\Shared\Blocks\TeaserBlock.cshtml" />
-    <Content Include="Views\Shared\Blocks\TeaserBlockWide.cshtml" />
+    <Content Include="Views\Shared\Blocks\TeaserBlock.Full.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1467,6 +1467,9 @@
     <Compile Include="Business\UIDescriptor\FilterBlockUIDescriptor.cs" />
     <Compile Include="Controllers\ProductSearchBlockController.cs" />
     <Compile Include="Controllers\StoreLocationPageController.cs" />
+    <Compile Include="EditorDescriptors\Dimensions.cs" />
+    <Compile Include="EditorDescriptors\ImageBlobUtility.cs" />
+    <Compile Include="EditorDescriptors\ImageSizeValidationAttribute.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\HeadingElementSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterNumericFieldSelectionFactory.cs" />
     <Compile Include="EditorDescriptors\SelectionFactories\FindProductFilterStringFieldSelectionFactory.cs" />
