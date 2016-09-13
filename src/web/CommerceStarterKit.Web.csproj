@@ -1550,6 +1550,7 @@
     <Compile Include="Business\Payment\IPaymentCompleteHandler.cs" />
     <Compile Include="Controllers\IReceiptViewModelBuilder.cs" />
     <Compile Include="Business\Payment\PaymentCompleteHandler.cs" />
+    <Compile Include="Jobs\ClearPromotionsScheduledJob.cs" />
     <Compile Include="ModelBuilders\ReceiptViewModelBuilder.cs" />
     <Compile Include="Controllers\VideoFileController.cs" />
     <Compile Include="EditorDescriptors\TinyMcePlugins\AllowExtendedAttributes.cs" />
