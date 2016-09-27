@@ -11,7 +11,7 @@ namespace OxxCommerceStarterKit.Web.Promotion
     [ContentType(DisplayName = "Buy N products, get free product",
         Description = "Buy a specified number of products from one or more categories, get a free product.",
         GUID="FACC7148-9AE2-48A3-A86A-3E9E1C1505C5")]
-    public class BuyXFromCategoryGetProductForFree : OrderPromotion
+    public class BuyXFromCategoryGetProductForFree : EntryPromotion
     {
         [UIHint("allcontent"), AllowedTypes(new Type[] { typeof(NodeContent) })]
         [PromotionRegion(PromotionRegionName.Condition)]

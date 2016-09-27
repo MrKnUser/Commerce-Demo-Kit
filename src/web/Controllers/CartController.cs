@@ -13,9 +13,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using EPiServer.Commerce.Marketing;
+using EPiServer.Commerce.Order;
 using EPiServer.Framework.DataAnnotations;
+using EPiServer.Security;
 using EPiServer.Web.Mvc;
 using Mediachase.Commerce.Orders;
+using Mediachase.Commerce.Security;
 using OxxCommerceStarterKit.Core.Objects;
 using OxxCommerceStarterKit.Web.Business.Analytics;
 using OxxCommerceStarterKit.Web.Business.Delivery;
@@ -31,10 +35,17 @@ namespace OxxCommerceStarterKit.Web.Controllers
     public class CartController : PageController<CartSimpleModulePage>
     {
         private readonly IPostNordClient _postNordClient;
+        private readonly IPromotionEngine _promotionEngine;
+        private readonly IOrderRepository _orderRepository;
+        private const string Default = "Default";
 
-        public CartController(IPostNordClient postNordClient)
+        public CartController(IPostNordClient postNordClient,
+            IPromotionEngine promotionEngine,
+            IOrderRepository orderRepository)
         {
             _postNordClient = postNordClient;
+            _promotionEngine = promotionEngine;
+            _orderRepository = orderRepository;
         }
 
         public async Task<JsonResult> GetDeliveryLocations(string streetAddress, string city, string postalCode)
@@ -106,10 +117,10 @@ namespace OxxCommerceStarterKit.Web.Controllers
         /// </summary>
         public ViewResult Index(CartSimpleModulePage currentPage)
         {
-            CartModel model = new CartModel(currentPage);
+            var model = new CartModel(currentPage);
 
             Track(model);
-
+            CheckAlmostFulfilled(model);
             return View(model);
         }
 
@@ -134,6 +145,24 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
             // Step 1 is to review the cart
             tracking.Action("checkout", "{\"step\":1}");
+        }
+
+        private void CheckAlmostFulfilled(CartModel model)
+        {
+            var cart = _orderRepository.Load<ICart>(PrincipalInfo.CurrentPrincipal.GetContactId(), Default)
+                .FirstOrDefault();
+
+            if (cart == null)
+            {
+                return;
+            }
+
+            model.AlmostFulfilledPromotions = _promotionEngine.Run(cart, new PromotionEngineSettings
+
+            {
+                ApplyReward = false,
+                RequestedStatuses = RequestFulfillmentStatus.PartiallyFulfilled
+            });
         }
     }
 }

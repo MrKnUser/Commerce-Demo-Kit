@@ -21,11 +21,15 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.WebPages;
 using EPiServer;
+using EPiServer.Commerce.Order;
 using EPiServer.Core;
+using EPiServer.Security;
 using EPiServer.ServiceLocation;
 using EPiServer.Web;
 using EPiServer.Web.Mvc.Html;
 using EPiServer.Web.Routing;
+using Mediachase.Commerce;
+using Mediachase.Commerce.Security;
 using OxxCommerceStarterKit.Web.Business;
 using OxxCommerceStarterKit.Web.Models.Files;
 using SelectListItem = OxxCommerceStarterKit.Web.Models.ViewModels.SelectListItem;
@@ -99,6 +103,13 @@ namespace OxxCommerceStarterKit.Web.Helpers
 
 			return new MvcHtmlString(buffer.ToString());
 		}
+
+	    public static decimal GetCurrentCartTotal(this HtmlHelper helper)
+	    {
+	        var orderRepository = ServiceLocator.Current.GetInstance<IOrderRepository>();
+	        var cart = orderRepository.Load<ICart>(PrincipalInfo.CurrentPrincipal.GetContactId(), "Default").FirstOrDefault();
+	        return cart == null ? 0m : cart.GetSubTotal().Amount;
+	    }
 
 		private static MenuItem CreateMenuItem(PageData page, ContentReference currentContentLink, List<ContentReference> pagePath, IContentLoader contentLoader, Func<IEnumerable<PageData>, IEnumerable<PageData>> filter)
 		{

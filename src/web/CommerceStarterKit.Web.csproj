@@ -48,7 +48,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Promotion\" />
     <Folder Include="Views\ImportEPiServerData\" />
     <Folder Include="Views\PaymentBase\" />
     <Folder Include="Views\WineSKUPartial\" />
@@ -481,6 +480,7 @@
     <Compile Include="Business\BulkOrdering\Interfaces\IFileParser.cs" />
     <Compile Include="Business\BulkOrdering\Interfaces\IFileValidator.cs" />
     <Compile Include="Business\BulkOrdering\Interfaces\IProductLookup.cs" />
+    <Compile Include="Business\Initialization\MarketingInitialization.cs" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
     <Compile Include="Controllers\BulkUploadController.cs" />
     <Compile Include="Controllers\ClosestStoreBlockController.cs" />
@@ -941,6 +941,7 @@
     <Content Include="Views\Shared\PagePartials\_BulkUploadConfirmUpload.cshtml" />
     <Content Include="Views\Shared\Blocks\TeaserBlock.cshtml" />
     <Content Include="Views\Shared\Blocks\TeaserBlock.Full.cshtml" />
+    <Content Include="Views\Shared\PagePartials\_AlmostDiscount.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1803,6 +1804,8 @@
     <Compile Include="Models\ViewModels\VideoViewModel.cs" />
     <Compile Include="Models\ViewModels\WineSKUViewModel.cs" />
     <Compile Include="Models\ViewModels\WishListModel.cs" />
+    <Compile Include="Promotion\BuyXFromCategoryGetProductForFree.cs" />
+    <Compile Include="Promotion\BuyXFromCategoryGetProductForFreeProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResetPassword\IResetPasswordRepository.cs" />
     <Compile Include="ResetPassword\IResetPasswordService.cs" />

@@ -1,19 +1,18 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using EPiServer;
+﻿using EPiServer;
 using EPiServer.Commerce.Catalog.ContentTypes;
 using EPiServer.Commerce.Catalog.Linking;
 using EPiServer.Commerce.Marketing;
+using EPiServer.Commerce.Order;
 using EPiServer.Core;
 using EPiServer.ServiceLocation;
-using EPiServer.Web.Routing;
 using Mediachase.Commerce.Catalog;
-using Mediachase.Commerce.Marketing;
-using Mediachase.Commerce.Orders;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace OxxCommerceStarterKit.Web.Promotion
 {
-    public class BuyXFromCategoryGetProductForFreeProcessor : PromotionProcessorBase<BuyXFromCategoryGetProductForFree>
+    public class BuyXFromCategoryGetProductForFreeProcessor : EntryPromotionProcessorBase<BuyXFromCategoryGetProductForFree>
     {
         private readonly IContentLoader _contentLoader;
         private readonly ReferenceConverter _referenceConverter;
@@ -24,87 +23,66 @@ namespace OxxCommerceStarterKit.Web.Promotion
             _referenceConverter = referenceConverter;
         }
 
-        public override RewardDescription Evaluate(IOrderForm orderForm, BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context)
+        protected override PromotionItems GetPromotionItems(BuyXFromCategoryGetProductForFree promotionData)
         {
-            IEnumerable<ILineItem> items = GetLineItemsInOrder(orderForm);
-            List<AffectedItem> affectedItems = new List<AffectedItem>();
-
-            var lineItemCategories = items.Select(i => new { Quantity = i.Quantity, NodesForEntry = GetNodesForEntry(i.Code), Code = i.Code, LineItem = i });
-
-            decimal numberOfItemsInPromotionCategory = 0;
-
-            NodeContent category = _contentLoader.Get<NodeContent>(promotionData.Category);
-
-            foreach (var lineItemCategory in lineItemCategories)
-            {
-                if (lineItemCategory.NodesForEntry.Contains(category.Code))
-                {
-                    numberOfItemsInPromotionCategory += lineItemCategory.Quantity;
-                    
-                    // TODO: This has not yet been implemented
-                    //affectedItems.Add(
-                    //    new AffectedItem(
-                    //        _referenceConverter.GetContentLink(lineItemCategory.Code),
-                    //        lineItemCategory.LineItem,
-                    //        lineItemCategory.Quantity));
-                }
-            }
-
-            FulfillmentStatus fulfillment = this.GetFulfillment(numberOfItemsInPromotionCategory, promotionData.Threshold);
-            
-            // context.OrderGroup
-
-            //if(fulfillment == FulfillmentStatus.Fulfilled)
-            //{
-            //    affectedItems.Add(
-            //        new AffectedItem(
-            //            promotionData
-            //            _referenceConverter.GetContentLink(lineItemCategory.Code),
-            //            lineItemCategory.LineItem,
-            //            lineItemCategory.Quantity));
-
-            //}
-
-
-            return RewardDescription.CreateFreeItemReward(fulfillment, affectedItems, promotionData, "Got something for free");
-
-            // return new RewardDescription(fulfillment, affectedItems, promotionData, 0, 0, RewardType.Free, "Got something for free");
-
+            return
+                new PromotionItems(
+                    promotionData,
+                    new CatalogItemSelection(new [] { promotionData.Category }, CatalogItemSelectionType.Specific, true),
+                    new CatalogItemSelection(new[] { promotionData.Category }, CatalogItemSelectionType.Specific, true));
         }
 
-
-
-        //private IPromotionResult PromotionResult(IOrderGroup orderGroup, BuyXFromCategoryGetProductForFree promotion,
-        //    FulfillmentStatus fulfillment)
-        //{
-        //    BuyXFromCategoryGetProductForFreeResult result = null;
-
-        //    switch (fulfillment)
-        //    {
-        //        case FulfillmentStatus.NotFulfilled:
-        //            result = new BuyXFromCategoryGetProductForFreeResult(fulfillment,
-        //                "The promotion is not fulfilled.");
-        //            break;
-
-        //        case FulfillmentStatus.PartiallyFulfilled:
-        //            result = new BuyXFromCategoryGetProductForFreeResult(fulfillment,
-        //                "The promotion is somewhat fulfilled.");
-        //            break;
-        //        case FulfillmentStatus.Fulfilled:
-        //        {
-        //            VariationContent content = _contentLoader.Get<VariationContent>(promotion.FreeProduct);
-        //            result = new BuyXFromCategoryGetProductForFreeResult(fulfillment,
-        //                string.Format("The promotion is fulfilled and it has been applied to item {0}", content.Name),
-        //                content, orderGroup as OrderGroup);
-        //            break;
-        //        }
-        //    }
-        //    return result;
-        //}
-
-        private IEnumerable<ILineItem> GetLineItemsInOrder(IOrderGroup orderGroup)
+        protected override RewardDescription Evaluate(BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context)
         {
-            return orderGroup.Forms.SelectMany(f => f.Shipments).SelectMany(i => i.LineItems);
+            var items = GetLineItemsInOrder(context.OrderForm);
+            var lineItemCategories = items.Select(i => new
+            {
+                i.Quantity,
+                NodesForEntry = GetNodesForEntry(i.Code),
+                i.Code,
+                LineItem = i
+            });
+
+            var category = _contentLoader.Get<NodeContent>(promotionData.Category);
+            var applicableLineItems = lineItemCategories.Where(lineItemCategory => lineItemCategory.NodesForEntry.Contains(category.Code));
+            var numberOfItemsInPromotionCategory = applicableLineItems.Sum(lineItemCategory => lineItemCategory.Quantity);
+            var redemptions = GetRedemptions(promotionData, context, applicableLineItems.Select(x => x.Code));
+            var fulfillment = GetFulfillment(numberOfItemsInPromotionCategory, promotionData.Threshold);
+            return RewardDescription.CreateFreeItemReward(fulfillment, redemptions, promotionData, "Got something for free");
+        }
+
+        protected override bool CanBeFulfilled(BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        protected AffectedEntries GetAffectedEntries(BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context, IEnumerable<string> applicableCodes)
+        {
+            var requiredQuantity = promotionData.Threshold;
+            var affectedEntries = context.EntryPrices.ExtractEntries(applicableCodes, requiredQuantity);
+
+            if (affectedEntries == null)
+            {
+                return null;
+            }
+            return affectedEntries.SetDiscountRange(requiredQuantity - 1, 1);
+        }
+
+        private IEnumerable<RedemptionDescription> GetRedemptions(BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context, IEnumerable<string> applicableCodes)
+        {
+            var redemptions = new List<RedemptionDescription>();
+            var maxRedemptions = GetMaxRedemptions(promotionData.RedemptionLimits);
+            for (int i = 0; i < maxRedemptions; i++)
+            {
+                var affectedEntries = GetAffectedEntries(promotionData, context, applicableCodes);
+                if (affectedEntries == null)
+                {
+                    break;
+                }
+                redemptions.Add(CreateRedemptionDescription(affectedEntries));
+            }
+
+            return redemptions;
         }
 
         private IEnumerable<ILineItem> GetLineItemsInOrder(IOrderForm orderForm)
@@ -115,11 +93,10 @@ namespace OxxCommerceStarterKit.Web.Promotion
 
         private FulfillmentStatus GetFulfillment(decimal qualifyingProducts, int threshold)
         {
-           
             if (qualifyingProducts >= threshold)
             {
                 return FulfillmentStatus.Fulfilled;
-            }           
+            }
             if (qualifyingProducts > 0)
             {
                 return FulfillmentStatus.PartiallyFulfilled;
@@ -130,21 +107,15 @@ namespace OxxCommerceStarterKit.Web.Promotion
         private IEnumerable<string> GetNodesForEntry(string entryCode)
         {
             var referenceConverter = ServiceLocator.Current.GetInstance<ReferenceConverter>();
-
             var nodeId = _contentLoader.Get<VariationContent>(referenceConverter.GetContentLink(entryCode)).ParentLink;
             var node = _contentLoader.Get<NodeContent>(nodeId);
-
-            
-
-            return ParentNodes(node);           
+            return ParentNodes(node);
         }
 
         private IEnumerable<string> ParentNodes(NodeContent currentNode)
         {
             List<string> resultList = new List<string>();
-
             ParentNodesRecurcive(currentNode, resultList);
-
             return resultList;
         }
 
@@ -152,35 +123,18 @@ namespace OxxCommerceStarterKit.Web.Promotion
         {
             var links = ServiceLocator.Current.GetInstance<ILinksRepository>();
             var contentLoader = ServiceLocator.Current.GetInstance<IContentLoader>();
-
-
             var nodeRelations = links.GetRelationsBySource<NodeRelation>(currentNode.ContentLink).Select(x => x.Target).ToList();
-
-
             nodeRelations.Add(currentNode.ParentLink);
-
-
             foreach (ContentReference reference in nodeRelations)
             {
                 try
                 {
                     var n = contentLoader.Get<NodeContent>(reference);
-
                     resultList.Add(n.Code);
                     ParentNodesRecurcive(n, resultList);
                 }
-                catch
-                {
-                    //
-                }
+                catch { }
             }
         }
-
     }
-
-  
-       
-
-
-    
 }
