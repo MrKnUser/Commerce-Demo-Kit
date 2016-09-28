@@ -6,8 +6,10 @@
 
 <!--Shopping Cart-->
 <section class="shopping-cart" class="cart-page" ng-controller="CartController" ng-init="initCart('Default', '@Model.Language')">
-    @Html.Partial("PagePartials/_AlmostDiscount", Model.AlmostFulfilledPromotions)
     <div class="container">
+        <div class="row">
+            @Html.PropertyFor(m => m.CurrentPage.MarketingArea)
+        </div>
         <div class="row">
             <!--Items List-->
             <div class="col-lg-9 col-md-9">

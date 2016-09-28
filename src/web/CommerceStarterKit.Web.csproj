@@ -482,6 +482,7 @@
     <Compile Include="Business\BulkOrdering\Interfaces\IProductLookup.cs" />
     <Compile Include="Business\Initialization\MarketingInitialization.cs" />
     <Compile Include="Business\Search\CatalogContentEventIndexer.cs" />
+    <Compile Include="Controllers\AlmostDiscountController.cs" />
     <Compile Include="Controllers\BulkUploadController.cs" />
     <Compile Include="Controllers\ClosestStoreBlockController.cs" />
     <Content Include="modules\AppleWatchChannel\Views\web.config" />
@@ -941,7 +942,7 @@
     <Content Include="Views\Shared\PagePartials\_BulkUploadConfirmUpload.cshtml" />
     <Content Include="Views\Shared\Blocks\TeaserBlock.cshtml" />
     <Content Include="Views\Shared\Blocks\TeaserBlock.Full.cshtml" />
-    <Content Include="Views\Shared\PagePartials\_AlmostDiscount.cshtml" />
+    <Content Include="Views\AlmostDiscount\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -1583,6 +1584,7 @@
     <Compile Include="Extensions\UrlExtentions.cs" />
     <Compile Include="HttpContextIdentityProvider.cs" />
     <Compile Include="IIdentityProvider.cs" />
+    <Compile Include="Models\Blocks\AlmostDiscountBlock.cs" />
     <Compile Include="Models\Blocks\BannerBlock.cs" />
     <Compile Include="Models\Blocks\ClosestStoreBlock.cs" />
     <Compile Include="Models\Blocks\FeatureProductBlock.cs" />

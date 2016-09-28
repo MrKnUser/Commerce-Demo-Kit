@@ -8,8 +8,11 @@ Copyright (C) 2013-2014 BV Network AS
 
 */
 
+using EPiServer.Core;
+using EPiServer.DataAbstraction;
 using EPiServer.DataAnnotations;
 using OxxCommerceStarterKit.Core.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace OxxCommerceStarterKit.Web.Models.PageTypes
 {
@@ -19,9 +22,15 @@ namespace OxxCommerceStarterKit.Web.Models.PageTypes
         Order = 100,
 		AvailableInEditMode = false,
 		Description = "")]
-    [SiteImageUrl(thumbnail: EditorThumbnail.Commerce)]
+    [SiteImageUrl(EditorThumbnail.Commerce)]
     public class CartSimpleModulePage : CommerceSampleModulePage
     {
-        
+        [Searchable(false)]
+        [Display(
+            Name = "MarketingArea",
+            Description = "MarketingArea",
+            GroupName = WebGlobal.GroupNames.Marketing,
+            Order = 1)]
+       public virtual ContentArea MarketingArea { get; set; }
     }
 }

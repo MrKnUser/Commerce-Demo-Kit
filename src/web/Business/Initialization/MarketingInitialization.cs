@@ -23,12 +23,34 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
 
         private void Events_SavingContent(object sender, ContentEventArgs e)
         {
-            var spendGetDiscount = e.Content as SpendAmountGetOrderDiscount;
-            if (spendGetDiscount == null)
+            if (e.Content is SpendAmountGetOrderDiscount)
             {
+                ((SpendAmountGetOrderDiscount) e.Content).Condition.PartiallyFulfilledThreshold = 0.75m;
                 return;
             }
-            spendGetDiscount.Condition.PartiallyFulfilledThreshold = 0.75m;
+
+            if (e.Content is SpendAmountGetGiftItems)
+            {
+                ((SpendAmountGetGiftItems) e.Content).Condition.PartiallyFulfilledThreshold = 0.75m;
+                return;
+            }
+
+            if (e.Content is SpendAmountGetItemDiscount)
+            {
+                ((SpendAmountGetItemDiscount) e.Content).Condition.PartiallyFulfilledThreshold = 0.75m;
+                return;
+            }
+
+            if (e.Content is SpendAmountGetShippingDiscount)
+            {
+                ((SpendAmountGetShippingDiscount) e.Content).Condition.PartiallyFulfilledThreshold = 0.75m;
+                return;
+            }
+
+            if (e.Content is SpendAmountGetFreeShipping)
+            {
+                ((SpendAmountGetFreeShipping) e.Content).Condition.PartiallyFulfilledThreshold = 0.75m;
+            }
         }
 
         private static void UpdateThresholds()
@@ -38,12 +60,52 @@ namespace OxxCommerceStarterKit.Web.Business.Initialization
             var campaigns = contentLoader.GetChildren<SalesCampaign>(SalesCampaignFolder.CampaignRoot);
             foreach (var salesCampaign in campaigns)
             {
-                var freeShippingPromotions = contentLoader.GetChildren<SpendAmountGetOrderDiscount>(salesCampaign.ContentLink);
-                foreach (var spendAmountGetFreeShipping in freeShippingPromotions)
+                var orderPromotions = contentLoader.GetChildren<OrderPromotion>(salesCampaign.ContentLink);
+                foreach (var orderPromotion in orderPromotions)
                 {
-                    var clone = spendAmountGetFreeShipping.CreateWritableClone() as SpendAmountGetOrderDiscount;
-                    clone.Condition.PartiallyFulfilledThreshold = 0.75m;
-                    contentRepository.Save(clone, SaveAction.Publish, AccessLevel.NoAccess);
+                    if (orderPromotion is SpendAmountGetOrderDiscount)
+                    {
+                        var clone = orderPromotion.CreateWritableClone() as SpendAmountGetOrderDiscount;
+                        clone.Condition.PartiallyFulfilledThreshold = 0.75m;
+                        contentRepository.Save(clone, SaveAction.Publish, AccessLevel.NoAccess);
+                    }
+
+                }
+
+                var entryPromotions = contentLoader.GetChildren<EntryPromotion>(salesCampaign.ContentLink);
+                foreach (var entryPromotion in entryPromotions)
+                {
+                    if (entryPromotion is SpendAmountGetGiftItems)
+                    {
+                        var clone = entryPromotion.CreateWritableClone() as SpendAmountGetGiftItems;
+                        clone.Condition.PartiallyFulfilledThreshold = 0.75m;
+                        contentRepository.Save(clone, SaveAction.Publish, AccessLevel.NoAccess);
+                    }
+
+                    if (entryPromotion is SpendAmountGetItemDiscount)
+                    {
+                        var clone = entryPromotion.CreateWritableClone() as SpendAmountGetItemDiscount;
+                        clone.Condition.PartiallyFulfilledThreshold = 0.75m;
+                        contentRepository.Save(clone, SaveAction.Publish, AccessLevel.NoAccess);
+                    }
+                }
+
+                var shippingPromotions = contentLoader.GetChildren<ShippingPromotion>(salesCampaign.ContentLink);
+                foreach (var shippingPromotion in shippingPromotions)
+                {
+                    if (shippingPromotion is SpendAmountGetShippingDiscount)
+                    {
+                        var clone = shippingPromotion.CreateWritableClone() as SpendAmountGetShippingDiscount;
+                        clone.Condition.PartiallyFulfilledThreshold = 0.75m;
+                        contentRepository.Save(clone, SaveAction.Publish, AccessLevel.NoAccess);
+                    }
+                
+                    if (shippingPromotion is SpendAmountGetFreeShipping)
+                    {
+                        var clone = shippingPromotion.CreateWritableClone() as SpendAmountGetFreeShipping;
+                        clone.Condition.PartiallyFulfilledThreshold = 0.75m;
+                        contentRepository.Save(clone, SaveAction.Publish, AccessLevel.NoAccess);
+                    }
                 }
             }
         }

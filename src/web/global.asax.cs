@@ -182,6 +182,8 @@ namespace OxxCommerceStarterKit.Web
             public const string Location = "Location";
             [Display(Order = 08)]
             public const string MenuFeature = "Menu Feature";
+            [Display(Order = 09)]
+            public const string Marketing = "Marketing";
         }
 
         public static class SiteUIHints

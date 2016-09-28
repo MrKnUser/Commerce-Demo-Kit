@@ -53,7 +53,20 @@ namespace OxxCommerceStarterKit.Web.Promotion
 
         protected override bool CanBeFulfilled(BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context)
         {
-            throw new NotImplementedException();
+            var items = GetLineItemsInOrder(context.OrderForm);
+            var lineItemCategories = items.Select(i => new
+            {
+                i.Quantity,
+                NodesForEntry = GetNodesForEntry(i.Code),
+                i.Code,
+                LineItem = i
+            });
+
+            var category = _contentLoader.Get<NodeContent>(promotionData.Category);
+            var applicableLineItems = lineItemCategories.Where(lineItemCategory => lineItemCategory.NodesForEntry.Contains(category.Code));
+            var numberOfItemsInPromotionCategory = applicableLineItems.Sum(lineItemCategory => lineItemCategory.Quantity);
+            var fulfillment = GetFulfillment(numberOfItemsInPromotionCategory, promotionData.Threshold);
+            return fulfillment == FulfillmentStatus.Fulfilled;
         }
 
         protected AffectedEntries GetAffectedEntries(BuyXFromCategoryGetProductForFree promotionData, PromotionProcessorContext context, IEnumerable<string> applicableCodes)

@@ -8,12 +8,11 @@ Copyright (C) 2013-2014 BV Network AS
 
 */
 
-using System.Collections.Generic;
-using EPiServer.Commerce.Marketing;
 using Mediachase.Commerce.Orders;
 using Mediachase.Commerce.Orders.Managers;
 using Mediachase.Commerce.Website.Helpers;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
+using System.Collections.Generic;
 
 namespace OxxCommerceStarterKit.Web.Models.ViewModels
 {
@@ -24,7 +23,7 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
         public CartModel(CartSimpleModulePage currentPage)
             : base(currentPage)
         {
-            AlmostFulfilledPromotions = new List<RewardDescription>();
+            
         }
 
         /// <summary>
@@ -63,7 +62,5 @@ namespace OxxCommerceStarterKit.Web.Models.ViewModels
                 return cartHelper.LineItems;
             }
         }
-
-        public IEnumerable<RewardDescription> AlmostFulfilledPromotions { get; set; }
     }
 }

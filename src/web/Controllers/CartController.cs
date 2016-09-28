@@ -8,24 +8,21 @@ Copyright (C) 2013-2014 BV Network AS
 
 */
 
-using System;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using EPiServer.Commerce.Marketing;
 using EPiServer.Commerce.Order;
 using EPiServer.Framework.DataAnnotations;
-using EPiServer.Security;
 using EPiServer.Web.Mvc;
-using Mediachase.Commerce.Orders;
-using Mediachase.Commerce.Security;
 using OxxCommerceStarterKit.Core.Objects;
 using OxxCommerceStarterKit.Web.Business.Analytics;
 using OxxCommerceStarterKit.Web.Business.Delivery;
 using OxxCommerceStarterKit.Web.Models.PageTypes;
 using OxxCommerceStarterKit.Web.Models.ViewModels;
 using OxxCommerceStarterKit.Web.Services;
+using System;
+using System.Globalization;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Web.Mvc;
 using LineItem = Mediachase.Commerce.Orders.LineItem;
 
 namespace OxxCommerceStarterKit.Web.Controllers
@@ -120,7 +117,6 @@ namespace OxxCommerceStarterKit.Web.Controllers
             var model = new CartModel(currentPage);
 
             Track(model);
-            CheckAlmostFulfilled(model);
             return View(model);
         }
 
@@ -145,24 +141,6 @@ namespace OxxCommerceStarterKit.Web.Controllers
 
             // Step 1 is to review the cart
             tracking.Action("checkout", "{\"step\":1}");
-        }
-
-        private void CheckAlmostFulfilled(CartModel model)
-        {
-            var cart = _orderRepository.Load<ICart>(PrincipalInfo.CurrentPrincipal.GetContactId(), Default)
-                .FirstOrDefault();
-
-            if (cart == null)
-            {
-                return;
-            }
-
-            model.AlmostFulfilledPromotions = _promotionEngine.Run(cart, new PromotionEngineSettings
-
-            {
-                ApplyReward = false,
-                RequestedStatuses = RequestFulfillmentStatus.PartiallyFulfilled
-            });
         }
     }
 }
