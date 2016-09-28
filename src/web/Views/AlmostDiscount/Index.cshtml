@@ -2,9 +2,10 @@
 @using EPiServer.Commerce.Marketing.Promotions
 @using Mediachase.Commerce
 @using OxxCommerceStarterKit.Web.Helpers;
+@using EPiServer.Commerce.Marketing
 
 @model IEnumerable<EPiServer.Commerce.Marketing.RewardDescription>
-    
+
 @foreach (var reward in Model)
 {
     var orderDiscount = reward.Promotion as SpendAmountGetOrderDiscount;
@@ -12,14 +13,29 @@
     {
          continue;
     }
-    <div class="container">
-        <div class="row">
-            <div class="row">
+
+   
+
+        <div class="row almost-promotion">
+            <div class="almost-promotion-circle">
+
                 <h2>
                     @String.Format("Spend {0} more to receive", (orderDiscount.Condition.Amounts.First(x => x.Currency == Currency.USD).Amount - Html.GetCurrentCartTotal()).ToString("c"))
                 </h2>
+
+
+            </div>
+            <div class="almost-promotion-award">
+
+
+                @if (orderDiscount.Discount.Percentage != null)
+                {
+                    <h1>@String.Format("{0}% Off", orderDiscount.Discount.Percentage) </h1>
+
+                }
+
             </div>
             @Html.PropertyFor(m => reward.Promotion.Banner)
         </div>
-    </div>
+  
 }

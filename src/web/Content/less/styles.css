@@ -14567,3 +14567,47 @@ header .search-form .close-search:hover {
 .modal-header .close:active {
   outline: 0;
 }
+.almost-promotion {
+   background-color: #F9F9F9;
+   border: 2px solid rgba(0,0,0,0.05);
+   margin: 30px;
+   padding: 20px;
+}
+
+.almost-promotion-circle {
+   text-align: center;
+   border: 2px solid rgba(0,0,0,0.1);
+   border-radius: 50%;
+   width: 180px;
+   height: 180px;
+   padding: 3px;
+   display: block;
+   background: #2ba8db;
+   line-height: 42px;
+   text-transform: uppercase;
+   float: left;
+   font-weight: bold;
+   box-shadow: 1px 1px 6px 1px rgba(0,0,0,0.2);
+}
+
+.almost-promotion-circle h2 {
+   font-weight: bold;
+   padding: 30px;
+   font-size: 22px;
+   margin: 0;
+   color: white;
+}
+
+.almost-promotion-circle h2 span {
+     font-weight: bolder;
+}
+
+.almost-promotion-award {
+     float: left;
+     display: block;
+}
+
+.almost-promotion-award h1 {
+     font-size: 5em;
+     padding: 20px;
+}
