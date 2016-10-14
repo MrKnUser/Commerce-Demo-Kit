@@ -5,7 +5,7 @@ An Episerver Commerce project you can use for demos, learning from and possibly 
 
 ## Getting Started
 1. Clone the repository
-2. Download the databases from [Dropbox](https://www.dropbox.com/s/e7a8oscuwkkj3fv/2016-09-13-epicphoto.zip?dl=0) (temporary location for now) 
+2. Download the databases from [Dropbox](https://www.dropbox.com/s/4smd57o2hc7t8c3/db.zip?dl=0) (temporary location for now) 
 3. Unzip the databases to the /db/ folder
 4. Open the solution in Visual Studio 2013 or 2015
 5. Run it (also see [How to Start Commerce Manager](#how-to-start-commerce-manager))
